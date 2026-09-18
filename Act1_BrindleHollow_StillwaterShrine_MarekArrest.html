@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — The Stillwater Shrine</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(107,58,42,0.05);--beat-border:#c4a882;--success-bg:rgba(15,110,86,0.07);--success-border:#0F6E56;--success-text:#04342C;--warning-bg:rgba(133,79,11,0.08);--warning-border:#854F0B;--warning-text:#412402;--npc-bg:rgba(107,58,42,0.04);--npc-border:#c4a882;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(196,168,130,0.06);--beat-border:#5a4a38;--success-bg:rgba(93,202,165,0.07);--success-border:#5DCAA5;--success-text:#E1F5EE;--warning-bg:rgba(239,159,39,0.07);--warning-border:#EF9F27;--warning-text:#FAEEDA;--npc-bg:rgba(196,168,130,0.05);--npc-border:#5a4a38;}}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:32px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .environment-block{background:var(--beat-bg);border-left:3px solid var(--beat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .environment-block p{margin-bottom:.6rem;}.environment-block p:last-child{margin-bottom:0;}
+  .env-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+  @media(max-width:600px){.env-features{grid-template-columns:1fr;}}
+  .env-feature{display:flex;gap:8px;align-items:flex-start;}
+  .env-feature-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);min-width:80px;padding-top:3px;flex-shrink:0;}
+  .env-feature-desc{font-size:14px;color:var(--ink-mid);line-height:1.5;}
+  .npc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+  @media(max-width:600px){.npc-grid{grid-template-columns:1fr;}}
+  .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
+  .npc-card.grid-card{margin-bottom:0;}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-portrait{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);overflow:hidden;flex-shrink:0;background:var(--parchment-dark);display:flex;align-items:center;justify-content:center;position:relative;}
+  .npc-portrait.small{width:40px;height:40px;}
+  .npc-portrait img{width:100%;height:100%;object-fit:cover;}
+  .npc-portrait-placeholder{font-family:'Cinzel',serif;font-size:9px;color:var(--ink-faded);text-align:center;padding:3px;line-height:1.3;pointer-events:none;}
+  .npc-portrait input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin:12px 0 5px;}
+  .npc-desc{font-size:15px;color:var(--ink-mid);margin-bottom:6px;}
+  .npc-trait{display:flex;gap:8px;margin-bottom:5px;font-size:14px;}
+  .npc-trait-key{color:var(--ink-faded);min-width:90px;flex-shrink:0;font-style:italic;}
+  .speech-block{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header:hover{opacity:.8;}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+  .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="encounter-header">
+    <span class="encounter-type">Encounter Reference — Act 1 / Brindle Hollow</span>
+    <div class="encounter-title">The Stillwater Shrine</div>
+    <div class="encounter-subtitle">Collecting Marek Talan — introduction to the VTT environment</div>
+    <div class="encounter-meta">
+      <span class="meta-tag">Social / exploration</span>
+      <span class="meta-tag">No combat expected</span>
+      <span class="meta-tag">Tutorial scene</span>
+      <span class="meta-tag">First encounter with Marek</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+    <button class="ctrl-btn" onclick="expandBeats()">Beats only</button>
+    <button class="ctrl-btn" onclick="expandNPCs()">NPCs only</button>
+  </div>
+
+  <div class="section-heading">Environment</div>
+  <div class="environment-block">
+    <p>The Stillwater Shrine is not a building. It is an open space at the centre of a cluster of buildings that belongs to the Aeronist community in Brindle Hollow. At its heart is a circular stone pool — the shrine itself. The water is still and clear. Offerings have been left at the edge: flowers, small tools, a piece of cloth. The pool is dedicated to Aeron, whose domain includes growth and the body's vitality. Water as the source of all growth.</p>
+    <p>The ceremony has been and gone. The space has the particular quiet of somewhere that was recently busy and is no longer. Evidence of the disruption is present but minor — the ceremony was not violent, just ruined.</p>
+    <p>Marek is near the cage at the south of the map. He is sitting or standing quietly. He does not look distressed.</p>
+  </div>
+
+  <div class="env-features">
+    <div class="env-feature">
+      <span class="env-feature-label">The pool</span>
+      <span class="env-feature-desc">The shrine itself. Still, clear, with a stone surround. Offerings at the edge. A natural focal point for investigation. Religion and history checks can reveal information about Aeron's domain.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">The cage</span>
+      <span class="env-feature-desc">A simple holding cage near the south entrance. Marek is being held here. It is not comfortable but it is not cruel either.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Ceremony remnants</span>
+      <span class="env-feature-desc">The preparation for the seeding is visible. The animal was not sacrificed — Marek's disruption prevented it. Players who look carefully can piece together what happened.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Surrounding buildings</span>
+      <span class="env-feature-desc">The shrine complex. Morfudd's residence is here. The space is communal rather than monumental — a working religious community, not a grand institution.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">The offerings</span>
+      <span class="env-feature-desc">Small, practical things. Tools, food, cloth. Not precious objects. Worship as habit rather than performance. This is what Aeronist faith looks like at the village level.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Atmosphere</span>
+      <span class="env-feature-desc">The space feels slightly diminished. The ceremony did not happen. Something that was supposed to occur did not. Players may feel this without being able to name it.</span>
+    </div>
+  </div>
+
+  <div class="section-heading">Key NPCs</div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('marek')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="marek-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="marek-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('marek',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Marek Talan</span>
+        <span class="npc-role">Former Paladin of Aeron — the prisoner</span>
+      </div>
+      <span class="npc-toggle" id="marek-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="marek-body">
+      <span class="npc-section-label">Appearance</span>
+      <p class="npc-desc">Late forties, close-cropped grey hair, strong jaw, weathered face with deep-set eyes that are calm rather than warm. Plain functional clothing. No holy symbols. No armour. The bearing of someone who was once devoted to something and has not replaced it with anything else. Both hands visible — the ring fingers are missing from each hand to the second knuckle.</p>
+
+      <span class="npc-section-label">The missing fingers</span>
+      <p class="npc-desc" style="font-size:13px;">Do not draw attention to them. Let players notice. If asked, Marek answers briefly and without drama — a temple accident, years ago. He does not elaborate. He does not perform emotion about it. It is simply a fact about his hands.</p>
+
+      <span class="npc-section-label">Personality</span>
+      <div class="npc-trait"><span class="npc-trait-key">Default mode</span><span>Patient detachment. He is not troubled by his arrest. He is waiting to see what happens next, as he waits to see what happens with most things.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">On the ceremony</span><span>He will explain his objection if asked. The animal taken was not replaced. The world is down something and gets nothing in return. He says this plainly, without heat, as if it is obvious.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">On his faith</span><span>He does not perform disillusionment. He simply does not speak about Aeron as something he currently belongs to. Questions about his faith are answered briefly and accurately and then he moves on.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">On the party</span><span>He assesses them quietly. He is not impressed by competence and not dismissive of it. He will talk with players who engage him seriously and disengage from players who perform at him.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">On being escorted</span><span>He does not resist. He does not thank anyone for anything. He goes where he is taken with the mild patience of someone who has somewhere else to be eventually.</span></div>
+
+      <span class="npc-section-label">What he will say if asked directly</span>
+      <div class="speech-block">"The seeding takes something. Nothing returns. The world is smaller for it. I said so. I was asked to leave. I said it again. Here we are."</div>
+
+      <span class="npc-section-label">Stat block summary</span>
+      <div class="npc-trait"><span class="npc-trait-key">Class</span><span>Paladin 3 — Oath of the Ancients. Faith intact, god absent.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">AC / HP</span><span>AC 14 / HP 25</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Combat</span><span>Will not initiate. If compelled by magic he fights efficiently and without anger. Divine Smite still works. He uses it without satisfaction.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Damaged hands</span><span>Disadvantage on Athletics checks involving grip, Acrobatics requiring fine control, and Sleight of Hand. Never discussed.</span></div>
+    </div>
+  </div>
+
+  <div class="section-heading">Supporting Cast</div>
+  <div class="npc-grid">
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('dav')">
+        <div class="npc-portrait small">
+          <img id="dav-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="dav-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('dav',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Dav Ostric</span>
+          <span class="npc-role">The man who detained Marek</span>
+        </div>
+        <span class="npc-toggle" id="dav-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="dav-body">
+        <p class="npc-desc">Large, broad-shouldered, working clothes. He stepped in because it was the obvious thing to do — nobody asked him to. He does not resent Marek. He just did not want the festival disrupted. He will hand over custody without drama and go home to his wife.</p>
+      </div>
+    </div>
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('maren')">
+        <div class="npc-portrait small">
+          <img id="maren-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="maren-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('maren',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Maren Ostric</span>
+          <span class="npc-role">Dav's wife — wants to go home</span>
+        </div>
+        <span class="npc-toggle" id="maren-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="maren-body">
+        <p class="npc-desc">Arms folded, expression of someone who has been waiting to leave for quite some time and is being very patient about it. She did not think any of this was worth the trouble. She might say so quietly if a player engages her.</p>
+      </div>
+    </div>
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('fen')">
+        <div class="npc-portrait small">
+          <img id="fen-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="fen-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('fen',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Fen</span>
+          <span class="npc-role">Young helper — tidying up</span>
+        </div>
+        <span class="npc-toggle" id="fen-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="fen-body">
+        <p class="npc-desc">Mid-teens, androgynous, working clothes slightly too big, holding a broom or cleaning cloth. Wide-eyed and uncertain. Has been tidying up the aftermath of the ceremony and does not entirely understand what is happening with the arrest. Useful for basic questions about the shrine and Morfudd.</p>
+      </div>
+    </div>
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('idris')">
+        <div class="npc-portrait small">
+          <img id="idris-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="idris-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('idris',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Idris</span>
+          <span class="npc-role">Old drunk — has seen it all before</span>
+        </div>
+        <span class="npc-toggle" id="idris-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="idris-body">
+        <p class="npc-desc">Seventies, weathered face, amused expression, cup in hand. Was present for the ceremony and found the whole affair entertaining rather than outrageous. He has outlasted several priests and several festivals and finds all of them equally diverting. He will share his opinion on Marek if asked. It is more sympathetic than Morfudd's.</p>
+      </div>
+    </div>
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('casimir')">
+        <div class="npc-portrait small">
+          <img id="casimir-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="casimir-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('casimir',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Casimir</span>
+          <span class="npc-role">Pilgrim traveller — arrived for the ceremony</span>
+        </div>
+        <span class="npc-toggle" id="casimir-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="casimir-body">
+        <p class="npc-desc">Forties, road-worn cloak, Eastern European features, alert watchful eyes. Came from somewhere else for the ceremony and arrived to find it disrupted. He has heard of Marek before — not by name necessarily, but there are stories of a wandering former paladin asking hard questions at shrines along the western roads. He will share this if asked.</p>
+      </div>
+    </div>
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('brin')">
+        <div class="npc-portrait small">
+          <img id="brin-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="brin-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('brin',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Brin</span>
+          <span class="npc-role">Child — profoundly disappointed</span>
+        </div>
+        <span class="npc-toggle" id="brin-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="brin-body">
+        <p class="npc-desc">Eight or nine, festival clothes now slightly dishevelled, expression of profound disappointment. Was excited about the ceremony. It did not happen. Has strong opinions about the man who stopped it, delivered with the full moral certainty of a child who has been told what right and wrong look like.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-heading">Encounter Beats</div>
+
+  <div class="dm-note"><strong>Purpose of this scene</strong>This is the tutorial encounter. The party gets comfortable with the VTT, moves their tokens, talks to NPCs, and investigates a space before anything consequential happens. There is no combat. The only objective is to collect Marek and leave. Everything else is optional enrichment.</div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(1)">
+      <span class="beat-number">01</span>
+      <span class="beat-title">Arrival at the shrine</span>
+      <span class="beat-toggle" id="beat-toggle-1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-1">
+      <p>The party arrives at the Stillwater Shrine. The pool is the first thing they see — still, clear, with offerings at the edge. Marek is visible near the cage at the south. Dav is nearby. The aftermath of the ceremony is present but not dramatic.</p>
+      <p>Fen is tidying. Idris is sitting somewhere comfortable. Casimir is near the pool. Brin is somewhere between disappointed and angry. Maren wants to leave.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(2)">
+      <span class="beat-number">02</span>
+      <span class="beat-title">Free exploration</span>
+      <span class="beat-toggle" id="beat-toggle-2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-2">
+      <p>Let the party investigate the space and talk to people before they collect Marek. This is the scene's purpose — getting comfortable with the environment and the VTT tools.</p>
+      <p>The pool rewards investigation. A Religion check reveals information about Aeron's domain and the significance of the seeding ceremony. A History check places the shrine in the context of Brindle Hollow's community. A Perception check notices the ceremony preparations — the animal that was never used, the offerings arranged in a specific pattern.</p>
+      <p>All NPCs are available for conversation. None of them are urgent.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(3)">
+      <span class="beat-number">03</span>
+      <span class="beat-title">Meeting Marek</span>
+      <span class="beat-toggle" id="beat-toggle-3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-3">
+      <p>When the party approaches Marek he receives them with the calm patience of someone who has been waiting and is not particularly bothered by how long it took.</p>
+      <p>He will answer questions. He does not perform distress about his situation. If asked about the ceremony he explains his objection simply and without heat. If asked about his hands he answers briefly and moves on. If asked about his faith he is accurate and brief.</p>
+      <p>He is not grateful. He is not hostile. He is simply present and ready to go when they are.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(4)">
+      <span class="beat-number">04</span>
+      <span class="beat-title">Taking custody</span>
+      <span class="beat-toggle" id="beat-toggle-4">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-4">
+      <p>Dav hands over custody without ceremony. He is relieved to be done with it. Maren's expression makes her feelings clear. Dav thanks the party with the practical warmth of someone who has completed an obligation and can now go home.</p>
+      <p>Marek submits to whatever arrangement the party makes for the escort — bound, unbound, walking alongside, whatever. He has no preference. He goes where he is taken.</p>
+      <p>The party leaves the shrine. The road to Tallowhaven begins.</p>
+    </div>
+  </div>
+
+  <div class="section-heading">DM Notes</div>
+
+  <div class="dm-note"><strong>The missing fingers</strong>Do not mention them in your description of Marek unless a player specifically looks at his hands. If they do notice and ask, Marek's answer is brief. The symbol his followers make with their hands is an imitation of this injury. The party will not know that yet. Plant it quietly and let it surface later.</div>
+
+  <div class="dm-note"><strong>Marek's oath</strong>He is still technically a Paladin of Aeron. His oath is intact. His faith is the wound, not his vow. He does not identify himself as a paladin but he will not deny it if asked directly.</div>
+
+  <div class="dm-note"><strong>The shrine as seed</strong>The pool is a shrine to Aeron. Aeron's absence is one of the campaign's hidden truths. Players who investigate carefully may feel that something about the space is slightly thin — worship without a clear recipient. Do not confirm this. Just let the feeling exist.</div>
+
+  <div class="dm-note"><strong>No rush</strong>This scene has no clock. There is no reason for the party to hurry. If they spend an hour talking to Idris or playing cards with no one in particular, that is the scene working correctly. The road comes next.</div>
+
+  <footer>Abelon Campaign — Encounter Reference. The Stillwater Shrine / Brindle Hollow / Act 1.</footer>
+</div>
+
+<script>
+  function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
+  function expandBeats(){collapseAll();document.querySelectorAll('.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function expandNPCs(){collapseAll();document.querySelectorAll('.npc-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle').forEach(el=>el.classList.add('open'));}
+  function loadPortrait(id,input){if(!input.files||!input.files[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(id+'-img'),ph=document.getElementById(id+'-placeholder');if(img){img.src=e.target.result;img.style.display='block';}if(ph)ph.style.display='none';};r.readAsDataURL(input.files[0]);}
+</script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — Cooper's Square</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(107,58,42,0.05);--beat-border:#c4a882;--npc-bg:rgba(107,58,42,0.04);--npc-border:#c4a882;--marek-bg:rgba(24,95,165,0.05);--marek-border:#185FA5;--outcome-bg:rgba(15,110,86,0.07);--outcome-border:#0F6E56;--outcome-text:#04342C;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(196,168,130,0.06);--beat-border:#5a4a38;--npc-bg:rgba(196,168,130,0.05);--npc-border:#5a4a38;--marek-bg:rgba(133,183,235,0.06);--marek-border:#85B7EB;--outcome-bg:rgba(93,202,165,0.07);--outcome-border:#5DCAA5;--outcome-text:#E1F5EE;}}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:32px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .environment-block{background:var(--beat-bg);border-left:3px solid var(--beat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .environment-block p{margin-bottom:.6rem;}.environment-block p:last-child{margin-bottom:0;}
+  .env-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+  @media(max-width:600px){.env-features{grid-template-columns:1fr;}}
+  .env-feature{display:flex;gap:8px;align-items:flex-start;}
+  .env-feature-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);min-width:90px;padding-top:3px;flex-shrink:0;}
+  .env-feature-desc{font-size:14px;color:var(--ink-mid);line-height:1.5;}
+  .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
+  .npc-card.marek-card{border-color:var(--marek-border);background:var(--marek-bg);}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-portrait{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);overflow:hidden;flex-shrink:0;background:var(--parchment-dark);display:flex;align-items:center;justify-content:center;position:relative;}
+  .npc-portrait img{width:100%;height:100%;object-fit:cover;}
+  .npc-portrait-placeholder{font-family:'Cinzel',serif;font-size:9px;color:var(--ink-faded);text-align:center;padding:3px;line-height:1.3;pointer-events:none;}
+  .npc-portrait input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin:12px 0 5px;}
+  .npc-desc{font-size:15px;color:var(--ink-mid);margin-bottom:6px;}
+  .npc-trait{display:flex;gap:8px;margin-bottom:5px;font-size:14px;}
+  .npc-trait-key{color:var(--ink-faded);min-width:90px;flex-shrink:0;font-style:italic;}
+  .speech-block{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
+  .speech-attribution{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:4px;font-style:normal;}
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header:hover{opacity:.8;}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+  .outcome{border-radius:5px;padding:12px 14px;margin-bottom:10px;font-size:15px;}
+  .outcome.success{background:var(--outcome-bg);border:.5px solid var(--outcome-border);color:var(--outcome-text);}
+  .outcome.neutral{background:var(--beat-bg);border:.5px solid var(--beat-border);color:var(--ink-mid);}
+  .outcome-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:6px;opacity:.8;}
+  .outcome p{margin-bottom:6px;}.outcome p:last-child{margin-bottom:0;}
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+  .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="encounter-header">
+    <span class="encounter-type">Encounter Reference — Act 1 / Tallowhaven / Bardic Interlude</span>
+    <div class="encounter-title">Cooper's Square</div>
+    <div class="encounter-subtitle">Marek returns — Pen argues back — the party decides what to do</div>
+    <div class="encounter-meta">
+      <span class="meta-tag">No combat</span>
+      <span class="meta-tag">Between second and third missions</span>
+      <span class="meta-tag">Marek reappears</span>
+      <span class="meta-tag">Seeds Act 2 direction</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+    <button class="ctrl-btn" onclick="expandBeats()">Beats only</button>
+    <button class="ctrl-btn" onclick="expandNPCs()">NPCs only</button>
+  </div>
+
+  <div class="section-heading">Environment</div>
+  <div class="environment-block">
+    <p>Cooper's Square is one of Tallowhaven's older open spaces — wide enough for a market, paved with uneven stone, ringed by the backs of guild buildings and the fronts of modest shops. It takes its name from the barrel-making trade that once operated here. Nobody makes barrels in Cooper's Square anymore but the name has outlasted the reason for it.</p>
+    <p>At the north end of the square is a low stone plinth — unadorned, unmarked by any official signage — that performers have been using for as long as anyone can remember. Someone at some point called it Sylas's Step and it stuck. Sylas himself has no monument here beyond the fact that people keep standing on it and making music.</p>
+    <p>The party arrives to find a small crowd gathered around the Step. Morra is among them, watching with the mild pleasure of someone whose afternoon has turned out more interesting than expected.</p>
+  </div>
+
+  <div class="env-features">
+    <div class="env-feature">
+      <span class="env-feature-label">Sylas's Step</span>
+      <span class="env-feature-desc">The low stone plinth at the north end. Pen is on it. Marek is standing at its base, not on it — he has not taken the stage, he has interrupted someone else's.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">The crowd</span>
+      <span class="env-feature-desc">Small but attentive. Festival week has made people more disposed to gather. Some are amused. Some are uncomfortable. A few are genuinely listening to both sides.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Morra</span>
+      <span class="env-feature-desc">Near the edge of the crowd, arms folded, watching with the expression of someone getting more than they paid for. She spots the party and will give them the précis if they approach her.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">The timing</span>
+      <span class="env-feature-desc">Late afternoon or a quieter morning — whichever fits the session. The party is not on their way anywhere urgent. They have a moment to stop and watch.</span>
+    </div>
+  </div>
+
+  <div class="section-heading">NPCs</div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('pen')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="pen-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="pen-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('pen',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Pen</span>
+        <span class="npc-role">Bard — non-binary, old, battle-scarred, damaged flute, holds the crowd</span>
+      </div>
+      <span class="npc-toggle" id="pen-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="pen-body">
+      <span class="npc-section-label">Appearance</span>
+      <p class="npc-desc">Old in the way of someone who has been everywhere and kept very little of what they found there except the experience. Battle-scarred — the face tells stories their mouth does not. Travel-worn clothing in several layers, none of them matching. A flute tucked at the belt that has been repaired so many times the original instrument is mostly memory. Their presence on Sylas's Step has the quality of someone returning to a familiar place rather than performing for the first time.</p>
+      <span class="npc-section-label">Their manner</span>
+      <div class="npc-trait"><span class="npc-trait-key">On stage</span><span>Entirely at home. They have been doing this longer than most of the crowd has been alive. When Marek interrupts they do not step down. They listen, they consider, and they answer from where they are standing.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Their argument</span><span>Hard-won warmth rather than innocence. They have seen the worst the world offers and still concluded that the balance is positive. When they say look around you, they are speaking from experience, not optimism.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">On being argued with</span><span>They are not easily rattled. They have had this conversation before in various forms. They find Marek genuinely interesting rather than threatening or annoying. They give him the same consideration they give anyone who stands up in a square and means what they say.</span></div>
+      <span class="npc-section-label">Their response to Marek</span>
+      <div class="speech-block">
+        <span class="speech-attribution">Pen</span>
+        You say this, sir, but look around you. The world still turns. People find life, love, and meaning all over this apparently god-forsaken world.
+      </div>
+      <span class="npc-section-label">If the party engages Pen afterward</span>
+      <div class="npc-trait"><span class="npc-trait-key">Their view of Marek</span><span>They think he is probably right about more than they would like him to be. They find his argument harder to dismiss than most. They will say this honestly if asked. They do not think it changes what they do on Sylas's Step.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">On the broken wing</span><span>They have seen the gesture before. Not often. Enough. They know what it means without having sought it out.</span></div>
+    </div>
+  </div>
+
+  <div class="npc-card marek-card">
+    <div class="npc-header" onclick="toggleNPC('marek')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="marek-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="marek-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('marek',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Marek Talan</span>
+        <span class="npc-role">Former Paladin — reappears, interrupts, makes his point, gets arrested</span>
+      </div>
+      <span class="npc-toggle" id="marek-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="marek-body">
+      <span class="npc-section-label">Why he is here</span>
+      <p class="npc-desc">He passed through Cooper's Square and heard Pen's song — a performance about the persistence of small things, the way people find each other, the way meaning endures. He did not find it false. He found it incomplete. He stopped. He waited for a natural pause. He spoke.</p>
+      <span class="npc-section-label">His manner</span>
+      <div class="npc-trait"><span class="npc-trait-key">Not angry</span><span>He is never angry. He is precise. He is not attacking Pen. He is adding the part that Pen has not accounted for.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Not performing</span><span>He is not trying to win the crowd. He is making an argument he believes is true. Whether anyone listens is not his primary concern.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">The missing fingers</span><span>Visible as always. The party sees them again. The crowd may notice them. Nobody says anything.</span></div>
+      <span class="npc-section-label">His response to Pen</span>
+      <div class="speech-block">
+        <span class="speech-attribution">Marek</span>
+        A bird with a broken wing can still fly.
+      </div>
+      <p class="npc-desc" style="font-size:14px;margin-top:6px;">He raises both hands. The linked-thumb gesture — the shape his missing fingers make, the sign the Broken Wing movement has adopted without his blessing. He holds it for a moment so the crowd can see it. Then:</p>
+      <div class="speech-block">
+        <span class="speech-attribution">Marek</span>
+        But neither high enough nor far enough to survive for very long.
+      </div>
+      <span class="npc-section-label">If the party engages him</span>
+      <div class="npc-trait"><span class="npc-trait-key">On the gods</span><span>He does not claim to know what has happened to them. He knows what he feels, which is absence. He has felt it since long before he lost his fingers. The fingers simply gave him something visible to point to.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">On Crossroads</span><span>If the party gives him any opening he mentions that even in Crossroads, where four roads meet and no one stays long, people are beginning to ask whether the ground beneath the junction is sound. He says this as a statement of fact, not an invitation. He moves on immediately after.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">On the Broken Wing</span><span>If the party asks about the gesture he acknowledges it is his. He did not name it. He did not organise it. He does not know most of the people who use it. He finds their existence mildly interesting and largely beside the point.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">On being arrested</span><span>He does not resist. He does not thank anyone for anything. He goes where he is taken with the same mild patience as before. If it is the party arresting him he looks at them with the expression of someone noting an interesting development and filing it away.</span></div>
+      <span class="npc-section-label">In the gaol — end of Act 1</span>
+      <div class="npc-trait"><span class="npc-trait-key">The conversation</span><span>He is already there when the party arrives after the festival collapse. He does not comment on the irony. He waits to see if they have anything worth saying. If they do he tells them about Crossroads with the specificity of someone who has been there recently. He describes what he saw not as a problem to be solved but as a symptom to be understood. He does not ask them to go. He simply describes the world clearly enough that they want to.</span></div>
+    </div>
+  </div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('morra')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="morra-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="morra-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('morra',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Morra</span>
+        <span class="npc-role">Amber Cup — gives the party the précis, watches with mild pleasure</span>
+      </div>
+      <span class="npc-toggle" id="morra-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="morra-body">
+      <span class="npc-section-label">Her line</span>
+      <div class="speech-block">
+        <span class="speech-attribution">Morra</span>
+        They've been at it for a good few minutes now. Honestly, it's more entertaining than the song was. Some guff about how grateful we should be for all the small things that make life great, or something.
+      </div>
+      <span class="npc-section-label">On Marek</span>
+      <div class="npc-trait"><span class="npc-trait-key">Recognition</span><span>She may not immediately place him. If a player identifies Marek she registers it — she has heard the name. A wandering former paladin who disrupted a shrine ceremony and got arrested generates a story or two in a city this size. She looks at him with the slightly more attentive expression of someone updating their assessment.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Her read</span><span>She thinks he is probably making a fair point. She would not say this to the crowd. She says it quietly to the party if they ask what she thinks.</span></div>
+    </div>
+  </div>
+
+  <div class="section-heading">Encounter Beats</div>
+
+  <div class="dm-note"><strong>Purpose of this scene</strong>Marek reappears in a context that shows who he is more fully than the arrest in Brindle Hollow did. The exchange with Pen is the thematic heart of Act 1 stated plainly in a public square. The party chooses how to respond. The arrest that follows positions Marek for the Act 1 finale. The mention of Crossroads plants the seed for Act 2.</div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(1)">
+      <span class="beat-number">01</span>
+      <span class="beat-title">Arrival — Morra gives the précis</span>
+      <span class="beat-toggle" id="beat-toggle-1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-1">
+      <p>The party arrives in Cooper's Square and finds a small crowd gathered around Sylas's Step. Pen is on the plinth. Marek is at its base. The argument is already underway.</p>
+      <p>Morra is at the edge of the crowd. She spots the party and gives them her précis without being asked. Some guff about gratitude and small things. More entertaining than the actual song. She does not move from her spot — she wants to see how it ends.</p>
+      <p>If a player identifies Marek she takes a closer look. She has heard the name.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(2)">
+      <span class="beat-number">02</span>
+      <span class="beat-title">The exchange</span>
+      <span class="beat-toggle" id="beat-toggle-2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-2">
+      <p>The party arrives in time to hear Pen deliver their response to something Marek has already said. Pen is composed, unhurried, speaking from where they stand on the Step rather than descending to argue at Marek's level.</p>
+      <div class="speech-block"><span class="speech-attribution">Pen</span>You say this, sir, but look around you. The world still turns. People find life, love, and meaning all over this apparently god-forsaken world.</div>
+      <p>Marek listens to this. He does not dismiss it. He raises both hands — the linked-thumb gesture, visible to the whole crowd, the shape his missing fingers make — and delivers his response with the quiet certainty of someone stating something they have known for a long time.</p>
+      <div class="speech-block"><span class="speech-attribution">Marek</span>A bird with a broken wing can still fly.</div>
+      <p>A beat. The gesture held so the crowd can see it.</p>
+      <div class="speech-block"><span class="speech-attribution">Marek</span>But neither high enough nor far enough to survive for very long.</div>
+      <p>The crowd is quiet for a moment. Some of them have seen the gesture before. Some of them are making that connection for the first time. Pen watches him from the Step with the expression of someone who finds the argument harder to dismiss than most.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(3)">
+      <span class="beat-number">03</span>
+      <span class="beat-title">The party decides</span>
+      <span class="beat-toggle" id="beat-toggle-3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-3">
+      <p>The moment after the exchange. The crowd is deciding what to do. Some are drifting away. Some are watching to see what happens next. A civic guard nearby has noticed the disturbance and is moving toward the square without urgency — not a crisis, just something that may require managing.</p>
+      <p>The party has several options. They can watch and do nothing. They can engage Marek in conversation. They can engage Pen. They can approach Morra. They can arrest Marek themselves. They can leave.</p>
+      <p>If nobody acts within a minute or so the civic guard arrives and begins the process of moving Marek on. Marek does not resist. He will be taken to the Aldermen's Hall cells if the guard decides the disturbance warrants it, which it does.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(4)">
+      <span class="beat-number">04</span>
+      <span class="beat-title">If the party engages Marek</span>
+      <span class="beat-toggle" id="beat-toggle-4">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-4">
+      <p>He receives them with the same patient detachment as before. He answers questions precisely and briefly. He does not perform for them.</p>
+      <p>If the conversation gives him any opening he mentions Crossroads. He does not linger on it. He describes it as a place where people are beginning to ask the right questions without having arrived at any of the right answers. He moves on immediately after, as if it were not particularly significant. It is significant.</p>
+      <p>If the party asks about the gesture he confirms it is his. He did not name the movement or organise it. He finds its existence mildly interesting. He does not find it flattering or alarming.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(5)">
+      <span class="beat-number">05</span>
+      <span class="beat-title">The arrest</span>
+      <span class="beat-toggle" id="beat-toggle-5">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-5">
+      <p>Whether it is the civic guard or the party themselves, Marek is taken into custody for causing a public disturbance. He does not resist. He walks where he is directed with the mild patience of someone who has done this before and expects to do it again.</p>
+      <p>If it is the party who arrest him he looks at them with the expression of someone noting an interesting development. He does not comment on the fact that they are the same people who escorted him to the magistrate in Brindle Hollow. He simply files it away.</p>
+      <p>He is taken to the Aldermen's Hall cells. He will be there when the party arrives after the festival collapse. That is the next time they will see him.</p>
+    </div>
+  </div>
+
+  <div class="section-heading">Outcomes and Consequences</div>
+
+  <div class="outcome success">
+    <span class="outcome-label">Party engages Marek — Crossroads mentioned</span>
+    <p>The party heard Marek describe Crossroads. They carry it. When the Act 1 finale collapses and they find themselves in the same gaol as him, the conversation picks up where it left off and the direction of Act 2 is established.</p>
+  </div>
+
+  <div class="outcome neutral">
+    <span class="outcome-label">Party watches but does not engage</span>
+    <p>They saw the exchange. They saw the gesture. They saw Marek arrested. When they find him in the gaol after the finale the connection is there even without prior conversation. Marek will make the Crossroads reference in the gaol scene instead.</p>
+  </div>
+
+  <div class="outcome neutral">
+    <span class="outcome-label">Party arrests Marek themselves</span>
+    <p>Marek ends up in the same place either way. The party carrying him there themselves adds a layer to the gaol scene — he has now been arrested by the same people twice. He finds this mildly interesting and will say so in precisely one sentence before moving on.</p>
+  </div>
+
+  <div class="outcome neutral">
+    <span class="outcome-label">Party engages Pen</span>
+    <p>Pen is honest about finding Marek's argument harder to dismiss than most. They have seen the broken wing gesture before. They do not know where it comes from but they know it is spreading. The conversation with Pen gives the party a different angle on the same ideas — warmer, more grounded, more human.</p>
+  </div>
+
+  <div class="section-heading">DM Notes</div>
+
+  <div class="dm-note"><strong>The broken wing gesture in public</strong>This is the first time the party sees the gesture performed deliberately and publicly by Marek himself. They have seen it on the road, on Harwick's jacket, possibly in passing elsewhere. Here it has context and origin. Do not explain it. Let the party make the connection at whatever speed they make it.</div>
+
+  <div class="dm-note"><strong>Crossroads</strong>Marek mentions it once, briefly, and moves on. Do not repeat it or emphasise it. Plant it and leave it. The gaol scene at the end of Act 1 is where it develops into something the party can act on.</div>
+
+  <div class="dm-note"><strong>Pen and Marek</strong>Neither of them is wrong. Pen's position is hard-won warmth from someone who has seen difficulty and still finds the balance positive. Marek's position is a structural diagnosis of a world whose conditions for life are quietly degrading. Both are true simultaneously. The party should feel the weight of that without anyone telling them what to conclude.</div>
+
+  <div class="dm-note"><strong>Morra's read</strong>She thinks Marek is probably making a fair point. Play this as a quiet aside to the party rather than a public declaration. It is a small piece of characterisation — Morra is perceptive and honest and not easily impressed — and it lands differently coming from her than from anyone else in the scene.</div>
+
+  <div class="dm-note"><strong>The civic guard</strong>They are not antagonists. They are people doing a job. The disturbance is minor. The arrest is routine. They have probably seen Marek before or heard the name. They handle it with the efficient boredom of people who manage public disruption for a living.</div>
+
+  <div class="dm-note"><strong>Pen after the scene</strong>They step down from Sylas's Step once Marek is taken. They do not perform again immediately. They stand for a moment looking at the space where he was standing, then tuck their flute away and walk on. If a party member follows them the conversation is available. If not, Pen disappears into the city and the square returns to its ordinary afternoon.</div>
+
+  <footer>Abelon Campaign — Encounter Reference. Cooper's Square / Tallowhaven / Act 1 Bardic Interlude.</footer>
+</div>
+
+<script>
+  function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
+  function expandBeats(){collapseAll();document.querySelectorAll('.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function expandNPCs(){collapseAll();document.querySelectorAll('.npc-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle').forEach(el=>el.classList.add('open'));}
+  function loadPortrait(id,input){if(!input.files||!input.files[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(id+'-img'),ph=document.getElementById(id+'-placeholder');if(img){img.src=e.target.result;img.style.display='block';}if(ph)ph.style.display='none';};r.readAsDataURL(input.files[0]);}
+</script>
+</body>
+</html>

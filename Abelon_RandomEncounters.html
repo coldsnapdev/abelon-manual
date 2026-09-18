@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Encounters — Abelon Act 1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --bg:#1a1410;--bg2:#241f16;--bg3:#2a2318;
+    --ink:#e8d9bc;--ink2:#c4a882;--ink3:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.35);
+    --inn:#B59AE8;--inn-bg:rgba(181,154,232,0.08);--inn-border:rgba(181,154,232,0.25);
+    --camp:#5DCAA5;--camp-bg:rgba(93,202,165,0.08);--camp-border:rgba(93,202,165,0.25);
+    --tavern:#EF9F27;--tavern-bg:rgba(239,159,39,0.08);--tavern-border:rgba(239,159,39,0.25);
+    --city:#85B7EB;--city-bg:rgba(133,183,235,0.08);--city-border:rgba(133,183,235,0.25);
+    --market:#ED93B1;--market-bg:rgba(237,147,177,0.08);--market-border:rgba(237,147,177,0.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.6;padding:1.5rem 1.25rem 4rem;}
+  .page{max-width:960px;margin:0 auto;}
+
+  h1{font-family:'Cinzel',serif;font-size:20px;font-weight:600;color:var(--accent);letter-spacing:.05em;margin-bottom:3px;}
+  .subtitle{font-size:13px;font-style:italic;color:var(--ink3);padding-bottom:1rem;border-bottom:1px solid var(--rule);margin-bottom:1.25rem;}
+
+  .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;}
+  .ctrl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:4px 12px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:transparent;cursor:pointer;transition:all .15s;}
+  .ctrl:hover{border-color:var(--accent);color:var(--accent);}
+
+  .dm-note{background:var(--bg3);border:.5px dashed var(--rule);border-radius:5px;padding:11px 14px;margin-bottom:12px;font-size:13px;color:var(--ink3);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px;}
+
+  /* Table cards */
+  .table-card{border-radius:6px;overflow:hidden;margin-bottom:12px;}
+  .table-card.inn{border:.5px solid var(--inn-border);}
+  .table-card.camp{border:.5px solid var(--camp-border);}
+  .table-card.tavern{border:.5px solid var(--tavern-border);}
+  .table-card.city{border:.5px solid var(--city-border);}
+  .table-card.market{border:.5px solid var(--market-border);}
+
+  .table-header{display:flex;align-items:center;gap:12px;padding:11px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .table-header:hover{opacity:.8;}
+  .table-card.inn .table-header{background:var(--inn-bg);}
+  .table-card.camp .table-header{background:var(--camp-bg);}
+  .table-card.tavern .table-header{background:var(--tavern-bg);}
+  .table-card.city .table-header{background:var(--city-bg);}
+  .table-card.market .table-header{background:var(--market-bg);}
+
+  .table-title-block{flex:1;}
+  .table-title{font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:var(--ink);display:block;margin-bottom:1px;}
+  .table-sub{font-size:12px;font-style:italic;color:var(--ink3);}
+  .table-die{font-family:'Cinzel',serif;font-size:11px;padding:3px 10px;border-radius:3px;white-space:nowrap;}
+  .inn .table-die{background:var(--inn-bg);color:var(--inn);border:.5px solid var(--inn-border);}
+  .camp .table-die{background:var(--camp-bg);color:var(--camp);border:.5px solid var(--camp-border);}
+  .tavern .table-die{background:var(--tavern-bg);color:var(--tavern);border:.5px solid var(--tavern-border);}
+  .city .table-die{background:var(--city-bg);color:var(--city);border:.5px solid var(--city-border);}
+  .market .table-die{background:var(--market-bg);color:var(--market);border:.5px solid var(--market-border);}
+  .table-toggle{font-size:14px;color:var(--ink3);transition:transform .2s;}
+  .table-toggle.open{transform:rotate(180deg);}
+
+  .table-body{display:none;border-top:.5px solid var(--rule-faint);}
+  .table-body.open{display:block;}
+
+  .encounter-row{display:grid;grid-template-columns:36px 1fr;align-items:baseline;padding:7px 14px;border-bottom:.5px solid var(--rule-faint);font-size:14px;color:var(--ink2);line-height:1.5;}
+  .encounter-row:last-child{border-bottom:none;}
+  .encounter-row:hover{background:var(--bg3);}
+  .roll-num{font-family:'Cinzel',serif;font-size:11px;color:var(--ink3);padding-top:1px;}
+
+  /* Roller */
+  .roller-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:.5px solid var(--rule-faint);}
+  .roll-btn{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:5px 14px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:var(--bg3);cursor:pointer;transition:all .15s;}
+  .roll-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .roll-result{font-family:'Cinzel',serif;font-size:13px;color:var(--ink);transition:opacity .2s;}
+  .roll-result.dim{color:var(--ink3);font-style:italic;font-size:12px;}
+
+  footer{margin-top:2.5rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink3);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+<h1>Random Encounters — Act 1 Tallowhaven</h1>
+<div class="subtitle">Context-specific encounter tables for idle moments, travel, and overnight rests</div>
+
+<div class="controls">
+  <button class="ctrl" onclick="expandAll()">Expand all</button>
+  <button class="ctrl" onclick="collapseAll()">Collapse all</button>
+</div>
+
+<div class="dm-note"><strong>How to use</strong>Roll when the party camps, rests, idles, or moves without purpose. Match the circumstance to the correct table. Roll a d10. Even a result of nothing is worth the theatre of the dice. The suspense is part of it.</div>
+<div class="dm-note"><strong>Notes</strong>The Vaelseer appears once, in the tavern table. The dream appears once, in the inn table. Neither should be repeated if they have already occurred. The dog that adopts the party during city movement can persist across subsequent scenes if the moment lands well.</div>
+
+<!-- ══════════════════════════════════════ INN -->
+<div class="table-card inn">
+  <div class="table-header" onclick="toggleTable('inn')">
+    <div class="table-title-block">
+      <span class="table-title">Sleeping at an Inn</span>
+      <span class="table-sub">Overnight, indoors — the Star and Raven or Amber Cup</span>
+    </div>
+    <span class="table-die">d10</span>
+    <span class="table-toggle" id="toggle-inn">▼</span>
+  </div>
+  <div class="table-body" id="body-inn">
+    <div class="encounter-row"><span class="roll-num">1</span><span>A rat is somewhere in the room. It never shows itself but can be heard periodically moving behind the wainscoting. It is gone by morning.</span></div>
+    <div class="encounter-row"><span class="roll-num">2</span><span>The room has a slow leak. Not dramatic — a single drip, hitting the same spot on the floor every few seconds. It does this all night. The floor is fine. The sound is not.</span></div>
+    <div class="encounter-row"><span class="roll-num">3</span><span>Someone in an adjacent room is snoring at a volume that is genuinely impressive. It stops at some point. Nobody can say when.</span></div>
+    <div class="encounter-row"><span class="roll-num">4</span><span>A cat has gotten into the room somehow and is sitting on one character's chest when they wake. It leaves when the door is opened, unhurried and unashamed.</span></div>
+    <div class="encounter-row"><span class="roll-num">5</span><span>The fire goes out in the night. The room is noticeably cold by morning. Nobody is harmed. Everyone is slightly irritable.</span></div>
+    <div class="encounter-row"><span class="roll-num">6</span><span>A drunk festival-goer tries the wrong door in the small hours, rattles it, apologises loudly to nobody, and moves on down the corridor.</span></div>
+    <div class="encounter-row"><span class="roll-num">7</span><span>One character wakes briefly to voices in the street below — two people, unhurried, speaking in a language nobody in the party recognises. It resolves itself. They go back to sleep.</span></div>
+    <div class="encounter-row"><span class="roll-num">8</span><span>Something small moves under one of the beds. Investigation finds nothing. The sound does not return.</span></div>
+    <div class="encounter-row"><span class="roll-num">9</span><span>One character dreams vividly — not a vision, just a strange one. A door they have seen before, somewhere it should not be. They wake with the image already fading.</span></div>
+    <div class="encounter-row"><span class="roll-num">10</span><span>Nothing happens. Everyone sleeps well. One character wakes in an inexplicably good mood and cannot explain why.</span></div>
+    <div class="roller-bar">
+      <button class="roll-btn" onclick="rollTable('inn',10)">Roll d10</button>
+      <span class="roll-result dim" id="result-inn">—</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ CAMP -->
+<div class="table-card camp">
+  <div class="table-header" onclick="toggleTable('camp')">
+    <div class="table-title-block">
+      <span class="table-title">Camping Outdoors</span>
+      <span class="table-sub">Night, exposed — the road to Tallowhaven or the road into exile</span>
+    </div>
+    <span class="table-die">d10</span>
+    <span class="table-toggle" id="toggle-camp">▼</span>
+  </div>
+  <div class="table-body" id="body-camp">
+    <div class="encounter-row"><span class="roll-num">1</span><span>Rain begins around the second watch. Not violent — persistent, cold, the kind that finds its way into everything. It stops before dawn but the damage is done.</span></div>
+    <div class="encounter-row"><span class="roll-num">2</span><span>An animal investigates the camp during the night. Something medium-sized, moving carefully at the edge of the firelight. It retreats when noticed and does not return.</span></div>
+    <div class="encounter-row"><span class="roll-num">3</span><span>One character on watch sees a light in the distance — a single point, moving slowly, then stopping, then gone. No explanation presents itself.</span></div>
+    <div class="encounter-row"><span class="roll-num">4</span><span>A fox sits just outside the firelight for an extended period, watching the camp with complete calm. When it eventually leaves it does so without urgency.</span></div>
+    <div class="encounter-row"><span class="roll-num">5</span><span>Someone's rations have been got at. Not a rat — the damage suggests something larger and more determined. The food is still edible, mostly.</span></div>
+    <div class="encounter-row"><span class="roll-num">6</span><span>The fire dies earlier than it should. By the time anyone notices the coals are barely warm. The wood was dry. There is no obvious reason.</span></div>
+    <div class="encounter-row"><span class="roll-num">7</span><span>Insects. Not dangerously, not dramatically, but persistently and specifically around one character for the entire night. No bites. Just the sound.</span></div>
+    <div class="encounter-row"><span class="roll-num">8</span><span>Any animals with the party become briefly agitated in the small hours — not panicked, just alert, ears up, watching the same direction. They settle after a few minutes.</span></div>
+    <div class="encounter-row"><span class="roll-num">9</span><span>One character on watch smells something they cannot identify. Not threatening — just present. Faintly sweet, slightly wrong. Gone within the hour.</span></div>
+    <div class="encounter-row"><span class="roll-num">10</span><span>A clear night, unexpected warmth for the time of year, no disturbances. Whoever is on watch sees more stars than usual. They are not sure that is possible. It is a good night.</span></div>
+    <div class="roller-bar">
+      <button class="roll-btn" onclick="rollTable('camp',10)">Roll d10</button>
+      <span class="roll-result dim" id="result-camp">—</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ TAVERN -->
+<div class="table-card tavern">
+  <div class="table-header" onclick="toggleTable('tavern')">
+    <div class="table-title-block">
+      <span class="table-title">Idle in a Tavern</span>
+      <span class="table-sub">Inside, drinks in hand, between things</span>
+    </div>
+    <span class="table-die">d10</span>
+    <span class="table-toggle" id="toggle-tavern">▼</span>
+  </div>
+  <div class="table-body" id="body-tavern">
+    <div class="encounter-row"><span class="roll-num">1</span><span>A Vaelseer is sitting alone at a corner table. They are looking at nothing in particular. If any player makes eye contact, they hold it for a moment too long before looking away. They leave without speaking to anyone.</span></div>
+    <div class="encounter-row"><span class="roll-num">2</span><span>Two patrons at a nearby table are playing cards and the game has clearly been going for a long time. One of them is winning by an amount that should have ended the evening an hour ago. The loser keeps reaching into their coat.</span></div>
+    <div class="encounter-row"><span class="roll-num">3</span><span>A waiter catches a glass before it falls — an almost impossible catch, fluid and unhurried — then continues as if nothing happened. Nobody else in the room reacts.</span></div>
+    <div class="encounter-row"><span class="roll-num">4</span><span>A musician in the corner finishes a song, pauses, then begins the same song again. And again. Nobody complains. Nobody seems to notice except the party.</span></div>
+    <div class="encounter-row"><span class="roll-num">5</span><span>The fire in the hearth produces an unusual colour for several minutes — not dramatically, just slightly off. Greenish. It stops. The fire is normal again.</span></div>
+    <div class="encounter-row"><span class="roll-num">6</span><span>A patron at a nearby table falls asleep mid-conversation with their companion. The companion finishes their thought anyway, drains their cup, and quietly leaves.</span></div>
+    <div class="encounter-row"><span class="roll-num">7</span><span>A child who should not be in this establishment at this hour appears briefly in a doorway, clocks the room, and disappears before any member of staff notices.</span></div>
+    <div class="encounter-row"><span class="roll-num">8</span><span>The innkeeper quietly cuts off a patron who does not appear to be drunk. The patron accepts without argument, pays, and leaves. The innkeeper watches them go for a moment longer than necessary.</span></div>
+    <div class="encounter-row"><span class="roll-num">9</span><span>Someone leaves a folded piece of paper on the table next to the party's and walks out before anyone can get a good look at them. It is not addressed to anyone. It is not clear whether it was left deliberately or forgotten.</span></div>
+    <div class="encounter-row"><span class="roll-num">10</span><span>Nothing of note happens. The drinks are good. The fire is warm. For an hour, Tallowhaven asks nothing of anyone.</span></div>
+    <div class="roller-bar">
+      <button class="roll-btn" onclick="rollTable('tavern',10)">Roll d10</button>
+      <span class="roll-result dim" id="result-tavern">—</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ CITY -->
+<div class="table-card city">
+  <div class="table-header" onclick="toggleTable('city')">
+    <div class="table-title-block">
+      <span class="table-title">Moving Through the City</span>
+      <span class="table-sub">Streets, squares, travelling between locations in Tallowhaven</span>
+    </div>
+    <span class="table-die">d10</span>
+    <span class="table-toggle" id="toggle-city">▼</span>
+  </div>
+  <div class="table-body" id="body-city">
+    <div class="encounter-row"><span class="roll-num">1</span><span>A festival performer's trained crow lands on one character's shoulder and refuses to leave for several minutes. Its owner eventually retrieves it, apologetic but privately impressed.</span></div>
+    <div class="encounter-row"><span class="roll-num">2</span><span>Two merchants are having a heated argument directly in the party's path and show no signs of moving. The argument is about a debt. Or possibly a cheese. It is hard to tell.</span></div>
+    <div class="encounter-row"><span class="roll-num">3</span><span>A child runs directly into one character at full speed, bounces off, looks up, and runs away without a word. The character notices their coin purse has been moved — not taken, just moved to the wrong pocket.</span></div>
+    <div class="encounter-row"><span class="roll-num">4</span><span>A dog adopts the party. It follows them from this point with quiet determination. It belongs to no one visible. It will not leave.</span></div>
+    <div class="encounter-row"><span class="roll-num">5</span><span>It begins to rain heavily and without warning. Anyone not under cover is immediately soaked. It stops ten minutes later as if it never started.</span></div>
+    <div class="encounter-row"><span class="roll-num">6</span><span>A wizard's spell misfires somewhere nearby — nothing dangerous, but a flock of pigeons is briefly and completely bright orange before returning to normal. Nobody else seems to find this remarkable.</span></div>
+    <div class="encounter-row"><span class="roll-num">7</span><span>An elderly woman stops one specific character, studies their face for a moment, says something short and declarative — "I thought so" or "there it is" — and walks away without elaborating.</span></div>
+    <div class="encounter-row"><span class="roll-num">8</span><span>A guild notice pinned to a board catches the eye of one character. It contains a name they recognise in a context that does not quite make sense. By the time they look for it again it is covered by another notice.</span></div>
+    <div class="encounter-row"><span class="roll-num">9</span><span>A street vendor is selling something the party cannot identify. It smells extraordinary. The vendor cannot or will not explain what it is. It costs one copper. It tastes like nothing they have encountered before.</span></div>
+    <div class="encounter-row"><span class="roll-num">10</span><span>The street the party is on goes briefly and inexplicably quiet — all background noise dropping away for perhaps ten seconds before returning to normal. Nobody else reacts.</span></div>
+    <div class="roller-bar">
+      <button class="roll-btn" onclick="rollTable('city',10)">Roll d10</button>
+      <span class="roll-result dim" id="result-city">—</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ MARKET -->
+<div class="table-card market">
+  <div class="table-header" onclick="toggleTable('market')">
+    <div class="table-title-block">
+      <span class="table-title">At the Market or a Shop</span>
+      <span class="table-sub">Commercial spaces — browsing or buying</span>
+    </div>
+    <span class="table-die">d10</span>
+    <span class="table-toggle" id="toggle-market">▼</span>
+  </div>
+  <div class="table-body" id="body-market">
+    <div class="encounter-row"><span class="roll-num">1</span><span>The shopkeeper gives the wrong change and insists, politely but firmly, that they are correct. They are not correct. They are also not going to change their position.</span></div>
+    <div class="encounter-row"><span class="roll-num">2</span><span>Another customer is examining the same item as one party member and reaches for it at exactly the same moment. They are perfectly civil about it. It is nonetheless a standoff.</span></div>
+    <div class="encounter-row"><span class="roll-num">3</span><span>A street child is loitering just outside the shop entrance with the focused non-expression of someone who is definitely not planning to steal anything.</span></div>
+    <div class="encounter-row"><span class="roll-num">4</span><span>Something in the back of the shop makes a sound that the shopkeeper ignores completely. It is not a small sound. They do not acknowledge it was made.</span></div>
+    <div class="encounter-row"><span class="roll-num">5</span><span>A delivery arrives mid-transaction — several crates, carried by a single person who is smaller than the crates and moving with the calm of someone who has done this many times. The shopkeeper waves the party aside without apology.</span></div>
+    <div class="encounter-row"><span class="roll-num">6</span><span>One item on the shelf is priced significantly lower than everything around it. There is no obvious reason. When asked, the shopkeeper looks at it as if seeing it for the first time and changes the price.</span></div>
+    <div class="encounter-row"><span class="roll-num">7</span><span>A regular customer enters, exchanges a long and apparently meaningful look with the shopkeeper, and leaves without buying anything or saying a word. The shopkeeper's manner is slightly different afterwards.</span></div>
+    <div class="encounter-row"><span class="roll-num">8</span><span>The shopkeeper's assistant knocks something over in a back room. There is a pause. Then the assistant appears in the doorway, makes eye contact with the shopkeeper, and retreats without speaking.</span></div>
+    <div class="encounter-row"><span class="roll-num">9</span><span>One character notices an item that is almost certainly not legal to sell openly. It is on the shelf between two completely mundane objects. The shopkeeper seems unaware of it, or is performing unawareness extremely well.</span></div>
+    <div class="encounter-row"><span class="roll-num">10</span><span>A cat is asleep on the counter and is clearly considered the highest-ranking presence in the establishment. The shopkeeper works around it without comment.</span></div>
+    <div class="roller-bar">
+      <button class="roll-btn" onclick="rollTable('market',10)">Roll d10</button>
+      <span class="roll-result dim" id="result-market">—</span>
+    </div>
+  </div>
+</div>
+
+<footer>Abelon Campaign — Reference. Random Encounters / Act 1 Tallowhaven.</footer>
+
+</div>
+<script>
+function toggleTable(id){
+  const b=document.getElementById('body-'+id);
+  const t=document.getElementById('toggle-'+id);
+  if(!b||!t)return;
+  const o=b.classList.contains('open');
+  b.classList.toggle('open',!o);
+  t.classList.toggle('open',!o);
+}
+function expandAll(){
+  document.querySelectorAll('.table-body').forEach(b=>b.classList.add('open'));
+  document.querySelectorAll('.table-toggle').forEach(t=>t.classList.add('open'));
+}
+function collapseAll(){
+  document.querySelectorAll('.table-body').forEach(b=>b.classList.remove('open'));
+  document.querySelectorAll('.table-toggle').forEach(t=>t.classList.remove('open'));
+}
+function rollTable(id, max){
+  const roll = Math.ceil(Math.random()*max);
+  const rows = document.querySelectorAll('#body-'+id+' .encounter-row');
+  const el = document.getElementById('result-'+id);
+  rows.forEach(r=>r.style.background='');
+  const target = rows[roll-1];
+  if(target){
+    target.style.background='rgba(196,168,130,0.08)';
+    target.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+  el.textContent = 'Rolled '+roll;
+  el.classList.remove('dim');
+  // Open the table if closed
+  const body = document.getElementById('body-'+id);
+  const toggle = document.getElementById('toggle-'+id);
+  if(!body.classList.contains('open')){
+    body.classList.add('open');
+    toggle.classList.add('open');
+  }
+}
+</script>
+</body>
+</html>

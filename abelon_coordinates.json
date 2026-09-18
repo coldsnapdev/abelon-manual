@@ -1,0 +1,209 @@
+{
+  "scale": {
+    "gridPx": 60,
+    "gridMiles": 25,
+    "note": "60px = 25 miles = 1 day walk = 12hr ride"
+  },
+  "locations": {
+    "Alderheart": {
+      "x": 673,
+      "y": 883
+    },
+    "Ashen Hollow": {
+      "x": 2187,
+      "y": 329
+    },
+    "Blackfen Watch": {
+      "x": 498,
+      "y": 725
+    },
+    "Bracken Ridge": {
+      "x": 592,
+      "y": 1020
+    },
+    "Brightwater": {
+      "x": 2638,
+      "y": 758
+    },
+    "Brindle Hollow": {
+      "x": 574,
+      "y": 718
+    },
+    "Broken Choir": {
+      "x": 2008,
+      "y": 313
+    },
+    "Coldtide Anchoridge": {
+      "x": 1537,
+      "y": 279
+    },
+    "Coralrest": {
+      "x": 2267,
+      "y": 1130
+    },
+    "Crossroads": {
+      "x": 1269,
+      "y": 684
+    },
+    "Dapplefen": {
+      "x": 1086,
+      "y": 1268
+    },
+    "Driftisle": {
+      "x": 1694,
+      "y": 1347
+    },
+    "Driftwood Point": {
+      "x": 603,
+      "y": 469
+    },
+    "Emberdeep": {
+      "x": 1159,
+      "y": 603
+    },
+    "Farrowfield": {
+      "x": 902,
+      "y": 848
+    },
+    "Fenwatch": {
+      "x": 1291,
+      "y": 1116
+    },
+    "Frostfall Pass": {
+      "x": 950,
+      "y": 529
+    },
+    "Glassfall Crater": {
+      "x": 1829,
+      "y": 697
+    },
+    "Goldreach Bay": {
+      "x": 2343,
+      "y": 971
+    },
+    "Greenrest": {
+      "x": 1086,
+      "y": 792
+    },
+    "Greywillow": {
+      "x": 1047,
+      "y": 1119
+    },
+    "Gullspire": {
+      "x": 1656,
+      "y": 118
+    },
+    "Halren Ford": {
+      "x": 1357,
+      "y": 579
+    },
+    "Hollowmere": {
+      "x": 1217,
+      "y": 1040
+    },
+    "Ironvein Hold": {
+      "x": 1177,
+      "y": 544
+    },
+    "Karrick's Spine": {
+      "x": 1056,
+      "y": 359
+    },
+    "Lantern Strand": {
+      "x": 1818,
+      "y": 936
+    },
+    "Larkspur Vale": {
+      "x": 1593,
+      "y": 542
+    },
+    "Marchwatch": {
+      "x": 1541,
+      "y": 661
+    },
+    "Millrun": {
+      "x": 1495,
+      "y": 745
+    },
+    "Mossfall": {
+      "x": 827,
+      "y": 1280
+    },
+    "Northlight Beacon": {
+      "x": 1569,
+      "y": 231
+    },
+    "Oldbarrow": {
+      "x": 1463,
+      "y": 904
+    },
+    "Pearlstrand": {
+      "x": 2290,
+      "y": 1374
+    },
+    "Redfield": {
+      "x": 1349,
+      "y": 438
+    },
+    "Riftspire": {
+      "x": 1991,
+      "y": 689
+    },
+    "Saltmere Crossing": {
+      "x": 713,
+      "y": 424
+    },
+    "Seabreak Cliffs": {
+      "x": 2551,
+      "y": 909
+    },
+    "Seaglass Cove": {
+      "x": 2023,
+      "y": 1440
+    },
+    "Skerry Reach": {
+      "x": 1822,
+      "y": 157
+    },
+    "Stonewake Shrine": {
+      "x": 799,
+      "y": 630
+    },
+    "Stormhaven Isle": {
+      "x": 1526,
+      "y": 82
+    },
+    "Sunmere Island": {
+      "x": 2057,
+      "y": 1334
+    },
+    "Tallowhaven": {
+      "x": 557,
+      "y": 736
+    },
+    "The Silent Mile": {
+      "x": 2070,
+      "y": 417
+    },
+    "Thistlefort": {
+      "x": 1645,
+      "y": 384
+    },
+    "Thornwatch": {
+      "x": 691,
+      "y": 800
+    },
+    "Tidebreak": {
+      "x": 1276,
+      "y": 1460
+    },
+    "Westmere Bridge": {
+      "x": 1396,
+      "y": 1014
+    },
+    "Whispergrove": {
+      "x": 924,
+      "y": 1188
+    }
+  }
+}

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — Private Table, The Amber Cup</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(153,53,86,0.05);--beat-border:#993556;--success-bg:rgba(15,110,86,0.07);--success-border:#0F6E56;--success-text:#04342C;--warning-bg:rgba(133,79,11,0.08);--warning-border:#854F0B;--warning-text:#412402;--npc-bg:rgba(153,53,86,0.05);--npc-border:#993556;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(237,147,177,0.06);--beat-border:#ED93B1;--success-bg:rgba(93,202,165,0.07);--success-border:#5DCAA5;--success-text:#E1F5EE;--warning-bg:rgba(239,159,39,0.07);--warning-border:#EF9F27;--warning-text:#FAEEDA;--npc-bg:rgba(237,147,177,0.06);--npc-border:#ED93B1;}}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:32px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .environment-block{background:var(--beat-bg);border-left:3px solid var(--beat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .environment-block p{margin-bottom:.6rem;}.environment-block p:last-child{margin-bottom:0;}
+  .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-portrait{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);overflow:hidden;flex-shrink:0;background:var(--parchment-dark);display:flex;align-items:center;justify-content:center;position:relative;}
+  .npc-portrait.small{width:40px;height:40px;}
+  .npc-portrait img{width:100%;height:100%;object-fit:cover;}
+  .npc-portrait-placeholder{font-family:'Cinzel',serif;font-size:9px;color:var(--ink-faded);text-align:center;padding:3px;line-height:1.3;pointer-events:none;}
+  .npc-portrait input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin:12px 0 5px;}
+  .npc-desc{font-size:15px;color:var(--ink-mid);margin-bottom:6px;}
+  .npc-trait{display:flex;gap:8px;margin-bottom:5px;font-size:14px;}
+  .npc-trait-key{color:var(--ink-faded);min-width:90px;flex-shrink:0;font-style:italic;}
+  .speech-block{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header:hover{opacity:.8;}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+  .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="encounter-header">
+    <span class="encounter-type">Encounter Reference — Act 1 / Tallowhaven / Courtesans Network</span>
+    <div class="encounter-title">A Street in Tallowhaven</div>
+    <div class="encounter-subtitle">Seva finds the party — a chance encounter that is not a chance encounter</div>
+    <div class="encounter-meta">
+      <span class="meta-tag">Social encounter</span>
+      <span class="meta-tag">No combat</span>
+      <span class="meta-tag">Brief and unhurried</span>
+      <span class="meta-tag">Leads to Crost household</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+    <button class="ctrl-btn" onclick="expandBeats()">Beats only</button>
+  </div>
+
+  <div class="section-heading">How This Encounter Happens</div>
+  <div class="environment-block">
+    <p>The previous evening at the Amber Cup, Seva may or may not have had a pleasant conversation with the party. If she did, she ended it warmly and without making any move. She said she would find them tomorrow. If the party never engaged her, she simply left at some point unremarked. Either way she has already decided they are worth the effort.</p>
+    <p>The following morning she finds them in the street. It looks like coincidence. A familiar face from the road, a warm greeting, a natural pause in the flow of a busy Tallowhaven morning. She has a small favour to ask. She is unhurried about it.</p>
+    <p>This is not a recruitment. It is an evaluation dressed as a favour. She does not tell them who she is or what she represents. She is simply a well-connected woman who needs something retrieved and thinks they might be the right people to do it.</p>
+  </div>
+
+  <div class="section-heading">Environment</div>
+  <div class="environment-block">
+    <p>A street in Tallowhaven, mid-morning. Festival preparation visible in the background — workers moving materials, temporary structures going up, the city adjusting itself around an approaching event. The encounter is brief and conducted on the move or standing to one side. Nothing about it looks like a job interview.</p>
+  </div>
+
+  <div class="section-heading">NPCs</div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('seva')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="seva-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="seva-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('seva',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Seva Sable</span>
+        <span class="npc-role">Courtesans Network — finds them, asks a favour, leaves</span>
+      </div>
+      <span class="npc-toggle" id="seva-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="seva-body">
+      <span class="npc-section-label">Appearance</span>
+      <p class="npc-desc">Travel clothes, slightly finer than the occasion requires. Composed and unhurried. She greets the party as if running into them is a pleasant surprise, which it may even be, partly. She is good at this.</p>
+      <span class="npc-section-label">Her manner</span>
+      <div class="npc-trait"><span class="npc-trait-key">The greeting</span><span>Warm, natural. She remembers details from any previous conversation. If they never spoke she references the road with the easy familiarity of someone who noticed them without making a thing of it.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">The favour</span><span>She gets to it without preamble. A necklace left at a private engagement she attended some days ago. Silver, distinctive. She would retrieve it herself but the timing is awkward. She would rather not revisit the household directly. She gives them the Crost address and pays half upfront.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">What she does not say</span><span>The nature of the engagement. Why the household is complicated. What she is actually assessing. None of this is hidden exactly. It simply is not offered.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">How she leaves</span><span>She thanks them, says she will find them when they are done, and continues on her way. The whole encounter takes perhaps five minutes. It does not look like anything from the outside.</span></div>
+    </div>
+  </div>
+
+  <div class="section-heading">Encounter Beats</div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(1)">
+      <span class="beat-number">01</span>
+      <span class="beat-title">The encounter</span>
+      <span class="beat-toggle" id="beat-toggle-1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-1">
+      <p>Seva appears on the street. A familiar face. She greets them warmly and falls into step or pauses to talk. The morning continues around them — festival workers, traders, the ordinary business of a busy city. Nothing about this looks significant.</p>
+      <p>She mentions the necklace briefly and practically. A private engagement, a household she would rather not revisit, would they be able to collect it on her behalf. She gives them the address. She pays half upfront, drawn from somewhere without ceremony.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(2)">
+      <span class="beat-number">02</span>
+      <span class="beat-title">Questions</span>
+      <span class="beat-toggle" id="beat-toggle-2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-2">
+      <p>If the party asks about the engagement she is economical. A private matter. She attended as a guest. She left the necklace behind and would prefer not to make more of retrieving it than it needs to be.</p>
+      <p>If they ask who she is or what she does she describes herself simply as someone who finds it useful to know the right people. She says it without mystery, as if it is the most ordinary thing in the world, which to her it is.</p>
+      <p>She does not volunteer more than is asked. She is not evasive. She simply answers the question that was asked and no other.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(3)">
+      <span class="beat-number">03</span>
+      <span class="beat-title">The departure</span>
+      <span class="beat-toggle" id="beat-toggle-3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-3">
+      <p>She thanks them, says she will find them when they are done, and continues on her way. She does not look back. The encounter is over in the time it takes to have a brief conversation on a busy street.</p>
+      <p>The party is left standing with half a fee and an address. Nothing about what just happened feels like the beginning of something. That is exactly how she intended it.</p>
+    </div>
+  </div>
+
+  <div class="section-heading">DM Notes</div>
+
+  <div class="dm-note"><strong>Keep it brief</strong>This encounter should feel small. A familiar face, a quick favour, a few coins, an address. The weight of it only becomes apparent later when the Crost household turns out to be more complicated than a simple retrieval. Do not play it as a significant moment. Let the players discover that it was one.</div>
+
+  <div class="dm-note"><strong>She will find them</strong>She says this and she means it. She does not give them a time or a place. She simply knows where they will be. When they have completed the Crost job she finds them again — possibly at the Amber Cup, possibly in the street, possibly somewhere that makes them wonder how she knew. That is the second encounter. This is just the beginning.</div>
+
+  <div class="dm-note"><strong>The name Sable</strong>If the party asks her surname this is the first time they hear it. Sable. If they later encounter other members of the network and hear the same surname, the penny will drop without anyone explaining it. Let that happen at its own pace.</div>
+
+  <div class="dm-note"><strong>If they recognised her from the road</strong>She receives the recognition warmly. Of course she remembers them. She was there. She does not address the question of what she was doing there unless directly pressed, and even then she is economical. She was travelling with someone. Things became complicated. She found her own way to Tallowhaven. All of this is technically true.</div>
+
+  <footer>Abelon Campaign — Encounter Reference. Private Table, Amber Cup / Tallowhaven / Act 1 Courtesans Network.</footer>
+</div>
+
+<script>
+  function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
+  function expandBeats(){collapseAll();document.querySelectorAll('.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function loadPortrait(id,input){if(!input.files||!input.files[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(id+'-img'),ph=document.getElementById(id+'-placeholder');if(img){img.src=e.target.result;img.style.display='block';}if(ph)ph.style.display='none';};r.readAsDataURL(input.files[0]);}
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — The Table</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --bg:#1a1410;--bg2:#241f16;--bg3:#2a2318;
+    --ink:#e8d9bc;--ink2:#c4a882;--ink3:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.35);
+    --essence:#B59AE8;--essence-bg:rgba(181,154,232,0.08);--essence-border:rgba(181,154,232,0.25);
+    --instance:#85B7EB;--instance-bg:rgba(133,183,235,0.08);--instance-border:rgba(133,183,235,0.25);
+    --identity:#5DCAA5;--identity-bg:rgba(93,202,165,0.08);--identity-border:rgba(93,202,165,0.25);
+    --dimension:#EF9F27;--dimension-bg:rgba(239,159,39,0.08);--dimension-border:rgba(239,159,39,0.25);
+    --cause:#ED93B1;--cause-bg:rgba(237,147,177,0.08);--cause-border:rgba(237,147,177,0.25);
+    --unison:#e8d9bc;--unison-bg:rgba(232,217,188,0.06);--unison-border:rgba(232,217,188,0.2);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;padding:2rem 1.5rem 4rem;}
+  .page{max-width:780px;margin:0 auto;}
+
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink3);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+
+  .section-heading{font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);border-bottom:.5px solid var(--rule-faint);padding-bottom:5px;margin-bottom:1rem;margin-top:2rem;}
+  .section-heading:first-of-type{margin-top:0;}
+
+  /* Environment */
+  .environment{background:var(--bg2);border-left:3px solid var(--rule);padding:1rem 1.25rem;border-radius:0 5px 5px 0;margin-bottom:1.5rem;font-size:15px;color:var(--ink2);line-height:1.65;}
+  .environment p{margin-bottom:.7rem;}.environment p:last-child{margin-bottom:0;}
+
+  /* DM note */
+  .dm-note{background:var(--bg3);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:12px;font-size:14px;color:var(--ink3);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+
+  /* Beat */
+  .beat{margin-bottom:1.5rem;}
+  .beat-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:.75rem;display:block;}
+
+  /* Primordial speech lines */
+  .speech-block{border-radius:6px;overflow:hidden;margin-bottom:6px;}
+  .speech-line{display:grid;grid-template-columns:140px 1fr;align-items:baseline;gap:0;}
+  .speaker{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px;display:flex;align-items:center;}
+  .words{font-size:17px;font-style:italic;padding:10px 16px 10px 0;line-height:1.5;}
+
+  .speech-line.essence{background:var(--essence-bg);border:.5px solid var(--essence-border);}
+  .speech-line.essence .speaker{color:var(--essence);}
+  .speech-line.essence .words{color:var(--ink);}
+
+  .speech-line.instance{background:var(--instance-bg);border:.5px solid var(--instance-border);}
+  .speech-line.instance .speaker{color:var(--instance);}
+  .speech-line.instance .words{color:var(--ink);}
+
+  .speech-line.identity{background:var(--identity-bg);border:.5px solid var(--identity-border);}
+  .speech-line.identity .speaker{color:var(--identity);}
+  .speech-line.identity .words{color:var(--ink);}
+
+  .speech-line.dimension{background:var(--dimension-bg);border:.5px solid var(--dimension-border);}
+  .speech-line.dimension .speaker{color:var(--dimension);}
+  .speech-line.dimension .words{color:var(--ink);}
+
+  .speech-line.cause{background:var(--cause-bg);border:.5px solid var(--cause-border);}
+  .speech-line.cause .speaker{color:var(--cause);}
+  .speech-line.cause .words{color:var(--ink);}
+
+  .speech-line.unison{background:var(--unison-bg);border:.5px solid var(--unison-border);}
+  .speech-line.unison .speaker{color:var(--unison);}
+  .speech-line.unison .words{color:var(--ink);font-size:18px;letter-spacing:.03em;}
+
+  /* Player action */
+  .player-action{background:var(--bg2);border-radius:6px;padding:14px 18px;margin:10px 0;border:.5px solid var(--rule-faint);}
+  .player-action-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:6px;}
+  .player-action-desc{font-size:15px;color:var(--ink2);line-height:1.6;}
+
+  /* Character sequence */
+  .character-sequence{border:.5px solid var(--rule);border-radius:6px;overflow:hidden;margin-bottom:1rem;}
+  .sequence-header{background:var(--bg2);padding:10px 16px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:.5px solid var(--rule-faint);}
+  .sequence-body{padding:14px 16px;}
+
+  /* Transition moment */
+  .transition{text-align:center;padding:16px;font-size:13px;font-style:italic;color:var(--ink3);letter-spacing:.05em;}
+  .transition-rule{border:none;border-top:.5px solid var(--rule-faint);margin:1rem 0;}
+
+  /* Final beat */
+  .final-beat{background:var(--bg2);border-radius:6px;padding:1.25rem 1.5rem;margin-top:1.5rem;border:.5px solid var(--rule-faint);}
+  .final-beat p{font-size:15px;color:var(--ink2);margin-bottom:.6rem;line-height:1.6;}.final-beat p:last-child{margin-bottom:0;}
+
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink3);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="encounter-header">
+    <span class="encounter-type">Encounter — Session Zero</span>
+    <div class="encounter-title">The Table</div>
+    <div class="encounter-subtitle">Before Abelon. Before the characters. Before everything except what makes everything possible.</div>
+    <div class="encounter-meta">
+      <span class="meta-tag">Session Zero</span>
+      <span class="meta-tag">All players</span>
+      <span class="meta-tag">DM speaks the primordials</span>
+      <span class="meta-tag">Stat rolling included</span>
+    </div>
+  </div>
+
+  <div class="section-heading">The Setting</div>
+
+  <div class="environment">
+    <p>The Table is a colosseum. Grand, ancient, empty. Stone that has witnessed things no mortal would recognise as events. The scale is wrong in a way that is hard to name — not large like a building is large, but large the way time is large.</p>
+    <p>Beyond it, outside it, around it in a sense that does not quite correspond to direction — five presences. They have no form. They are not in the space the way the colosseum is in the space. They are the reason the space exists at all. The players sense them before they understand them. They know their words without hearing them. They understand without thought.</p>
+    <p>The players are here. They do not know how. They do not know who they are. They are present — aware, conscious — but without body, without memory, without name. They know only that they are not alone, and that something is about to happen that cannot be undone.</p>
+  </div>
+
+  <div class="dm-note"><strong>For the DM</strong>You speak all five primordials. There is no need to change your voice dramatically between them — the weight comes from the words and the silence between them, not from performance. Speak slowly. Leave space. The players are not expected to respond until prompted. Let the stillness do its work.</div>
+
+  <div class="dm-note"><strong>Player and character</strong>Throughout this encounter, address the players directly — not their characters. The characters do not exist yet. The players are the consciousnesses that will inhabit them. This distinction matters and the players will feel it if you hold it clearly.</div>
+
+  <div class="section-heading">The Arrival — All Players</div>
+
+  <div class="beat">
+    <span class="beat-label">The primordials speak — to all players, together</span>
+
+    <div class="speech-line essence">
+      <span class="speaker">Essence</span>
+      <span class="words">You can be.</span>
+    </div>
+    <div class="speech-line instance">
+      <span class="speaker">Instance</span>
+      <span class="words">You will be.</span>
+    </div>
+    <div class="speech-line identity">
+      <span class="speaker">Identity</span>
+      <span class="words">You will not be otherwise.</span>
+    </div>
+    <div class="speech-line dimension">
+      <span class="speaker">Dimension</span>
+      <span class="words">You will have where and when.</span>
+    </div>
+    <div class="speech-line cause">
+      <span class="speaker">Cause</span>
+      <span class="words">You will have past and future.</span>
+    </div>
+    <div class="speech-line unison" style="margin-top:10px;">
+      <span class="speaker">In unison</span>
+      <span class="words">Tell us who you are.</span>
+    </div>
+  </div>
+
+  <div class="dm-note"><strong>After the final line</strong>Pause. Let the silence sit. Then indicate — without breaking the tone — that the first player is being called. You might simply look at them, or say their name quietly, or nod. The players will understand. They are being addressed one at a time now.</div>
+
+  <div class="section-heading">The Calling — Each Player in Turn</div>
+
+  <div class="dm-note"><strong>Sequence</strong>Repeat the following for each player. When one is done, simply indicate the next. Players who have completed their moment remain present — they are now above the Table, watching. Do not break the atmosphere between players unless it breaks naturally. If it does, let it. Call the next player when ready.</div>
+
+  <div class="character-sequence">
+    <div class="sequence-header">For each player — repeat in full</div>
+    <div class="sequence-body">
+
+      <div class="player-action">
+        <span class="player-action-label">Player speaks</span>
+        <div class="player-action-desc">The player states their character's name. Nothing more. No description, no backstory, no class or race. Just the name. This is the first act of creation — the character does not yet exist, but their name does.</div>
+      </div>
+
+      <div class="transition">The player suddenly finds themselves above the Table, looking down. Their character stands below — present now, real, for the first time.</div>
+
+      <div class="beat-label" style="margin-top:14px;margin-bottom:8px;">The primordials define the conditions — spoken before the dice fall</div>
+
+      <div class="speech-line essence" style="margin-bottom:4px;">
+        <span class="speaker">Essence</span>
+        <span class="words">What exists in Abelon must carry at least one measure of distinction. Without it, you cannot bear the weight.</span>
+      </div>
+      <div class="speech-line instance" style="margin-bottom:4px;">
+        <span class="speaker">Instance</span>
+        <span class="words">To be particular is to be resilient. You may carry one grave weakness. With two, you cannot bear the weight.</span>
+      </div>
+      <div class="speech-line cause" style="margin-bottom:4px;">
+        <span class="speaker">Cause</span>
+        <span class="words">The weight of your past and future must be sufficient to sustain a life. The sum of what you are must reach sixty-five or more. Below that, you cannot bear the weight.</span>
+      </div>
+      <div class="speech-line identity" style="margin-bottom:4px;">
+        <span class="speaker">Identity</span>
+        <span class="words">What you become is not chosen. It is true. The dice will speak, and what they say, you will be. And you shall bear the weight.</span>
+      </div>
+      <div class="speech-line dimension" style="margin-bottom:10px;">
+        <span class="speaker">Dimension</span>
+        <span class="words">For each of your aspects, you will roll four. You will keep three. The smallest will fall away. And you shall bear the weight.</span>
+      </div>
+
+      <div class="speech-line unison" style="margin-bottom:12px;">
+        <span class="speaker">In unison</span>
+        <span class="words">Reveal your power.</span>
+      </div>
+
+      <div class="player-action">
+        <span class="player-action-label">Player rolls stats</span>
+        <div class="player-action-desc">The player rolls 4d6 and drops the lowest die for each of their six ability scores. Once the six numbers are revealed, the player may allocate them as they choose.</div>
+      </div>
+
+      <div class="dm-note" style="margin-top:8px;"><strong>Reroll conditions</strong>If the array fails any of the three conditions stated by the primordials — total below 65, nothing above 14, or two scores below 8 — the relevant primordial speaks again: a single short line in the same register as their condition. The array is refused. The player rerolls once. The reroll stands regardless of outcome. The primordials do not offer a third chance. The reroll is optional — a player may choose to keep a failing array if they wish.</div>
+
+      <div class="dm-note" style="margin-top:6px;"><strong>Reroll lines — spoken by the relevant primordial</strong>
+        <br><br>
+        <strong style="color:var(--essence);">Essence</strong> — if nothing exceeds 14: <em>"This has no distinction. It cannot bear the weight."</em>
+        <br><br>
+        <strong style="color:var(--instance);">Instance</strong> — if two or more scores are below 8: <em>"Too many weaknesses. It cannot bear the weight."</em>
+        <br><br>
+        <strong style="color:var(--cause);">Cause</strong> — if total is below 65: <em>"The chain cannot sustain this. It cannot bear the weight."</em>
+      </div>
+
+      <div class="speech-line unison" style="margin-top:8px;">
+        <span class="speaker">In unison</span>
+        <span class="words">[Character's name.]</span>
+      </div>
+
+      <div class="transition">The character below vanishes. The player remains above — an observer now, present but no longer called. The Table is a little emptier. A little quieter.</div>
+
+    </div>
+  </div>
+
+  <div class="section-heading">The End</div>
+
+  <div class="final-beat">
+    <p>When the last character has been named and sent, all players are above the Table. They are observers, witnesses, consciousnesses without form looking down at an empty colosseum.</p>
+    <p>The primordials say nothing. There is nothing left to say. The five presences are still there — will always be there — but the encounter is over.</p>
+    <p>Wait for a moment. Let the players sit with it. Then bring them back — gently, practically. The world of Abelon is waiting.</p>
+  </div>
+
+  <div class="dm-note"><strong>Into Session Zero</strong>This encounter ends and Session Zero begins. The transition can be handled simply — close the scene, take a breath, and move into the practical work of character creation and world introduction. The players have already arrived. Everything else is detail.</div>
+
+  <div class="dm-note"><strong>The Table and its history</strong>Players may ask about the colosseum. What it is, what happened there, why the primordials use it. Leave this open. The Table has a history that predates the gods — it may be connected to the Shattering or to something older still. You do not need to know. Neither do they. Not yet.</div>
+
+  <footer>Abelon — The Weight of the World. Session Zero Encounter — The Table.</footer>
+
+</div>
+</body>
+</html>

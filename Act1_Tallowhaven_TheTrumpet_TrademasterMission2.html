@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission — The Trumpet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(15,110,86,0.05);--beat-border:#0F6E56;--combat-bg:rgba(153,60,29,0.05);--combat-border:#993C1D;--success-bg:rgba(15,110,86,0.07);--success-border:#0F6E56;--success-text:#04342C;--warning-bg:rgba(133,79,11,0.08);--warning-border:#854F0B;--warning-text:#412402;--danger-bg:rgba(153,60,29,0.08);--danger-border:#993C1D;--danger-text:#4A1B0C;--npc-bg:rgba(15,110,86,0.05);--npc-border:#0F6E56;--npc-combat-bg:rgba(153,60,29,0.05);--npc-combat-border:#993C1D;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(93,202,165,0.06);--beat-border:#5DCAA5;--combat-bg:rgba(240,153,123,0.05);--combat-border:#F0997B;--success-bg:rgba(93,202,165,0.07);--success-border:#5DCAA5;--success-text:#E1F5EE;--warning-bg:rgba(239,159,39,0.07);--warning-border:#EF9F27;--warning-text:#FAEEDA;--danger-bg:rgba(240,153,123,0.08);--danger-border:#F0997B;--danger-text:#FAECE7;--npc-bg:rgba(93,202,165,0.06);--npc-border:#5DCAA5;--npc-combat-bg:rgba(240,153,123,0.05);--npc-combat-border:#F0997B;}}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .meta-tag.combat{border-color:var(--danger-border);color:var(--danger-text);}
+  .phase-divider{display:flex;align-items:center;gap:16px;margin:2.5rem 0 1.5rem;}
+  .phase-label{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;white-space:nowrap;padding:4px 14px;border-radius:3px;}
+  .phase-label.investigation{background:var(--beat-bg);border:.5px solid var(--beat-border);color:var(--ink);}
+  .phase-label.combat{background:var(--combat-bg);border:.5px solid var(--combat-border);color:var(--ink);}
+  .phase-divider-line{flex:1;height:.5px;background:var(--rule);}
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .overview-block{background:var(--beat-bg);border-left:3px solid var(--beat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .overview-block p{margin-bottom:.6rem;}.overview-block p:last-child{margin-bottom:0;}
+  .combat-block{background:var(--combat-bg);border-left:3px solid var(--combat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .combat-block p{margin-bottom:.6rem;}.combat-block p:last-child{margin-bottom:0;}
+  .info-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+  @media(max-width:600px){.info-row,.npc-grid,.wave-grid{grid-template-columns:1fr;}}
+  .info-card{background:var(--beat-bg);border:.5px solid var(--beat-border);border-radius:5px;padding:12px 14px;font-size:14px;color:var(--ink-mid);}
+  .info-card-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px;}
+  .npc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+  .wave-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+  .wave-header{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);background:var(--combat-bg);border:.5px solid var(--combat-border);border-radius:4px;padding:6px 12px;margin-bottom:8px;}
+  .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
+  .npc-card.combat-npc{border-color:var(--npc-combat-border);background:var(--npc-combat-bg);}
+  .npc-card.grid-card{margin-bottom:0;}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-portrait{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);overflow:hidden;flex-shrink:0;background:var(--parchment-dark);display:flex;align-items:center;justify-content:center;position:relative;}
+  .npc-portrait.small{width:40px;height:40px;}
+  .npc-portrait img{width:100%;height:100%;object-fit:cover;}
+  .npc-portrait-placeholder{font-family:'Cinzel',serif;font-size:9px;color:var(--ink-faded);text-align:center;padding:3px;line-height:1.3;pointer-events:none;}
+  .npc-portrait input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin:12px 0 5px;}
+  .npc-desc{font-size:15px;color:var(--ink-mid);margin-bottom:6px;}
+  .npc-trait{display:flex;gap:8px;margin-bottom:5px;font-size:14px;}
+  .npc-trait-key{color:var(--ink-faded);min-width:100px;flex-shrink:0;font-style:italic;}
+  .speech-block{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
+  .stat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:8px 0;text-align:center;}
+  .stat-box{background:var(--parchment-dark);border:.5px solid var(--rule);border-radius:4px;padding:4px 2px;}
+  .stat-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);display:block;}
+  .stat-value{font-size:15px;font-weight:600;color:var(--ink);display:block;}
+  .stat-mod{font-size:11px;color:var(--ink-faded);display:block;}
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat.combat-beat{border-color:var(--combat-border);}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header.combat-header{background:var(--combat-bg);}
+  .beat-header:hover{opacity:.8;}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+  .outcome{border-radius:5px;padding:12px 14px;margin-bottom:10px;font-size:15px;}
+  .outcome.success{background:var(--success-bg);border:.5px solid var(--success-border);color:var(--success-text);}
+  .outcome.warning{background:var(--warning-bg);border:.5px solid var(--warning-border);color:var(--warning-text);}
+  .outcome.danger{background:var(--danger-bg);border:.5px solid var(--danger-border);color:var(--danger-text);}
+  .outcome-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:6px;opacity:.8;}
+  .outcome p{margin-bottom:6px;}.outcome p:last-child{margin-bottom:0;}
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+  .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
+  .ctrl-btn.combat-link{border-color:#993C1D;color:#F0997B;text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
+  .ctrl-btn.combat-link:hover{background:rgba(153,60,29,0.1);}
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="encounter-header">
+    <span class="encounter-type">Mission Reference — Act 1 / Trademasters / Second Mission</span>
+    <div class="encounter-title">The Trumpet</div>
+    <div class="encounter-subtitle">Find the source of the article, deal with it quietly — before it grows legs</div>
+    <div class="encounter-meta">
+      <span class="meta-tag">Investigation then combat</span>
+      <span class="meta-tag">Level 3 party</span>
+      <span class="meta-tag combat">Escalating pub fight — survival</span>
+      <span class="meta-tag">Hidden Courtesan connection</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+    <button class="ctrl-btn" onclick="expandSection('beat')">Investigation beats</button>
+    <button class="ctrl-btn" onclick="expandSection('combat')">Combat beats</button>
+    <button class="ctrl-btn" onclick="expandNPCs()">NPCs only</button>
+    <a class="ctrl-btn combat-link" href="CombatGuide_TheTrumpet.html" target="_blank">⚔ Combat Guide</a>
+  </div>
+
+  <div class="section-heading">Mission Overview</div>
+  <div class="overview-block">
+    <p>Oskar finds the party. He does not do this lightly — he is a man who expects people to come to him and the fact that he has left the Honeywell and tracked them down tells the party the situation is serious before he opens his mouth. He is livid in the specific way of someone whose life's work has been publicly insulted in a paper that half of Tallowhaven reads over breakfast.</p>
+    <p>He puts The Trumpet on the table. Front page. He lets them read it. Then he points to the research body cited in the article — The Western Reach Institute of Commerce and Craft — and tells them flatly that it does not exist. No address, no charter, no record with the city, no history anywhere in the region. Someone invented it, dressed up a set of selectively presented numbers, and fed it to a journalist.</p>
+    <p>He does not want a retraction. Retractions are buried on page four and nobody reads them. He wants the source found and the problem removed before the festival meeting. He pays half upfront.</p>
+  </div>
+
+  <div class="info-row">
+    <div class="info-card">
+      <span class="info-card-label">The hidden layer</span>
+      The article was commissioned by the Courtesans Network to stall the levy proposal before it gained public momentum. The party cannot discover this during this mission. The chain ends at Perran Carew, who was fed the idea and the data through an intermediary who has since become unreachable. That intermediary was acting for the network.
+    </div>
+    <div class="info-card">
+      <span class="info-card-label">The dead end trap</span>
+      The party may think suppressing the article and leaning on Calla is sufficient. It is not. Oskar will make this clear if they report back without Perran's name. The source still exists. The problem still exists. The Trumpet is not the problem. The source is the problem.
+    </div>
+  </div>
+
+  <div class="phase-divider">
+    <span class="phase-label investigation">Phase One — Investigation</span>
+    <div class="phase-divider-line"></div>
+  </div>
+
+  <div class="section-heading">The Article</div>
+  <div class="overview-block">
+    <p><strong>Headline:</strong> "Tallowhaven Trademasters' Reputation in Tatters!"</p>
+    <p><strong>Byline:</strong> Calla, The Tallowhaven Trumpet</p>
+    <p><strong>Cited source:</strong> The Western Reach Institute of Commerce and Craft — a fabricated research body with no address, no charter, and no civic record anywhere in the region. Oskar spotted it immediately.</p>
+    <p><strong>Claims:</strong> Independent research shows that on average, Trademaster guild works are overpriced and of a lower standard than imported equivalents. Quotes an unnamed prominent Tallowhaven trader. The data is selectively presented. The conclusions are fabricated.</p>
+  </div>
+
+  <div class="section-heading">Investigation NPCs</div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('oskar')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="oskar-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="oskar-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('oskar',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Oskar Sternov</span>
+        <span class="npc-role">The employer — livid, finds the party, puts the paper on the table</span>
+      </div>
+      <span class="npc-toggle" id="oskar-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="oskar-body">
+      <span class="npc-section-label">His manner in this scene</span>
+      <p class="npc-desc">The controlled fury of someone whose life's work has been publicly misrepresented in the most widely read paper in Tallowhaven during the most important trading week of the year. He is not theatrical about it. He is precise. He puts the paper down, points to the fabricated research body, and states the facts. He has already done the checking. He does not need the party to tell him anything he does not already know about the article. He needs them to find who is behind it.</p>
+      <span class="npc-section-label">If the party tries to make Calla the endpoint</span>
+      <div class="npc-trait"><span class="npc-trait-key">His response</span><span>Measured patience. He explains the problem without making the party feel stupid. Suppressing the article does not remove the person who commissioned it. That person still has the motivation and will find another outlet. The Trumpet is not the problem. The source is the problem. Back they go.</span></div>
+      <span class="npc-section-label">When they report back successfully</span>
+      <div class="npc-trait"><span class="npc-trait-key">His manner</span><span>Pays the second half. Says something like: good work, cleanly done. For Oskar that is high praise. He does not elaborate. He goes back to work.</span></div>
+    </div>
+  </div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('calla')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="calla-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="calla-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('calla',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Calla</span>
+        <span class="npc-role">Journalist, The Trumpet — filed in good faith, was used, will give up the source</span>
+      </div>
+      <span class="npc-toggle" id="calla-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="calla-body">
+      <span class="npc-section-label">Who she is</span>
+      <p class="npc-desc">A journalist who has carved out a niche in a profession that did not initially welcome her and has become pragmatic about certain things as a result. She has filed hundreds of stories. She knows when she is being managed. She did not know it this time, which is the professional mortification she is currently sitting with.</p>
+      <span class="npc-section-label">Her initial position</span>
+      <p class="npc-desc">Defensive. She stands by her story professionally. Her source was credible, the data was provided in good faith, she has no reason to doubt it. She will not give up a source to anyone who walks in off the street with a grievance. Protecting sources is not negotiable.</p>
+      <span class="npc-section-label">The turning point</span>
+      <div class="npc-trait"><span class="npc-trait-key">The evidence</span><span>Present Oskar's documentation. The Western Reach Institute of Commerce and Craft does not exist. No charter. No address. No civic record. Let her sit with that.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Her reaction</span><span>Not immediate capitulation. A moment of genuine professional mortification followed by cold anger. She believed the research was real. She filed in good faith. She is now the journalist who ran a fabricated story in The Trumpet with her name on the byline. She does not forgive that quickly or quietly.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Giving up the source</span><span>She gives them Perran Carew's name. Not as a favour to the party. As the first step in understanding what was done to her. She also tells them which establishment he tends to frequent during festival week. She is already planning what she is going to do about this. It will not be nothing.</span></div>
+      <span class="npc-section-label">What she cannot give them</span>
+      <div class="npc-trait"><span class="npc-trait-key">The chain beyond Perran</span><span>She does not know who fed Perran the idea or the data. She only knows her source. The chain beyond Perran is not available to her or to the party.</span></div>
+    </div>
+  </div>
+
+  <div class="section-heading">Investigation Beats</div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('i1')">
+      <span class="beat-number">I.1</span>
+      <span class="beat-title">Oskar finds the party</span>
+      <span class="beat-toggle" id="beat-toggle-i1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-i1">
+      <p>Oskar does not do this lightly. The party sees him coming and something about his manner tells them before he sits down that this is not routine. He puts The Trumpet on the table without preamble. He lets them read the headline. Then he points to the fabricated research body and states the facts plainly.</p>
+      <p>He pays half upfront. He tells them to find the source and deal with it. He does not tell them how.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('i2')">
+      <span class="beat-number">I.2</span>
+      <span class="beat-title">The Trumpet's office — Calla</span>
+      <span class="beat-toggle" id="beat-toggle-i2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-i2">
+      <p>The byline leads them to The Trumpet's office. Calla is there. She receives them with the wariness of a journalist who has had powerful people try to lean on her before. She stands by her story initially. She will not give up a source.</p>
+      <p>Presenting the evidence about the fabricated research body changes the conversation entirely. This is not a powerful interest trying to suppress a legitimate story. This is a journalist discovering she was used. The professional fury that follows is genuine and directed at Perran rather than the party.</p>
+      <p>She gives them his name and the establishment where he spends his festival evenings.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('i3')">
+      <span class="beat-number">I.3</span>
+      <span class="beat-title">The dead end — if the party stops at Calla</span>
+      <span class="beat-toggle" id="beat-toggle-i3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-i3">
+      <p>If the party returns to Oskar having only dealt with Calla and the article, he receives the report with measured patience and explains why it is not enough. The source still exists. The motivation still exists. The Trumpet is not the problem. The source is the problem.</p>
+      <p>He does not send them away. He waits to see if they understand the distinction. If they do not he explains it once more and sends them back out.</p>
+    </div>
+  </div>
+
+  <div class="phase-divider">
+    <span class="phase-label combat">Phase Two — The Establishment</span>
+    <div class="phase-divider-line"></div>
+  </div>
+
+  <div class="section-heading">The Location</div>
+  <div class="combat-block">
+    <p>The Establishment — a large, well-appointed tavern where Perran's family connections secured him a regular table during festival week. It is bigger than it sounds. A long room with round tables spread across the floor, a bar and kitchen running along the left wall, a piano in the upper left corner, and a prestige table at the top of the room under a mounted skull. Perran's table is up there. He considers this his due.</p>
+    <p>It is a busy festival evening. The room is well populated — couples, groups of traders, a few festival visitors making the most of the week. The piano player is working. The bar is doing good business.</p>
+    <p>Perran is at his table with Aldwyn, Osric, and Fenn. Brynn and Mags are at the bar on the left. Davan Holt is by the door at the bottom of the room. Jori is out the back. The party has no reason to know any of this yet.</p>
+    <p>Perran has been here for a while. The atmosphere around his table is loud and slightly unsteady. He is not incapacitated but he is not sharp. The same cannot be said for Davan Holt, who has been nursing one drink all evening and watching the room.</p>
+  </div>
+
+  <div class="dm-note"><strong>The fleeing patrons</strong>When the fight starts the room empties around the combatants. Two groups of uninvolved patrons flee — a couple near Perran's table who are on their feet and moving before Perran has finished his first swing, and a group of three or four festival visitors in the middle of the room who scatter in different directions, one of them knocking a table and sending drinks across the floor. Neither group is involved. They are environmental texture. The room thins out quickly, which means the party is fighting in an increasingly open space as the waves arrive — the opposite of the basement encounter. Use it.</div>
+
+  <div class="section-heading">Perran Carew</div>
+
+  <div class="npc-card combat-npc">
+    <div class="npc-header" onclick="toggleNPC('perran')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="perran-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="perran-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('perran',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Perran Carew</span>
+        <span class="npc-role">Human commoner — the target, entitled, pharmacologically impacted, swings first</span>
+      </div>
+      <span class="npc-toggle" id="perran-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="perran-body">
+      <span class="npc-section-label">Who he is</span>
+      <p class="npc-desc">A young man of good Tallowhaven family whose inherited civic legacy — names etched in stone at the Aldermen's Hall, a park, a tavern, a scholarship — he has confused with personal merit. He commissioned the article deliberately, dressed the fabrication in the language of research because he is smart enough to know that is how you make something stick, and felt entirely justified doing so. The Trademasters, in his worldview, are workers who have organised above their station and need reminding of their place.</p>
+      <span class="npc-section-label">His worldview — verbatim if given the chance</span>
+      <div class="speech-block">Who are they really? Nobodies, that's who. Their name hasn't been etched in stone for generations at the Aldermen's Hall. They don't have a park, a tavern, and a scholarship named after them, do they. They're nobodies. They'd do well to remember it.</div>
+      <span class="npc-section-label">When challenged</span>
+      <div class="npc-trait"><span class="npc-trait-key">His instinct</span><span>Performance of confidence rather than exercise of it. He says something dismissive. Something slightly threatening. It lands badly in front of his friends and now he cannot back down without losing face. He swings first.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">After the fight</span><span>Frightened underneath the bravado. He does not know who fed him the idea. He genuinely believes he thought of this himself. He was approached by a contact of a contact who mentioned the levy and its implications for families like his and happened to have very compelling data. He did not question it because it confirmed what he already believed. He agrees to retract. He is not in a position to argue.</span></div>
+      <span class="npc-section-label">Stats</span>
+      <div class="stat-grid">
+        <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">10</span></div>
+        <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">18</span></div>
+        <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
+        <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">9</span><span class="stat-mod">-1</span></div>
+        <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">12</span><span class="stat-mod">+1</span></div>
+        <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+2</span></div>
+      </div>
+      <div class="npc-trait" style="margin-top:8px;"><span class="npc-trait-key">Attack</span><span>Unarmed strike +2 (1d4+2 bludgeoning). Impaired — disadvantage on all attack rolls and Dexterity saving throws.</span></div>
+    </div>
+  </div>
+
+  <div class="section-heading">The Waves</div>
+
+  <div class="dm-note"><strong>Escalation structure</strong>Round one: Perran, Aldwyn, Osric, Fenn. Round two: Brynn and Mags join from the bar. Round three: Davan Holt enters from the door, Jori comes in from the back. Eight combatants total. The party wins the first exchange and thinks they have it handled. They do not have it handled.</div>
+
+  <div class="wave-header">Wave One — The Table (Round 1)</div>
+  <div class="npc-grid">
+
+    <div class="npc-card combat-npc grid-card">
+      <div class="npc-header" onclick="toggleNPC('aldwyn')">
+        <div class="npc-portrait small">
+          <img id="aldwyn-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="aldwyn-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('aldwyn',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Aldwyn</span>
+          <span class="npc-role">Human commoner — genuinely fond of Perran, moves first</span>
+        </div>
+        <span class="npc-toggle" id="aldwyn-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="aldwyn-body">
+        <p class="npc-desc">The one who actually likes Perran rather than benefits from proximity to him. He moves when Perran is challenged because that is what you do for a friend. Big enough to be a problem in round one. Swings wide and hard rather than cleverly.</p>
+        <div class="stat-grid" style="margin-top:8px;">
+          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">10</span></div>
+          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">11</span></div>
+          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
+          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">10</span><span class="stat-mod">+0</span></div>
+          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">11</span><span class="stat-mod">+0</span></div>
+          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+3</span></div>
+        </div>
+        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Attack</span><span>Unarmed strike +3 (1d4+1). Impaired — disadvantage on attacks and Dex saves.</span></div>
+      </div>
+    </div>
+
+    <div class="npc-card combat-npc grid-card">
+      <div class="npc-header" onclick="toggleNPC('osric')">
+        <div class="npc-portrait small">
+          <img id="osric-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="osric-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('osric',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Osric</span>
+          <span class="npc-role">Elf commoner — hesitant, cannot back down in front of others</span>
+        </div>
+        <span class="npc-toggle" id="osric-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="osric-body">
+        <p class="npc-desc">Would not have started this. He is vaguely aware this is going badly before anyone else at the table is. He follows Aldwyn's lead because the alternative is backing down in front of the group. He is the first of the table group to seriously consider stopping.</p>
+        <div class="stat-grid" style="margin-top:8px;">
+          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">11</span></div>
+          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">9</span></div>
+          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">10</span><span class="stat-mod">+0</span></div>
+          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">12</span><span class="stat-mod">+1</span></div>
+          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">10</span><span class="stat-mod">+0</span></div>
+          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+2</span></div>
+        </div>
+        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Attack</span><span>Unarmed strike +2 (1d4). Impaired — disadvantage on attacks and Dex saves. Fey Ancestry — advantage on saves vs charmed, cannot be magically put to sleep.</span></div>
+      </div>
+    </div>
+
+    <div class="npc-card combat-npc grid-card">
+      <div class="npc-header" onclick="toggleNPC('fenn')">
+        <div class="npc-portrait small">
+          <img id="fenn-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="fenn-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('fenn',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Fenn</span>
+          <span class="npc-role">Gnome commoner — least committed, will regret this specifically</span>
+        </div>
+        <span class="npc-toggle" id="fenn-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="fenn-body">
+        <p class="npc-desc">Followed the group out tonight because he usually does. He is going to regret this specific decision clearly and visibly. He is the first commoner to break and back away if given a clear opportunity to do so without being hit.</p>
+        <div class="stat-grid" style="margin-top:8px;">
+          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">11</span></div>
+          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">7</span></div>
+          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">8</span><span class="stat-mod">-1</span></div>
+          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">12</span><span class="stat-mod">+1</span></div>
+          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">10</span><span class="stat-mod">+0</span></div>
+          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+1</span></div>
+        </div>
+        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Attack</span><span>Unarmed strike +1 (1d4-1). Impaired. Gnome Cunning — advantage on Int/Wis/Cha saves vs magic.</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="wave-header">Wave Two — The Bar (Round 2)</div>
+  <div class="npc-grid">
+
+    <div class="npc-card combat-npc grid-card">
+      <div class="npc-header" onclick="toggleNPC('brynn')">
+        <div class="npc-portrait small">
+          <img id="brynn-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="brynn-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('brynn',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Brynn</span>
+          <span class="npc-role">Dwarf commoner — Perran's family connection, joins out of loyalty</span>
+        </div>
+        <span class="npc-toggle" id="brynn-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="brynn-body">
+        <p class="npc-desc">Stocky, not a fighter by training but has been in enough scrapes to know roughly what he is doing. Perran's family has been good to his family and that means something to him. He is not impaired — he was nursing his drink more carefully than the table group. He arrives in round two with clearer eyes than anyone from wave one.</p>
+        <div class="stat-grid" style="margin-top:8px;">
+          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">12</span></div>
+          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">13</span></div>
+          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
+          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">11</span><span class="stat-mod">+0</span></div>
+          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
+          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+3</span></div>
+        </div>
+        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Attack</span><span>Improvised weapon +3 (1d6+1). Dwarven Resilience — advantage on saves vs poison.</span></div>
+      </div>
+    </div>
+
+    <div class="npc-card combat-npc grid-card">
+      <div class="npc-header" onclick="toggleNPC('mags')">
+        <div class="npc-portrait small">
+          <img id="mags-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="mags-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('mags',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Mags</span>
+          <span class="npc-role">Human Rogue — the one the party needs to watch</span>
+        </div>
+        <span class="npc-toggle" id="mags-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="mags-body">
+        <p class="npc-desc">Not part of Perran's immediate circle. An acquaintance who happened to be at the bar tonight. She assessed the situation in round one before committing. She targets the party member who looks most exposed rather than the nearest available one. She is not impaired. She was watching the room before anything happened.</p>
+        <div class="stat-grid" style="margin-top:8px;">
+          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">13</span></div>
+          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">22</span></div>
+          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">10</span><span class="stat-mod">+0</span></div>
+          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">15</span><span class="stat-mod">+2</span></div>
+          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">12</span><span class="stat-mod">+1</span></div>
+          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+4</span></div>
+        </div>
+        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Attack</span><span>Dagger +4 (1d4+2) + 1d6 Sneak Attack when conditions met.</span></div>
+        <div class="npc-trait" style="font-size:14px;"><span class="npc-trait-key">Special</span><span>Cunning Action — Dash, Disengage, or Hide as bonus action. She uses the chaos of the room to reposition between targets.</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="wave-header">Wave Three — The Door and the Back (Round 3)</div>
+  <div class="npc-grid">
+
+    <div class="npc-card combat-npc grid-card">
+      <div class="npc-header" onclick="toggleNPC('davan')">
+        <div class="npc-portrait small">
+          <img id="davan-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="davan-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('davan',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Davan Holt</span>
+          <span class="npc-role">Human Fighter — Perran's bodyguard, clear head, most dangerous in the room</span>
+        </div>
+        <span class="npc-toggle" id="davan-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="davan-body">
+        <p class="npc-desc">Perran's personal bodyguard, described as a family retainer if anyone asks. He was positioned by the door because that is where he always is when Perran is out. He is not impaired. He has been watching the room all evening with the professional attentiveness of someone paid to do exactly that. He enters in round three with a clear head and a professional assessment of the situation. He is the most dangerous person in the room.</p>
+        <div class="stat-grid" style="margin-top:8px;">
+          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">16</span></div>
+          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">38</span></div>
+          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">16</span><span class="stat-mod">+3</span></div>
+          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
+          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">15</span><span class="stat-mod">+2</span></div>
+          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+5</span></div>
+        </div>
+        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Weapon</span><span>Longsword +5 (1d8+3 slashing)</span></div>
+        <div class="npc-trait" style="font-size:14px;"><span class="npc-trait-key">Special</span><span>Action Surge — once per short rest, takes an additional action. Second Wind — once per short rest, regains 1d10+3 HP as bonus action. Fighting Style: Defence — +1 AC when wearing armour (included above).</span></div>
+      </div>
+    </div>
+
+    <div class="npc-card combat-npc grid-card">
+      <div class="npc-header" onclick="toggleNPC('jori')">
+        <div class="npc-portrait small">
+          <img id="jori-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="jori-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('jori',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Jori</span>
+          <span class="npc-role">Halfling commoner — out the back, deeply unhappy about this</span>
+        </div>
+        <span class="npc-toggle" id="jori-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="jori-body">
+        <p class="npc-desc">Was out the back for entirely mundane reasons when the fight started. Comes in through the rear door in round three having heard the noise. He is not a fighter and he knows it. Perran's family pays for his uncle's workshop and so here he is, deeply unhappy about it. He is the most likely of wave three to find a reason to stop very quickly.</p>
+        <div class="stat-grid" style="margin-top:8px;">
+          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">11</span></div>
+          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">7</span></div>
+          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">8</span><span class="stat-mod">-1</span></div>
+          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
+          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">10</span><span class="stat-mod">+0</span></div>
+          <div class="stat-box"><span class="stat-value">+1</span><span class="stat-label">ATK</span></div>
+        </div>
+        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Attack</span><span>Improvised weapon +1 (1d4-1). Halfling Luck — reroll natural 1s on attack rolls, ability checks, saving throws.</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-heading">Combat Beats</div>
+
+  <div class="beat combat-beat">
+    <div class="beat-header combat-header" onclick="toggleBeat('c1')">
+      <span class="beat-number">C.1</span>
+      <span class="beat-title">The confrontation — before initiative</span>
+      <span class="beat-toggle" id="beat-toggle-c1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-c1">
+      <p>The party finds Perran at his table. They approach with pointed questions about the article. Perran receives them with the performance of someone who considers himself above this kind of thing. He says something dismissive. Something slightly threatening. He may deliver his worldview about the Trademasters if given the space to do so — let him, it is important that the party understands who he is before the fight.</p>
+      <p>The confrontation tips when he cannot back down in front of his friends. He swings first. Roll initiative.</p>
+    </div>
+  </div>
+
+  <div class="beat combat-beat">
+    <div class="beat-header combat-header" onclick="toggleBeat('c2')">
+      <span class="beat-number">C.2</span>
+      <span class="beat-title">Round one — the table</span>
+      <span class="beat-toggle" id="beat-toggle-c2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-c2">
+      <p>Perran, Aldwyn, Osric, and Fenn. All impaired except Perran who is large enough that impairment does not fully neutralise him. The party handles this wave. They think they have it handled.</p>
+      <p>The room reacts immediately. The couple at the adjacent table are on their feet before Perran finishes his first swing, moving for the door without looking back. A group of festival visitors in the middle of the room scatter — one of them clips a table and sends drinks across the floor. The piano stops. The room empties around the combatants with the speed of people who have collectively decided this is not their problem.</p>
+      <p>Fenn looks for an exit in round one. Give him one if the party does not actively prevent it. He is not relevant to the mission and his departure is a small comedy beat before things get harder.</p>
+      <p>By the end of round one the room is significantly emptier. The party has more space than they did when they walked in. That space will feel very different when Davan Holt walks through the door in round three.</p>
+    </div>
+  </div>
+
+  <div class="beat combat-beat">
+    <div class="beat-header combat-header" onclick="toggleBeat('c3')">
+      <span class="beat-number">C.3</span>
+      <span class="beat-title">Round two — the bar arrives</span>
+      <span class="beat-toggle" id="beat-toggle-c3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-c3">
+      <p>Brynn and Mags enter from the bar. Brynn is loyal and straightforward. Mags is the tactical problem — she targets the most exposed party member and uses Cunning Action to reposition between attacks. The party may not have anticipated her.</p>
+      <p>The room has shifted. What felt manageable in round one is no longer manageable in the same way.</p>
+    </div>
+  </div>
+
+  <div class="beat combat-beat">
+    <div class="beat-header combat-header" onclick="toggleBeat('c4')">
+      <span class="beat-number">C.4</span>
+      <span class="beat-title">Round three — door and back</span>
+      <span class="beat-toggle" id="beat-toggle-c4">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-c4">
+      <p>Davan Holt enters from the door. Jori enters from the back. Davan has been watching all evening. He enters with a clear professional assessment and goes directly for whoever is causing the most damage to Perran's side. He uses Action Surge in round three if he needs to make a statement immediately.</p>
+      <p>Jori is deeply unhappy. He swings once, misses, and reassesses his life choices.</p>
+      <p>This is the survival round. The party needs to end things quickly — focus Perran, drop Davan, or create enough chaos that the remaining commoners lose the will to continue.</p>
+    </div>
+  </div>
+
+  <div class="beat combat-beat">
+    <div class="beat-header combat-header" onclick="toggleBeat('c5')">
+      <span class="beat-number">C.5</span>
+      <span class="beat-title">Resolution</span>
+      <span class="beat-toggle" id="beat-toggle-c5">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-c5">
+      <p>When Perran goes down or is clearly beaten the fight loses its centre. Aldwyn stops because Perran is down. Osric stops because Aldwyn stopped. Brynn looks at the situation and makes a practical decision. Mags disappears at some point between rounds — she was never committed to anyone in this room, just to the situation, and the situation has resolved.</p>
+      <p>Davan Holt is the last to stand down. He does so when it is clear that continuing serves no purpose. He is professional enough to recognise that moment.</p>
+      <p>Perran, when he recovers enough to talk, is frightened and much quieter than he was twenty minutes ago. He gives the party what they need. He agrees to retract. He cannot trace the chain beyond the contact who approached him.</p>
+    </div>
+  </div>
+
+  <div class="section-heading">Outcomes</div>
+
+  <div class="outcome success">
+    <span class="outcome-label">Source found, retraction secured, Oskar satisfied</span>
+    <p>The party reports back. Oskar pays the second half. Good work, cleanly done. The levy proposal moves forward without the public relations problem. The Trumpet will run a small correction. Nobody will read it. That is fine. The story is dead.</p>
+  </div>
+
+  <div class="outcome warning">
+    <span class="outcome-label">Source found but retraction not secured</span>
+    <p>Perran was dealt with but not convinced to retract. Oskar receives this with measured disappointment. He will pursue the retraction himself through other means. He pays the second half because the source was found. He notes that the job was half done.</p>
+  </div>
+
+  <div class="outcome warning">
+    <span class="outcome-label">Party stops at Calla</span>
+    <p>Oskar sends them back. Patiently. Once. The source is still out there. The Trumpet is not the problem.</p>
+  </div>
+
+  <div class="outcome danger">
+    <span class="outcome-label">Scene created — magistrate involvement</span>
+    <p>A pub fight that gets out of hand has consequences. The party may find themselves explaining themselves to civic authorities. Oskar will not publicly acknowledge any connection to them. He pays the second half privately and later. He is not pleased.</p>
+  </div>
+
+  <div class="section-heading">DM Notes</div>
+
+  <div class="dm-note"><strong>The hidden Courtesan layer</strong>The article was commissioned by the Courtesans Network. Perran was fed the idea and the data through an intermediary who is now unreachable. The party cannot discover this. The chain ends at Perran. The connection surfaces in the finale when the party looks back at what they were part of across all three second missions.</div>
+
+  <div class="dm-note"><strong>Perran's speech</strong>Give him room to deliver it if the confrontation allows. The worldview about names etched in stone and nobodies needing to remember their place is the most important character beat in the encounter. It reframes the fight from a pub brawl into something with actual stakes. The party should want to hit him before he finishes.</div>
+
+  <div class="dm-note"><strong>Davan Holt</strong>He is the encounter's biggest tactical surprise. Eight combatants is already a lot. Eight combatants including a sober Fighter with Action Surge entering in round three is the moment the party realises this was never going to be easy. Do not telegraph him. Let him arrive.</div>
+
+  <div class="dm-note"><strong>Mags</strong>She was at the bar tonight by coincidence. She is not loyal to Perran. She joined because the situation presented itself and she is the kind of person who acts on situations. She disappears before the resolution. The party may or may not notice. Either way she is gone and she is not their problem.</div>
+
+  <div class="dm-note"><strong>Fenn's exit</strong>Let it happen. A small gnome finding the earliest possible exit from a pub fight he never wanted to be in is a human moment in the middle of a chaotic encounter. Play it briefly and move on. It costs nothing and gives the table something to laugh about.</div>
+
+  <div class="dm-note"><strong>Calla's next move</strong>She is already planning what she is going to do about being used. It will not be nothing. A future issue of The Trumpet may carry a story about a prominent Tallowhaven family whose members have a habit of manufacturing convenient research. That story does not affect this mission. It is simply the world continuing after the party has moved through it.</div>
+
+  <footer>Abelon Campaign — Mission Reference. The Trumpet / Tallowhaven / Act 1 Trademasters Second Mission.</footer>
+</div>
+
+<script>
+  function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(id){const b=document.getElementById('beat-body-'+id),t=document.getElementById('beat-toggle-'+id);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
+  function expandSection(type){collapseAll();if(type==='beat'){document.querySelectorAll('[id^="beat-body-i"]').forEach(el=>el.classList.add('open'));document.querySelectorAll('[id^="beat-toggle-i"]').forEach(el=>el.classList.add('open'));}else if(type==='combat'){document.querySelectorAll('[id^="beat-body-c"]').forEach(el=>el.classList.add('open'));document.querySelectorAll('[id^="beat-toggle-c"]').forEach(el=>el.classList.add('open'));}}
+  function expandNPCs(){collapseAll();document.querySelectorAll('.npc-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle').forEach(el=>el.classList.add('open'));}
+  function loadPortrait(id,input){if(!input.files||!input.files[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(id+'-img'),ph=document.getElementById(id+'-placeholder');if(img){img.src=e.target.result;img.style.display='block';}if(ph)ph.style.display='none';};r.readAsDataURL(input.files[0]);}
+</script>
+</body>
+</html>

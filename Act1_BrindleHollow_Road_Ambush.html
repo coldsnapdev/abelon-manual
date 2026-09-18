@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — Ambush on the Road</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(107,58,42,0.05);--beat-border:#c4a882;--success-bg:rgba(15,110,86,0.07);--success-border:#0F6E56;--success-text:#04342C;--warning-bg:rgba(133,79,11,0.08);--warning-border:#854F0B;--warning-text:#412402;--danger-bg:rgba(153,60,29,0.08);--danger-border:#993C1D;--danger-text:#4A1B0C;--npc-bg:rgba(107,58,42,0.04);--npc-border:#c4a882;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(196,168,130,0.06);--beat-border:#5a4a38;--success-bg:rgba(93,202,165,0.07);--success-border:#5DCAA5;--success-text:#E1F5EE;--warning-bg:rgba(239,159,39,0.07);--warning-border:#EF9F27;--warning-text:#FAEEDA;--danger-bg:rgba(240,153,123,0.08);--danger-border:#F0997B;--danger-text:#FAECE7;--npc-bg:rgba(196,168,130,0.05);--npc-border:#5a4a38;}}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:32px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .meta-tag.combat{border-color:var(--danger-border);color:var(--danger-text);}
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .environment-block{background:var(--beat-bg);border-left:3px solid var(--beat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .environment-block p{margin-bottom:.6rem;}.environment-block p:last-child{margin-bottom:0;}
+  .env-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+  @media(max-width:600px){.env-features{grid-template-columns:1fr;}}
+  .env-feature{display:flex;gap:8px;align-items:flex-start;}
+  .env-feature-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);min-width:80px;padding-top:3px;flex-shrink:0;}
+  .env-feature-desc{font-size:14px;color:var(--ink-mid);line-height:1.5;}
+  .npc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+  @media(max-width:600px){.npc-grid{grid-template-columns:1fr;}}
+  .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
+  .npc-card.grid-card{margin-bottom:0;}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-portrait{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);overflow:hidden;flex-shrink:0;background:var(--parchment-dark);display:flex;align-items:center;justify-content:center;position:relative;}
+  .npc-portrait.small{width:40px;height:40px;}
+  .npc-portrait img{width:100%;height:100%;object-fit:cover;}
+  .npc-portrait-placeholder{font-family:'Cinzel',serif;font-size:9px;color:var(--ink-faded);text-align:center;padding:3px;line-height:1.3;pointer-events:none;}
+  .npc-portrait input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin:12px 0 5px;}
+  .npc-desc{font-size:15px;color:var(--ink-mid);margin-bottom:6px;}
+  .npc-trait{display:flex;gap:8px;margin-bottom:5px;font-size:14px;}
+  .npc-trait-key{color:var(--ink-faded);min-width:90px;flex-shrink:0;font-style:italic;}
+  .stat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:8px 0;text-align:center;}
+  .stat-box{background:var(--parchment-dark);border:.5px solid var(--rule);border-radius:4px;padding:4px 2px;}
+  .stat-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);display:block;}
+  .stat-value{font-size:15px;font-weight:600;color:var(--ink);display:block;}
+  .stat-mod{font-size:11px;color:var(--ink-faded);display:block;}
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header:hover{opacity:.8;}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+  .outcome{border-radius:5px;padding:12px 14px;margin-bottom:10px;font-size:15px;}
+  .outcome.success{background:var(--success-bg);border:.5px solid var(--success-border);color:var(--success-text);}
+  .outcome.warning{background:var(--warning-bg);border:.5px solid var(--warning-border);color:var(--warning-text);}
+  .outcome.danger{background:var(--danger-bg);border:.5px solid var(--danger-border);color:var(--danger-text);}
+  .outcome-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:6px;opacity:.8;}
+  .outcome p{margin-bottom:6px;}.outcome p:last-child{margin-bottom:0;}
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+  .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
+  .ctrl-btn.combat-link{border-color:var(--danger-border);color:var(--danger-text);text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
+  .ctrl-btn.combat-link:hover{background:var(--danger-bg);}
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="encounter-header">
+    <span class="encounter-type">Encounter Reference — Act 1 / Road from Brindle Hollow</span>
+    <div class="encounter-title">Ambush on the Road</div>
+    <div class="encounter-subtitle">Broken Wing sympathisers attempt to free Marek — Seva Sable witnesses</div>
+    <div class="encounter-meta">
+      <span class="meta-tag combat">Combat encounter</span>
+      <span class="meta-tag">First combat</span>
+      <span class="meta-tag">Level 1 party</span>
+      <span class="meta-tag">Moral weight: low — raises later</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+    <button class="ctrl-btn" onclick="expandBeats()">Beats only</button>
+    <button class="ctrl-btn" onclick="expandNPCs()">NPCs only</button>
+    <a class="ctrl-btn combat-link" href="CombatGuide_RoadAmbush.html" target="_blank">⚔ Combat Guide</a>
+  </div>
+
+  <div class="section-heading">Environment</div>
+  <div class="environment-block">
+    <p>A road crossing open farmland, running northeast toward Tallowhaven. The party arrives from the west on foot. The road meets a stone bridge crossing a shallow stream to the right. To the left is a large circular ruin — an old stone structure, dry and slightly wrong in character, that nobody uses without quite knowing why. Sheep are scattered across the open ground.</p>
+    <p>The ambushers were in the area practising — swordwork, archery — when they spotted Marek being escorted. Seva Sable was travelling with one of them, hired the previous evening when he talked too openly about the group's plans. She is present as a witness, not a participant.</p>
+    <p>The ambushers are positioned on and around the bridge. Brath and Davan charge down when the party enters the road. Idony drops back to the riverbank for cover. Pell holds the bridge with his crossbow.</p>
+  </div>
+
+  <div class="env-features">
+    <div class="env-feature">
+      <span class="env-feature-label">The bridge</span>
+      <span class="env-feature-desc">Stone, narrow, a natural chokepoint. Pell holds it with a crossbow. High ground and clear sightlines down the road. The party wants to clear this quickly.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">The stream</span>
+      <span class="env-feature-desc">Shallow but counts as difficult terrain if crossed. Pell may retreat across it. Idony uses the near bank for cover.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">The ruin</span>
+      <span class="env-feature-desc">To the northwest. Circular, dry, slightly unsettling. Players who investigate find nothing explicable. Leave it at that.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">The sheep</span>
+      <span class="env-feature-desc">Scattered across the open ground. Anyone running through them causes minor chaos. A small tactical wrinkle and a source of unexpected comedy.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Open ground</span>
+      <span class="env-feature-desc">The party has room to manoeuvre west of the bridge. Ranged characters have clear shots. Cover is limited.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Seva's position</span>
+      <span class="env-feature-desc">Away from the ambushers. Not fighting. Watching with the composed attentiveness of someone making a professional assessment.</span>
+    </div>
+  </div>
+
+  <div class="section-heading">Ambushers</div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('brath')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="brath-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="brath-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('brath',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Brath</span>
+        <span class="npc-role">Fighter 1 — de facto leader, charges down from bridge</span>
+      </div>
+      <span class="npc-toggle" id="brath-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="brath-body">
+      <span class="npc-section-label">Description</span>
+      <p class="npc-desc">Late twenties, lean and purposeful, leather armour worn practically. A face that has made a decision and stopped questioning it. He moves toward Marek immediately on sight of the party.</p>
+      <span class="npc-section-label">Tactics</span>
+      <div class="npc-trait"><span class="npc-trait-key">Priority</span><span>Reach Marek and create space for him to move. He uses Tactical Shout to direct Pell or Davan to screen Marek's escape route.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Second Wind</span><span>Uses it as a bonus action if he drops below 6HP. He is the last to disengage.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Retreat</span><span>Once two ambushers are down he calls retreat. He does not fight to the death.</span></div>
+      <span class="npc-section-label">Stats</span>
+      <div class="stat-grid">
+        <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">13</span></div>
+        <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">12</span></div>
+        <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">16</span><span class="stat-mod">+3</span></div>
+        <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">12</span><span class="stat-mod">+1</span></div>
+        <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
+        <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+5</span></div>
+      </div>
+      <div class="npc-trait" style="margin-top:6px;"><span class="npc-trait-key">Weapon</span><span>Longsword — 1d8+3 slashing</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Special</span><span>Second Wind (1/short rest): regain 1d10+2 HP as bonus action. Tactical Shout (recharge 5-6): one ally moves up to their speed without provoking opportunity attacks.</span></div>
+    </div>
+  </div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('idony')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="idony-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="idony-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('idony',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Idony</span>
+        <span class="npc-role">Rogue 1 — flanks from riverbank, true believer</span>
+      </div>
+      <span class="npc-toggle" id="idony-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="idony-body">
+      <span class="npc-section-label">Description</span>
+      <p class="npc-desc">Mid-twenties, light leather armour, calm calculation rather than anger. She has thought about this moment. She is the most ideologically committed of the four — she believes in what she is doing even if she cannot fully articulate Marek's argument.</p>
+      <span class="npc-section-label">Tactics</span>
+      <div class="npc-trait"><span class="npc-trait-key">Position</span><span>Stays at the edge of the fight near the riverbank. Uses Cunning Action to hide, reposition, and strike from advantage.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Target</span><span>If Marek is being physically held she targets that character specifically to break the hold.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Retreat</span><span>Disengages and withdraws if Brath goes down. Most likely to escape successfully.</span></div>
+      <span class="npc-section-label">Stats</span>
+      <div class="stat-grid">
+        <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">13</span></div>
+        <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">8</span></div>
+        <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">10</span><span class="stat-mod">+0</span></div>
+        <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">15</span><span class="stat-mod">+2</span></div>
+        <div class="stat-box"><span class="stat-label">WIS</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
+        <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+4</span></div>
+      </div>
+      <div class="npc-trait" style="margin-top:6px;"><span class="npc-trait-key">Weapon</span><span>Shortsword — 1d6+2 piercing + 1d6 Sneak Attack (if conditions met). Dagger thrown: 1d4+2.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Special</span><span>Sneak Attack: +1d6 damage when she has advantage or an ally is adjacent to target. Cunning Action: Dash, Disengage, or Hide as bonus action.</span></div>
+    </div>
+  </div>
+
+  <div class="npc-grid">
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('pell')">
+        <div class="npc-portrait small">
+          <img id="pell-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="pell-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('pell',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Pell</span>
+          <span class="npc-role">Crossbow — holds the bridge, least committed</span>
+        </div>
+        <span class="npc-toggle" id="pell-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="pell-body">
+        <p class="npc-desc">Early twenties, no armour, plain clothes. Less committed to this than he was last night. He holds the bridge because Brath holds the bridge and Pell follows Brath. If Brath goes down first Pell makes a DC 10 Wisdom save or disengages and flees.</p>
+        <div class="stat-grid" style="margin-top:8px;">
+          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">11</span></div>
+          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">9</span></div>
+          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
+          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">11</span><span class="stat-mod">+0</span></div>
+          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">12</span><span class="stat-mod">+1</span></div>
+          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+2</span></div>
+        </div>
+        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Weapons</span><span>Club 1d4+1 / Light crossbow 1d8 (range 80/320ft)</span></div>
+        <div class="npc-trait" style="font-size:14px;"><span class="npc-trait-key">Special</span><span>Reluctant: DC 10 Wis save or flee if Brath is down and Pell is below half HP.</span></div>
+      </div>
+    </div>
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('davan')">
+        <div class="npc-portrait small">
+          <img id="davan-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="davan-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('davan',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Davan</span>
+          <span class="npc-role">Axes — charges with Brath, goes down swinging</span>
+        </div>
+        <span class="npc-toggle" id="davan-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="davan-body">
+        <p class="npc-desc">Thirties, leather armour, slightly foreign featured. Came from somewhere else and found Marek's ideas when he needed them most. The most physically committed of the four. Throws a handaxe on round one then goes melee. Scrapper: first time he'd drop to 0HP he may make DC 10 Con save to drop to 1HP instead (once per long rest).</p>
+        <div class="stat-grid" style="margin-top:8px;">
+          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">12</span></div>
+          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">11</span></div>
+          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
+          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">12</span><span class="stat-mod">+1</span></div>
+          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
+          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+4</span></div>
+        </div>
+        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Weapons</span><span>Handaxe melee or thrown — 1d6+2 slashing (range 20/60ft)</span></div>
+        <div class="npc-trait" style="font-size:14px;"><span class="npc-trait-key">Special</span><span>Scrapper: DC 10 Con save to drop to 1HP instead of 0. Once per long rest.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">Seva Sable</div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('seva')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="seva-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="seva-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('seva',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Seva Sable</span>
+        <span class="npc-role">Courtesans Network — witness, not combatant</span>
+      </div>
+      <span class="npc-toggle" id="seva-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="seva-body">
+      <span class="npc-section-label">Why she is here</span>
+      <p class="npc-desc">She was hired by one of the ambushers the previous evening after he talked too openly about the group's plans at an inn. She saw an opportunity to gain leverage and intelligence and talked him into bringing her along. She has no stake in whether Marek goes free.</p>
+      <span class="npc-section-label">During the encounter</span>
+      <div class="npc-trait"><span class="npc-trait-key">Behaviour</span><span>Professionally calm in a chaotic situation. She does not fight, does not flee, does not hide. She watches with the composed attentiveness of someone making a professional assessment. Players who notice her will notice that something about her composure does not fit the circumstances.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">If approached</span><span>Warm, unhurried, not defensive. She does not explain her presence unless pressed and even then is economical with the truth. She is deciding what the party is useful for.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">If threatened</span><span>She does not panic. She makes clear that harming her would be a significant mistake without explaining why. She is correct.</span></div>
+      <span class="npc-section-label">After the encounter</span>
+      <p class="npc-desc">She will appear at whatever inn the party stays at in Tallowhaven. She chose not to be a loose end. She will find them. The party finding her first at the Amber Cup is also possible if they look for her.</p>
+      <span class="npc-section-label">Combat stats — if forced</span>
+      <div class="npc-trait"><span class="npc-trait-key">AC / HP</span><span>AC 13 / HP 6</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Weapon</span><span>Dagger — +4 to hit, 1d4+2 piercing</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">Special</span><span>Composed: advantage on saves vs frightened. Disengage as bonus action. Read the Room: action to make DC 12 Insight on a creature — learn their emotional state, whether they act under duress, or whether they conceal a weapon.</span></div>
+    </div>
+  </div>
+
+  <div class="section-heading">Encounter Beats</div>
+
+  <div class="dm-note"><strong>Objective</strong>The ambushers want Marek free, not dead. The party wants to deliver Marek, not necessarily to fight. Neither side actually wants this to be lethal. That shared disinterest in killing shapes the encounter's tone. It should feel like a scrape, not a battle.</div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(1)">
+      <span class="beat-number">01</span>
+      <span class="beat-title">The party crests the rise</span>
+      <span class="beat-toggle" id="beat-toggle-1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-1">
+      <p>The party comes over a rise onto the road and sees the bridge ahead. Pell is on the bridge. Brath and Davan are visible on the near side. Idony is at the riverbank edge. Seva is slightly apart, watching.</p>
+      <p>There is a moment before anything happens. Whether the party recognises it as an ambush depends on Perception checks. A successful check reveals that the group are not simply travellers — their positioning is deliberate.</p>
+      <p>Marek, behind the party, observes with mild interest. He does not warn them.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(2)">
+      <span class="beat-number">02</span>
+      <span class="beat-title">Brath and Davan charge</span>
+      <span class="beat-toggle" id="beat-toggle-2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-2">
+      <p>Brath and Davan move down from the bridge position toward the party. Davan throws a handaxe on the first round. Pell fires his crossbow from the bridge. Idony repositions along the riverbank looking for an angle.</p>
+      <p>Roll initiative. The fight is on.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(3)">
+      <span class="beat-number">03</span>
+      <span class="beat-title">The fight</span>
+      <span class="beat-toggle" id="beat-toggle-3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-3">
+      <p>The ambushers are focused on Marek's escape rather than the party's destruction. Brath uses Tactical Shout to create space. Idony targets whoever is physically closest to Marek. Pell suppresses from the bridge.</p>
+      <p>Marek stands wherever he was when the fight started and watches with the expression of someone waiting for a cart to pass. He does not help either side.</p>
+      <p>The sheep cause minor chaos if anyone runs through them. Use your judgement on the mechanical effect — disadvantage on the next attack roll from the distraction is reasonable.</p>
+      <p>Once two ambushers are down Brath calls retreat. They disengage rather than fight to the death. Idony is most likely to escape. Pell is most likely to simply run.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(4)">
+      <span class="beat-number">04</span>
+      <span class="beat-title">Aftermath</span>
+      <span class="beat-toggle" id="beat-toggle-4">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-4">
+      <p>The fight ends. The party may have prisoners. They may have questions. They will almost certainly notice Seva if they have not already.</p>
+      <p>Seva does not attempt to leave. She was never trying to hide. She waits to see what the party does next.</p>
+      <p>Marek, if asked what that was about, gives an accurate and unhelpful answer. He did not organise it. He did not ask for it. He assumes they were persuaded by his arguments. He is wrong about this but does not know it.</p>
+    </div>
+  </div>
+
+  <div class="section-heading">Outcomes and Consequences</div>
+
+  <div class="outcome success">
+    <span class="outcome-label">Standard — ambushers repelled, Marek still in custody</span>
+    <p>The escort continues to Tallowhaven. The party may have prisoners to deal with. Seva will find them at the Amber Cup.</p>
+  </div>
+
+  <div class="outcome warning">
+    <span class="outcome-label">Marek released — party lets him go or he escapes</span>
+    <p>Marek walks away without particular ceremony. Before he goes he gives the party a name — a contact in the Trademasters' Guild in Tallowhaven. Not gratitude. Just information he thinks they might find useful. The party arrives in Tallowhaven without their prisoner and without Merchant access through the Aldermen's Hall.</p>
+  </div>
+
+  <div class="outcome danger">
+    <span class="outcome-label">Marek killed — unlikely but possible</span>
+    <p>Seva witnessed it. She will not approach them on the road. She will find them in Tallowhaven and make clear, pleasantly and without threat, that she knows what happened and that she is curious about the kind of people who make that choice. The Courtesan thread opens from an unusual angle.</p>
+  </div>
+
+  <div class="outcome warning">
+    <span class="outcome-label">Prisoners taken</span>
+    <p>The party may take one or more ambushers captive. The magistrate in Tallowhaven will take brief testimony and process the matter. A fine for affray, brief detention, and no further consequence. The hearing the party is asked to attend for will probably never happen. See the Aldermen's Hall encounter for the magistrate scene.</p>
+  </div>
+
+  <div class="section-heading">DM Notes</div>
+
+  <div class="dm-note"><strong>The ruin</strong>Do not explain it. If players investigate they find a dry circular structure that feels slightly wrong — no obvious reason, no obvious history, no obvious danger. It is a Zarethian wellspring, drained and empty. Nobody in the world has the context to understand that. Leave it as a feeling and move on.</div>
+
+  <div class="dm-note"><strong>Seva's composure</strong>Her calm during the fight is the tell. She is the most composed person on the road and she is not fighting. Players who notice will file it away. Players who do not will meet her properly at the Amber Cup. Either way she is watching them.</div>
+
+  <div class="dm-note"><strong>The Broken Wing connection</strong>The ambushers show the linked-thumbs gesture at some point during or after the encounter — a handshake between two of them, a gesture across the field. The party may notice it. It means nothing to them yet. It will mean something later.</div>
+
+  <div class="dm-note"><strong>Marek's indifference</strong>He watches the fight with mild interest and does nothing. If the party is clearly losing he does not help. If asked why he did not intervene he will say something precise and slightly maddening. He did not ask to be rescued and sees no reason to assist in his own re-arrest. Both of these things are simultaneously true for him.</div>
+
+  <footer>Abelon Campaign — Encounter Reference. Road Ambush / Brindle Hollow Road / Act 1.</footer>
+</div>
+
+<script>
+  function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
+  function expandBeats(){collapseAll();document.querySelectorAll('.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function expandNPCs(){collapseAll();document.querySelectorAll('.npc-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle').forEach(el=>el.classList.add('open'));}
+  function loadPortrait(id,input){if(!input.files||!input.files[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(id+'-img'),ph=document.getElementById(id+'-placeholder');if(img){img.src=e.target.result;img.style.display='block';}if(ph)ph.style.display='none';};r.readAsDataURL(input.files[0]);}
+</script>
+</body>
+</html>

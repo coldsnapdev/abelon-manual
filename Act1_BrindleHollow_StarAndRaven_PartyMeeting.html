@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — The Star and Raven</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root {
+    --parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;
+    --ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;
+    --accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);
+    --beat-bg:rgba(107,58,42,0.05);--beat-border:#c4a882;
+    --success-bg:rgba(15,110,86,0.07);--success-border:#0F6E56;--success-text:#04342C;
+    --warning-bg:rgba(133,79,11,0.08);--warning-border:#854F0B;--warning-text:#412402;
+    --npc-bg:rgba(107,58,42,0.04);--npc-border:#c4a882;
+  }
+  @media(prefers-color-scheme:dark){:root{
+    --parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;
+    --ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);
+    --beat-bg:rgba(196,168,130,0.06);--beat-border:#5a4a38;
+    --success-bg:rgba(93,202,165,0.07);--success-border:#5DCAA5;--success-text:#E1F5EE;
+    --warning-bg:rgba(239,159,39,0.07);--warning-border:#EF9F27;--warning-text:#FAEEDA;
+    --npc-bg:rgba(196,168,130,0.05);--npc-border:#5a4a38;
+  }}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:32px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .environment-block{background:var(--beat-bg);border-left:3px solid var(--beat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .environment-block p{margin-bottom:.6rem;}.environment-block p:last-child{margin-bottom:0;}
+  .env-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+  @media(max-width:600px){.env-features{grid-template-columns:1fr;}}
+  .env-feature{display:flex;gap:8px;align-items:flex-start;}
+  .env-feature-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);min-width:80px;padding-top:3px;flex-shrink:0;}
+  .env-feature-desc{font-size:14px;color:var(--ink-mid);line-height:1.5;}
+  .npc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+  @media(max-width:600px){.npc-grid{grid-template-columns:1fr;}}
+  .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
+  .npc-card.grid-card{margin-bottom:0;}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-portrait{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);overflow:hidden;flex-shrink:0;background:var(--parchment-dark);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;}
+  .npc-portrait.small{width:40px;height:40px;}
+  .npc-portrait img{width:100%;height:100%;object-fit:cover;}
+  .npc-portrait-placeholder{font-family:'Cinzel',serif;font-size:9px;color:var(--ink-faded);text-align:center;padding:3px;line-height:1.3;pointer-events:none;}
+  .npc-portrait input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin:12px 0 5px;}
+  .npc-desc{font-size:15px;color:var(--ink-mid);margin-bottom:6px;}
+  .npc-trait{display:flex;gap:8px;margin-bottom:5px;font-size:14px;}
+  .npc-trait-key{color:var(--ink-faded);min-width:90px;flex-shrink:0;font-style:italic;}
+  .speech-block{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header:hover{opacity:.8;}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+  .outcome{border-radius:5px;padding:12px 14px;margin-bottom:10px;font-size:15px;}
+  .outcome.success{background:var(--success-bg);border:.5px solid var(--success-border);color:var(--success-text);}
+  .outcome.warning{background:var(--warning-bg);border:.5px solid var(--warning-border);color:var(--warning-text);}
+  .outcome-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:6px;opacity:.8;}
+  .outcome p{margin-bottom:6px;}.outcome p:last-child{margin-bottom:0;}
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+  .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="encounter-header">
+    <span class="encounter-type">Encounter Reference — Act 1 / Brindle Hollow</span>
+    <div class="encounter-title">The Star and Raven</div>
+    <div class="encounter-subtitle">Session one opening — the party meets and receives the job</div>
+    <div class="encounter-meta">
+      <span class="meta-tag">Social encounter</span>
+      <span class="meta-tag">No combat</span>
+      <span class="meta-tag">Session Zero / One opening</span>
+      <span class="meta-tag">Job offered by Morfudd Pryce</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+    <button class="ctrl-btn" onclick="expandBeats()">Beats only</button>
+    <button class="ctrl-btn" onclick="expandNPCs()">NPCs only</button>
+  </div>
+
+  <div class="section-heading">Environment</div>
+  <div class="environment-block">
+    <p>The Star and Raven is the kind of tavern that has been keeping people warm for a long time without making a point of it. Low ceilings, heavy beams darkened by years of smoke, stone walls and worn wooden floors. Candles and a single fireplace provide most of the light. It smells of woodsmoke and something cooking in the back.</p>
+    <p>It is a rainy evening. The windows are small and the rain streaks them. The room is not full but it is occupied — a handful of regulars, a traveller, two dwarves having a drink after work, and an elf in the corner who appears to be doing well at cards.</p>
+    <p>This is where the party finds itself at the start of the campaign. Nobody is heroic yet. The world is simply in front of them.</p>
+  </div>
+
+  <div class="env-features">
+    <div class="env-feature">
+      <span class="env-feature-label">The bar</span>
+      <span class="env-feature-desc">Where Nesta works. The natural place for newcomers to orient themselves. She will have sized the party up before they reach it.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">The fire</span>
+      <span class="env-feature-desc">Warmth and light. A natural gathering point on a wet evening. Coll is nearby.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Seren's corner</span>
+      <span class="env-feature-desc">The elf with the cards. A table slightly apart from the others. A game of Crowns and Crows in progress. Players who investigate will find someone who has been here longer than most.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">The dwarves</span>
+      <span class="env-feature-desc">Borek and Yael, after a shift. They are not plot relevant. They are texture. The world has always had people like them in it.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Rain outside</span>
+      <span class="env-feature-desc">Nobody is going anywhere in a hurry. The weather gives the scene permission to breathe.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Crowns and Crows</span>
+      <span class="env-feature-desc">The card game Seren is playing. A bluffing game — players declare the value of their hand and others decide whether to believe them. If a player joins, run it as Insight vs Seren's Deception. Seren has been playing for longer than anyone at the table has been alive.</span>
+    </div>
+  </div>
+
+  <div class="section-heading">Key NPCs</div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('nesta')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="nesta-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="nesta-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('nesta',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Nesta</span>
+        <span class="npc-role">Barkeep — warm, observant, knows everything</span>
+      </div>
+      <span class="npc-toggle" id="nesta-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="nesta-body">
+      <span class="npc-section-label">Appearance</span>
+      <p class="npc-desc">Mid-forties, hair pulled back practically, an apron that has seen better days. The face of someone who has seen everything a small village can produce and remained fond of it anyway. She notices the party before they notice her.</p>
+      <span class="npc-section-label">Role in the scene</span>
+      <div class="npc-trait"><span class="npc-trait-key">First contact</span><span>The party will likely approach her first. She is welcoming without being effusive. She can answer questions about Brindle Hollow, about the other patrons, and about the general state of things.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">The job</span><span>She knows Morfudd Pryce is looking for capable people. She will mention it if the party seems at a loose end, or if directly asked about work. She does not oversell it.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">What she knows</span><span>Everything that has happened in Brindle Hollow for the last twenty years. She will not volunteer it. She will answer questions honestly and without embellishment.</span></div>
+    </div>
+  </div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('morfudd')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="morfudd-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="morfudd-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('morfudd',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Morfudd Pryce</span>
+        <span class="npc-role">Aeronist priest — the employer</span>
+      </div>
+      <span class="npc-toggle" id="morfudd-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="morfudd-body">
+      <span class="npc-section-label">Appearance</span>
+      <p class="npc-desc">Middle aged, thin, slightly officious. Well kept dark robes with subtle green and blue embroidery. Receding hair, a neatly trimmed beard, and the expression of a man whose seeding ceremony was ruined by a one-handed paladin making a point about a goat. He introduces himself with his full name.</p>
+      <span class="npc-section-label">The situation</span>
+      <div class="npc-trait"><span class="npc-trait-key">What happened</span><span>Morfudd organised a seeding ceremony at the Stillwater Shrine — a ritual sacrifice of an animal in the pool in preparation for new growth. Marek Talan disrupted it non-violently but sufficiently to ruin the day. Morfudd made a citizen's arrest.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">The job</span><span>Escort Marek to Tallowhaven to face the magistrate. Morfudd cannot do it himself — he has the shrine to manage and Marek needs capable hands to make sure he arrives. He will pay on commission of the delivery.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">His manner</span><span>Pompous rather than rude. He considers himself a person of standing in Brindle Hollow and is accustomed to being taken seriously. He is slightly embarrassed to be seeking help in a tavern but has run out of better options.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">On Marek</span><span>He describes Marek as a troublemaker and a disruptor. His account is accurate in its facts and uncharitable in its framing. He genuinely believes Marek was wrong.</span></div>
+    </div>
+  </div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('seren')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="seren-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="seren-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('seren',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Seren</span>
+        <span class="npc-role">Elf — Crowns and Crows, corner table</span>
+      </div>
+      <span class="npc-toggle" id="seren-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="seren-body">
+      <span class="npc-section-label">Appearance</span>
+      <p class="npc-desc">Quietly androgynous, ageless in the way that makes it impossible to guess whether they are two hundred or five hundred. Fine features, unhurried expression, a hand of cards visible at the edge of the frame. The faint suggestion of someone who has been winning for longer than anyone at the table has been alive.</p>
+      <span class="npc-section-label">Role in the scene</span>
+      <div class="npc-trait"><span class="npc-trait-key">Optional</span><span>Seren does not approach the party. They are available if the party investigates. A player who sits down at the card table gets a brief encounter with someone ancient, perceptive, and entirely untroubled by strangers.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">If a player wins</span><span>Seren is delighted rather than annoyed. Someone interesting finally sat down. The conversation that follows can go anywhere you want it to.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">If Seren wins</span><span>They accept the outcome with quiet grace and offer to buy the loser a drink. Still opens the same conversation.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">What they know</span><span>Seren has been in Brindle Hollow for a long time. They know about the shrine, about Morfudd, and about the general rhythm of the place. They will not volunteer much but will answer questions thoughtfully.</span></div>
+    </div>
+  </div>
+
+  <div class="section-heading">Background Patrons</div>
+  <div class="npc-grid">
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('coll')">
+        <div class="npc-portrait small" title="Click to load portrait">
+          <img id="coll-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="coll-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('coll',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Coll</span>
+          <span class="npc-role">Local farmer — quiet, opinionated</span>
+        </div>
+        <span class="npc-toggle" id="coll-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="coll-body">
+        <p class="npc-desc">Late fifties, farmer's weathering, plain clothes, the look of someone who has lived in this valley his entire life and made peace with that. He has an opinion on the Marek situation — more sympathetic than he would admit publicly. He will share it if drawn out.</p>
+      </div>
+    </div>
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('reed')">
+        <div class="npc-portrait small" title="Click to load portrait">
+          <img id="reed-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="reed-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('reed',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Reed</span>
+          <span class="npc-role">Traveller — passing through from Tallowhaven</span>
+        </div>
+        <span class="npc-toggle" id="reed-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="reed-body">
+        <p class="npc-desc">Thirties, deliberately unremarkable, road-worn travelling clothes. Alert eyes that take in more than they give back. He has come from the direction of Tallowhaven and can speak to what the city is like right now — busy with festival preparation, slightly tense, money moving in ways that not everyone is comfortable with.</p>
+      </div>
+    </div>
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('borek')">
+        <div class="npc-portrait small" title="Click to load portrait">
+          <img id="borek-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="borek-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('borek',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Borek and Yael</span>
+          <span class="npc-role">Dwarves — after a shift, not plot relevant</span>
+        </div>
+        <span class="npc-toggle" id="borek-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="borek-body">
+        <p class="npc-desc">Two dwarves, brothers or close enough. Broad and work-worn, still carrying the day's dust. They are having a drink and minding their own business. Their presence establishes that this is a mixed world without anyone needing to comment on it. They are not plot relevant unless a player makes them so.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-heading">Encounter Beats</div>
+
+  <div class="dm-note"><strong>Purpose of this scene</strong>The party meets. The world is established. A job is offered. This scene should breathe. Do not rush toward the job. Let the players find their feet, talk to people, and make the room feel real before the plot starts moving.</div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(1)">
+      <span class="beat-number">01</span>
+      <span class="beat-title">Arrival</span>
+      <span class="beat-toggle" id="beat-toggle-1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-1">
+      <p>The party arrives at the Star and Raven on a wet evening. The room is warm. Nesta is behind the bar. The fire is going. The scene is set.</p>
+      <p>Let players introduce their characters to each other. Do not force it. Give them things to interact with — the bar, the fire, the dwarves, Seren's card game — and let the introductions happen naturally.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(2)">
+      <span class="beat-number">02</span>
+      <span class="beat-title">The world in miniature</span>
+      <span class="beat-toggle" id="beat-toggle-2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-2">
+      <p>This beat is purely optional engagement. Players who talk to Nesta get a warm, practical read on Brindle Hollow. Players who talk to Coll get a local's perspective. Players who talk to Reed get a glimpse of Tallowhaven before they arrive there. Players who approach Seren get something older and harder to read.</p>
+      <p>None of this is required. All of it rewards curiosity. The world is here if they want it.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(3)">
+      <span class="beat-number">03</span>
+      <span class="beat-title">Morfudd arrives</span>
+      <span class="beat-toggle" id="beat-toggle-3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-3">
+      <p>Morfudd Pryce enters and introduces himself with his full name. He finds the party — either through Nesta's recommendation or by identifying them as capable-looking strangers — and explains the situation.</p>
+      <p>He describes Marek's disruption of the seeding ceremony, his citizen's arrest, and the need to escort Marek to Tallowhaven to face the magistrate. He is slightly embarrassed to be doing this in a tavern but keeps his dignity intact.</p>
+      <p>He pays on completion of the delivery. He cannot accompany them himself. He needs capable hands.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(4)">
+      <span class="beat-number">04</span>
+      <span class="beat-title">Questions and negotiation</span>
+      <span class="beat-toggle" id="beat-toggle-4">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-4">
+      <p>The party will have questions. Morfudd answers them honestly and with his characteristic slight pomposity. He describes Marek as a troublemaker. His account is accurate in its facts.</p>
+      <p>If the party negotiates payment upward they will find him resistant but not immovable. He is spending his own money and feels the pinch of it. A persuasive case gets a small concession.</p>
+      <p>If the party asks what Marek actually did, Morfudd's account is telling. He describes a man who made arguments rather than threats, who disrupted rather than damaged, and who left when asked. The party may form their own conclusions about whether this required an arrest.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(5)">
+      <span class="beat-number">05</span>
+      <span class="beat-title">The job is accepted</span>
+      <span class="beat-toggle" id="beat-toggle-5">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-5">
+      <p>Morfudd tells them Marek is being held at the Stillwater Shrine, which is where they will begin in the morning. He leaves with the manner of a man who has solved a problem and would like not to think about it further.</p>
+      <p>The rest of the evening is the party's. The room is still warm. The rain is still outside. Seren is still at the card table.</p>
+    </div>
+  </div>
+
+  <div class="section-heading">DM Notes</div>
+
+  <div class="dm-note"><strong>Session one tone</strong>This scene sets the register for everything that follows. Keep it grounded, unhurried, and human. Nobody is special yet. The world is simply in front of them and they are deciding what to do with it.</div>
+
+  <div class="dm-note"><strong>Crowns and Crows</strong>If players want to actually play the card game with Seren, run it as a series of Insight vs Deception contested rolls. Seren has a high Deception modifier reflecting centuries of practice. Winning is genuinely satisfying. Losing is graceful. Either way Seren buys a drink and conversation opens.</div>
+
+  <div class="dm-note"><strong>Morfudd's pomposity</strong>Play it straight. He is not a villain and he is not comic relief. He is a man of modest local standing whose ceremony was disrupted and who believes he is entirely in the right. He probably is, technically. That is part of what makes Marek interesting.</div>
+
+  <div class="dm-note"><strong>Seeding away</strong>Nothing in this scene needs to be seeded toward Act 2 or Act 3. The world is established simply by being itself. Trust that.</div>
+
+  <footer>Abelon Campaign — Encounter Reference. The Star and Raven / Brindle Hollow / Act 1.</footer>
+</div>
+
+<script>
+  function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
+  function expandBeats(){collapseAll();document.querySelectorAll('.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function expandNPCs(){collapseAll();document.querySelectorAll('.npc-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle').forEach(el=>el.classList.add('open'));}
+  function loadPortrait(id,input){if(!input.files||!input.files[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(id+'-img'),ph=document.getElementById(id+'-placeholder');if(img){img.src=e.target.result;img.style.display='block';}if(ph)ph.style.display='none';};r.readAsDataURL(input.files[0]);}
+</script>
+</body>
+</html>

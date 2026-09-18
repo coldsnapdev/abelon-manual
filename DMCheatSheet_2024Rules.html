@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DM Cheat Sheet — D&D 2024</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --bg:#1a1410;--bg2:#241f16;--bg3:#2a2318;--bg4:#312619;
+    --ink:#e8d9bc;--ink2:#c4a882;--ink3:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.35);
+    --red:#F0997B;--red-bg:rgba(240,153,123,0.1);--red-border:rgba(240,153,123,0.3);
+    --teal:#5DCAA5;--teal-bg:rgba(93,202,165,0.1);--teal-border:rgba(93,202,165,0.3);
+    --blue:#85B7EB;--blue-bg:rgba(133,183,235,0.1);--blue-border:rgba(133,183,235,0.3);
+    --gold:#EF9F27;--gold-bg:rgba(239,159,39,0.1);--gold-border:rgba(239,159,39,0.3);
+    --pink:#ED93B1;--pink-bg:rgba(237,147,177,0.1);--pink-border:rgba(237,147,177,0.3);
+    --purple:#B59AE8;--purple-bg:rgba(181,154,232,0.1);--purple-border:rgba(181,154,232,0.3);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.5;padding:1.25rem 1rem 3rem;}
+  .page{max-width:1100px;margin:0 auto;}
+
+  h1{font-family:'Cinzel',serif;font-size:20px;font-weight:600;color:var(--accent);letter-spacing:.05em;margin-bottom:3px;}
+  .subtitle{font-size:13px;font-style:italic;color:var(--ink3);margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
+
+  /* Controls */
+  .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;}
+  .ctrl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:4px 12px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:transparent;cursor:pointer;transition:all .15s;}
+  .ctrl:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* Grid layout */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .grid-wide{display:grid;grid-template-columns:2fr 1fr;gap:10px;}
+  @media(max-width:900px){.grid,.grid-2,.grid-wide{grid-template-columns:1fr;}}
+
+  /* Section */
+  .section{margin-bottom:10px;}
+  .section-head{font-family:'Cinzel',serif;font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:.5px solid var(--rule);padding-bottom:4px;margin-bottom:8px;cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center;}
+  .section-head .toggle{font-size:13px;color:var(--ink3);transition:transform .2s;}
+  .section-head .toggle.open{transform:rotate(180deg);}
+  .section-body{display:none;}
+  .section-body.open{display:block;}
+
+  /* Card */
+  .card{background:var(--bg2);border-radius:5px;padding:10px 12px;margin-bottom:6px;border:.5px solid var(--rule-faint);}
+  .card.red{border-color:var(--red-border);background:var(--red-bg);}
+  .card.teal{border-color:var(--teal-border);background:var(--teal-bg);}
+  .card.blue{border-color:var(--blue-border);background:var(--blue-bg);}
+  .card.gold{border-color:var(--gold-border);background:var(--gold-bg);}
+  .card.pink{border-color:var(--pink-border);background:var(--pink-bg);}
+  .card.purple{border-color:var(--purple-border);background:var(--purple-bg);}
+
+  .card-title{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--ink);display:block;margin-bottom:4px;}
+  .card-body{font-size:13px;color:var(--ink2);line-height:1.5;}
+  .card-body p{margin-bottom:4px;}.card-body p:last-child{margin-bottom:0;}
+  .tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:1px 6px;border-radius:2px;margin-right:4px;display:inline-block;margin-bottom:2px;}
+  .tag.red{background:var(--red-bg);color:var(--red);border:.5px solid var(--red-border);}
+  .tag.teal{background:var(--teal-bg);color:var(--teal);border:.5px solid var(--teal-border);}
+  .tag.gold{background:var(--gold-bg);color:var(--gold);border:.5px solid var(--gold-border);}
+  .tag.blue{background:var(--blue-bg);color:var(--blue);border:.5px solid var(--blue-border);}
+
+  /* Table */
+  .ref-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:4px;}
+  .ref-table th{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);text-align:left;padding:4px 8px;border-bottom:.5px solid var(--rule);}
+  .ref-table td{padding:4px 8px;border-bottom:.5px solid var(--rule-faint);color:var(--ink2);vertical-align:top;}
+  .ref-table tr:last-child td{border-bottom:none;}
+  .ref-table tr:hover td{background:var(--bg3);}
+  .ref-table td strong{color:var(--ink);font-weight:600;}
+  .ref-table td.dim{color:var(--ink3);font-style:italic;}
+
+  /* Conditions grid */
+  .cond-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+  @media(max-width:700px){.cond-grid{grid-template-columns:1fr 1fr;}}
+  .cond{background:var(--bg3);border-radius:4px;padding:7px 9px;border:.5px solid var(--rule-faint);}
+  .cond-name{font-family:'Cinzel',serif;font-size:10px;color:var(--ink);display:block;margin-bottom:2px;}
+  .cond-desc{font-size:12px;color:var(--ink2);line-height:1.4;}
+
+  /* Skills */
+  .skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
+  @media(max-width:700px){.skill-grid{grid-template-columns:1fr 1fr;}}
+  .skill{background:var(--bg3);border-radius:4px;padding:6px 9px;border:.5px solid var(--rule-faint);}
+  .skill-name{font-family:'Cinzel',serif;font-size:10px;color:var(--ink);display:block;}
+  .skill-ability{font-size:11px;color:var(--gold);display:block;margin-bottom:2px;}
+  .skill-desc{font-size:11px;color:var(--ink3);line-height:1.4;}
+
+  /* Exhaustion */
+  .ex-bar{display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap;}
+  .ex-pip{flex:1;min-width:60px;text-align:center;padding:6px 4px;border-radius:4px;border:.5px solid var(--rule-faint);background:var(--bg3);}
+  .ex-pip-level{font-family:'Cinzel',serif;font-size:11px;color:var(--accent);display:block;}
+  .ex-pip-effect{font-size:11px;color:var(--ink2);}
+  .ex-pip.death{background:var(--red-bg);border-color:var(--red-border);}
+  .ex-pip.death .ex-pip-level{color:var(--red);}
+
+  /* Inline highlight */
+  .hl{color:var(--gold);}
+  .hl-teal{color:var(--teal);}
+  .hl-red{color:var(--red);}
+  .hl-blue{color:var(--blue);}
+
+  /* Divider */
+  .divider{border:none;border-top:.5px solid var(--rule);margin:12px 0;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+<h1>DM Cheat Sheet — D&D 2024</h1>
+<div class="subtitle">Quick rules reference for Abelon sessions</div>
+
+<div class="controls">
+  <button class="ctrl" onclick="expandAll()">Expand all</button>
+  <button class="ctrl" onclick="collapseAll()">Collapse all</button>
+</div>
+
+<div class="grid">
+
+<!-- ═══════════════════════════════════════════ COL 1 -->
+<div>
+
+  <!-- ACTIONS -->
+  <div class="section">
+    <div class="section-head" onclick="toggleSection(this)">Actions <span class="toggle">▼</span></div>
+    <div class="section-body">
+      <table class="ref-table">
+        <tr><th>Action</th><th>What it does</th></tr>
+        <tr><td><strong>Attack</strong></td><td>Make one or more weapon or unarmed strikes. Can grapple or shove as part of an unarmed strike.</td></tr>
+        <tr><td><strong>Cast a Spell</strong></td><td>Cast a spell with a casting time of 1 action (now called the Magic action).</td></tr>
+        <tr><td><strong>Dash</strong></td><td>Gain extra movement equal to your speed this turn.</td></tr>
+        <tr><td><strong>Disengage</strong></td><td>Your movement does not provoke opportunity attacks for the rest of the turn.</td></tr>
+        <tr><td><strong>Dodge</strong></td><td>Attacks against you have disadvantage. You have advantage on Dex saves. Ends if incapacitated or speed drops to 0.</td></tr>
+        <tr><td><strong>Help</strong></td><td>Give an ally advantage on their next ability check or attack roll against a creature within 5 ft of you.</td></tr>
+        <tr><td><strong>Hide</strong></td><td>Make a Stealth check. Must be heavily obscured or behind total cover to attempt.</td></tr>
+        <tr><td><strong>Influence</strong></td><td>Make a Persuasion, Deception, or Intimidation check to shift a creature's attitude. Replaces old Persuasion rules.</td></tr>
+        <tr><td><strong>Magic</strong></td><td>Activate a magic item, cast a spell, or use a feature requiring the Magic action.</td></tr>
+        <tr><td><strong>Ready</strong></td><td>Prepare to react to a trigger. Uses your reaction when the trigger occurs. Concentration required for spells.</td></tr>
+        <tr><td><strong>Search</strong></td><td>Make a Perception or Investigation check to find something.</td></tr>
+        <tr><td><strong>Study</strong></td><td>Make an Arcana, History, Nature, or Religion check to recall information about something.</td></tr>
+        <tr><td><strong>Utilise</strong></td><td>Use a non-magical object (open a door, pull a lever, pick something up). Covers most environmental interactions.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- BONUS ACTIONS -->
+  <div class="section">
+    <div class="section-head" onclick="toggleSection(this)">Bonus Actions <span class="toggle">▼</span></div>
+    <div class="section-body">
+      <div class="card gold" style="margin-bottom:8px;">
+        <span class="card-body">You only get a bonus action if a feature, spell, or rule grants one. You can only take one bonus action per turn.</span>
+      </div>
+      <table class="ref-table">
+        <tr><th>Bonus Action</th><th>Condition</th></tr>
+        <tr><td><strong>Off-hand attack</strong></td><td>When you Attack with a Light weapon, attack with another Light weapon in the other hand. No modifier to damage unless Two-Weapon Fighting style.</td></tr>
+        <tr><td><strong>Bonus action spell</strong></td><td>Cast a spell with a casting time of 1 bonus action. If you do, the only other spell you can cast this turn is a cantrip with a casting time of 1 action.</td></tr>
+        <tr><td><strong>Class features</strong></td><td>Many class features use bonus actions — Rage, Cunning Action, Second Wind, Wild Shape, Divine Smite, etc.</td></tr>
+        <tr><td><strong>Equip/stow weapon</strong></td><td>Free as part of the Attack action in 2024. No longer costs your object interaction.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- REACTIONS -->
+  <div class="section">
+    <div class="section-head" onclick="toggleSection(this)">Reactions <span class="toggle">▼</span></div>
+    <div class="section-body">
+      <table class="ref-table">
+        <tr><th>Reaction</th><th>Trigger</th></tr>
+        <tr><td><strong>Opportunity Attack</strong></td><td>A creature you <em>can see</em> (changed from 2014) leaves your reach without Disengaging. Make one melee attack against it.</td></tr>
+        <tr><td><strong>Readied action</strong></td><td>Your declared trigger occurs.</td></tr>
+        <tr><td><strong>Class features</strong></td><td>Uncanny Dodge, Shield spell, Cutting Words, etc.</td></tr>
+      </table>
+      <div class="card" style="margin-top:6px;">
+        <span class="card-body">You get one reaction per round. It resets at the start of your turn.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESTING -->
+  <div class="section">
+    <div class="section-head" onclick="toggleSection(this)">Resting <span class="toggle">▼</span></div>
+    <div class="section-body">
+      <div class="card teal">
+        <span class="card-title">Short Rest — 1 hour</span>
+        <div class="card-body">
+          <p>Spend Hit Dice to recover HP (roll die + Con modifier per die spent).</p>
+          <p>Recover class features that recharge on a short rest.</p>
+        </div>
+      </div>
+      <div class="card blue">
+        <span class="card-title">Long Rest — 8 hours</span>
+        <div class="card-body">
+          <p>Recover all HP. Regain spent Hit Dice up to half your total (minimum 1).</p>
+          <p>Recover all spell slots and features that recharge on a long rest.</p>
+          <p>Reduce Exhaustion by 1 level.</p>
+          <p class="dim">Interrupted by 1 hour of strenuous activity. If you rested 1 hour before interruption, you get a short rest benefit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEATH AND DYING -->
+  <div class="section">
+    <div class="section-head" onclick="toggleSection(this)">Death and Dying <span class="toggle">▼</span></div>
+    <div class="section-body">
+      <div class="card red">
+        <span class="card-title">At 0 HP</span>
+        <div class="card-body">
+          <p>Fall unconscious. Start making Death Saving Throws at the start of each turn.</p>
+          <p>Roll a d20. <span class="hl-teal">10 or higher = success.</span> <span class="hl-red">9 or lower = failure.</span></p>
+          <p><span class="hl">3 successes</span> = stable (unconscious, no longer dying).</p>
+          <p><span class="hl-red">3 failures</span> = dead.</p>
+          <p>A natural 20 = regain 1 HP immediately.</p>
+          <p>A natural 1 = counts as 2 failures.</p>
+          <p>Taking damage while at 0 HP = 1 failure. Critical hit = 2 failures.</p>
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-title">Stabilising</span>
+        <div class="card-body">
+          <p>Use an action to make DC 10 Medicine check on an unconscious creature. Success = stable.</p>
+          <p>Healing spells or any HP recovery also stabilise immediately.</p>
+          <p><strong>Knocking out:</strong> When you reduce a creature to 0 HP with melee, you can knock it out instead of killing it. It is unconscious and starts a Short Rest — stable at the end.</p>
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-title">Massive damage</span>
+        <div class="card-body">
+          <p>If damage reduces you to 0 HP and there is damage remaining, you die instantly if the remaining damage equals or exceeds your HP maximum.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ COL 2 -->
+<div>
+
+  <!-- COMBAT MOVES -->
+  <div class="section">
+    <div class="section-head" onclick="toggleSection(this)">Combat — Grappling, Shoving, Unarmed <span class="toggle">▼</span></div>
+    <div class="section-body">
+      <div class="card teal">
+        <span class="card-title">Unarmed Strike — 2024</span>
+        <div class="card-body">
+          <p>When you take the Attack action, replace one attack with an unarmed strike.</p>
+          <p>Choose one: <span class="hl">Deal damage</span> (1 + Str mod bludgeoning), <span class="hl">Grapple</span> the target, or <span class="hl">Shove</span> the target.</p>
+          <p><strong>Punch and Grab:</strong> If you hit with a damaging unarmed strike, you can also attempt to grapple as part of the same strike. Once per turn.</p>
+        </div>
+      </div>
+      <div class="card blue">
+        <span class="card-title">Grappling — 2024</span>
+        <div class="card-body">
+          <p><strong>How:</strong> Replace an attack with an unarmed grapple. Target must be no more than one size larger. You need one free hand.</p>
+          <p><strong>DC:</strong> 8 + Str mod + proficiency bonus. Target chooses Str or Dex save.</p>
+          <p><strong>Grappled condition:</strong> Speed 0. Disadvantage on attacks against anyone except the grappler.</p>
+          <p><strong>Grappler advantage:</strong> You have advantage on attacks against a creature you are grappling.</p>
+          <p><strong>Moving a grappled creature:</strong> Move at half speed. Free if creature is your size or smaller (Fast Wrestler).</p>
+          <p><strong>Escaping:</strong> Grappled creature uses its action to make a Str or Dex save against your DC.</p>
+        </div>
+      </div>
+      <div class="card gold">
+        <span class="card-title">Shoving — 2024</span>
+        <div class="card-body">
+          <p><strong>How:</strong> Replace an attack with an unarmed shove. Same size restriction and free hand requirement as grapple.</p>
+          <p><strong>DC:</strong> Same as grapple. Target chooses Str or Dex save.</p>
+          <p><strong>Effect:</strong> Choose — push 5 ft away, or knock Prone.</p>
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-title">Two-Weapon Fighting — 2024</span>
+        <div class="card-body">
+          <p>Attack with a Light weapon → use bonus action to attack with another Light weapon in other hand.</p>
+          <p>No ability modifier to the bonus attack's damage (unless you have the Two-Weapon Fighting style).</p>
+          <p>Now works with ranged Light weapons too. Not limited to melee.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOVEMENT -->
+  <div class="section">
+    <div class="section-head" onclick="toggleSection(this)">Movement — Climbing, Jumping, Swimming, Falling <span class="toggle">▼</span></div>
+    <div class="section-body">
+      <table class="ref-table">
+        <tr><th>Type</th><th>Cost</th><th>Notes</th></tr>
+        <tr><td><strong>Climbing</strong></td><td>+1 ft per ft (×2 in difficult terrain)</td><td>Free with Climb Speed. DC set by surface at DM discretion.</td></tr>
+        <tr><td><strong>Swimming</strong></td><td>+1 ft per ft (×2 in difficult terrain)</td><td>Free with Swim Speed.</td></tr>
+        <tr><td><strong>Crawling</strong></td><td>+1 ft per ft</td><td>Only movement option while Prone.</td></tr>
+        <tr><td><strong>Difficult terrain</strong></td><td>+1 ft per ft</td><td>Stacks with climbing/swimming.</td></tr>
+      </table>
+      <div class="card gold" style="margin-top:6px;">
+        <span class="card-title">Jumping</span>
+        <div class="card-body">
+          <p><strong>Long Jump:</strong> Running start — up to Str score in feet. Standing — half that. Costs movement equal to distance jumped.</p>
+          <p><strong>High Jump:</strong> Running start — 3 + Str modifier feet. Standing — half that.</p>
+          <p>Can extend with Athletics check (DM sets DC). Jump counts against movement.</p>
+        </div>
+      </div>
+      <div class="card red" style="margin-top:6px;">
+        <span class="card-title">Falling</span>
+        <div class="card-body">
+          <p><span class="hl">1d6 bludgeoning per 10 ft fallen, max 20d6</span> (200 ft).</p>
+          <p>Damage dealt at end of the fall. Land Prone.</p>
+          <p>Falling onto a creature: both take falling damage, target makes DC 15 Dex save or is knocked Prone.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:6px;">
+        <span class="card-title">Standing from Prone</span>
+        <div class="card-body">
+          <p>Costs half your speed (round down). So with 30 ft speed, costs 15 ft to stand.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISION AND LIGHT -->
+  <div class="section">
+    <div class="section-head" onclick="toggleSection(this)">Vision and Light <span class="toggle">▼</span></div>
+    <div class="section-body">
+      <table class="ref-table">
+        <tr><th>Light level</th><th>Effect on vision</th></tr>
+        <tr><td><strong>Bright light</strong></td><td>Normal vision. No penalties.</td></tr>
+        <tr><td><strong>Dim light</strong></td><td>Lightly obscured. Disadvantage on Perception checks relying on sight.</td></tr>
+        <tr><td><strong>Darkness</strong></td><td>Heavily obscured. Effectively Blinded unless you have Darkvision.</td></tr>
+      </table>
+      <table class="ref-table" style="margin-top:6px;">
+        <tr><th>Sense</th><th>How it works</th></tr>
+        <tr><td><strong>Darkvision</strong></td><td>Treat Darkness as Dim light and Dim light as Bright light within range. Colours appear as shades of grey in Darkness.</td></tr>
+        <tr><td><strong>Blindsight</strong></td><td>See within range without relying on sight. Works in Darkness, against invisible creatures. Still affected by Blinded condition.</td></tr>
+        <tr><td><strong>Truesight</strong></td><td>See through magical darkness, illusions, shapechangers in true form, ethereal plane. Range specified per creature.</td></tr>
+      </table>
+      <div class="card" style="margin-top:6px;">
+        <span class="card-title">Cover</span>
+        <div class="card-body">
+          <p><span class="hl">Half cover</span> — +2 to AC and Dex saves. Low walls, furniture, other creatures.</p>
+          <p><span class="hl">Three-quarters cover</span> — +5 to AC and Dex saves. Portcullises, arrow slits.</p>
+          <p><span class="hl">Total cover</span> — cannot be directly targeted. Fully concealed by a barrier.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:6px;">
+        <span class="card-title">Unseen attackers and targets</span>
+        <div class="card-body">
+          <p><strong>Attacking a creature you cannot see:</strong> Disadvantage on the attack roll.</p>
+          <p><strong>Being attacked by an unseen attacker:</strong> Attacker has advantage.</p>
+          <p>The two cancel out if both apply. Must still guess the target's location.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCENTRATION -->
+  <div class="section">
+    <div class="section-head" onclick="toggleSection(this)">Concentration <span class="toggle">▼</span></div>
+    <div class="section-body">
+      <div class="card purple">
+        <span class="card-title">What breaks concentration</span>
+        <div class="card-body">
+          <p><strong>Taking damage:</strong> Con save, DC = max(10, half damage taken). Fail = lose concentration.</p>
+          <p><strong>Casting another concentration spell:</strong> Instantly ends the current one.</p>
+          <p><strong>Incapacitated or killed.</strong></p>
+          <p><strong>DM discretion:</strong> Extreme environmental distraction may require DC 10 Con save.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:6px;">
+        <span class="card-title">Notes</span>
+        <div class="card-body">
+          <p>You can end concentration at any time — no action required.</p>
+          <p>War Caster feat: advantage on Con saves to maintain concentration.</p>
+          <p>Resilient (Con): proficiency in Con saves.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ COL 3 -->
+<div>
+
+  <!-- CONDITIONS -->
+  <div class="section">
+    <div class="section-head" onclick="toggleSection(this)">Conditions <span class="toggle">▼</span></div>
+    <div class="section-body">
+      <div class="cond-grid">
+        <div class="cond">
+          <span class="cond-name">Blinded</span>
+          <span class="cond-desc">Cannot see. Auto-fail sight checks. Attacks against you have advantage. Your attacks have disadvantage.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Charmed</span>
+          <span class="cond-desc">Cannot attack or target the charmer with harmful effects. Charmer has advantage on social checks against you.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Deafened</span>
+          <span class="cond-desc">Cannot hear. Auto-fail hearing checks.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Exhaustion</span>
+          <span class="cond-desc">See Exhaustion section. D20 rolls reduced by 2× level. Speed -5 ft per level. Death at level 6.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Frightened</span>
+          <span class="cond-desc">Disadvantage on ability checks and attacks while source of fear is in sight. Cannot willingly move closer to it.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Grappled</span>
+          <span class="cond-desc">Speed 0. Disadvantage on attacks against anyone except the grappler. Ends if grappler is incapacitated.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Incapacitated</span>
+          <span class="cond-desc">Cannot take actions, bonus actions, or reactions. Cannot concentrate. Cannot speak. Disadvantage on initiative.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Invisible</span>
+          <span class="cond-desc">Cannot be seen without special senses. Advantage on attacks. Attacks against you have disadvantage. Advantage on initiative.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Paralyzed</span>
+          <span class="cond-desc">Incapacitated. Speed 0. Auto-fail Str and Dex saves. Attacks have advantage. Hits within 5 ft are crits.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Petrified</span>
+          <span class="cond-desc">Incapacitated. Weight ×10. Resistance to all damage. Immune to poison and disease. Auto-fail Str and Dex saves.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Poisoned</span>
+          <span class="cond-desc">Disadvantage on attack rolls and ability checks.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Prone</span>
+          <span class="cond-desc">Crawling only. Disadvantage on attacks. Melee attacks against you have advantage. Ranged attacks have disadvantage. Stand costs half speed.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Restrained</span>
+          <span class="cond-desc">Speed 0. Attacks against you have advantage. Your attacks have disadvantage. Disadvantage on Dex saves.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Stunned</span>
+          <span class="cond-desc">Incapacitated. Speed not affected (changed in 2024). Auto-fail Str and Dex saves. Attacks against you have advantage.</span>
+        </div>
+        <div class="cond">
+          <span class="cond-name">Unconscious</span>
+          <span class="cond-desc">Incapacitated. Speed 0. Prone. Auto-fail Str and Dex saves. Attacks have advantage. Hits within 5 ft are crits.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXHAUSTION -->
+  <div class="section">
+    <div class="section-head" onclick="toggleSection(this)">Exhaustion — 2024 <span class="toggle">▼</span></div>
+    <div class="section-body">
+      <div class="ex-bar">
+        <div class="ex-pip"><span class="ex-pip-level">Level 1</span><span class="ex-pip-effect">-2 to all d20 rolls. Speed -5 ft.</span></div>
+        <div class="ex-pip"><span class="ex-pip-level">Level 2</span><span class="ex-pip-effect">-4 to all d20 rolls. Speed -10 ft.</span></div>
+        <div class="ex-pip"><span class="ex-pip-level">Level 3</span><span class="ex-pip-effect">-6 to all d20 rolls. Speed -15 ft.</span></div>
+        <div class="ex-pip"><span class="ex-pip-level">Level 4</span><span class="ex-pip-effect">-8 to all d20 rolls. Speed -20 ft.</span></div>
+        <div class="ex-pip"><span class="ex-pip-level">Level 5</span><span class="ex-pip-effect">-10 to all d20 rolls. Speed -25 ft.</span></div>
+        <div class="ex-pip death"><span class="ex-pip-level">Level 6</span><span class="ex-pip-effect">Death.</span></div>
+      </div>
+      <div class="card">
+        <span class="card-body">Each Long Rest removes 1 level. Greater Restoration removes 1 level. Does not reset on death — revived creatures keep exhaustion minus 1.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ FULL WIDTH SECTIONS -->
+
+<!-- SKILLS -->
+<div class="section" style="margin-top:10px;">
+  <div class="section-head" onclick="toggleSection(this)">Skills <span class="toggle">▼</span></div>
+  <div class="section-body">
+    <div class="skill-grid">
+      <div class="skill"><span class="skill-name">Acrobatics</span><span class="skill-ability">Dexterity</span><span class="skill-desc">Stay on your feet, perform gymnastic manoeuvres, escape restraints.</span></div>
+      <div class="skill"><span class="skill-name">Animal Handling</span><span class="skill-ability">Wisdom</span><span class="skill-desc">Calm, control, or intuit the intentions of animals.</span></div>
+      <div class="skill"><span class="skill-name">Arcana</span><span class="skill-ability">Intelligence</span><span class="skill-desc">Recall lore about spells, magic items, planes, and magical creatures.</span></div>
+      <div class="skill"><span class="skill-name">Athletics</span><span class="skill-ability">Strength</span><span class="skill-desc">Climb, jump, swim, grapple, shove. Physical exertion against resistance.</span></div>
+      <div class="skill"><span class="skill-name">Deception</span><span class="skill-ability">Charisma</span><span class="skill-desc">Mislead, lie convincingly, disguise the truth.</span></div>
+      <div class="skill"><span class="skill-name">History</span><span class="skill-ability">Intelligence</span><span class="skill-desc">Recall historical events, people, wars, legends, ancient knowledge.</span></div>
+      <div class="skill"><span class="skill-name">Insight</span><span class="skill-ability">Wisdom</span><span class="skill-desc">Read a person's intentions, detect lies, gauge emotional state.</span></div>
+      <div class="skill"><span class="skill-name">Intimidation</span><span class="skill-ability">Charisma</span><span class="skill-desc">Coerce through threat, force of personality, or physical menace.</span></div>
+      <div class="skill"><span class="skill-name">Investigation</span><span class="skill-ability">Intelligence</span><span class="skill-desc">Deduce, search for clues, piece together evidence, examine details.</span></div>
+      <div class="skill"><span class="skill-name">Medicine</span><span class="skill-ability">Wisdom</span><span class="skill-desc">Stabilise the dying, diagnose illness, determine cause of death.</span></div>
+      <div class="skill"><span class="skill-name">Nature</span><span class="skill-ability">Intelligence</span><span class="skill-desc">Recall lore about terrain, plants, animals, weather, natural cycles.</span></div>
+      <div class="skill"><span class="skill-name">Perception</span><span class="skill-ability">Wisdom</span><span class="skill-desc">Notice things using sight, hearing, smell. Spotting hidden creatures or details.</span></div>
+      <div class="skill"><span class="skill-name">Performance</span><span class="skill-ability">Charisma</span><span class="skill-desc">Entertain through music, acting, storytelling, or other performance.</span></div>
+      <div class="skill"><span class="skill-name">Persuasion</span><span class="skill-ability">Charisma</span><span class="skill-desc">Influence through good faith, diplomacy, or reasoned argument.</span></div>
+      <div class="skill"><span class="skill-name">Religion</span><span class="skill-ability">Intelligence</span><span class="skill-desc">Recall lore about gods, religious rites, cults, and divine symbols.</span></div>
+      <div class="skill"><span class="skill-name">Sleight of Hand</span><span class="skill-ability">Dexterity</span><span class="skill-desc">Pick pockets, conceal objects, perform manual trickery.</span></div>
+      <div class="skill"><span class="skill-name">Stealth</span><span class="skill-ability">Dexterity</span><span class="skill-desc">Move silently, hide, avoid detection.</span></div>
+      <div class="skill"><span class="skill-name">Survival</span><span class="skill-ability">Wisdom</span><span class="skill-desc">Track, hunt, navigate, predict weather, find food and shelter.</span></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function toggleSection(head){
+  const body = head.nextElementSibling;
+  const toggle = head.querySelector('.toggle');
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  toggle.classList.toggle('open', !open);
+}
+function expandAll(){
+  document.querySelectorAll('.section-body').forEach(b=>b.classList.add('open'));
+  document.querySelectorAll('.section-head .toggle').forEach(t=>t.classList.add('open'));
+}
+function collapseAll(){
+  document.querySelectorAll('.section-body').forEach(b=>b.classList.remove('open'));
+  document.querySelectorAll('.section-head .toggle').forEach(t=>t.classList.remove('open'));
+}
+</script>
+</body>
+</html>

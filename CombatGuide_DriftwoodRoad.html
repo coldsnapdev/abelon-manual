@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Combat Reference — The Driftwood Road</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --bg:#1a1410;--bg2:#241f16;--bg3:#2a2318;
+    --ink:#e8d9bc;--ink2:#c4a882;--ink3:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.3);
+    --red-bg:rgba(153,60,29,0.2);--red-border:#993C1D;--red-text:#F0997B;
+    --gold-bg:rgba(133,79,11,0.2);--gold-border:#EF9F27;--gold-text:#EF9F27;
+    --teal-bg:rgba(15,110,86,0.2);--teal-border:#5DCAA5;--teal-text:#5DCAA5;
+    --blue-bg:rgba(24,95,165,0.2);--blue-border:#85B7EB;--blue-text:#85B7EB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.5;padding:1.25rem;}
+  h1{font-family:'Cinzel',serif;font-size:18px;font-weight:600;color:var(--accent);letter-spacing:.05em;margin-bottom:3px;}
+  .subtitle{font-size:13px;font-style:italic;color:var(--ink3);margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:1rem;}
+
+  .card{background:var(--bg2);border-radius:7px;overflow:hidden;}
+  .card.hostile{border:.5px solid var(--red-border);}
+  .card.reluctant{border:.5px solid var(--blue-border);}
+  .card.objective{border:.5px solid var(--gold-border);}
+
+  .card-header{padding:8px 12px;display:flex;align-items:center;gap:10px;}
+  .hostile .card-header{background:var(--red-bg);}
+  .reluctant .card-header{background:var(--blue-bg);}
+  .objective .card-header{background:var(--gold-bg);}
+
+  .card-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);flex:1;}
+  .card-tag{font-size:11px;font-style:italic;color:var(--ink3);}
+
+  .copy-btn{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:var(--bg3);cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+  .copy-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .copy-btn.copied{border-color:var(--teal-border);color:var(--teal-text);}
+
+  .card-body{padding:10px 12px;display:flex;flex-direction:column;gap:8px;}
+
+  .quick-stats{display:flex;gap:6px;flex-wrap:wrap;}
+  .qs{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:2px 8px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink2);background:var(--bg3);}
+  .qs span{color:var(--ink3);margin-right:2px;}
+
+  .section{display:flex;flex-direction:column;gap:4px;}
+  .section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);padding-bottom:3px;border-bottom:.5px solid var(--rule-faint);}
+
+  .atk{font-size:13px;color:var(--ink2);}
+  .atk-name{font-weight:600;color:var(--ink);}
+  .atk-hit{color:var(--red-text);}
+  .atk-dmg{color:var(--gold-text);}
+  .atk-note{color:var(--ink3);font-style:italic;font-size:12px;}
+
+  .abl{font-size:13px;color:var(--ink2);}
+  .abl-name{font-weight:600;color:var(--teal-text);}
+
+  .tactics{font-size:14px;color:var(--ink);font-style:italic;padding:8px 10px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);line-height:1.55;}
+
+  .priority{font-size:13px;padding:6px 10px;border-radius:4px;background:var(--red-bg);border:.5px solid var(--red-border);color:var(--red-text);}
+  .priority.blue{background:var(--blue-bg);border-color:var(--blue-border);color:var(--blue-text);}
+  .priority.gold{background:var(--gold-bg);border-color:var(--gold-border);color:var(--gold-text);}
+
+  .context-bar{background:var(--bg2);border:.5px solid var(--rule);border-radius:6px;padding:10px 14px;margin-bottom:1rem;}
+  .context-bar .section-label{margin-bottom:6px;}
+  .context-bar p{font-size:13px;color:var(--ink2);}
+  .context-bar p+p{margin-top:4px;}
+
+  .terrain-bar{background:var(--bg2);border:.5px solid var(--rule);border-radius:6px;padding:10px 14px;margin-bottom:1rem;}
+  .terrain-bar .section-label{margin-bottom:6px;}
+  .terrain-row{font-size:13px;color:var(--ink2);padding:4px 0;border-bottom:.5px solid var(--rule-faint);}
+  .terrain-row:last-child{border-bottom:none;}
+  .terrain-name{font-family:'Cinzel',serif;font-size:12px;color:var(--ink);margin-right:6px;}
+
+  .cr-badge{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:var(--bg3);flex-shrink:0;}
+
+  footer{margin-top:1.5rem;padding-top:.75rem;border-top:.5px solid var(--rule-faint);font-size:11px;font-style:italic;color:var(--ink3);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+
+<h1>Combat Reference — The Driftwood Road</h1>
+<div class="subtitle">Radek's toll crew — bottleneck terrain — Level 3 party of 4 — Hard to Deadly</div>
+
+<div class="context-bar">
+  <span class="section-label">Encounter behaviour</span>
+  <p>This is a professional operation on ground Radek chose. The crew has sight lines, cover, and a position that funnels the party into a killzone. They are not here for a fight — they are here to extract payment — but they will commit fully if the party pushes it.</p>
+  <p>Radek holds the bottleneck. Morda and Brek work from elevated or flanking positions and do not come into melee willingly. Gort holds the line beside Radek. Thessaly controls the battlefield from cover. Peck stays at the rear with the ledger and is the objective, not a combatant.</p>
+  <p><strong>Surrender is a real option.</strong> Radek will accept it. He would rather take coin than casualties. If the party is clearly losing he will offer terms before finishing them — he wants a reputation for professionalism, not murder.</p>
+</div>
+
+<div class="terrain-bar">
+  <span class="section-label">Terrain — bottleneck road</span>
+  <div class="terrain-row"><span class="terrain-name">The bottleneck</span>Radek and Gort hold a narrow point on the road. The party cannot bring more than two fighters to bear at once without going off-road into difficult terrain.</div>
+  <div class="terrain-row"><span class="terrain-name">Elevated positions</span>Morda and Brek occupy high ground on either side of the road. They have three-quarter cover and advantage on Perception checks. Moving to engage them costs the party additional movement through difficult terrain.</div>
+  <div class="terrain-row"><span class="terrain-name">Thessaly's cover</span>She is behind the main group, in cover behind trees or a cart. She has half cover at minimum. She has line of sight to the road.</div>
+  <div class="terrain-row"><span class="terrain-name">Peck's position</span>He is furthest back, behind Thessaly. Reaching him requires getting through or around the entire crew first.</div>
+</div>
+
+<div class="grid">
+
+  <!-- RADEK -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Radek</span>
+      <span class="cr-badge">CR 1</span>
+      <button class="copy-btn" onclick="copyJSON('radek', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Fighter 3 — leader, holds the bottleneck</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>16</div>
+        <div class="qs"><span>HP</span>28</div>
+        <div class="qs"><span>Atk</span>+5</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Longsword (Attack — 2 attacks) — </span><span class="atk-hit">+5</span> / <span class="atk-dmg">1d8+3 slashing</span></div>
+        <div class="atk"><span class="atk-name">Longsword (Action Surge round) — </span><span class="atk-note">4 attacks total on Action Surge round</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Extra Attack — </span>Two attacks per Attack action.</div>
+        <div class="abl"><span class="abl-name">Action Surge (1/short rest) — </span>Takes an additional action. Use when a player breaks through the bottleneck or on round 2 if the party is gaining ground.</div>
+        <div class="abl"><span class="abl-name">Second Wind (bonus, 1/short rest) — </span>Regain 1d10+3 HP. Use below 14 HP.</div>
+        <div class="abl"><span class="abl-name">Combat Superiority — </span>3 superiority dice (d8). Manoeuvres: Disarming Attack (force drop a weapon on hit), Pushing Attack (push target 15 ft. on hit), Trip Attack (knock prone on hit).</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Holds the bottleneck. Does not advance unless the party retreats. Uses Trip Attack to knock the most dangerous melee fighter prone and keep them in front of him. Uses Action Surge if two party members break through. Offers surrender terms before finishing a downed party member.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THESSALY -->
+  <div class="card reluctant">
+    <div class="card-header">
+      <span class="card-name">Thessaly</span>
+      <span class="cr-badge">CR 1</span>
+      <button class="copy-btn" onclick="copyJSON('thessaly', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Mage — uncomfortable, controls the battlefield from cover</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>12</div>
+        <div class="qs"><span>HP</span>22</div>
+        <div class="qs"><span>Atk</span>+4</div>
+        <div class="qs"><span>Spd</span>30</div>
+        <div class="qs"><span>Slots</span>4×L1 / 2×L2</div>
+      </div>
+      <div class="priority blue">Thessaly has made choices that led here and is not entirely comfortable with them. If Radek goes down she disengages and does not continue fighting.</div>
+      <div class="section">
+        <span class="section-label">Priority actions</span>
+        <div class="atk"><span class="atk-name">Hold Person (L2, concentration) — </span><span class="atk-hit">DC 13 Wis save</span> <span class="atk-note">paralyses one humanoid — use on whoever is engaging Radek most effectively</span></div>
+        <div class="atk"><span class="atk-name">Fog Cloud (L1, concentration) — </span><span class="atk-note">20 ft. radius heavily obscured — use if ranged party members are targeting Morda or Brek effectively</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Secondary actions</span>
+        <div class="atk"><span class="atk-name">Magic Missile (L1) — </span><span class="atk-dmg">3 × 1d4+1 force</span> <span class="atk-note">auto-hit, 3 darts — use when concentration is occupied and guaranteed damage is needed</span></div>
+        <div class="atk"><span class="atk-name">Thunderwave (L1) — </span><span class="atk-hit">DC 13 Con save</span> / <span class="atk-dmg">2d8 thunder + pushed 10 ft.</span> <span class="atk-note">use if melee party members get too close</span></div>
+        <div class="atk"><span class="atk-name">Fire Bolt (cantrip) — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">1d10 fire</span> <span class="atk-note">range 120 ft. — default when no slots needed</span></div>
+        <div class="atk"><span class="atk-name">Minor Illusion (cantrip) — </span><span class="atk-note">creates a sound or image — use to misdirect the party if concentrating and unable to attack</span></div>
+        <div class="atk"><span class="atk-name">Dagger — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">1d4+2 piercing</span> <span class="atk-note">last resort only</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Shield (reaction, L1 slot) — </span>When hit by an attack, gains +5 AC until start of next turn including against the triggering hit.</div>
+        <div class="abl"><span class="abl-name">Disengages if Radek falls — </span>Does not fight on without him. Uses remaining movement to create distance.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Opens with Hold Person on the most effective melee combatant. Switches to Fog Cloud if ranged party members are decimating the flankers. Falls back to Magic Missile or Fire Bolt when concentration is unavailable. Uses Shield reaction to survive a hit if the party closes on her. Stays in cover. Does not move toward the fight.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MORDA -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Morda</span>
+      <span class="cr-badge">CR 1/2</span>
+      <button class="copy-btn" onclick="copyJSON('morda', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Ranger 2 — elevated left flank, mobile</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>14</div>
+        <div class="qs"><span>HP</span>16</div>
+        <div class="qs"><span>Atk</span>+5</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Longbow — </span><span class="atk-hit">+5</span> / <span class="atk-dmg">1d8+3 piercing</span> <span class="atk-note">range 150/600 ft. — three-quarter cover from elevation</span></div>
+        <div class="atk"><span class="atk-name">Shortsword (if melee forced) — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">1d6+2 piercing</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Favoured Enemy (humanoids) — </span>Advantage on Survival checks to track and on Intelligence checks to recall information about humanoids.</div>
+        <div class="abl"><span class="abl-name">Natural Explorer — </span>Difficult terrain does not slow Morda in woodland. Moves through the elevated position freely.</div>
+        <div class="abl"><span class="abl-name">Hunter's Mark (bonus, concentration) — </span>Designates one target — deals extra 1d6 damage per hit against that target. Switches as a bonus action if the target drops.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Fires from elevation each round. Applies Hunter's Mark to whoever is most dangerous at range. Relocates along the ridge if a party member climbs toward her — she knows the terrain, they do not. Does not come down to melee unless forced.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BREK -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Brek</span>
+      <span class="cr-badge">CR 1/2</span>
+      <button class="copy-btn" onclick="copyJSON('brek', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Ranger 2 — elevated right flank, trapper</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>14</div>
+        <div class="qs"><span>HP</span>18</div>
+        <div class="qs"><span>Atk</span>+4</div>
+        <div class="qs"><span>Spd</span>25</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Longbow — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">1d8+2 piercing</span> <span class="atk-note">range 150/600 ft.</span></div>
+        <div class="atk"><span class="atk-name">Hand axe (if melee forced) — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">1d6+2 slashing</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Natural Explorer — </span>Difficult terrain does not slow Brek in woodland.</div>
+        <div class="abl"><span class="abl-name">Colossus Slayer — </span>Once per turn, when hitting a creature below max HP, deals extra 1d8 damage.</div>
+        <div class="abl"><span class="abl-name">Ensnaring Strike (bonus, concentration) — </span>Next hit restrains the target — DC 14 Str save each turn to break free. Use on whoever is trying to reach Radek's flank.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">More methodical than Morda. Focuses fire on whoever is already damaged. Uses Ensnaring Strike to lock down a party member trying to flank Radek. Older and less mobile — holds position rather than relocating. A party member who reaches him finds a more dangerous melee fighter than expected.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GORT -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Gort</span>
+      <span class="cr-badge">CR 1/4</span>
+      <button class="copy-btn" onclick="copyJSON('gort', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Fighter 1 — holds the line beside Radek</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>14</div>
+        <div class="qs"><span>HP</span>14</div>
+        <div class="qs"><span>Atk</span>+4</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Greatclub — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">1d8+2 bludgeoning</span></div>
+        <div class="atk"><span class="atk-name">Javelin (thrown) — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">1d6+2 piercing</span> <span class="atk-note">range 30/120 ft. — round 1 only</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Second Wind (bonus, 1/short rest) — </span>Regain 1d10+1 HP.</div>
+        <div class="abl"><span class="abl-name">Blocker — </span>Gort uses his size and reach to make it difficult to get past him to Radek. Any creature attempting to move through his space must succeed on a DC 13 Str check or be stopped.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Throws javelin on round one then holds the line. Does not move unless Radek moves. Has no strong opinions about anything except doing his job. Straightforward and effective.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PECK -->
+  <div class="card objective">
+    <div class="card-header">
+      <span class="card-name">Peck</span>
+      <span class="cr-badge">CR 0</span>
+      <button class="copy-btn" onclick="copyJSON('peck', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Gnome — ledger keeper, objective not combatant</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>11</div>
+        <div class="qs"><span>HP</span>7</div>
+        <div class="qs"><span>Atk</span>+2</div>
+        <div class="qs"><span>Spd</span>25</div>
+      </div>
+      <div class="priority gold">Peck has the ledger — the evidence the party needs. He is the objective. Reaching him ends the information-gathering phase of the encounter regardless of combat outcome.</div>
+      <div class="section">
+        <span class="section-label">If cornered</span>
+        <div class="atk"><span class="atk-name">Dagger — </span><span class="atk-hit">+2</span> / <span class="atk-dmg">1d4 piercing</span> <span class="atk-note">he does not want to use this</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Gnome Cunning — </span>Advantage on Int, Wis, and Cha saving throws against magic.</div>
+        <div class="abl"><span class="abl-name">The Ledger — </span>Contains records of every payment taken, names of merchants who paid, dates, and a coded reference to Cadog Melyn as the legal cover. DC 13 Investigation to decode the reference fully.</div>
+        <div class="abl"><span class="abl-name">Negotiator — </span>If cornered and the party does not immediately attack, Peck will talk. He finds the situation faintly absurd and has committed to making the best of it. He will not give up Radek but he will hand over the ledger if given a compelling reason.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Stays as far from the fighting as possible. Runs if Radek goes down and he has a clear path. Does not run into the woods alone — he will move toward the road and try to put distance between himself and the party. If caught, he talks.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Abelon Campaign — Combat Reference. The Driftwood Road / Merchants Mission 2 / Act 1.</footer>
+
+<script>
+const forgeJSON = {
+  radek: {"com.battle-system.forge/name":"Radek","com.battle-system.forge/Z034":[{"id":"radek-001","name":"Extra Attack","description":"Radek makes two attacks when he takes the Attack action."},{"id":"radek-002","name":"Battle Master (3 Superiority Dice d8)","description":"Uses Disarming Attack, Pushing Attack, and Trip Attack manoeuvres."},{"id":"radek-003","name":"Action Surge (1/short rest)","description":"Takes one additional action on his turn. Use when a player breaks through the bottleneck or on round 2 if the party is gaining ground."}],"com.battle-system.forge/Z035":[{"id":"radek-004","name":"Longsword (x2)","description":"Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] slashing damage. Makes two attacks per Attack action."},{"id":"radek-005","name":"Disarming Attack","description":"Expend one superiority die. On hit, target must succeed on DC 13 Str save or drop one held item. Add [1d8] to damage."},{"id":"radek-006","name":"Trip Attack","description":"Expend one superiority die. On hit, target must succeed on DC 13 Str save or be knocked prone. Add [1d8] to damage."},{"id":"radek-007","name":"Pushing Attack","description":"Expend one superiority die. On hit, target must succeed on DC 13 Str save or be pushed 15 ft. away. Add [1d8] to damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":16,"com.battle-system.forge/Z036":[{"id":"radek-008","name":"Second Wind (1/short rest)","description":"Regains [1d10+3] hit points."}],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":1,"com.battle-system.forge/Z025":4,"com.battle-system.forge/Z016":1,"com.battle-system.forge/Z022":13,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":14,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":13,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":28,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":11,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":28,"com.battle-system.forge/Z029":3,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":5,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Athletics +5, Intimidation +3","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":17,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":12},
+  thessaly: {"com.battle-system.forge/name":"Thessaly","com.battle-system.forge/Z034":[{"id":"thess-001","name":"Disengages if Radek Falls","description":"Thessaly will not continue fighting without Radek. She uses her remaining movement to put distance between herself and the party."}],"com.battle-system.forge/Z035":[{"id":"thess-002","name":"Fire Bolt (Cantrip)","description":"Ranged Spell Attack [1d20+4] to hit, range 120 ft., one target. [1d10] fire damage."},{"id":"thess-003","name":"Magic Missile (Level 1 Slot)","description":"Three darts automatically hit. Each dart deals [1d4+1] force damage. All darts can hit the same or different targets."},{"id":"thess-004","name":"Thunderwave (Level 1 Slot)","description":"Each creature in a 15 ft. cube makes a DC 13 Constitution save. On fail: [2d8] thunder damage and pushed 10 ft. On success: half damage, not pushed."},{"id":"thess-005","name":"Hold Person (Level 2 Slot, Concentration)","description":"One humanoid within 60 ft. makes DC 13 Wis save or is paralyzed up to 1 minute. Repeat save at end of each turn. Target the most effective melee combatant."},{"id":"thess-006","name":"Fog Cloud (Level 1 Slot, Concentration)","description":"20 ft. radius heavily obscured sphere within 120 ft. Lasts up to 1 hour. Use if ranged party members are targeting Morda or Brek."},{"id":"thess-007","name":"Minor Illusion (Cantrip)","description":"Creates a sound or image within 30 ft. lasting 1 minute. DC 13 Investigation to disbelieve. Use to misdirect the party."},{"id":"thess-008","name":"Dagger","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d4+2] piercing damage. Last resort only."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":12,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":1,"com.battle-system.forge/Z022":11,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":14,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":22,"com.battle-system.forge/Z026":3,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":16,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common, Elvish, Draconic","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":22,"com.battle-system.forge/Z029":3,"com.battle-system.forge/Z037":[{"id":"thess-009","name":"Shield (Level 1 Slot)","description":"When hit by an attack, Thessaly gains +5 AC until start of next turn including against the triggering attack. Uses a Level 1 slot."}],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":-1,"com.battle-system.forge/Z041":"Spell save DC 13, spell attack +4. Slots: 4x Level 1, 2x Level 2.","com.battle-system.forge/Z013":"Darkvision 60 ft., Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Arcana +5, History +5","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":9,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":13},
+  morda: {"com.battle-system.forge/name":"Morda","com.battle-system.forge/Z034":[{"id":"morda-001","name":"Natural Explorer (Forest)","description":"Difficult terrain does not slow Morda in woodland. Relocates freely along the elevated position."},{"id":"morda-002","name":"Favoured Enemy (Humanoids)","description":"Advantage on Survival checks to track humanoids and Intelligence checks to recall information about them."}],"com.battle-system.forge/Z035":[{"id":"morda-003","name":"Longbow","description":"Ranged Weapon Attack [1d20+5] to hit, range 150/600 ft., one target. [1d8+3] piercing damage. Add [1d6] from Hunter's Mark if active."},{"id":"morda-004","name":"Shortsword","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] piercing damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":14,"com.battle-system.forge/Z036":[{"id":"morda-005","name":"Hunter's Mark (2/Long Rest, Concentration)","description":"Marks one creature within 90 ft. Deals extra [1d6] damage per hit against that target. Switch target as bonus action if current target drops. No spell slot required. Concentration, up to 1 hour."}],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.5,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":3,"com.battle-system.forge/Z018":16,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":16,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":11,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":16,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 14","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Perception +4, Stealth +5, Survival +4","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":13,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":2,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":14},
+  brek: {"com.battle-system.forge/name":"Brek","com.battle-system.forge/Z034":[{"id":"brek-001","name":"Colossus Slayer","description":"Once per turn, when Brek hits a creature below its hit point maximum, he deals an extra [1d8] damage."},{"id":"brek-002","name":"Natural Explorer (Forest)","description":"Difficult terrain does not slow Brek in woodland."},{"id":"brek-003","name":"Dwarven Resilience","description":"Advantage on saving throws against poison."}],"com.battle-system.forge/Z035":[{"id":"brek-004","name":"Longbow","description":"Ranged Weapon Attack [1d20+4] to hit, range 150/600 ft., one target. [1d8+2] piercing damage. Add [1d8] from Colossus Slayer if target is below max HP."},{"id":"brek-005","name":"Hand Axe","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] slashing damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":14,"com.battle-system.forge/Z036":[{"id":"brek-006","name":"Ensnaring Strike (Concentration, no slot required)","description":"Next weapon attack that hits: target makes DC 14 Strength save or is restrained by magical vines (concentration, up to 1 minute). Restrained creature takes [1d6] piercing damage at start of each turn. Action to make DC 14 Str check to escape."}],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":-1,"com.battle-system.forge/Z025":2,"com.battle-system.forge/Z016":0.5,"com.battle-system.forge/Z022":9,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":14,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":14,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":18,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common, Dwarvish","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":18,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"Poison","com.battle-system.forge/Z023":2,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Darkvision 60 ft., Passive Perception 13","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Perception +3, Survival +3, Athletics +4","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":14,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":25,"com.battle-system.forge/Z021":13},
+  gort: {"com.battle-system.forge/name":"Gort","com.battle-system.forge/Z034":[{"id":"gort-001","name":"Blocker","description":"Any creature attempting to move through Gort's space or push past him must succeed on a DC 13 Strength check or have their movement stopped."}],"com.battle-system.forge/Z035":[{"id":"gort-002","name":"Greatclub","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d8+2] bludgeoning damage."},{"id":"gort-003","name":"Javelin (thrown)","description":"Ranged Weapon Attack [1d20+4] to hit, range 30/120 ft., one target. [1d6+2] piercing damage. Round 1 only."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":14,"com.battle-system.forge/Z036":[{"id":"gort-004","name":"Second Wind (1/short rest)","description":"Regains [1d10+1] hit points."}],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":-1,"com.battle-system.forge/Z025":2,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":9,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":14,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":11,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":14,"com.battle-system.forge/Z026":-1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":8,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common, Orc","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":14,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":3,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Darkvision 60 ft., Passive Perception 9","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Athletics +5","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":16,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":-1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":9},
+  peck: {"com.battle-system.forge/name":"Peck","com.battle-system.forge/Z034":[{"id":"peck-001","name":"Gnome Cunning","description":"Advantage on Intelligence, Wisdom, and Charisma saving throws against magic."},{"id":"peck-002","name":"The Ledger","description":"Contains payment records, merchant names, dates, and a coded reference to Cadog Melyn as the legal landowner cover. DC 13 Investigation to decode."},{"id":"peck-003","name":"Negotiator","description":"If cornered and not immediately attacked, Peck will talk. Will hand over the ledger if given a compelling reason but will not give up Radek."}],"com.battle-system.forge/Z035":[{"id":"peck-004","name":"Dagger","description":"Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4+1] piercing damage. He does not want to use this."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":11,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":1,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0,"com.battle-system.forge/Z022":13,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":10,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":13,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":7,"com.battle-system.forge/Z026":2,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":15,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common, Gnomish","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":7,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":-1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Darkvision 60 ft., Passive Perception 11","com.battle-system.forge/Z002":"Small","com.battle-system.forge/Z014":"Investigation +4, Insight +3, Persuasion +3","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":8,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":25,"com.battle-system.forge/Z021":12}
+};
+
+function copyJSON(id, btn){
+  const json = JSON.stringify(forgeJSON[id]);
+  navigator.clipboard.writeText(json).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy Forge JSON';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

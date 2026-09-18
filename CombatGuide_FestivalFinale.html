@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Combat Guide — The Festival Finale</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --bg:#1a1410;--bg2:#241f16;--bg3:#2a2318;
+    --ink:#e8d9bc;--ink2:#c4a882;--ink3:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.3);
+    --red-bg:rgba(153,60,29,0.2);--red-border:#993C1D;--red-text:#F0997B;
+    --gold-bg:rgba(133,79,11,0.2);--gold-border:#EF9F27;--gold-text:#EF9F27;
+    --teal-bg:rgba(15,110,86,0.2);--teal-border:#5DCAA5;--teal-text:#5DCAA5;
+    --blue-bg:rgba(24,95,165,0.2);--blue-border:#85B7EB;--blue-text:#85B7EB;
+    --pink-bg:rgba(153,53,86,0.2);--pink-border:#ED93B1;--pink-text:#ED93B1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.5;padding:1.25rem;}
+  h1{font-family:'Cinzel',serif;font-size:18px;font-weight:600;color:var(--accent);letter-spacing:.05em;margin-bottom:3px;}
+  .subtitle{font-size:13px;font-style:italic;color:var(--ink3);margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
+
+  /* Faction tabs */
+  .faction-tabs{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .faction-tab{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:6px 14px;border-radius:4px;border:.5px solid var(--rule);cursor:pointer;transition:all .15s;background:transparent;color:var(--ink3);}
+  .faction-tab.blue{border-color:var(--blue-border);}
+  .faction-tab.blue.active,.faction-tab.blue:hover{background:var(--blue-bg);color:var(--blue-text);}
+  .faction-tab.teal{border-color:var(--teal-border);}
+  .faction-tab.teal.active,.faction-tab.teal:hover{background:var(--teal-bg);color:var(--teal-text);}
+  .faction-tab.pink{border-color:var(--pink-border);}
+  .faction-tab.pink.active,.faction-tab.pink:hover{background:var(--pink-bg);color:var(--pink-text);}
+  .faction-tab.all{border-color:var(--rule);}
+  .faction-tab.all.active,.faction-tab.all:hover{background:rgba(196,168,130,0.1);color:var(--accent);}
+  .faction-panel{display:none;}
+  .faction-panel.visible{display:block;}
+
+  /* Context bar */
+  .context-bar{background:var(--bg2);border:.5px solid var(--rule);border-radius:6px;padding:10px 14px;margin-bottom:1rem;}
+  .context-bar p{font-size:13px;color:var(--ink2);}
+  .context-bar p+p{margin-top:4px;}
+  .section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);padding-bottom:3px;border-bottom:.5px solid var(--rule-faint);display:block;margin-bottom:6px;}
+
+  /* Wave headers */
+  .wave-header{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:6px 12px;border-radius:4px;margin:1rem 0 6px;display:block;}
+  .wave-header.w1{background:var(--red-bg);border:.5px solid var(--red-border);color:var(--red-text);}
+  .wave-header.w2{background:var(--gold-bg);border:.5px solid var(--gold-border);color:var(--gold-text);}
+  .wave-header.w3{background:rgba(196,168,130,0.1);border:.5px solid var(--rule);color:var(--accent);}
+
+  /* Cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:10px;}
+  .card{background:var(--bg2);border-radius:7px;overflow:hidden;}
+  .card.hostile{border:.5px solid var(--red-border);}
+  .card.reluctant{border:.5px solid var(--rule);}
+  .card.leader{border:.5px solid var(--gold-border);}
+  .card.secret{border:.5px solid var(--pink-border);}
+  .card-header{padding:8px 12px;display:flex;align-items:center;gap:8px;}
+  .hostile .card-header{background:var(--red-bg);}
+  .reluctant .card-header{background:rgba(196,168,130,0.08);}
+  .leader .card-header{background:var(--gold-bg);}
+  .secret .card-header{background:var(--pink-bg);}
+  .card-name{font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:var(--ink);flex:1;}
+  .card-tag{font-size:11px;font-style:italic;color:var(--ink3);}
+  .copy-btn{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:var(--bg3);cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+  .copy-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .copy-btn.copied{border-color:var(--teal-border);color:var(--teal-text);}
+  .cr-badge{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:var(--bg3);flex-shrink:0;}
+  .card-body{padding:10px 12px;display:flex;flex-direction:column;gap:7px;}
+  .quick-stats{display:flex;gap:5px;flex-wrap:wrap;}
+  .qs{font-family:'Cinzel',serif;font-size:10px;padding:2px 7px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink2);background:var(--bg3);}
+  .qs span{color:var(--ink3);margin-right:2px;}
+  .section{display:flex;flex-direction:column;gap:3px;}
+  .atk{font-size:13px;color:var(--ink2);}
+  .atk-name{font-weight:600;color:var(--ink);}
+  .atk-hit{color:var(--red-text);}
+  .atk-dmg{color:var(--gold-text);}
+  .atk-note{color:var(--ink3);font-style:italic;font-size:12px;}
+  .abl{font-size:13px;color:var(--ink2);}
+  .abl-name{font-weight:600;color:var(--teal-text);}
+  .tactics{font-size:13px;color:var(--ink);font-style:italic;padding:7px 9px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);line-height:1.5;}
+  .priority{font-size:13px;padding:5px 9px;border-radius:4px;}
+  .priority.red{background:var(--red-bg);border:.5px solid var(--red-border);color:var(--red-text);}
+  .priority.gold{background:var(--gold-bg);border:.5px solid var(--gold-border);color:var(--gold-text);}
+  .priority.pink{background:var(--pink-bg);border:.5px solid var(--pink-border);color:var(--pink-text);}
+
+  /* DM notes */
+  .dm-note{background:var(--bg2);border:.5px dashed var(--rule);border-radius:5px;padding:10px 14px;margin-bottom:8px;font-size:13px;color:var(--ink3);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px;}
+
+  footer{margin-top:1.5rem;padding-top:.75rem;border-top:.5px solid var(--rule-faint);font-size:11px;font-style:italic;color:var(--ink3);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+
+<h1>Combat Guide — The Festival Finale</h1>
+<div class="subtitle">Cooper's Square — three faction paths — Level 3 party — Hard to Deadly</div>
+
+<!-- FACTION SELECTOR -->
+<div class="faction-tabs">
+  <button class="faction-tab all active" onclick="showFaction('all')">All paths</button>
+  <button class="faction-tab blue" onclick="showFaction('blue')">Party sided with Alric</button>
+  <button class="faction-tab teal" onclick="showFaction('teal')">Party sided with Oskar</button>
+  <button class="faction-tab pink" onclick="showFaction('pink')">Party sided with Seva</button>
+</div>
+
+<!-- SHARED CONTEXT -->
+<div class="context-bar">
+  <span class="section-label">Encounter behaviour — all paths</span>
+  <p>The faction arrives in waves. The first wave is the most numerous but least capable — they create chaos and buy time for the real threats to commit. The faction leader hangs back until the crew takes significant losses, then commits with anger overcoming caution. If the leader is the last one standing they attempt to flee.</p>
+  <p>The fight is personal. These are not strangers. Whether the party pulls its blows, what they do when the leader tries to run, and how they treat the people who break — all of it matters and all of it has consequences in Act 2.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- BLUE PATH — ALRIC'S FACTION -->
+<!-- ============================================================ -->
+<div class="faction-panel blue visible" id="panel-blue">
+
+  <div class="context-bar">
+    <span class="section-label">Alric's faction — Merchants</span>
+    <p>Huw leads. The polite assistant who booked their table is composed and cold in a way the party did not anticipate. Weapons skew toward quality purchased steel — longswords, rapiers, light crossbows. Huw has Charm Person. The merchants grabbed what was available.</p>
+    <p>Eight combatants total. Prys and Nesta break in round one. Bael and Gethin carry through wave one. Huw and Aldric are wave two. Alric arrives when Huw is in serious trouble.</p>
+  </div>
+
+  <span class="wave-header w1">Wave 1 — arrives immediately</span>
+  <div class="grid">
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Prys</span>
+        <span class="cr-badge">CR 0</span>
+        <button class="copy-btn" onclick="copyJSON('prys',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Guild merchant — improvised weapon, breaks round 1</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>10</div>
+          <div class="qs"><span>HP</span>7</div>
+          <div class="qs"><span>Atk</span>+2</div>
+        </div>
+        <div class="priority red">Breaks in round 1. More useful as environmental chaos than actual threat.</div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Improvised weapon — </span><span class="atk-hit">+2</span> / <span class="atk-dmg">(1d4) bludgeoning</span></div>
+        </div>
+        <div class="tactics">Swings once with whatever he picked up then looks for a reason to stop. Indignant fury covers the fact that he has never been in a fight.</div>
+      </div>
+    </div>
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Nesta</span>
+        <span class="cr-badge">CR 0</span>
+        <button class="copy-btn" onclick="copyJSON('nesta',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Guild merchant — breaks faster than Prys</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>10</div>
+          <div class="qs"><span>HP</span>6</div>
+          <div class="qs"><span>Atk</span>+1</div>
+        </div>
+        <div class="priority red">Breaks immediately when first hit or when Prys breaks. Whichever comes first.</div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Improvised weapon — </span><span class="atk-hit">+1</span> / <span class="atk-dmg">(1d4) bludgeoning</span></div>
+        </div>
+        <div class="tactics">Follows Prys. Stops the moment she has a reason to. Does not need much of a reason.</div>
+      </div>
+    </div>
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Bael</span>
+        <span class="cr-badge">CR 1/4</span>
+        <button class="copy-btn" onclick="copyJSON('bael',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Bodyguard — longsword and crossbow, professional</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>14</div>
+          <div class="qs"><span>HP</span>13</div>
+          <div class="qs"><span>Atk</span>+4</div>
+        </div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Longsword — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d8+2) slashing</span></div>
+          <div class="atk"><span class="atk-name">Light crossbow — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d8+2) piercing</span> <span class="atk-note">range 80/320</span></div>
+        </div>
+        <div class="tactics">Moves toward the most dangerous party member immediately. Switches to crossbow if the party spreads out. Stays in longer than anyone expects.</div>
+      </div>
+    </div>
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Gethin</span>
+        <span class="cr-badge">CR 1/4</span>
+        <button class="copy-btn" onclick="copyJSON('gethin',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Bodyguard — shortsword, follows Bael entirely</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>13</div>
+          <div class="qs"><span>HP</span>11</div>
+          <div class="qs"><span>Atk</span>+3</div>
+        </div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Shortsword — </span><span class="atk-hit">+3</span> / <span class="atk-dmg">(1d6+1) piercing</span></div>
+        </div>
+        <div class="tactics">Flanks whoever Bael is engaging. Breaks when Bael goes down — DC 10 Wis save or disengages.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <span class="wave-header w2">Wave 2 — commits when wave 1 struggles</span>
+  <div class="grid">
+
+    <div class="card leader">
+      <div class="card-header">
+        <span class="card-name">Huw</span>
+        <span class="cr-badge">CR 1/2</span>
+        <button class="copy-btn" onclick="copyJSON('huw',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Alric's assistant — rapier, Charm Person — more capable than anyone knew</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>13</div>
+          <div class="qs"><span>HP</span>18</div>
+          <div class="qs"><span>Atk</span>+4</div>
+        </div>
+        <div class="priority gold">Huw has Charm Person. This is the moment the party realises he has not just been taking notes all these years.</div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Rapier — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d8+2) piercing</span></div>
+          <div class="atk"><span class="atk-name">Charm Person (1 slot) — </span><span class="atk-hit">DC 13 Wis save</span> <span class="atk-note">target treats Huw as friendly for 1 hour — use on the most aggressive party member</span></div>
+        </div>
+        <div class="abl"><span class="abl-name">Composed — </span>Advantage on saves against being frightened.</div>
+        <div class="tactics">Directs wave 1 from the back, draws rapier when Bael falls. Uses Charm Person immediately on his first turn in combat — targets whoever is dealing the most damage. Cold and deliberate throughout.</div>
+      </div>
+    </div>
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Aldric</span>
+        <span class="cr-badge">CR 1/8</span>
+        <button class="copy-btn" onclick="copyJSON('aldric',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Event coordinator — follows Huw, improvised weapon</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>10</div>
+          <div class="qs"><span>HP</span>9</div>
+          <div class="qs"><span>Atk</span>+2</div>
+        </div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Improvised weapon — </span><span class="atk-hit">+2</span> / <span class="atk-dmg">(1d4+1) bludgeoning</span></div>
+        </div>
+        <div class="tactics">Follows Huw's instructions. Does what he is told. Breaks if Huw goes down.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <span class="wave-header w3">Wave 3 — arrives when Huw is in serious trouble</span>
+  <div class="grid">
+
+    <div class="card leader">
+      <div class="card-header">
+        <span class="card-name">Alric Venn</span>
+        <span class="cr-badge">CR 1</span>
+        <button class="copy-btn" onclick="copyJSON('alric',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Merchant Guild master — desperate energy, picked up weapon, never done this before</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>12</div>
+          <div class="qs"><span>HP</span>22</div>
+          <div class="qs"><span>Atk</span>+4</div>
+        </div>
+        <div class="priority gold">Alric has never fought before. He is frightened underneath the fury and will not show it. He commits with desperate energy — the most dangerous version of a man with nothing left to lose tonight.</div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Fallen rapier or longsword — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d8+2) slashing or piercing</span></div>
+          <div class="atk"><span class="atk-name">Suggestion (1 slot) — </span><span class="atk-hit">DC 13 Wis save</span> <span class="atk-note">one target follows a reasonable suggestion for 8 hours — a last resort if cornered</span></div>
+        </div>
+        <div class="abl"><span class="abl-name">Attempts to flee if last standing — </span>DC 12 Athletics check to escape the square. Whether the party lets him matters in Act 2.</div>
+        <div class="tactics">Targets whoever put Huw down. Does not fight cleverly — fights with feeling. Uses Suggestion only if cornered and out of other options. Attempts to flee if last standing.</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- TEAL PATH — OSKAR'S FACTION -->
+<!-- ============================================================ -->
+<div class="faction-panel teal" id="panel-teal">
+
+  <div class="context-bar">
+    <span class="section-label">Oskar's faction — Trademasters</span>
+    <p>Cors Holdworn leads. He was called before the meeting started — that level of preparation tells the party something about Oskar they did not fully appreciate. Weapons are craft tools and working weapons — warhammers, hand axes, mallets. Ysolde has Thunderwave. Nobody expects a master weaver to cast anything.</p>
+    <p>Seven combatants total. Mael breaks early. Tav and Efa Dun carry through wave one. Drest, Cors, and Ysolde are wave two — Ysolde casts once and leaves. Oskar arrives when Cors is struggling.</p>
+  </div>
+
+  <span class="wave-header w1">Wave 1 — arrives immediately</span>
+  <div class="grid">
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Roark</span>
+        <span class="cr-badge">CR 1/8</span>
+        <button class="copy-btn" onclick="copyJSON('roark',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Journeyman carpenter — mallet, stubborn, breaks when Cors falls</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>11</div>
+          <div class="qs"><span>HP</span>11</div>
+          <div class="qs"><span>Atk</span>+3</div>
+        </div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Carpenter's mallet — </span><span class="atk-hit">+3</span> / <span class="atk-dmg">(1d6+1) bludgeoning</span></div>
+        </div>
+        <div class="tactics">Came for history. Stays for principle. Stubborn until Cors goes down then the reason to stay evaporates.</div>
+      </div>
+    </div>
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Mael</span>
+        <span class="cr-badge">CR 0</span>
+        <button class="copy-btn" onclick="copyJSON('mael',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Journeyman potter — improvised, breaks early</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>10</div>
+          <div class="qs"><span>HP</span>7</div>
+          <div class="qs"><span>Atk</span>+1</div>
+        </div>
+        <div class="priority red">Breaks when first hit or when any ally is incapacitated. Whichever comes first.</div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Improvised — </span><span class="atk-hit">+1</span> / <span class="atk-dmg">(1d4) bludgeoning</span></div>
+        </div>
+        <div class="tactics">Follows Roark. Already reconsidering. Does not need much encouragement to stop.</div>
+      </div>
+    </div>
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Tav</span>
+        <span class="cr-badge">CR 1/4</span>
+        <button class="copy-btn" onclick="copyJSON('tav',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Apprentice metalworker — hand axe, angry</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>12</div>
+          <div class="qs"><span>HP</span>11</div>
+          <div class="qs"><span>Atk</span>+4</div>
+        </div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Hand axe — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d6+2) slashing</span></div>
+          <div class="atk"><span class="atk-name">Hand axe (thrown, round 1) — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d6+2) slashing</span> <span class="atk-note">range 20/60</span></div>
+        </div>
+        <div class="tactics">Throws axe round one then closes to melee. Angry enough to stay longer than is wise. Holds until Cors goes down.</div>
+      </div>
+    </div>
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Efa Dun</span>
+        <span class="cr-badge">CR 1/8</span>
+        <button class="copy-btn" onclick="copyJSON('efadun',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Apprentice weaver — dagger, follows Cors</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>11</div>
+          <div class="qs"><span>HP</span>8</div>
+          <div class="qs"><span>Atk</span>+2</div>
+        </div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Dagger — </span><span class="atk-hit">+2</span> / <span class="atk-dmg">(1d4+1) piercing</span></div>
+        </div>
+        <div class="tactics">Follows Cors's lead entirely. Breaks when Cors goes down or steps sideways to the Sables (pink path only).</div>
+      </div>
+    </div>
+
+  </div>
+
+  <span class="wave-header w2">Wave 2 — commits alongside wave 1</span>
+  <div class="grid">
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Drest</span>
+        <span class="cr-badge">CR 1/2</span>
+        <button class="copy-btn" onclick="copyJSON('drest',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Master blacksmith — warhammer, slower but dangerous</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>13</div>
+          <div class="qs"><span>HP</span>19</div>
+          <div class="qs"><span>Atk</span>+5</div>
+        </div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Warhammer — </span><span class="atk-hit">+5</span> / <span class="atk-dmg">(1d8+3) bludgeoning</span></div>
+        </div>
+        <div class="abl"><span class="abl-name">Grappler — </span>+2 to Strength contests. Will try to grapple the most mobile party member to pin them.</div>
+        <div class="tactics">Slower than the apprentices but hits considerably harder. Uses his size to control space. Holds until Oskar arrives or is incapacitated.</div>
+      </div>
+    </div>
+
+    <div class="card leader">
+      <div class="card-header">
+        <span class="card-name">Cors Holdworn</span>
+        <span class="cr-badge">CR 1/2</span>
+        <button class="copy-btn" onclick="copyJSON('cors',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Guild enforcer — heavy knife — the actual threat in wave 2</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>14</div>
+          <div class="qs"><span>HP</span>19</div>
+          <div class="qs"><span>Atk</span>+4</div>
+        </div>
+        <div class="priority pink">In the pink path, Cors steps sideways toward the Sables during wave 2. A quiet repositioning. Do not draw attention to it.</div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Heavy knife — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d6+2) piercing</span></div>
+          <div class="atk"><span class="atk-name">Heavy knife (thrown) — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d6+2) piercing</span> <span class="atk-note">range 20/40</span></div>
+        </div>
+        <div class="abl"><span class="abl-name">Threat Assessment — </span>Identifies the most dangerous party member immediately. Targets them first and exclusively.</div>
+        <div class="tactics">Professional and controlled. No wasted movement. Was called before the meeting started — he has been prepared all evening. The party will feel the difference between him and wave 1 immediately.</div>
+      </div>
+    </div>
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Ysolde</span>
+        <span class="cr-badge">CR 1/2</span>
+        <button class="copy-btn" onclick="copyJSON('ysolde',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Master weaver — Thunderwave — casts once, walks away</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>12</div>
+          <div class="qs"><span>HP</span>14</div>
+          <div class="qs"><span>Atk</span>+3</div>
+        </div>
+        <div class="priority gold">Nobody expects a master weaver to cast anything. This is the most surprising moment of the teal path fight.</div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Thunderwave (1 slot) — </span><span class="atk-hit">DC 13 Con save</span> / <span class="atk-dmg">(2d8) thunder + pushed 10 ft.</span> <span class="atk-note">15 ft. cube — use when 2+ party members are adjacent</span></div>
+        </div>
+        <div class="tactics">Casts Thunderwave once — aimed at the densest cluster of party members. Then turns and walks away without looking back. She is not a combatant. She spent sixty years building something and spent one spell defending it.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <span class="wave-header w3">Wave 3 — arrives when Cors is struggling</span>
+  <div class="grid">
+
+    <div class="card leader">
+      <div class="card-header">
+        <span class="card-name">Oskar Sternov</span>
+        <span class="cr-badge">CR 1</span>
+        <button class="copy-btn" onclick="copyJSON('oskar',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Trademaster — no weapon needed — cold anger, fights close and dirty</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>12</div>
+          <div class="qs"><span>HP</span>24</div>
+          <div class="qs"><span>Atk</span>+5</div>
+        </div>
+        <div class="priority gold">Oskar does not need a weapon. Built like someone who has worked with his hands for forty years. Cold anger rather than hot — harder to read than the others.</div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Unarmed strike — </span><span class="atk-hit">+5</span> / <span class="atk-dmg">(1d6+3) bludgeoning</span></div>
+          <div class="atk"><span class="atk-name">Grapple — </span><span class="atk-note">Strength contest +5 — grabs and holds, removes target from the fight while he deals with others</span></div>
+        </div>
+        <div class="abl"><span class="abl-name">Powerful Build — </span>Counts as one size larger for grappling purposes.</div>
+        <div class="abl"><span class="abl-name">Attempts to flee if last standing — </span>DC 12 Athletics to escape. Whether the party lets him matters in Act 2.</div>
+        <div class="tactics">Goes for whoever put Cors down. Uses grapple to pin them against a wall or the ground while dealing with others. Cold and methodical. Does not shout. Does not waste energy. Attempts to flee if last standing.</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- PINK PATH — SEVA'S FACTION -->
+<!-- ============================================================ -->
+<div class="faction-panel pink" id="panel-pink">
+
+  <div class="context-bar">
+    <span class="section-label">Seva's faction — Courtesans</span>
+    <p>Elbeth arrives first. The party last saw her walking out of Coppergate Stables under her own power. She has had time to think about this moment. The Sables are trained and composed — the most dangerous wave one combatants across all three paths. Cors steps sideways from the Trademaster group during wave two. Seva is the most dangerous thing the party faces tonight.</p>
+    <p>Eight combatants total. The associates create chaos. The operatives and Mira apply real pressure. Cors's arrival is a surprise. Seva is the finale.</p>
+  </div>
+
+  <span class="wave-header w1">Wave 1 — arrives immediately</span>
+  <div class="grid">
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Elbeth Sable</span>
+        <span class="cr-badge">CR 1/4</span>
+        <button class="copy-btn" onclick="copyJSON('elbeth',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Sable operative — shortsword, furious, has been waiting since Coppergate</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>13</div>
+          <div class="qs"><span>HP</span>12</div>
+          <div class="qs"><span>Atk</span>+4</div>
+        </div>
+        <div class="priority red">Furious and unpredictable. The most emotionally charged combatant in the fight. May do things that are tactically suboptimal because she is angry.</div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Shortsword — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d6+2) piercing</span></div>
+        </div>
+        <div class="tactics">Goes immediately for whoever she blames most for her time in Coppergate Stables. Does not break easily. Personal grievance overrides tactical sense.</div>
+      </div>
+    </div>
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Dalla Sable</span>
+        <span class="cr-badge">CR 1/4</span>
+        <button class="copy-btn" onclick="copyJSON('dalla',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Sable operative — shortsword, trained and composed</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>13</div>
+          <div class="qs"><span>HP</span>11</div>
+          <div class="qs"><span>Atk</span>+4</div>
+        </div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Shortsword — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d6+2) piercing</span></div>
+          <div class="atk"><span class="atk-name">Sneak Attack — </span><span class="atk-dmg">(1d6) extra</span> <span class="atk-note">when advantage or ally adjacent</span></div>
+        </div>
+        <div class="tactics">Flanks whoever Elbeth is engaging. Calm and efficient. Does not waste movement. The most tactically capable wave 1 combatant across all three paths.</div>
+      </div>
+    </div>
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Perys Sable</span>
+        <span class="cr-badge">CR 1/4</span>
+        <button class="copy-btn" onclick="copyJSON('perys',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Sable operative — dagger, quick and light</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>13</div>
+          <div class="qs"><span>HP</span>9</div>
+          <div class="qs"><span>Atk</span>+4</div>
+        </div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Dagger — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d4+2) piercing</span></div>
+          <div class="atk"><span class="atk-name">Dagger (thrown) — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d4+2) piercing</span> <span class="atk-note">range 20/60</span></div>
+        </div>
+        <div class="abl"><span class="abl-name">Cunning Action (bonus) — </span>Dash, Disengage, or Hide each turn.</div>
+        <div class="tactics">Uses mobility rather than strength. Repositions every turn. Forces the party to split attention. Difficult to pin down.</div>
+      </div>
+    </div>
+
+    <div class="card hostile">
+      <div class="card-header">
+        <span class="card-name">Nance</span>
+        <span class="cr-badge">CR 1/4</span>
+        <button class="copy-btn" onclick="copyJSON('nance',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Network operative — hand crossbow, experienced, already has a position</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>13</div>
+          <div class="qs"><span>HP</span>11</div>
+          <div class="qs"><span>Atk</span>+4</div>
+        </div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Hand crossbow — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d6+2) piercing</span> <span class="atk-note">range 30/120</span></div>
+          <div class="atk"><span class="atk-name">Dagger — </span><span class="atk-hit">+3</span> / <span class="atk-dmg">(1d4+1) piercing</span></div>
+        </div>
+        <div class="tactics">Has already scouted the square and chosen her position before the party arrived. Fires from cover each round. Entirely unhurried.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <span class="wave-header w2">Wave 2 — commits when wave 1 struggles</span>
+  <div class="grid">
+
+    <div class="card leader">
+      <div class="card-header">
+        <span class="card-name">Mira Sable</span>
+        <span class="cr-badge">CR 1/2</span>
+        <button class="copy-btn" onclick="copyJSON('mira',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Sable — dagger, warm until she is not, then precise</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>14</div>
+          <div class="qs"><span>HP</span>18</div>
+          <div class="qs"><span>Atk</span>+5</div>
+        </div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Dagger — </span><span class="atk-hit">+5</span> / <span class="atk-dmg">(1d4+3) piercing</span></div>
+          <div class="atk"><span class="atk-name">Dagger (thrown) — </span><span class="atk-hit">+5</span> / <span class="atk-dmg">(1d4+3) piercing</span> <span class="atk-note">range 20/60</span></div>
+          <div class="atk"><span class="atk-name">Sneak Attack — </span><span class="atk-dmg">(1d6) extra</span> <span class="atk-note">when advantage or ally adjacent</span></div>
+        </div>
+        <div class="abl"><span class="abl-name">Uncanny Poise — </span>Does not provoke opportunity attacks when moving away.</div>
+        <div class="tactics">Moves toward whoever is dealing the most damage. Nothing wasted. The party knew her as the warm face at the Amber Cup door. This version of her is different.</div>
+      </div>
+    </div>
+
+    <div class="card secret">
+      <div class="card-header">
+        <span class="card-name">Cors Holdworn</span>
+        <span class="cr-badge">CR 1/2</span>
+        <button class="copy-btn" onclick="copyJSON('cors',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Trademasters / Courtesans — steps sideways — surprise arrival</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>14</div>
+          <div class="qs"><span>HP</span>19</div>
+          <div class="qs"><span>Atk</span>+4</div>
+        </div>
+        <div class="priority pink">Cors steps away from the Trademaster group and toward the Sables during wave 2. A quiet repositioning. Do not draw attention to it unless a player notices.</div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Heavy knife — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d6+2) piercing</span></div>
+        </div>
+        <div class="tactics">Enters the fight on the Sable side. Targets whoever is engaging Mira. Professional and controlled.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <span class="wave-header w3">Wave 3 — arrives when Mira is in trouble</span>
+  <div class="grid">
+
+    <div class="card leader">
+      <div class="card-header">
+        <span class="card-name">Seva Sable</span>
+        <span class="cr-badge">CR 2</span>
+        <button class="copy-btn" onclick="copyJSON('seva',this)">Copy Forge JSON</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Courtesans Network — the most dangerous thing the party faces tonight</div>
+        <div class="quick-stats">
+          <div class="qs"><span>AC</span>14</div>
+          <div class="qs"><span>HP</span>32</div>
+          <div class="qs"><span>Atk</span>+5</div>
+        </div>
+        <div class="priority gold">Seva is exactly as dangerous as the party always suspected she might be. Every movement has a purpose. She does not fight recklessly — she fights efficiently.</div>
+        <div class="section">
+          <div class="atk"><span class="atk-name">Dagger — </span><span class="atk-hit">+5</span> / <span class="atk-dmg">(1d4+3) piercing</span></div>
+          <div class="atk"><span class="atk-name">Dagger (thrown) — </span><span class="atk-hit">+5</span> / <span class="atk-dmg">(1d4+3) piercing</span> <span class="atk-note">range 20/60</span></div>
+          <div class="atk"><span class="atk-name">Read the Room (action) — </span><span class="atk-note">DC 12 Insight — learns emotional state, duress, concealed weapons of one target</span></div>
+        </div>
+        <div class="abl"><span class="abl-name">Uncanny Poise — </span>Does not provoke opportunity attacks when moving away.</div>
+        <div class="abl"><span class="abl-name">Composed — </span>Advantage on saves vs frightened. Cannot be charmed by CR 2 or lower.</div>
+        <div class="abl"><span class="abl-name">Threat Assessment — </span>Identifies the most dangerous party member immediately on arrival.</div>
+        <div class="abl"><span class="abl-name">Attempts to flee if last standing — </span>DC 12 Athletics to escape. Whether the party lets her matters in Act 2.</div>
+        <div class="tactics">Targets the most dangerous party member. Uses Read the Room on her first action to understand the battlefield before committing. Deflect reaction on any melee hit she sees coming.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dm-note"><strong>Seva's Deflect reaction</strong>When Seva is hit by a melee attack she can see, she reduces the damage by (1d6+3). This is her existing stat block ability. Use it — it is the moment the party realises they are in a different kind of fight.</div>
+
+</div>
+
+<!-- SHARED DM NOTES -->
+<div class="dm-note"><strong>The escape attempt</strong>Each faction leader — Alric, Oskar, Seva — attempts to flee if last standing. Whether the party lets them go is a genuine moral choice with Act 2 consequences. Do not resolve it for them.</div>
+
+<div class="dm-note"><strong>Cors Holdworn across paths</strong>In the teal path Cors fights for Oskar as wave 2. In the pink path he steps sideways to the Sables also in wave 2. In the blue path he is not present — he left with Anneth. His secret loyalty is a background thread. Only pull it if a player tugs at it.</div>
+
+<div class="dm-note"><strong>Anneth Holdworn</strong>She does not fight in any path. She may be present in Cooper's Square watching. She may have already left. Let the session decide. If she is present she watches everything with the quiet satisfaction of someone who has been patient for a very long time.</div>
+
+<footer>Abelon Campaign — Combat Guide. The Festival Finale / Cooper's Square / Act 1 Climax.</footer>
+
+<script>
+const forgeJSON = {
+  prys: {"com.battle-system.forge/name":"Prys","com.battle-system.forge/Z034":[{"id":"prys-001","name":"Breaks Round 1","description":"At the end of round 1, or when first hit, Prys must make a DC 8 Wisdom saving throw or drop his weapon and disengage."}],"com.battle-system.forge/Z035":[{"id":"prys-002","name":"Improvised Weapon","description":"Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4] bludgeoning damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":10,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":11,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":9,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":7,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":7,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 9","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":12,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":-1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":9},
+  nesta: {"com.battle-system.forge/name":"Nesta","com.battle-system.forge/Z034":[{"id":"nesta-001","name":"Breaks Immediately","description":"When first hit or when Prys breaks, Nesta must make a DC 6 Wisdom saving throw or disengage immediately."}],"com.battle-system.forge/Z035":[{"id":"nesta-002","name":"Improvised Weapon","description":"Melee Weapon Attack [1d20+1] to hit, reach 5 ft., one target. [1d4] bludgeoning damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":10,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":10,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":10,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":6,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":6,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 9","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":10,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":-1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":9},
+  bael: {"com.battle-system.forge/name":"Bael","com.battle-system.forge/Z034":[],"com.battle-system.forge/Z035":[{"id":"bael-001","name":"Longsword","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d8+2] slashing damage."},{"id":"bael-002","name":"Light Crossbow","description":"Ranged Weapon Attack [1d20+4] to hit, range 80/320 ft., one target. [1d8+2] piercing damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":14,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":13,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":14,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":13,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":11,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":13,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":2,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Perception +3","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":14,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":12},
+  gethin: {"com.battle-system.forge/name":"Gethin","com.battle-system.forge/Z034":[{"id":"gethin-001","name":"Breaks When Bael Falls","description":"When Bael is incapacitated, Gethin must make a DC 10 Wisdom saving throw or disengage and flee."}],"com.battle-system.forge/Z035":[{"id":"gethin-002","name":"Shortsword","description":"Melee Weapon Attack [1d20+3] to hit, reach 5 ft., one target. [1d6+1] piercing damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":13,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":-1,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":9,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":13,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":11,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":11,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":13,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":10},
+  huw: {"com.battle-system.forge/name":"Huw","com.battle-system.forge/Z034":[{"id":"huw-001","name":"Composed","description":"Advantage on saving throws against being frightened."}],"com.battle-system.forge/Z035":[{"id":"huw-002","name":"Rapier","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d8+2] piercing damage."},{"id":"huw-003","name":"Charm Person (Level 1 Slot)","description":"One humanoid within 30 ft. makes DC 13 Wisdom save or is charmed by Huw for 1 hour. Charmed creature regards Huw as friendly. Ends if Huw or allies harm the target. Use on the most aggressive party member."},{"id":"huw-004","name":"Suggestion (Level 1 Slot)","description":"One creature that can hear and understand Huw makes DC 13 Wis save or follows a reasonable suggestion for 8 hours."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":13,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":2,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.5,"com.battle-system.forge/Z022":15,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":14,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":18,"com.battle-system.forge/Z026":2,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":14,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":18,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"Spell save DC 13. Slots: 2x Level 1.","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Deception +4, Insight +3, Persuasion +4","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":11,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":13},
+  aldric: {"com.battle-system.forge/name":"Aldric","com.battle-system.forge/Z034":[{"id":"aldric-001","name":"Breaks When Huw Falls","description":"When Huw is incapacitated, Aldric drops his weapon and surrenders."}],"com.battle-system.forge/Z035":[{"id":"aldric-002","name":"Improvised Weapon","description":"Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4+1] bludgeoning damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":10,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0.125,"com.battle-system.forge/Z022":11,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":11,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":10,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":9,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":12,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":9,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":11,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":10},
+  alric: {"com.battle-system.forge/name":"Alric Venn","com.battle-system.forge/Z034":[{"id":"alric-001","name":"Desperate Energy","description":"On his first turn in combat, Alric has advantage on his first attack roll."},{"id":"alric-002","name":"Attempts to Flee","description":"If Alric is the last combatant standing he uses his action to Dash toward the nearest exit. DC 12 Athletics for the party to cut him off."}],"com.battle-system.forge/Z035":[{"id":"alric-003","name":"Fallen Rapier or Longsword","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d8+2] slashing or piercing damage."},{"id":"alric-004","name":"Suggestion (Level 2 Slot)","description":"One creature that can hear and understand Alric makes DC 13 Wis save or follows a reasonable suggestion for 8 hours. Last resort only."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":12,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":3,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":1,"com.battle-system.forge/Z022":16,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":13,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":22,"com.battle-system.forge/Z026":2,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":15,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":22,"com.battle-system.forge/Z029":3,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":1,"com.battle-system.forge/Z041":"1x Level 2 slot. Spell save DC 13.","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Persuasion +5, Deception +5, Insight +3","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":12,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":13},
+  roark: {"com.battle-system.forge/name":"Roark","com.battle-system.forge/Z034":[{"id":"roark-001","name":"Breaks When Cors Falls","description":"When Cors is incapacitated, Roark must make a DC 10 Wisdom saving throw or disengage and withdraw."}],"com.battle-system.forge/Z035":[{"id":"roark-002","name":"Carpenter's Mallet","description":"Melee Weapon Attack [1d20+3] to hit, reach 5 ft., one target. [1d6+1] bludgeoning damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":11,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":-1,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.125,"com.battle-system.forge/Z022":9,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":10,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":11,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":11,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":13,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":10},
+  mael: {"com.battle-system.forge/name":"Mael","com.battle-system.forge/Z034":[{"id":"mael-001","name":"Breaks Early","description":"When first hit or when any ally is incapacitated, Mael must make a DC 8 Wisdom saving throw or disengage immediately."}],"com.battle-system.forge/Z035":[{"id":"mael-002","name":"Improvised Weapon","description":"Melee Weapon Attack [1d20+1] to hit, reach 5 ft., one target. [1d4] bludgeoning damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":10,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":-1,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0,"com.battle-system.forge/Z022":9,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":10,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":10,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":7,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":7,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 9","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":10,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":-1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":9},
+  tav: {"com.battle-system.forge/name":"Tav","com.battle-system.forge/Z034":[],"com.battle-system.forge/Z035":[{"id":"tav-001","name":"Hand Axe (melee)","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] slashing damage."},{"id":"tav-002","name":"Hand Axe (thrown)","description":"Ranged Weapon Attack [1d20+4] to hit, range 20/60 ft., one target. [1d6+2] slashing damage. Round 1 only."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":12,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":-1,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":9,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":13,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":11,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":11,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":2,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":14,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":10},
+  efadun: {"com.battle-system.forge/name":"Efa Dun","com.battle-system.forge/Z034":[{"id":"efa-001","name":"Breaks When Cors Falls","description":"When Cors is incapacitated or steps away, Efa Dun makes a DC 10 Wisdom saving throw or disengages."}],"com.battle-system.forge/Z035":[{"id":"efa-002","name":"Dagger","description":"Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4+1] piercing damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":11,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0.125,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":10,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":12,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":8,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":11,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":8,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":-1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":9,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":10},
+  drest: {"com.battle-system.forge/name":"Drest","com.battle-system.forge/Z034":[{"id":"drest-001","name":"Grappler","description":"+2 to Strength contests. Counts as one size larger for grappling purposes."}],"com.battle-system.forge/Z035":[{"id":"drest-002","name":"Warhammer","description":"Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] bludgeoning damage."},{"id":"drest-003","name":"Grapple","description":"Strength contest +5. On success the target is grappled. Drest can move the grappled creature at half speed and attack them at advantage while grappling."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":13,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":-1,"com.battle-system.forge/Z025":2,"com.battle-system.forge/Z016":0.5,"com.battle-system.forge/Z022":9,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":14,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":10,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":19,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":11,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common, Dwarvish","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":19,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":3,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Athletics +5","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":17,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":12},
+  cors: {"com.battle-system.forge/name":"Cors Holdworn","com.battle-system.forge/Z034":[{"id":"cors-001","name":"Threat Assessment","description":"Identifies the most dangerous party member immediately. Targets them first and exclusively."},{"id":"cors-002","name":"Secret Courtesan Contact","description":"In teal path: fights for Oskar. In pink path: steps sideways to Sables during wave 2 — quiet repositioning. Do not draw attention."}],"com.battle-system.forge/Z035":[{"id":"cors-003","name":"Heavy Knife (melee)","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] piercing damage."},{"id":"cors-004","name":"Heavy Knife (thrown)","description":"Ranged Weapon Attack [1d20+4] to hit, range 20/40 ft., one target. [1d6+2] piercing damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":14,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.5,"com.battle-system.forge/Z022":11,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":13,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":15,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":19,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":12,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":19,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":2,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Athletics +4, Stealth +4","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":14,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":12},
+  ysolde: {"com.battle-system.forge/name":"Ysolde","com.battle-system.forge/Z034":[{"id":"ysolde-001","name":"Casts Once and Leaves","description":"Ysolde casts Thunderwave on her first turn then uses her remaining movement to walk away. She does not engage further under any circumstances."}],"com.battle-system.forge/Z035":[{"id":"ysolde-002","name":"Thunderwave (Level 1 Slot)","description":"Each creature in a 15 ft. cube makes DC 13 Constitution save. On fail: [2d8] thunder damage and pushed 10 ft. On success: half damage, not pushed. Use when 2+ party members are adjacent."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":12,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":1,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0.5,"com.battle-system.forge/Z022":12,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":11,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":13,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":14,"com.battle-system.forge/Z026":2,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":14,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":14,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":-1,"com.battle-system.forge/Z041":"Spell save DC 13. 1x Level 1 slot.","com.battle-system.forge/Z013":"Passive Perception 12","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Arcana +4","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":9,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":2,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":15},
+  oskar: {"com.battle-system.forge/name":"Oskar Sternov","com.battle-system.forge/Z034":[{"id":"oskar-001","name":"Powerful Build","description":"Counts as one size larger for grappling and shoving purposes."},{"id":"oskar-002","name":"Cold Anger","description":"Oskar does not show emotion during combat. Insight checks against him are made at disadvantage."},{"id":"oskar-003","name":"Attempts to Flee","description":"If Oskar is the last combatant standing he uses his action to Dash toward the nearest exit. DC 12 Athletics for the party to cut him off."}],"com.battle-system.forge/Z035":[{"id":"oskar-004","name":"Unarmed Strike","description":"Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d6+3] bludgeoning damage."},{"id":"oskar-005","name":"Grapple","description":"Strength contest +6. On success the target is grappled. Oskar counts as one size larger. Can move the grappled creature at half speed."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":12,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":3,"com.battle-system.forge/Z016":1,"com.battle-system.forge/Z022":11,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":16,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":11,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":24,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":13,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":24,"com.battle-system.forge/Z029":3,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":4,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Athletics +6","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":18,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":12},
+  elbeth: {"com.battle-system.forge/name":"Elbeth Sable","com.battle-system.forge/Z034":[{"id":"elbeth-ff-001","name":"Personal Grievance","description":"Elbeth targets whoever she holds most responsible for Coppergate Stables and does not switch targets unless that target is incapacitated."}],"com.battle-system.forge/Z035":[{"id":"elbeth-ff-002","name":"Shortsword","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] piercing damage."}],"com.battle-system.forge/Z003":"Neutral Good","com.battle-system.forge/Z007":13,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":1,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":13,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":15,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":12,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":13,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":12,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Insight +3, Stealth +4","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":11,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":12},
+  dalla: {"com.battle-system.forge/name":"Dalla Sable","com.battle-system.forge/Z034":[{"id":"dalla-001","name":"Sneak Attack","description":"Once per turn, Dalla deals an extra [1d6] damage when she has advantage or an ally is adjacent to the target."}],"com.battle-system.forge/Z035":[{"id":"dalla-002","name":"Shortsword","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] piercing damage. Add [1d6] sneak attack if advantage or ally adjacent."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":13,"com.battle-system.forge/Z036":[{"id":"dalla-003","name":"Cunning Action","description":"Dalla can take the Dash, Disengage, or Hide action as a bonus action."}],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":11,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":11,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":15,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":11,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":12,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":11,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Stealth +4, Perception +3","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":10,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":13},
+  perys: {"com.battle-system.forge/name":"Perys Sable","com.battle-system.forge/Z034":[],"com.battle-system.forge/Z035":[{"id":"perys-001","name":"Dagger (melee)","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d4+2] piercing damage."},{"id":"perys-002","name":"Dagger (thrown)","description":"Ranged Weapon Attack [1d20+4] to hit, range 20/60 ft., one target. [1d4+2] piercing damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":13,"com.battle-system.forge/Z036":[{"id":"perys-003","name":"Cunning Action","description":"Perys can take the Dash, Disengage, or Hide action as a bonus action."}],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":12,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":10,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":15,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":9,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":12,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":9,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":-1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Stealth +4, Acrobatics +4","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":9,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":12},
+  nance: {"com.battle-system.forge/name":"Nance","com.battle-system.forge/Z034":[{"id":"nance-001","name":"Prepared Position","description":"Nance has already scouted the square before combat begins. She has half cover from her chosen position on the first round of combat."}],"com.battle-system.forge/Z035":[{"id":"nance-002","name":"Hand Crossbow","description":"Ranged Weapon Attack [1d20+4] to hit, range 30/120 ft., one target. [1d6+2] piercing damage."},{"id":"nance-003","name":"Dagger","description":"Melee Weapon Attack [1d20+3] to hit, reach 5 ft., one target. [1d4+1] piercing damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":13,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":11,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":11,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":15,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":11,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":12,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":11,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Stealth +4, Perception +3","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":10,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":13},
+  mira: {"com.battle-system.forge/name":"Mira Sable","com.battle-system.forge/Z034":[{"id":"mira-001","name":"Uncanny Poise","description":"Mira does not provoke opportunity attacks when she moves away from a hostile creature."},{"id":"mira-002","name":"Sneak Attack","description":"Once per turn, Mira deals an extra [1d6] damage when she has advantage or an ally is adjacent to the target."}],"com.battle-system.forge/Z035":[{"id":"mira-003","name":"Dagger (melee)","description":"Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d4+3] piercing damage. Add [1d6] sneak attack if advantage or ally adjacent."},{"id":"mira-004","name":"Dagger (thrown)","description":"Ranged Weapon Attack [1d20+5] to hit, range 20/60 ft., one target. [1d4+3] piercing damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":14,"com.battle-system.forge/Z036":[{"id":"mira-005","name":"Cunning Action","description":"Mira can take the Dash, Disengage, or Hide action as a bonus action."}],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":3,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.5,"com.battle-system.forge/Z022":16,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":3,"com.battle-system.forge/Z018":16,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":18,"com.battle-system.forge/Z026":2,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":14,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":18,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 12","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Deception +5, Insight +4, Stealth +5, Persuasion +5","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":10,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":2,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":15},
+  seva: {"com.battle-system.forge/name":"Seva Sable","com.battle-system.forge/Z034":[{"id":"seva-ff-001","name":"Uncanny Poise","description":"Seva does not provoke opportunity attacks when she moves away from a hostile creature."},{"id":"seva-ff-002","name":"Composed","description":"Advantage on saving throws against being frightened. Cannot be charmed by creatures of CR 2 or lower."},{"id":"seva-ff-003","name":"Threat Assessment","description":"At the start of combat Seva identifies the most dangerous creature within 60 ft. She has advantage on the first attack roll she makes against that creature."},{"id":"seva-ff-004","name":"Attempts to Flee","description":"If Seva is the last combatant standing she uses her action to Dash toward the nearest exit. DC 12 Athletics for the party to cut her off."}],"com.battle-system.forge/Z035":[{"id":"seva-ff-005","name":"Dagger (melee)","description":"Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d4+3] piercing damage."},{"id":"seva-ff-006","name":"Dagger (thrown)","description":"Ranged Weapon Attack [1d20+5] to hit, range 20/60 ft., one target. [1d4+3] piercing damage."},{"id":"seva-ff-007","name":"Read the Room","description":"DC 12 Insight check on one creature — learns emotional state, whether acting under duress, and whether concealing a weapon. Use on first action."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":14,"com.battle-system.forge/Z036":[{"id":"seva-ff-008","name":"Disengage","description":"Seva can take the Disengage action as a bonus action."}],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":6,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":2,"com.battle-system.forge/Z022":18,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":5,"com.battle-system.forge/Z018":16,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":32,"com.battle-system.forge/Z026":2,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":15,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common, Elvish","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":32,"com.battle-system.forge/Z029":3,"com.battle-system.forge/Z037":[{"id":"seva-ff-009","name":"Deflect","description":"When Seva is hit by a melee attack she can see, she uses her reaction to reduce the damage by [1d6+3]."}],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 13","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Deception +8, Insight +7, Perception +5, Persuasion +8, Stealth +5","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":10,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":5,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":16}
+};
+
+function copyJSON(id, btn){
+  const json = JSON.stringify(forgeJSON[id]);
+  navigator.clipboard.writeText(json).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy Forge JSON';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

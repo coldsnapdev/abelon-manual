@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Economy — Abelon Master Reference</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;
+    --ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;
+    --accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);
+    --beat-bg:rgba(107,58,42,0.05);--beat-border:#c4a882;
+    --blue:#185FA5;--blue-bg:rgba(24,95,165,0.07);--blue-border:#185FA5;
+    --teal:#0F6E56;--teal-bg:rgba(15,110,86,0.07);--teal-border:#0F6E56;
+    --pink:#993556;--pink-bg:rgba(153,53,86,0.07);--pink-border:#993556;
+    --gold:#854F0B;--gold-bg:rgba(133,79,11,0.08);--gold-border:#854F0B;
+    --success-bg:rgba(15,110,86,0.07);--success-border:#0F6E56;--success-text:#04342C;
+    --warning-bg:rgba(133,79,11,0.08);--warning-border:#854F0B;--warning-text:#412402;
+    --combat-bg:rgba(153,60,29,0.07);--combat-border:#993C1D;
+  }
+  @media(prefers-color-scheme:dark){:root{
+    --parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;
+    --ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);
+    --beat-bg:rgba(196,168,130,0.06);--beat-border:#5a4a38;
+    --blue:#85B7EB;--blue-bg:rgba(133,183,235,0.07);--blue-border:#85B7EB;
+    --teal:#5DCAA5;--teal-bg:rgba(93,202,165,0.07);--teal-border:#5DCAA5;
+    --pink:#ED93B1;--pink-bg:rgba(237,147,177,0.07);--pink-border:#ED93B1;
+    --gold:#EF9F27;--gold-bg:rgba(239,159,39,0.08);--gold-border:#EF9F27;
+    --success-bg:rgba(93,202,165,0.07);--success-border:#5DCAA5;--success-text:#E1F5EE;
+    --warning-bg:rgba(239,159,39,0.08);--warning-border:#EF9F27;--warning-text:#FAEEDA;
+    --combat-bg:rgba(240,153,123,0.07);--combat-border:#F0997B;
+  }}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:960px;margin:0 auto;padding:2rem 2rem 4rem;}
+
+  /* Header */
+  .doc-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:1.5rem;}
+  .doc-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .doc-title{font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--accent);letter-spacing:.05em;margin-bottom:6px;}
+  .doc-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+
+  /* Tabs */
+  .tab-bar{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:1.5rem;border-bottom:1px solid var(--rule);padding-bottom:0;}
+  .tab{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;padding:8px 16px;border:.5px solid transparent;border-bottom:none;border-radius:4px 4px 0 0;cursor:pointer;color:var(--ink-faded);background:transparent;transition:all .15s;position:relative;top:1px;}
+  .tab:hover{color:var(--ink);background:var(--beat-bg);}
+  .tab.active{color:var(--accent);background:var(--parchment);border-color:var(--rule);border-bottom-color:var(--parchment);}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  /* Section headings */
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .section-heading:first-child{margin-top:0;}
+
+  /* Tables */
+  .price-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:15px;}
+  .price-table th{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);text-align:left;padding:6px 10px;border-bottom:1px solid var(--rule);font-weight:400;}
+  .price-table th.right{text-align:right;}
+  .price-table td{padding:6px 10px;border-bottom:.5px solid var(--rule-faint);color:var(--ink-mid);vertical-align:top;}
+  .price-table td.price{text-align:right;font-family:'Cinzel',serif;font-size:13px;color:var(--ink);white-space:nowrap;}
+  .price-table td.festival{text-align:right;font-family:'Cinzel',serif;font-size:13px;color:var(--gold);white-space:nowrap;}
+  .price-table td.range{text-align:right;font-family:'Cinzel',serif;font-size:13px;color:var(--ink-faded);white-space:nowrap;}
+  .price-table tr:last-child td{border-bottom:none;}
+  .price-table tr:hover td{background:var(--beat-bg);}
+  .price-table .cat-row td{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);padding-top:14px;padding-bottom:4px;border-bottom:.5px solid var(--rule-faint);background:var(--beat-bg);}
+
+  /* Two column layout */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;}
+  @media(max-width:600px){.two-col{grid-template-columns:1fr;}}
+  .price-block{background:var(--beat-bg);border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;}
+  .price-block-header{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);padding:8px 14px;border-bottom:.5px solid var(--beat-border);}
+  .price-block table{width:100%;border-collapse:collapse;font-size:14px;}
+  .price-block table td{padding:5px 14px;border-bottom:.5px solid var(--rule-faint);color:var(--ink-mid);}
+  .price-block table td.price{text-align:right;font-family:'Cinzel',serif;font-size:13px;color:var(--ink);white-space:nowrap;}
+  .price-block table td.festival{text-align:right;font-family:'Cinzel',serif;font-size:13px;color:var(--gold);white-space:nowrap;}
+  .price-block table tr:last-child td{border-bottom:none;}
+
+  /* DM notes */
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+  .warning-block{background:var(--warning-bg);border:.5px solid var(--warning-border);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--warning-text);}
+  .warning-block strong{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:5px;}
+  .success-block{background:var(--success-bg);border:.5px solid var(--success-border);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--success-text);}
+  .success-block strong{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:5px;}
+
+  /* Rewards */
+  .standing-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+  @media(max-width:600px){.standing-grid{grid-template-columns:1fr;}}
+  .standing-card{background:var(--beat-bg);border:.5px solid var(--beat-border);border-radius:6px;padding:12px 14px;text-align:center;}
+  .standing-val{font-family:'Cinzel',serif;font-size:22px;font-weight:600;color:var(--accent);display:block;margin-bottom:2px;}
+  .standing-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:4px;}
+  .standing-note{font-size:13px;font-style:italic;color:var(--ink-faded);}
+  .mission-block{border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .mission-block.blue{border:.5px solid var(--blue-border);}
+  .mission-block.teal{border:.5px solid var(--teal-border);}
+  .mission-block.pink{border:.5px solid var(--pink-border);}
+  .mission-block.gray{border:.5px solid var(--rule);}
+  .mission-header{display:flex;align-items:baseline;gap:12px;padding:9px 14px;border-bottom:.5px solid;}
+  .mission-block.blue .mission-header{background:var(--blue-bg);border-color:var(--blue-border);}
+  .mission-block.teal .mission-header{background:var(--teal-bg);border-color:var(--teal-border);}
+  .mission-block.pink .mission-header{background:var(--pink-bg);border-color:var(--pink-border);}
+  .mission-block.gray .mission-header{background:var(--beat-bg);border-color:var(--rule);}
+  .mission-faction{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;}
+  .mission-block.blue .mission-faction{color:var(--blue);}
+  .mission-block.teal .mission-faction{color:var(--teal);}
+  .mission-block.pink .mission-faction{color:var(--pink);}
+  .mission-block.gray .mission-faction{color:var(--ink-faded);}
+  .mission-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);flex:1;}
+  .mission-body{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border-bottom:.5px solid var(--rule-faint);}
+  .mission-body:last-child{border-bottom:none;}
+  .reward-cell{padding:7px 14px;font-size:14px;color:var(--ink-mid);}
+  .reward-cell.label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);}
+  .reward-cell.amount{text-align:right;font-family:'Cinzel',serif;font-size:15px;color:var(--ink);font-weight:600;}
+  .reward-cell.range-cell{text-align:right;font-size:13px;font-style:italic;color:var(--ink-faded);}
+  .mission-note{padding:7px 14px;font-size:13px;color:var(--ink-faded);font-style:italic;border-top:.5px solid var(--rule-faint);}
+  .totals-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:1rem;margin-bottom:1rem;}
+  @media(max-width:600px){.totals-grid{grid-template-columns:1fr;}}
+  .total-card{background:var(--beat-bg);border:.5px solid var(--beat-border);border-radius:6px;padding:12px 14px;text-align:center;}
+  .total-val{font-family:'Cinzel',serif;font-size:22px;font-weight:600;color:var(--accent);display:block;}
+  .total-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:4px;}
+  .total-sub{font-size:12px;font-style:italic;color:var(--ink-faded);display:block;margin-top:2px;}
+
+  /* Magic items */
+  .item-card{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:8px;background:var(--beat-bg);}
+  .item-header{display:flex;align-items:center;gap:12px;padding:10px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .item-header:hover{opacity:.8;}
+  .item-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);flex:1;}
+  .item-badges{display:flex;gap:6px;align-items:center;}
+  .badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:3px;white-space:nowrap;}
+  .badge-combat{background:var(--blue-bg);color:var(--blue);border:.5px solid var(--blue-border);}
+  .badge-survival{background:var(--teal-bg);color:var(--teal);border:.5px solid var(--teal-border);}
+  .badge-intrigue{background:var(--pink-bg);color:var(--pink);border:.5px solid var(--pink-border);}
+  .badge-texture{background:var(--gold-bg);color:var(--gold);border:.5px solid var(--gold-border);}
+  .badge-utility{background:var(--beat-bg);color:var(--ink-faded);border:.5px solid var(--rule);}
+  .badge-att{background:transparent;color:var(--ink-faded);border:.5px solid var(--rule);}
+  .item-toggle{font-size:14px;color:var(--ink-faded);transition:transform .2s;}
+  .item-toggle.open{transform:rotate(180deg);}
+  .item-body{display:none;padding:0 14px 12px;border-top:.5px solid var(--rule-faint);}
+  .item-body.open{display:block;}
+  .item-row{display:grid;grid-template-columns:120px 1fr;gap:8px;margin-top:8px;font-size:14px;}
+  .item-row-label{color:var(--ink-faded);font-style:italic;}
+  .item-row-val{color:var(--ink-mid);}
+
+  /* DC loot */
+  .dc-block{border-radius:6px;overflow:hidden;margin-bottom:1rem;border:.5px solid;}
+  .dc-block.dc1{border-color:var(--teal-border);background:var(--teal-bg);}
+  .dc-block.dc2{border-color:var(--blue-border);background:var(--blue-bg);}
+  .dc-block.dc3{border-color:var(--gold-border);background:var(--gold-bg);}
+  .dc-block.dc4{border-color:var(--accent);background:var(--beat-bg);}
+  .dc-block.dc5{border-color:var(--pink-border);background:var(--pink-bg);}
+  .dc-header{display:flex;align-items:baseline;gap:14px;padding:10px 16px;border-bottom:.5px solid var(--rule-faint);}
+  .dc-range{font-family:'Cinzel',serif;font-size:18px;font-weight:600;}
+  .dc-block.dc1 .dc-range{color:var(--teal);}
+  .dc-block.dc2 .dc-range{color:var(--blue);}
+  .dc-block.dc3 .dc-range{color:var(--gold);}
+  .dc-block.dc4 .dc-range{color:var(--accent);}
+  .dc-block.dc5 .dc-range{color:var(--pink);}
+  .dc-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);}
+  .dc-body{padding:10px 16px;}
+  .item-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 16px;}
+  @media(max-width:600px){.item-grid{grid-template-columns:1fr 1fr;}}
+  .item-cat-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);display:block;margin:8px 0 4px;}
+  .loot-item{font-size:14px;color:var(--ink-mid);display:flex;align-items:flex-start;gap:5px;margin-bottom:2px;}
+  .loot-item::before{content:'—';color:var(--rule);flex-shrink:0;font-size:12px;margin-top:2px;}
+
+  /* Shops tab */
+  .shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+  @media(max-width:600px){.shop-grid{grid-template-columns:1fr;}}
+  .shop-card{background:var(--beat-bg);border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;}
+  .shop-card-header{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--ink);padding:10px 14px;border-bottom:.5px solid var(--rule-faint);}
+  .shop-card-sub{font-size:12px;font-style:italic;color:var(--ink-faded);font-weight:400;}
+  .shop-card table{width:100%;border-collapse:collapse;font-size:13px;}
+  .shop-card table td{padding:4px 14px;border-bottom:.5px solid var(--rule-faint);color:var(--ink-mid);}
+  .shop-card table td.price{text-align:right;font-family:'Cinzel',serif;font-size:12px;color:var(--ink);white-space:nowrap;}
+  .shop-card table tr:last-child td{border-bottom:none;}
+
+  /* General goods full width */
+  .goods-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+  @media(max-width:700px){.goods-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:500px){.goods-grid{grid-template-columns:1fr;}}
+
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="doc-header">
+    <span class="doc-type">Master Reference — Act 1 / Tallowhaven</span>
+    <div class="doc-title">Economy</div>
+    <div class="doc-subtitle">Shops, taverns, inns, mission rewards, loot, and general goods — all in one place</div>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab active" onclick="showTab('shops',this)">Shops</button>
+    <button class="tab" onclick="showTab('taverns',this)">Taverns and Inns</button>
+    <button class="tab" onclick="showTab('rewards',this)">Mission Rewards</button>
+    <button class="tab" onclick="showTab('loot',this)">Loot</button>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB: SHOPS -->
+  <!-- ============================================================ -->
+  <div class="tab-panel active" id="tab-shops">
+
+    <div class="dm-note"><strong>Using this tab</strong>Shops are available during free time between missions. No scripted scenes — let the players lead. Haggling: DC 13 Persuasion for 10% off from independent traders. Guild-affiliated goods are non-negotiable. Festival pricing does not apply to shops — they sell goods, not experiences.</div>
+
+    <div class="section-heading">General traders</div>
+    <div class="shop-grid">
+
+      <div class="shop-card">
+        <div class="shop-card-header">Harwick's General Goods <span class="shop-card-sub">— Bram Harwick</span></div>
+        <table><tr><td>Backpack</td><td class="price">2 gp</td></tr><tr><td>Bedroll</td><td class="price">1 sp</td></tr><tr><td>Rope, hempen (50 ft)</td><td class="price">1 gp</td></tr><tr><td>Torch (×10)</td><td class="price">1 sp</td></tr><tr><td>Rations, trail (×5)</td><td class="price">2 gp 5 sp</td></tr><tr><td>Waterskin</td><td class="price">2 sp</td></tr><tr><td>Tinderbox</td><td class="price">5 sp</td></tr><tr><td>Crowbar</td><td class="price">2 gp</td></tr><tr><td>Lantern, hooded</td><td class="price">5 gp</td></tr><tr><td>Oil, flask (×5)</td><td class="price">5 sp</td></tr><tr><td>Mess kit</td><td class="price">2 sp</td></tr><tr><td>Sack (×5)</td><td class="price">1 sp</td></tr></table>
+      </div>
+
+      <div class="shop-card">
+        <div class="shop-card-header">The Stitch and Buckle <span class="shop-card-sub">— Efa Dowd</span></div>
+        <table><tr><td>Padded armour</td><td class="price">5 gp</td></tr><tr><td>Leather armour</td><td class="price">10 gp</td></tr><tr><td>Studded leather</td><td class="price">45 gp</td></tr><tr><td>Shield</td><td class="price">10 gp</td></tr><tr><td>Common clothes</td><td class="price">5 sp</td></tr><tr><td>Traveller's clothes</td><td class="price">2 gp</td></tr><tr><td>Saddlebags</td><td class="price">4 gp</td></tr><tr><td>Armour repair, light</td><td class="price">5 sp</td></tr><tr><td>Armour repair, heavy</td><td class="price">2 gp</td></tr></table>
+      </div>
+
+      <div class="shop-card">
+        <div class="shop-card-header">Brennan's Ironworks <span class="shop-card-sub">— Sion Brennan</span></div>
+        <table><tr><td>Dagger</td><td class="price">2 gp</td></tr><tr><td>Handaxe</td><td class="price">5 gp</td></tr><tr><td>Shortsword</td><td class="price">10 gp</td></tr><tr><td>Spear</td><td class="price">1 gp</td></tr><tr><td>Quarterstaff</td><td class="price">2 sp</td></tr><tr><td>Light crossbow</td><td class="price">25 gp</td></tr><tr><td>Crossbow bolts (×20)</td><td class="price">1 gp</td></tr><tr><td>Hand crossbow</td><td class="price">75 gp</td></tr><tr><td>Chain shirt</td><td class="price">50 gp</td></tr><tr><td>Chain mail</td><td class="price">75 gp</td></tr></table>
+      </div>
+
+      <div class="shop-card">
+        <div class="shop-card-header">The Whetted Edge <span class="shop-card-sub">— Petra Vane</span></div>
+        <table><tr><td>Longsword</td><td class="price">15 gp</td></tr><tr><td>Rapier</td><td class="price">25 gp</td></tr><tr><td>Battleaxe</td><td class="price">10 gp</td></tr><tr><td>Warhammer</td><td class="price">15 gp</td></tr><tr><td>Greataxe</td><td class="price">30 gp</td></tr><tr><td>Greatsword</td><td class="price">50 gp</td></tr><tr><td>Longbow</td><td class="price">50 gp</td></tr><tr><td>Arrows (×20)</td><td class="price">1 gp</td></tr><tr><td>Half plate</td><td class="price">750 gp</td></tr></table>
+      </div>
+
+      <div class="shop-card">
+        <div class="shop-card-header">Caldwell's Apothecary <span class="shop-card-sub">— Hesta Caldwell</span></div>
+        <table><tr><td>Healing potion</td><td class="price">50 gp</td></tr><tr><td>Antitoxin (vial)</td><td class="price">50 gp</td></tr><tr><td>Healer's kit</td><td class="price">5 gp</td></tr><tr><td>Herbalism kit</td><td class="price">5 gp</td></tr><tr><td>Common herbs (pouch)</td><td class="price">5 sp</td></tr><tr><td>Basic poison (vial)</td><td class="price">100 gp</td></tr></table>
+      </div>
+
+      <div class="shop-card">
+        <div class="shop-card-header">The Rolled Scroll <span class="shop-card-sub">— Aldric Penn</span></div>
+        <table><tr><td>Map of Tallowhaven</td><td class="price">5 sp</td></tr><tr><td>Regional map — Western Reach</td><td class="price">2 gp</td></tr><tr><td>Blank book</td><td class="price">25 gp</td></tr><tr><td>Ink, 1 oz vial</td><td class="price">10 gp</td></tr><tr><td>Paper (×10 sheets)</td><td class="price">2 sp</td></tr><tr><td>Spell scroll — cantrip</td><td class="price">25 gp</td></tr><tr><td>Spell scroll — 1st level</td><td class="price">75 gp</td></tr></table>
+      </div>
+
+      <div class="shop-card">
+        <div class="shop-card-header">Tallow and Wick <span class="shop-card-sub">— Mabs Oswin</span></div>
+        <table><tr><td>Candle (×10)</td><td class="price">1 sp</td></tr><tr><td>Soap</td><td class="price">2 cp</td></tr><tr><td>Blanket</td><td class="price">5 sp</td></tr><tr><td>Small wooden chest</td><td class="price">5 gp</td></tr><tr><td>Mirror, steel</td><td class="price">5 gp</td></tr><tr><td>Perfume, vial</td><td class="price">5 gp</td></tr><tr><td>Hourglass</td><td class="price">25 gp</td></tr></table>
+      </div>
+
+      <div class="shop-card">
+        <div class="shop-card-header">Maren's Stable and Dray <span class="shop-card-sub">— Jorin Maren</span></div>
+        <table><tr><td>Mule</td><td class="price">8 gp</td></tr><tr><td>Riding horse</td><td class="price">75 gp</td></tr><tr><td>Cart</td><td class="price">15 gp</td></tr><tr><td>Feed, per day</td><td class="price">5 cp</td></tr><tr><td>Saddle, riding</td><td class="price">10 gp</td></tr><tr><td>Saddle, pack</td><td class="price">5 gp</td></tr><tr><td>Stabling, per night</td><td class="price">1 sp</td></tr></table>
+      </div>
+
+      <div class="shop-card">
+        <div class="shop-card-header">The Dockside Chandler <span class="shop-card-sub">— Wren Caul</span></div>
+        <table><tr><td>Rope, hempen (50 ft)</td><td class="price">1 gp</td></tr><tr><td>Rope, silk (50 ft)</td><td class="price">10 gp</td></tr><tr><td>Barrel, empty</td><td class="price">2 gp</td></tr><tr><td>Fishing tackle</td><td class="price">1 gp</td></tr><tr><td>Grappling hook</td><td class="price">2 gp</td></tr><tr><td>Chain (10 ft)</td><td class="price">5 gp</td></tr><tr><td>Rowboat, small</td><td class="price">50 gp</td></tr></table>
+      </div>
+
+    </div>
+
+    <div class="section-heading">Vesper's Curios — Vesper</div>
+    <div class="dm-note"><strong>Note</strong>The most interesting stop in Tallowhaven. Players with tool proficiencies will light up here. The spyglass at 1,000 gp is on a velvet cloth at the back — it is there to make the room feel real. Vesper sells without asking why.</div>
+    <div class="two-col">
+      <div class="price-block">
+        <div class="price-block-header">Curiosities</div>
+        <table><tr><td>Magnifying glass</td><td class="price">100 gp</td></tr><tr><td>Hourglass</td><td class="price">25 gp</td></tr><tr><td>Spyglass</td><td class="price">1,000 gp</td></tr><tr><td>Dice set</td><td class="price">1 sp</td></tr><tr><td>Playing cards</td><td class="price">5 sp</td></tr></table>
+      </div>
+      <div class="price-block">
+        <div class="price-block-header">Tools and kits</div>
+        <table><tr><td>Disguise kit</td><td class="price">25 gp</td></tr><tr><td>Forgery kit</td><td class="price">15 gp</td></tr><tr><td>Thieves' tools</td><td class="price">25 gp</td></tr><tr><td>Alchemist's supplies</td><td class="price">50 gp</td></tr><tr><td>Navigator's tools</td><td class="price">25 gp</td></tr></table>
+      </div>
+    </div>
+
+    <div class="section-heading">Specialist traders</div>
+    <div class="shop-grid">
+      <div class="shop-card">
+        <div class="shop-card-header">Silvermark <span class="shop-card-sub">— Mared Ffion</span></div>
+        <table><tr><td>Simple silver ring</td><td class="price">5 gp</td></tr><tr><td>Silver pendant</td><td class="price">12 gp</td></tr><tr><td>Worked silver brooch</td><td class="price">25 gp</td></tr><tr><td>Gem-set silver ring</td><td class="price">50 gp</td></tr><tr><td>Coastal gem (when available)</td><td class="price">75–200 gp</td></tr><tr><td>Custom commission</td><td class="price">by arrangement</td></tr></table>
+      </div>
+      <div class="shop-card">
+        <div class="shop-card-header">The Copper Vine <span class="shop-card-sub">— Caspar Veld</span></div>
+        <table><tr><td>Bottle of common wine</td><td class="price">5 sp</td></tr><tr><td>Bottle of good wine</td><td class="price">2 gp</td></tr><tr><td>Bottle of festival wine</td><td class="price">5 gp</td></tr><tr><td>Case of twelve (common)</td><td class="price">4 gp</td></tr><tr><td>Case of twelve (good)</td><td class="price">18 gp</td></tr><tr><td>Tasting (two glasses)</td><td class="price">3 sp</td></tr></table>
+      </div>
+      <div class="shop-card">
+        <div class="shop-card-header">Fabled Furnitures <span class="shop-card-sub">— Lande</span></div>
+        <table><tr><td>Simple stool or shelf</td><td class="price">8 sp</td></tr><tr><td>Standard chair</td><td class="price">2 gp</td></tr><tr><td>Good quality table</td><td class="price">8 gp</td></tr><tr><td>Carved chest or cabinet</td><td class="price">20 gp</td></tr><tr><td>Commission piece</td><td class="price">50 gp+</td></tr></table>
+      </div>
+      <div class="shop-card">
+        <div class="shop-card-header">Osip Baran's Butcher <span class="shop-card-sub">— Osip Baran</span></div>
+        <table><tr><td>Standard cut of meat (1 lb)</td><td class="price">5 cp</td></tr><tr><td>Good cut (1 lb)</td><td class="price">1 sp</td></tr><tr><td>Whole bird, dressed</td><td class="price">3 sp</td></tr><tr><td>Salted fish (when available)</td><td class="price">8 cp per portion</td></tr><tr><td>Preserved meat, travel rations</td><td class="price">2 sp per lb</td></tr></table>
+      </div>
+    </div>
+
+    <div class="dm-note"><strong>Fabled Furnitures</strong>Elven craft. Lasts longer than most. Lande is unhurried and precise — she does not rush commissions and will not be persuaded to.</div>
+    <div class="dm-note"><strong>Osip Baran's</strong>Salted fish and preserved seafood unavailable until the Merchant second mission resolves the Driftwood supply route. After the mission, standard prices apply without ceremony.</div>
+
+  </div>
+  <!-- ============================================================ -->
+  <div class="tab-panel" id="tab-taverns">
+
+    <div class="warning-block"><strong>Festival pricing</strong>Festival prices apply from the day after the party arrives in Tallowhaven. Amber values show the festival rate where it differs. Locals grumble. Visitors expect it. The party noticing is a small texture reward for paying attention.</div>
+
+    <div class="section-heading">Lodging</div>
+    <table class="price-table">
+      <tr><th>Establishment</th><th>Room type</th><th class="right">Standard</th><th class="right">Festival</th></tr>
+      <tr><td class="cat-row" colspan="4">The Amber Cup — Tallowhaven</td></tr>
+      <tr><td></td><td>Common room (floor, shared)</td><td class="price">4 sp</td><td class="festival">5 sp</td></tr>
+      <tr><td></td><td>Shared room (2–3 persons)</td><td class="price">8 sp</td><td class="festival">1 gp</td></tr>
+      <tr><td></td><td>Private room</td><td class="price">1 gp</td><td class="festival">1 gp 5 sp</td></tr>
+      <tr><td></td><td>Private room upstairs (Seva's table)</td><td class="price">by arrangement</td><td class="festival">—</td></tr>
+      <tr><td></td><td>Stabling per night</td><td class="price">2 sp</td><td class="festival">3 sp</td></tr>
+      <tr><td class="cat-row" colspan="4">Standard Inn — working quarter</td></tr>
+      <tr><td></td><td>Common room (floor, shared)</td><td class="price">2 sp</td><td class="festival">3 sp</td></tr>
+      <tr><td></td><td>Shared room</td><td class="price">5 sp</td><td class="festival">7 sp</td></tr>
+      <tr><td></td><td>Private room</td><td class="price">7 sp</td><td class="festival">1 gp</td></tr>
+      <tr><td></td><td>Stabling per night</td><td class="price">1 sp</td><td class="festival">1 sp</td></tr>
+      <tr><td class="cat-row" colspan="4">Delegation Inn — visiting merchants</td></tr>
+      <tr><td></td><td>Private room</td><td class="price">2 gp</td><td class="festival">3 gp</td></tr>
+      <tr><td></td><td>Suite</td><td class="price">5 gp</td><td class="festival">7 gp</td></tr>
+      <tr><td class="cat-row" colspan="4">The Star and Raven — Brindle Hollow</td></tr>
+      <tr><td></td><td>Common room</td><td class="price">1 sp</td><td class="festival">—</td></tr>
+      <tr><td></td><td>Shared room</td><td class="price">3 sp</td><td class="festival">—</td></tr>
+      <tr><td></td><td>Private room</td><td class="price">5 sp</td><td class="festival">—</td></tr>
+      <tr><td></td><td>Stabling per night</td><td class="price">1 sp</td><td class="festival">—</td></tr>
+    </table>
+
+    <div class="section-heading">Food and Drink</div>
+    <div class="two-col">
+      <div class="price-block">
+        <div class="price-block-header">Drinks</div>
+        <table>
+          <tr><td>Mug of ale (common)</td><td class="price">2 cp</td><td class="festival">3 cp</td></tr>
+          <tr><td>Mug of ale (good)</td><td class="price">4 cp</td><td class="festival">6 cp</td></tr>
+          <tr><td>Cup of wine (common)</td><td class="price">5 cp</td><td class="festival">8 cp</td></tr>
+          <tr><td>Cup of wine (good)</td><td class="price">1 sp</td><td class="festival">1 sp 5 cp</td></tr>
+          <tr><td>Spirits (small flask)</td><td class="price">2 sp</td><td class="festival">3 sp</td></tr>
+          <tr><td>Hot tea or herbal drink</td><td class="price">2 cp</td><td class="festival">3 cp</td></tr>
+        </table>
+      </div>
+      <div class="price-block">
+        <div class="price-block-header">Simple food</div>
+        <table>
+          <tr><td>Bread, chunk</td><td class="price">1 cp</td><td class="festival">2 cp</td></tr>
+          <tr><td>Bread and cheese</td><td class="price">3 cp</td><td class="festival">5 cp</td></tr>
+          <tr><td>Bowl of porridge or stew</td><td class="price">5 cp</td><td class="festival">7 cp</td></tr>
+          <tr><td>Meat pie or pastry</td><td class="price">8 cp</td><td class="festival">1 sp</td></tr>
+          <tr><td>Full working meal</td><td class="price">2 sp</td><td class="festival">3 sp</td></tr>
+        </table>
+      </div>
+      <div class="price-block">
+        <div class="price-block-header">The Amber Cup kitchen</div>
+        <table>
+          <tr><td>Soup with good bread</td><td class="price">4 cp</td><td class="festival">6 cp</td></tr>
+          <tr><td>Roast meat with roots</td><td class="price">8 cp</td><td class="festival">1 sp 2 cp</td></tr>
+          <tr><td>Chef's special</td><td class="price">1 sp 5 cp</td><td class="festival">2 sp</td></tr>
+          <tr><td>Salted bream, spiced roots</td><td class="price">2 sp</td><td class="festival">3 sp</td></tr>
+          <tr><td>Full dinner with wine</td><td class="price">3 sp</td><td class="festival">5 sp</td></tr>
+        </table>
+      </div>
+      <div class="price-block">
+        <div class="price-block-header">Market stalls and street</div>
+        <table>
+          <tr><td>Skewer of roasted meat</td><td class="price">3 cp</td><td class="festival">5 cp</td></tr>
+          <tr><td>Wrapped flatbread with filling</td><td class="price">4 cp</td><td class="festival">6 cp</td></tr>
+          <tr><td>Roasted nuts or seeds</td><td class="price">1 cp</td><td class="festival">2 cp</td></tr>
+          <tr><td>Festival sweet (sugar pastry)</td><td class="price">2 cp</td><td class="festival">3 cp</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-heading">The Shallow Tuber — Breakfast</div>
+    <table class="price-table">
+      <tr><th>Item</th><th class="right">Standard</th><th class="right">Festival</th></tr>
+      <tr><td>Full breakfast (eggs, meat, bread, hot drink)</td><td class="price">4 cp</td><td class="festival">6 cp</td></tr>
+      <tr><td>Guild business breakfast (Alric's table)</td><td class="price">paid by Alric</td><td class="festival">—</td></tr>
+    </table>
+
+    <div class="section-heading">Services</div>
+    <div class="two-col">
+      <div class="price-block">
+        <div class="price-block-header">Transport</div>
+        <table>
+          <tr><td>Cart hire, within Tallowhaven</td><td class="price">5 cp</td></tr>
+          <tr><td>Cart hire, to Brindle Hollow</td><td class="price">2 sp</td></tr>
+          <tr><td>Cart hire, to Driftwood Point</td><td class="price">5 sp</td></tr>
+          <tr><td>Horse hire, per day</td><td class="price">2 gp</td></tr>
+        </table>
+      </div>
+      <div class="price-block">
+        <div class="price-block-header">Skilled labour</div>
+        <table>
+          <tr><td>Unskilled labourer, per day</td><td class="price">2 sp</td></tr>
+          <tr><td>Skilled craftsperson (guild), per day</td><td class="price">1 gp</td></tr>
+          <tr><td>Scribe or translator, per day</td><td class="price">5 sp</td></tr>
+          <tr><td>Healer (non-magical), per treatment</td><td class="price">5 sp</td></tr>
+        </table>
+      </div>
+      <div class="price-block">
+        <div class="price-block-header">Information and access</div>
+        <table>
+          <tr><td>Street information (minor)</td><td class="price">1–5 sp</td></tr>
+          <tr><td>Useful contacts</td><td class="price">1–5 gp</td></tr>
+          <tr><td>Legal consultation</td><td class="price">5 gp</td></tr>
+          <tr><td>Message within Tallowhaven</td><td class="price">1 cp</td></tr>
+          <tr><td>Message to Brindle Hollow</td><td class="price">1 sp</td></tr>
+        </table>
+      </div>
+      <div class="price-block">
+        <div class="price-block-header">The Tallowhaven Trumpet</div>
+        <table>
+          <tr><td>Single issue</td><td class="price">1 cp</td></tr>
+          <tr><td>Weekly subscription</td><td class="price">5 cp</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="dm-note"><strong>Driftwood goods</strong>Before the Merchant second mission resolves the supply route, salted bream and coastal goods are unavailable or double-priced as rare imports. After the mission succeeds, standard prices apply without ceremony. The waiter's line about the chef's special being unavailable maps directly onto this.</div>
+    <div class="dm-note"><strong>Amber Cup</strong>Morra's rates are non-negotiable. She will comp a round for a party that has done something she approves of. She does not explain why.</div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB: MISSION REWARDS -->
+  <!-- ============================================================ -->
+  <div class="tab-panel" id="tab-rewards">
+
+    <div class="section-heading">Standing modifier — applies to completion payment only</div>
+    <div class="standing-grid">
+      <div class="standing-card">
+        <span class="standing-label">Good standing</span>
+        <span class="standing-val">+5 gp</span>
+        <span class="standing-note">Clean delivery, good relationship, treated the employer with respect</span>
+      </div>
+      <div class="standing-card">
+        <span class="standing-label">Standard standing</span>
+        <span class="standing-val">+0 gp</span>
+        <span class="standing-note">Job done, no complications, professional</span>
+      </div>
+      <div class="standing-card">
+        <span class="standing-label">Poor standing</span>
+        <span class="standing-val">−5 gp</span>
+        <span class="standing-note">Partial delivery, friction, or handled it in a way the employer disliked</span>
+      </div>
+    </div>
+    <div class="dm-note"><strong>Upfront payments are static</strong>The upfront is a commitment — paid because that is how the employer operates, not because they trust the party yet. The completion payment is where the relationship registers.</div>
+
+    <div class="section-heading">Opening — Level 1</div>
+    <div class="mission-block gray">
+      <div class="mission-header">
+        <span class="mission-faction">Morfudd Pryce</span>
+        <span class="mission-name">Escort Marek to Tallowhaven</span>
+      </div>
+      <div class="mission-body">
+        <div class="reward-cell label">Upfront</div>
+        <div class="reward-cell label">Completion</div>
+        <div class="reward-cell label">Standard total</div>
+        <div class="reward-cell label">Range</div>
+        <div class="reward-cell amount">—</div>
+        <div class="reward-cell amount">10 gp</div>
+        <div class="reward-cell amount">10 gp</div>
+        <div class="reward-cell range-cell">5–15 gp</div>
+      </div>
+      <div class="mission-note">No upfront — Morfudd holds the fee, the magistrate releases it on delivery. Negotiation before departure can push toward 15 gp. Poor handling of Marek — injury, needless aggression — drops it to 5 gp.</div>
+    </div>
+
+    <div class="section-heading">First Missions — Level 2</div>
+    <div class="mission-block blue">
+      <div class="mission-header">
+        <span class="mission-faction">Merchants — Alric Venn</span>
+        <span class="mission-name">Collect the festival levy — Copper Vine</span>
+      </div>
+      <div class="mission-body">
+        <div class="reward-cell label">Upfront</div>
+        <div class="reward-cell label">Completion</div>
+        <div class="reward-cell label">Standard total</div>
+        <div class="reward-cell label">Range</div>
+        <div class="reward-cell amount">10 gp</div>
+        <div class="reward-cell amount">10 gp</div>
+        <div class="reward-cell amount">20 gp</div>
+        <div class="reward-cell range-cell">15–25 gp</div>
+      </div>
+      <div class="mission-note">Alric pays the full upfront at the table before they leave. Caspar's additional payment if negotiated is separate — not Alric's business.</div>
+    </div>
+    <div class="mission-block teal">
+      <div class="mission-header">
+        <span class="mission-faction">Trademasters — Oskar Sternov</span>
+        <span class="mission-name">Clear the disused warehouses</span>
+      </div>
+      <div class="mission-body">
+        <div class="reward-cell label">Upfront</div>
+        <div class="reward-cell label">Completion</div>
+        <div class="reward-cell label">Standard total</div>
+        <div class="reward-cell label">Range</div>
+        <div class="reward-cell amount">10 gp</div>
+        <div class="reward-cell amount">10 gp</div>
+        <div class="reward-cell amount">20 gp</div>
+        <div class="reward-cell range-cell">15–25 gp</div>
+      </div>
+      <div class="mission-note">Oskar pays half before they go. No ceremony. How the party handles the workers affects future goodwill but not the payment amount.</div>
+    </div>
+    <div class="mission-block pink">
+      <div class="mission-header">
+        <span class="mission-faction">Courtesans Network — Seva Sable</span>
+        <span class="mission-name">Retrieve the necklace — Crost household</span>
+      </div>
+      <div class="mission-body">
+        <div class="reward-cell label">Upfront</div>
+        <div class="reward-cell label">Completion</div>
+        <div class="reward-cell label">Standard total</div>
+        <div class="reward-cell label">Range</div>
+        <div class="reward-cell amount">10 gp</div>
+        <div class="reward-cell amount">10 gp</div>
+        <div class="reward-cell amount">20 gp</div>
+        <div class="reward-cell range-cell">15–25 gp</div>
+      </div>
+      <div class="mission-note">Seva pays half upfront without ceremony. Edvar's additional payment (2–5 gp if accepted) sits outside this structure. Seva knows about it. She files the information.</div>
+    </div>
+
+    <div class="success-block"><strong>Level up — Level 2 to 3</strong>After completing their first mission and taking a long rest. One mission is enough — they do not need to complete all three. They should feel capable and have money to spend but not feel wealthy.</div>
+
+    <div class="section-heading">Second Missions — Level 3</div>
+    <div class="mission-block blue">
+      <div class="mission-header">
+        <span class="mission-faction">Merchants — Alric Venn</span>
+        <span class="mission-name">The Driftwood Point supply problem</span>
+      </div>
+      <div class="mission-body">
+        <div class="reward-cell label">Upfront</div>
+        <div class="reward-cell label">Completion</div>
+        <div class="reward-cell label">Standard total</div>
+        <div class="reward-cell label">Range</div>
+        <div class="reward-cell amount">15 gp</div>
+        <div class="reward-cell amount">20 gp</div>
+        <div class="reward-cell amount">35 gp</div>
+        <div class="reward-cell range-cell">25–45 gp</div>
+      </div>
+      <div class="mission-note">Alric pays half upfront without being asked — professional courtesy. A party that found the full picture may negotiate a small bonus. Alric resists but is not unmovable.</div>
+    </div>
+    <div class="mission-block teal">
+      <div class="mission-header">
+        <span class="mission-faction">Trademasters — Oskar Sternov</span>
+        <span class="mission-name">The Trumpet — find and deal with the source</span>
+      </div>
+      <div class="mission-body">
+        <div class="reward-cell label">Upfront</div>
+        <div class="reward-cell label">Completion</div>
+        <div class="reward-cell label">Standard total</div>
+        <div class="reward-cell label">Range</div>
+        <div class="reward-cell amount">15 gp</div>
+        <div class="reward-cell amount">20 gp</div>
+        <div class="reward-cell amount">35 gp</div>
+        <div class="reward-cell range-cell">25–45 gp</div>
+      </div>
+      <div class="mission-note">Oskar pays the moment he finds the party. If the party only suppresses Calla without finding Perran, the completion payment is withheld until the job is finished.</div>
+    </div>
+    <div class="mission-block pink">
+      <div class="mission-header">
+        <span class="mission-faction">Courtesans Network — Seva Sable</span>
+        <span class="mission-name">The Starling — find Elbeth before the deadline</span>
+      </div>
+      <div class="mission-body">
+        <div class="reward-cell label">Upfront</div>
+        <div class="reward-cell label">Completion</div>
+        <div class="reward-cell label">Standard total</div>
+        <div class="reward-cell label">Range</div>
+        <div class="reward-cell amount">15 gp</div>
+        <div class="reward-cell amount">20 gp</div>
+        <div class="reward-cell amount">35 gp</div>
+        <div class="reward-cell range-cell">25–45 gp</div>
+      </div>
+      <div class="mission-note">Seva pays after receiving Elbeth and asking her one question about Emlyn. If the deadline is missed but Elbeth is recovered, she pays in full — safety matters more than timing.</div>
+    </div>
+
+    <div class="success-block"><strong>Level up — Level 3 to 4</strong>First long rest after exile — on the road. The party has had significant combat, navigated faction politics, made friends and enemies. This is learning from experience, not a reward for success. First feat or ASI — they arrive at Crossroads ready to use it.</div>
+
+    <div class="section-heading">Estimated Act 1 totals — per party</div>
+    <div class="totals-grid">
+      <div class="total-card">
+        <span class="total-label">Poor standing throughout</span>
+        <span class="total-val">~80 gp</span>
+        <span class="total-sub">2 first + 2 second missions</span>
+      </div>
+      <div class="total-card">
+        <span class="total-label">Standard standing</span>
+        <span class="total-val">~120 gp</span>
+        <span class="total-sub">3 first + 3 second missions</span>
+      </div>
+      <div class="total-card">
+        <span class="total-label">Good standing throughout</span>
+        <span class="total-val">~145 gp</span>
+        <span class="total-sub">3 first + 3 second missions</span>
+      </div>
+    </div>
+    <div class="dm-note"><strong>Living costs</strong>Approximately 15 gp in lodging and food across Act 1. After costs the party arrives at Crossroads with 65–130 gp — equipped and experienced, not wealthy. The step-change at Crossroads should feel earned.</div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB: LOOT -->
+  <!-- ============================================================ -->
+  <div class="tab-panel" id="tab-loot">
+
+    <div class="section-heading">Magic item pool — Act 1</div>
+    <div class="dm-note"><strong>Distribution philosophy</strong>These items are a pool to draw from — not assigned to specific locations. Deploy them when the moment calls for it: a high investigation roll, a dramatically appropriate beat, a player who has been unlucky. You are exercising authorial judgement about when the world rewards them, not lying about where things are.</div>
+
+    <div id="items-combat">
+    <div class="item-card">
+      <div class="item-header" onclick="toggleItem('w1')"><span class="item-name">+1 weapon</span><div class="item-badges"><span class="badge badge-combat">Combat</span><span class="badge badge-att">Attunement</span><span class="badge badge-att">Uncommon</span></div><span class="item-toggle" id="toggle-w1">▼</span></div>
+      <div class="item-body" id="body-w1">
+        <div class="item-row"><span class="item-row-label">Looks like</span><span class="item-row-val">Any weapon the party already carries. Noticeably finer craftsmanship. The balance feels slightly wrong in the best possible way — too light, too responsive.</span></div>
+        <div class="item-row"><span class="item-row-label">Mechanics</span><span class="item-row-val">+1 to attack and damage rolls. Counts as magical for overcoming resistance.</span></div>
+        <div class="item-row"><span class="item-row-label">Tell a player</span><span class="item-row-val">It feels like it wants to be used well.</span></div>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="item-header" onclick="toggleItem('w2')"><span class="item-name">+1 shield</span><div class="item-badges"><span class="badge badge-combat">Combat</span><span class="badge badge-att">Attunement</span><span class="badge badge-att">Uncommon</span></div><span class="item-toggle" id="toggle-w2">▼</span></div>
+      <div class="item-body" id="body-w2">
+        <div class="item-row"><span class="item-row-label">Looks like</span><span class="item-row-val">Standard construction — wood, leather, or iron. A maker's mark that does not match any known guild. The face is plain. No decoration.</span></div>
+        <div class="item-row"><span class="item-row-label">Mechanics</span><span class="item-row-val">+1 to AC. Counts as magical.</span></div>
+        <div class="item-row"><span class="item-row-label">Tell a player</span><span class="item-row-val">The mark on the back cannot be identified but has clearly been there a long time.</span></div>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="item-header" onclick="toggleItem('w3')"><span class="item-name">Ring of Protection</span><div class="item-badges"><span class="badge badge-combat">Combat</span><span class="badge badge-att">Attunement</span><span class="badge badge-att">Uncommon</span></div><span class="item-toggle" id="toggle-w3">▼</span></div>
+      <div class="item-body" id="body-w3">
+        <div class="item-row"><span class="item-row-label">Looks like</span><span class="item-row-val">A plain band — silver or iron — with no visible engraving. Warm to the touch even in cold conditions.</span></div>
+        <div class="item-row"><span class="item-row-label">Mechanics</span><span class="item-row-val">+1 to AC and all saving throws.</span></div>
+        <div class="item-row"><span class="item-row-label">Tell a player</span><span class="item-row-val">The warmth does not go away. There is no inscription explaining why.</span></div>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="item-header" onclick="toggleItem('w4')"><span class="item-name">Moon-Touched Sword</span><div class="item-badges"><span class="badge badge-combat">Combat</span><span class="badge badge-att">Common</span></div><span class="item-toggle" id="toggle-w4">▼</span></div>
+      <div class="item-body" id="body-w4">
+        <div class="item-row"><span class="item-row-label">Looks like</span><span class="item-row-val">Any sword. The blade has a faint silvery sheen visible only in low light — not a glow exactly, more like it is catching light that is not there.</span></div>
+        <div class="item-row"><span class="item-row-label">Mechanics</span><span class="item-row-val">No bonus to attack or damage. Counts as magical. In darkness, the blade sheds dim light in a 5ft radius.</span></div>
+        <div class="item-row"><span class="item-row-label">Tell a player</span><span class="item-row-val">Useful before a better weapon turns up. More useful than it looks the first time damage resistance becomes relevant.</span></div>
+      </div>
+    </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-header" onclick="toggleItem('w5')"><span class="item-name">Potion of Greater Healing</span><div class="item-badges"><span class="badge badge-survival">Survival</span><span class="badge badge-att">Uncommon</span></div><span class="item-toggle" id="toggle-w5">▼</span></div>
+      <div class="item-body" id="body-w5">
+        <div class="item-row"><span class="item-row-label">Looks like</span><span class="item-row-val">A glass vial sealed with wax. Deep red liquid that moves slightly too slowly when tilted. Faintly luminous in darkness.</span></div>
+        <div class="item-row"><span class="item-row-label">Mechanics</span><span class="item-row-val">Restores 4d4+4 hit points. One use. Action to drink.</span></div>
+        <div class="item-row"><span class="item-row-label">Tell a player</span><span class="item-row-val">The taste is reportedly unpleasant. Nobody has ever complained afterwards.</span></div>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="item-header" onclick="toggleItem('w6')"><span class="item-name">Boots of Elvenkind</span><div class="item-badges"><span class="badge badge-survival">Survival</span><span class="badge badge-att">Uncommon</span></div><span class="item-toggle" id="toggle-w6">▼</span></div>
+      <div class="item-body" id="body-w6">
+        <div class="item-row"><span class="item-row-label">Looks like</span><span class="item-row-val">Soft leather boots, well-made, with soles that appear to be a single unstitched piece. Slightly too light for their apparent construction.</span></div>
+        <div class="item-row"><span class="item-row-label">Mechanics</span><span class="item-row-val">Advantage on Stealth checks involving movement. No attunement required.</span></div>
+        <div class="item-row"><span class="item-row-label">Tell a player</span><span class="item-row-val">The boots make no sound — not muffled sound, no sound. Worth noticing the first time it happens.</span></div>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="item-header" onclick="toggleItem('w7')"><span class="item-name">Gloves of Thievery</span><div class="item-badges"><span class="badge badge-intrigue">Intrigue</span><span class="badge badge-att">Uncommon</span></div><span class="item-toggle" id="toggle-w7">▼</span></div>
+      <div class="item-body" id="body-w7">
+        <div class="item-row"><span class="item-row-label">Looks like</span><span class="item-row-val">Thin leather gloves, close-fitting. Once worn they become effectively invisible — the wearer's hands look bare. The leather can still be felt if touched.</span></div>
+        <div class="item-row"><span class="item-row-label">Mechanics</span><span class="item-row-val">+5 to Sleight of Hand checks. No attunement required.</span></div>
+        <div class="item-row"><span class="item-row-label">Tell a player</span><span class="item-row-val">The invisibility is passive and always active while worn. Other people can still feel them if they grab the wearer's hands.</span></div>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="item-header" onclick="toggleItem('w8')"><span class="item-name">Emerald Pen</span><div class="item-badges"><span class="badge badge-intrigue">Intrigue</span><span class="badge badge-att">Uncommon</span></div><span class="item-toggle" id="toggle-w8">▼</span></div>
+      <div class="item-body" id="body-w8">
+        <div class="item-row"><span class="item-row-label">Looks like</span><span class="item-row-val">A short writing instrument made from a single piece of pale green stone, cool and smooth. No ink. Writing with it leaves marks that look like ordinary ink.</span></div>
+        <div class="item-row"><span class="item-row-label">Mechanics</span><span class="item-row-val">Writes without ink. Casts Illusory Script at will — writing appears normal to the writer and designated readers, appears as nonsense or nothing to everyone else. No spell slot required. No attunement required.</span></div>
+        <div class="item-row"><span class="item-row-label">Tell a player</span><span class="item-row-val">The kind of thing found in a faction leader's hidden drawer.</span></div>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="item-header" onclick="toggleItem('w9')"><span class="item-name">Boots of False Tracks</span><div class="item-badges"><span class="badge badge-intrigue">Intrigue</span><span class="badge badge-att">Uncommon</span></div><span class="item-toggle" id="toggle-w9">▼</span></div>
+      <div class="item-body" id="body-w9">
+        <div class="item-row"><span class="item-row-label">Looks like</span><span class="item-row-val">Unremarkable boots, slightly heavier than expected. The soles have an unusual carved texture that does not match any known cobbler's pattern.</span></div>
+        <div class="item-row"><span class="item-row-label">Mechanics</span><span class="item-row-val">The wearer chooses what tracks they leave — any creature's prints, bare feet, or no tracks at all. The choice is made consciously each time they move. No attunement required.</span></div>
+        <div class="item-row"><span class="item-row-label">Tell a player</span><span class="item-row-val">Players will think about this one for several sessions before the right moment arrives.</span></div>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="item-header" onclick="toggleItem('w10')"><span class="item-name">Isolde's Immovable Rod</span><div class="item-badges"><span class="badge badge-texture">Texture</span><span class="badge badge-att">Uncommon</span></div><span class="item-toggle" id="toggle-w10">▼</span></div>
+      <div class="item-body" id="body-w10">
+        <div class="item-row"><span class="item-row-label">Looks like</span><span class="item-row-val">A plain iron rod about two feet long with a small button at one end. Unremarkable. Slightly heavier than expected.</span></div>
+        <div class="item-row"><span class="item-row-label">Mechanics</span><span class="item-row-val">Press the button and the rod locks in space — immovable regardless of gravity, up to 8,000 lbs of force. Press again to release. No attunement required. Unlimited uses.</span></div>
+        <div class="item-row"><span class="item-row-label">In Abelon</span><span class="item-row-val">One of Isolde's objects — divine rather than magical. The rod locks its own form in space absolutely, refusing to allow any force to change the position it occupies. The button is the mechanism by which it decides whether its form is fixed or fluid.</span></div>
+        <div class="item-row"><span class="item-row-label">Tell a player</span><span class="item-row-val">Players will figure out the rest. Do not over-explain it.</span></div>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="item-header" onclick="toggleItem('w11')"><span class="item-name">Isolde's Shifting Pigments</span><div class="item-badges"><span class="badge badge-texture">Texture</span><span class="badge badge-att">Uncommon</span></div><span class="item-toggle" id="toggle-w11">▼</span></div>
+      <div class="item-body" id="body-w11">
+        <div class="item-row"><span class="item-row-label">Looks like</span><span class="item-row-val">A small wooden box containing several pots of pigment in different colours. The pigments smell faintly of something that is not quite paint. A worn brush is included.</span></div>
+        <div class="item-row"><span class="item-row-label">Mechanics</span><span class="item-row-val">Whatever is painted becomes real — physically present, correct texture and weight, fully functional. Limit: anything worth more than 25 gp will look right but use inferior materials. No attunement required. Houseruled.</span></div>
+        <div class="item-row"><span class="item-row-label">Houserule</span><span class="item-row-val">The paint creates objects on surfaces, not the space those objects imply. A painted door is a real door flush with the wall behind it — open it and there is stone. A painted pit is a real depression an inch deep. Objects created are real and persist. A painted bridge painted onto a cliff face is a real bridge attached to a cliff face.</span></div>
+        <div class="item-row"><span class="item-row-label">In Abelon</span><span class="item-row-val">One of Isolde's objects. A craftsman's tool with an inexplicable property — medieval 3D printer, not high-magic oddity.</span></div>
+      </div>
+    </div>
+    <div class="item-card">
+      <div class="item-header" onclick="toggleItem('w12')"><span class="item-name">Weapon of Warning</span><div class="item-badges"><span class="badge badge-utility">Utility</span><span class="badge badge-att">Attunement</span><span class="badge badge-att">Uncommon</span></div><span class="item-toggle" id="toggle-w12">▼</span></div>
+      <div class="item-body" id="body-w12">
+        <div class="item-row"><span class="item-row-label">Looks like</span><span class="item-row-val">Any weapon. When attuned it occasionally trembles very slightly — barely perceptible, never in combat, always in the moment before something goes wrong.</span></div>
+        <div class="item-row"><span class="item-row-label">Mechanics</span><span class="item-row-val">The attuned wielder and all companions within 30ft cannot be surprised. Everyone in range wakes normally for watch.</span></div>
+        <div class="item-row"><span class="item-row-label">Tell a player</span><span class="item-row-val">The weapon does not explain itself.</span></div>
+      </div>
+    </div>
+
+    <div class="section-heading">Investigation loot — by DC</div>
+    <div class="dm-note"><strong>Cumulative results</strong>A DC 16 result includes everything in the DC 1–10, DC 11–14, and DC 15–18 ranges. One roll, one result. Coin amounts are suggestions — adjust for who the NPC is and what makes sense. Prepare one or two Natural 20 story items before each session so you have something ready when a player rolls unexpectedly high.</div>
+
+    <div class="dc-block dc1">
+      <div class="dc-header"><span class="dc-range">DC 1–10</span><span class="dc-label">Plainly visible or immediately accessible</span></div>
+      <div class="dc-body">
+        <div class="item-grid">
+          <div>
+            <span class="item-cat-label">Coin</span>
+            <div class="loot-item">A few copper pieces (1d6 cp)</div>
+            <div class="loot-item">Small handful of silver (1d4 sp)</div>
+            <div class="loot-item">Belt pouch, mostly empty</div>
+          </div>
+          <div>
+            <span class="item-cat-label">Carried items</span>
+            <div class="loot-item">A knife or belt dagger</div>
+            <div class="loot-item">A length of rope</div>
+            <div class="loot-item">Flint and tinder</div>
+            <div class="loot-item">A waterskin, half full</div>
+            <div class="loot-item">A whetstone</div>
+          </div>
+          <div>
+            <span class="item-cat-label">Personal effects</span>
+            <div class="loot-item">A worn leather belt</div>
+            <div class="loot-item">A simple ring, no apparent value</div>
+            <div class="loot-item">A religious token or small carving</div>
+            <div class="loot-item">A piece of bread or dried meat</div>
+            <div class="loot-item">A folded piece of cloth</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dc-block dc2">
+      <div class="dc-header"><span class="dc-range">DC 11–14</span><span class="dc-label">In pockets or pouches — tucked away but not hidden</span></div>
+      <div class="dc-body">
+        <div class="item-grid">
+          <div>
+            <span class="item-cat-label">Coin</span>
+            <div class="loot-item">A heavier purse (2d6 sp, 1d4 gp)</div>
+            <div class="loot-item">A single gold coin, separate</div>
+            <div class="loot-item">A promissory note or IOU</div>
+          </div>
+          <div>
+            <span class="item-cat-label">Documents</span>
+            <div class="loot-item">A folded letter, unsealed</div>
+            <div class="loot-item">A work order or delivery note</div>
+            <div class="loot-item">A crude map or directions</div>
+            <div class="loot-item">A list of names or items</div>
+            <div class="loot-item">A receipt from a merchant</div>
+          </div>
+          <div>
+            <span class="item-cat-label">Useful items</span>
+            <div class="loot-item">A vial of common medicine</div>
+            <div class="loot-item">A set of lockpicks (worn)</div>
+            <div class="loot-item">A small flask of spirits</div>
+            <div class="loot-item">A spare key</div>
+            <div class="loot-item">A token from a specific inn</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dc-block dc3">
+      <div class="dc-header"><span class="dc-range">DC 15–18</span><span class="dc-label">Deliberately concealed — sewn into linings, tucked under clothing</span></div>
+      <div class="dc-body">
+        <div class="item-grid">
+          <div>
+            <span class="item-cat-label">Coin</span>
+            <div class="loot-item">A fat purse, carefully hidden (3d6 gp)</div>
+            <div class="loot-item">A gemstone wrapped in cloth</div>
+            <div class="loot-item">Guild coins or tokens</div>
+          </div>
+          <div>
+            <span class="item-cat-label">Documents</span>
+            <div class="loot-item">A sealed letter</div>
+            <div class="loot-item">A contract or agreement</div>
+            <div class="loot-item">An unsigned note in careful handwriting</div>
+            <div class="loot-item">A page torn from a ledger</div>
+            <div class="loot-item">A coded message</div>
+          </div>
+          <div>
+            <span class="item-cat-label">Valuable items</span>
+            <div class="loot-item">A vial of poison (common)</div>
+            <div class="loot-item">A set of good lockpicks</div>
+            <div class="loot-item">A signet ring</div>
+            <div class="loot-item">A small vial of healing potion</div>
+            <div class="loot-item">A forged document or pass</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dc-block dc4">
+      <div class="dc-header"><span class="dc-range">DC 19–20</span><span class="dc-label">Seriously hidden — requires thorough search</span></div>
+      <div class="dc-body">
+        <div class="item-grid">
+          <div>
+            <span class="item-cat-label">Coin and valuables</span>
+            <div class="loot-item">Emergency gold, carefully wrapped (5d6 gp)</div>
+            <div class="loot-item">A gem of significant value</div>
+            <div class="loot-item">A small piece of jewellery</div>
+          </div>
+          <div>
+            <span class="item-cat-label">Documents</span>
+            <div class="loot-item">A sealed letter with an unknown mark</div>
+            <div class="loot-item">A list of names that means something</div>
+            <div class="loot-item">Evidence of a specific arrangement</div>
+            <div class="loot-item">An identity document or travel pass</div>
+          </div>
+          <div>
+            <span class="item-cat-label">Rare items</span>
+            <div class="loot-item">A vial of something unusual</div>
+            <div class="loot-item">A fragment of a larger map</div>
+            <div class="loot-item">A wax impression of a key</div>
+            <div class="loot-item">A small magical trinket</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dc-block dc5">
+      <div class="dc-header"><span class="dc-range">Natural 20</span><span class="dc-label">Something they really did not want found</span></div>
+      <div class="dc-body">
+        <div class="item-grid">
+          <div>
+            <span class="item-cat-label">Story-changing finds</span>
+            <div class="loot-item">A letter that changes the picture entirely</div>
+            <div class="loot-item">A name that reframes something earlier</div>
+            <div class="loot-item">Proof of a connection the party suspected</div>
+            <div class="loot-item">A token from the Broken Wing</div>
+            <div class="loot-item">A Courtesans Network marker</div>
+          </div>
+          <div>
+            <span class="item-cat-label">Extraordinary valuables</span>
+            <div class="loot-item">A significant gem or heirloom</div>
+            <div class="loot-item">A potion of greater healing</div>
+            <div class="loot-item">A magic item from the pool</div>
+          </div>
+          <div>
+            <span class="item-cat-label">DM's discretion</span>
+            <div class="loot-item">Whatever the party needs right now</div>
+            <div class="loot-item">Whatever would complicate things usefully</div>
+            <div class="loot-item">Whatever the session needs to breathe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>Abelon Campaign — Master Reference. Economy / Act 1 Tallowhaven.</footer>
+</div>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+  function toggleItem(id) {
+    const b = document.getElementById('body-' + id);
+    const t = document.getElementById('toggle-' + id);
+    if (!b || !t) return;
+    const open = b.classList.contains('open');
+    b.classList.toggle('open', !open);
+    t.classList.toggle('open', !open);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — The Festival Meeting & Finale</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;
+    --ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;
+    --accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);
+    --beat-bg:rgba(107,58,42,0.05);--beat-border:#c4a882;
+    --blue:#185FA5;--blue-bg:rgba(24,95,165,0.07);--blue-border:#185FA5;
+    --teal:#0F6E56;--teal-bg:rgba(15,110,86,0.07);--teal-border:#0F6E56;
+    --pink:#993556;--pink-bg:rgba(153,53,86,0.07);--pink-border:#993556;
+    --gold:#854F0B;--gold-bg:rgba(133,79,11,0.08);--gold-border:#854F0B;
+    --red:#993C1D;--red-bg:rgba(153,60,29,0.08);--red-border:#993C1D;
+    --decision-bg:rgba(133,79,11,0.1);--decision-border:#854F0B;
+  }
+  @media(prefers-color-scheme:dark){:root{
+    --parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;
+    --ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);
+    --beat-bg:rgba(196,168,130,0.06);--beat-border:#5a4a38;
+    --blue:#85B7EB;--blue-bg:rgba(133,183,235,0.07);--blue-border:#85B7EB;
+    --teal:#5DCAA5;--teal-bg:rgba(93,202,165,0.07);--teal-border:#5DCAA5;
+    --pink:#ED93B1;--pink-bg:rgba(237,147,177,0.07);--pink-border:#ED93B1;
+    --gold:#EF9F27;--gold-bg:rgba(239,159,39,0.08);--gold-border:#EF9F27;
+    --red:#F0997B;--red-bg:rgba(240,153,123,0.08);--red-border:#F0997B;
+    --decision-bg:rgba(239,159,39,0.1);--decision-border:#EF9F27;
+  }}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:900px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .meta-tag.red{border-color:var(--red-border);color:var(--red);}
+  .meta-tag.gold{border-color:var(--gold-border);color:var(--gold);}
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
+
+  /* Faction tabs */
+  .faction-tabs{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .faction-tab{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:6px 14px;border-radius:4px;border:.5px solid var(--rule);cursor:pointer;transition:all .15s;background:transparent;color:var(--ink-faded);}
+  .faction-tab.blue{border-color:var(--blue-border);}
+  .faction-tab.blue.active,.faction-tab.blue:hover{background:var(--blue-bg);color:var(--blue);}
+  .faction-tab.teal{border-color:var(--teal-border);}
+  .faction-tab.teal.active,.faction-tab.teal:hover{background:var(--teal-bg);color:var(--teal);}
+  .faction-tab.pink{border-color:var(--pink-border);}
+  .faction-tab.pink.active,.faction-tab.pink:hover{background:var(--pink-bg);color:var(--pink);}
+  .faction-tab.all{border-color:var(--rule);}
+  .faction-tab.all.active,.faction-tab.all:hover{background:var(--beat-bg);color:var(--ink);}
+  .faction-panel{display:none;}
+  .faction-panel.visible{display:block;}
+
+  /* Beats */
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header:hover{opacity:.8;}
+  .beat-header.blue{background:var(--blue-bg);border-left:3px solid var(--blue-border);}
+  .beat-header.teal{background:var(--teal-bg);border-left:3px solid var(--teal-border);}
+  .beat-header.pink{background:var(--pink-bg);border-left:3px solid var(--pink-border);}
+  .beat-header.gold{background:var(--gold-bg);border-left:3px solid var(--gold-border);}
+  .beat-header.red{background:var(--red-bg);border-left:3px solid var(--red-border);}
+  .beat-header.gray{background:var(--beat-bg);border-left:3px solid var(--rule);}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+
+  /* Speech */
+  .speech{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
+  .speech-attr{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:4px;font-style:normal;}
+
+  /* Room layout */
+  .room-layout{background:var(--beat-bg);border:.5px solid var(--beat-border);border-radius:6px;padding:1rem 1.25rem;margin-bottom:1rem;}
+  .room-row{display:flex;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+  .room-row:last-child{margin-bottom:0;}
+  .room-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);min-width:140px;padding-top:2px;flex-shrink:0;}
+  .room-desc{font-size:14px;color:var(--ink-mid);line-height:1.5;}
+
+  /* Roster tables */
+  .roster{width:100%;border-collapse:collapse;margin-bottom:1rem;font-size:14px;}
+  .roster th{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding:6px 8px;text-align:left;}
+  .roster td{padding:6px 8px;border-bottom:.5px solid var(--rule-faint);color:var(--ink-mid);vertical-align:top;}
+  .roster tr:last-child td{border-bottom:none;}
+  .roster td.name{font-weight:600;color:var(--ink);white-space:nowrap;}
+  .roster td.weapon{font-style:italic;color:var(--ink-faded);}
+  .roster td.note{font-size:13px;}
+  .roster tr.flees td{opacity:.6;}
+  .roster tr.secret td.name{color:var(--pink);}
+
+  /* Wave blocks */
+  .wave{border-radius:5px;padding:10px 14px;margin-bottom:8px;font-size:14px;}
+  .wave.w1{background:var(--red-bg);border:.5px solid var(--red-border);}
+  .wave.w2{background:var(--gold-bg);border:.5px solid var(--gold-border);}
+  .wave.w3{background:var(--beat-bg);border:.5px solid var(--beat-border);}
+  .wave-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:5px;}
+  .wave.w1 .wave-label{color:var(--red);}
+  .wave.w2 .wave-label{color:var(--gold);}
+  .wave.w3 .wave-label{color:var(--ink-faded);}
+  .wave p{color:var(--ink-mid);}
+
+  /* DM notes */
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+
+  /* Decision box */
+  .decision-box{background:var(--decision-bg);border:.5px solid var(--decision-border);border-radius:6px;padding:16px 20px;margin:1.5rem 0;}
+  .decision-title{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;}
+
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="encounter-header">
+    <span class="encounter-type">Encounter Reference — Act 1 / Tallowhaven / The Finale</span>
+    <div class="encounter-title">The Festival Meeting & Finale</div>
+    <div class="encounter-subtitle">The signing — the collapse — Cooper's Square — the arrest</div>
+    <div class="encounter-meta">
+      <span class="meta-tag gold">Act 1 climax</span>
+      <span class="meta-tag red">Combat — finale</span>
+      <span class="meta-tag">Level 3 party</span>
+      <span class="meta-tag">Three faction paths</span>
+      <span class="meta-tag">Leads to exile</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+  </div>
+
+  <!-- FACTION SELECTOR — LEVEL 1 -->
+  <div class="section-heading">Step 1 — Who did the party side with?</div>
+  <div class="faction-tabs" id="faction-tabs-l1">
+    <button class="faction-tab blue active" onclick="selectFaction('blue',this)">Party sided with Alric</button>
+    <button class="faction-tab teal" onclick="selectFaction('teal',this)">Party sided with Oskar</button>
+    <button class="faction-tab pink" onclick="selectFaction('pink',this)">Party sided with Seva</button>
+  </div>
+
+  <!-- PATH SELECTOR — LEVEL 2 -->
+  <div class="section-heading" style="margin-top:1rem;">Step 2 — What happened before the meeting?</div>
+  <div class="faction-tabs" id="faction-tabs-l2">
+    <div class="path-selector" id="paths-blue">
+      <button class="faction-tab blue active" onclick="selectPath('blue','killed-seva',this)">Seva killed (Path 1)</button>
+      <button class="faction-tab blue" onclick="selectPath('blue','warned-alric',this)">Alric warned (Path 4)</button>
+    </div>
+    <div class="path-selector" id="paths-teal" style="display:none;">
+      <button class="faction-tab teal active" onclick="selectPath('teal','killed-alric',this)">Alric killed (Path 3)</button>
+      <button class="faction-tab teal" onclick="selectPath('teal','warned-oskar',this)">Oskar warned (Path 6)</button>
+    </div>
+    <div class="path-selector" id="paths-pink" style="display:none;">
+      <button class="faction-tab pink active" onclick="selectPath('pink','killed-oskar',this)">Oskar killed (Path 5)</button>
+      <button class="faction-tab pink" onclick="selectPath('pink','warned-seva',this)">Seva warned (Path 2)</button>
+    </div>
+  </div>
+
+  <!-- PART ONE — THE MEETING -->
+  <div class="section-heading">Part One — The Meeting (Aldermen's Hall)</div>
+
+  <div class="dm-note"><strong>How to run the meeting</strong>Do not roleplay the meeting. Set the scene, establish who is in the room, then skip forward. Say something like: "The meeting begins and appears to be progressing smoothly. Aldous Crane presides over the table with the particular authority of someone who considers this a formality. And then — " and drop straight into the accusation.</div>
+
+  <!-- THE ROOM -->
+  <div class="beat">
+    <div class="beat-header gold" onclick="toggleBeat('room')">
+      <span class="beat-number">—</span>
+      <span class="beat-title">The room — Aldermen's Hall, back chambers</span>
+      <span class="beat-toggle" id="beat-toggle-room">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-room">
+      <div class="room-layout">
+        <div class="room-row"><span class="room-label">Signing room</span><span class="room-desc">The formal chamber with the long table. Blue-floored, well appointed. Alric at one end, Aldous Crane at the other. Caen Rhys presides from the side. Oskar and Anneth seated to one side. Seva's Sables moving quietly as waiting staff.</span></div>
+        <div class="room-row"><span class="room-label">Waiting room</span><span class="room-desc">Right of the signing room. Empty during the meeting — everyone has been called in. Available as an exit route during the collapse.</span></div>
+        <div class="room-row"><span class="room-label">Kitchen annex</span><span class="room-desc">Upper right. Where the Sables have been operating. Natural exit for network members when things go wrong — they begin filtering out before the argument has fully escalated.</span></div>
+        <div class="room-row"><span class="room-label">Anteroom</span><span class="room-desc">Upper left. Comfortable seating, oval table. The emergency exit is here. Caen Rhys leads the party through this room and out when he decides the situation is irretrievable.</span></div>
+        <div class="room-row"><span class="room-label">Food prep area</span><span class="room-desc">Lower left. Where additional faction members have been waiting — catering staff, guild support, network-adjacent personnel. The staging area for everyone not at the table.</span></div>
+        <div class="room-row"><span class="room-label">The party</span><span class="room-desc">Standing with their chosen faction. Visible to everyone in the room from the moment they arrive. Every faction representative begins recalculating the moment they walk in.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVERYONE IN THE ROOM -->
+  <div class="beat">
+    <div class="beat-header gold" onclick="toggleBeat('roster-all')">
+      <span class="beat-number">—</span>
+      <span class="beat-title">Full roster — everyone present in the building</span>
+      <span class="beat-toggle" id="beat-toggle-roster-all">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-roster-all">
+
+      <p style="margin-bottom:12px;font-size:14px;"><em>Italic names in the Faction column indicate secret loyalties. Struck-through rows flee before Cooper's Square.</em></p>
+
+      <table class="roster">
+        <thead><tr><th>Name</th><th>Faction</th><th>Position</th><th>Weapon</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td class="name">Aldous Crane</td><td>Driftwood</td><td>Table — head</td><td class="weapon">—</td><td class="note">Lead delegate. Does not fight. Leaves when he decides Tallowhaven is not worth his time.</td></tr>
+          <tr><td class="name">Vess</td><td>Driftwood</td><td>Table — beside Aldous</td><td class="weapon">—</td><td class="note">Personal aide. Leaves with Aldous.</td></tr>
+          <tr><td class="name">Emlyn Hale</td><td>Driftwood</td><td>Table — peripheral</td><td class="weapon">—</td><td class="note">Present if alive and not disgraced. Goes very still during the collapse. Leaves with delegation.</td></tr>
+          <tr class="flees"><td class="name">Brack</td><td>Driftwood</td><td>Near table</td><td class="weapon">—</td><td class="note">Second aide. Leaves with Aldous.</td></tr>
+          <tr class="flees"><td class="name">Lotte</td><td>Driftwood</td><td>Near table</td><td class="weapon">—</td><td class="note">Independent observer. Leaves separately. Writing everything down.</td></tr>
+          <tr><td class="name">Calder</td><td>Driftwood</td><td>Main entrance</td><td class="weapon">Longsword</td><td class="note">Security. Already moving when Aldous stands.</td></tr>
+          <tr style="border-top:1px solid var(--rule-faint);"><td class="name">Alric Venn</td><td>Merchants</td><td>Table — host</td><td class="weapon">Rapier</td><td class="note">Wave 3 in blue path. Picks up fallen weapon. Desperate energy.</td></tr>
+          <tr><td class="name">Huw</td><td>Merchants</td><td>Table — beside Alric</td><td class="weapon">Rapier, Charm Person</td><td class="note">More capable than anyone realises. Wave 2 in blue path.</td></tr>
+          <tr><td class="name">Bael</td><td>Merchants</td><td>Main entrance</td><td class="weapon">Longsword, light crossbow</td><td class="note">Bodyguard. Wave 1 in blue path.</td></tr>
+          <tr><td class="name">Gethin</td><td>Merchants</td><td>Signing room door</td><td class="weapon">Shortsword</td><td class="note">Bodyguard. Wave 1 in blue path.</td></tr>
+          <tr><td class="name">Prys</td><td>Merchants</td><td>Food prep area</td><td class="weapon">Improvised</td><td class="note">Guild merchant. Wave 1 in blue path. Breaks round 1.</td></tr>
+          <tr><td class="name">Nesta</td><td>Merchants</td><td>Food prep area</td><td class="weapon">Improvised</td><td class="note">Guild merchant. Wave 1 in blue path. Breaks faster than Prys.</td></tr>
+          <tr><td class="name">Aldric</td><td>Merchants</td><td>Food prep area</td><td class="weapon">Improvised</td><td class="note">Event coordinator. Follows Huw's instructions. Wave 2 in blue path.</td></tr>
+          <tr class="secret"><td class="name">Sioned</td><td>Merchants / <em>Courtesans</em></td><td>Food prep area</td><td class="weapon">—</td><td class="note">Long-term Courtesan infiltrator. Reports to Seva. Leaves with catering staff.</td></tr>
+          <tr class="flees"><td class="name">Wyn</td><td>Merchants</td><td>Near signing room</td><td class="weapon">—</td><td class="note">Senior guild clerk. Leaves fast.</td></tr>
+          <tr class="flees"><td class="name">Caron</td><td>Merchants</td><td>Near signing room</td><td class="weapon">—</td><td class="note">Junior guild clerk. Leaves faster.</td></tr>
+          <tr class="flees"><td class="name">Cebb</td><td>Merchants</td><td>Food prep area</td><td class="weapon">—</td><td class="note">Catering staff. Gone immediately.</td></tr>
+          <tr style="border-top:1px solid var(--rule-faint);"><td class="name">Oskar Sternov</td><td>Trademasters</td><td>Table</td><td class="weapon">Fists, grapple</td><td class="note">Wave 3 in teal path. Cold anger, fights dirty and close.</td></tr>
+          <tr><td class="name">Anneth Holdworn</td><td>Trademasters</td><td>Table</td><td class="weapon">—</td><td class="note">Guild elder. Does not fight. May remain in Cooper's Square to watch.</td></tr>
+          <tr class="secret"><td class="name">Cors Holdworn</td><td>Trademasters / <em>Courtesans</em></td><td>Table — beside Anneth</td><td class="weapon">Heavy knife</td><td class="note">Anneth's grandson. Secret Courtesan contact. Steps sideways to Sables in wave 2 of pink path.</td></tr>
+          <tr><td class="name">Drest</td><td>Trademasters</td><td>Signing room door</td><td class="weapon">Warhammer</td><td class="note">Master blacksmith. Wave 2 in teal path. Slower but dangerous.</td></tr>
+          <tr><td class="name">Tav</td><td>Trademasters</td><td>Signing room door</td><td class="weapon">Hand axe</td><td class="note">Drest's apprentice. Wave 1 in teal path. Angry.</td></tr>
+          <tr><td class="name">Ysolde</td><td>Trademasters</td><td>Waiting room</td><td class="weapon">Thunderwave</td><td class="note">Master weaver. Surprise spellcaster. Leaves — or does she?</td></tr>
+          <tr><td class="name">Efa Dun</td><td>Trademasters</td><td>Waiting room</td><td class="weapon">Dagger</td><td class="note">Ysolde's apprentice. Wave 1 in teal path. Follows Cors in pink path.</td></tr>
+          <tr><td class="name">Roark</td><td>Trademasters</td><td>Food prep area</td><td class="weapon">Carpenter's mallet</td><td class="note">Journeyman. Wave 1 in teal path. Stubborn.</td></tr>
+          <tr><td class="name">Mael</td><td>Trademasters</td><td>Food prep area</td><td class="weapon">Improvised</td><td class="note">Journeyman. Wave 1 in teal path. Breaks early.</td></tr>
+          <tr><td class="name">Cors Holdworn</td><td>Trademasters / <em>Courtesans</em></td><td>Table</td><td class="weapon">Heavy knife</td><td class="note">Wave 2 in teal path as Cors. Steps to Sables in pink path.</td></tr>
+          <tr class="flees"><td class="name">Siw</td><td>Trademasters</td><td>Food prep area</td><td class="weapon">—</td><td class="note">Guild administrator. Leaves immediately.</td></tr>
+          <tr style="border-top:1px solid var(--rule-faint);"><td class="name">Seva Sable</td><td>Courtesans</td><td>Signing room — staff</td><td class="weapon">Dagger, Deflect reaction</td><td class="note">Wave 3 in pink path. Most dangerous person in the fight.</td></tr>
+          <tr><td class="name">Mira Sable</td><td>Courtesans</td><td>Signing room — staff</td><td class="weapon">Dagger</td><td class="note">Wave 2 in pink path. Warm until she is not.</td></tr>
+          <tr><td class="name">Dalla Sable</td><td>Courtesans</td><td>Signing room — staff</td><td class="weapon">Shortsword</td><td class="note">Wave 1 in pink path. Trained and composed.</td></tr>
+          <tr><td class="name">Perys Sable</td><td>Courtesans</td><td>Signing room — staff</td><td class="weapon">Dagger</td><td class="note">Wave 1 in pink path. Quick and light.</td></tr>
+          <tr><td class="name">Elbeth Sable</td><td>Courtesans</td><td>Main entrance — outside</td><td class="weapon">Shortsword</td><td class="note">Wave 1 in pink path. Furious. Has been waiting since Coppergate Stables.</td></tr>
+          <tr><td class="name">Nance</td><td>Courtesans</td><td>Emergency exit — outside</td><td class="weapon">Hand crossbow</td><td class="note">Wave 1 in pink path. Experienced, unhurried.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- THE ACCUSATION -->
+  <div class="section-heading">The accusation</div>
+
+  <div class="dm-note"><strong>The trigger</strong>The party walked in standing with one faction. Every other faction representative has been recalculating since that moment. The accusation comes when the accuser finds the right opening — something said by the faction the party sided with that gives them the perfect moment. It should feel inevitable rather than sudden.</div>
+
+  <div class="faction-panel blue visible" id="panel-blue-acc" data-faction="blue" data-path="standard">
+    <div class="beat">
+      <div class="beat-header blue" onclick="toggleBeat('blue-acc')">
+        <span class="beat-number">A</span>
+        <span class="beat-title">Oskar accuses — party sided with Alric</span>
+        <span class="beat-toggle" id="beat-toggle-blue-acc">▼</span>
+      </div>
+      <div class="beat-body" id="beat-body-blue-acc">
+        <p>Alric says something about integrity. About doing things properly, for the good of the city. Oskar sets down what he is holding and turns.</p>
+        <div class="speech"><span class="speech-attr">Oskar</span>Before we go any further. Those people standing with Alric. I know them. They came to me. They worked for me. And then they dismantled the only protection my guild members had on that road — on Alric's coin. So when Alric speaks about what is good for this city, perhaps someone should ask him what kind of man hires the same hands to face in different directions.</div>
+        <p>A pause. Then, to the party directly.</p>
+        <div class="speech"><span class="speech-attr">Oskar</span>I'll ask you directly. Who are you here for?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faction-panel teal" id="panel-teal-acc" data-faction="teal" data-path="standard">
+    <div class="beat">
+      <div class="beat-header teal" onclick="toggleBeat('teal-acc')">
+        <span class="beat-number">A</span>
+        <span class="beat-title">Seva accuses — party sided with Oskar</span>
+        <span class="beat-toggle" id="beat-toggle-teal-acc">▼</span>
+      </div>
+      <div class="beat-body" id="beat-body-teal-acc">
+        <p>Seva sets down what she is carrying. Steps out of the waiting staff role entirely. The room notices the shift before she speaks.</p>
+        <div class="speech"><span class="speech-attr">Seva</span>I want to name something. Those people — standing there with the Trademasters — came to me not long ago. They sat across from me and took my money. And then they went to The Establishment and put a young man on the floor to silence a story that I had commissioned. A story that was true. I don't know what Oskar paid them. I imagine it was enough.</div>
+        <p>She waits. Then, to the party.</p>
+        <div class="speech"><span class="speech-attr">Seva</span>I'm curious. Was it?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faction-panel pink" id="panel-pink-acc" data-faction="pink" data-path="standard">
+    <div class="beat">
+      <div class="beat-header pink" onclick="toggleBeat('pink-acc')">
+        <span class="beat-number">A</span>
+        <span class="beat-title">Alric accuses — party sided with Seva</span>
+        <span class="beat-toggle" id="beat-toggle-pink-acc">▼</span>
+      </div>
+      <div class="beat-body" id="beat-body-pink-acc">
+        <p>Alric sets down his papers. Does not lose composure. Addresses the room as host — which makes it worse.</p>
+        <div class="speech"><span class="speech-attr">Alric</span>I want to be transparent with our guests from Driftwood. This week, a member of their delegation was caught up in a situation that I can only describe as deliberately engineered. Criminal elements were involved. The matter was resolved — but by whom, I now find myself wondering. Because the people who resolved it are in this room today. As guests of the Courtesans Network. Which raises a question about who created the situation in the first place.</div>
+        <p>He looks at the party.</p>
+        <div class="speech"><span class="speech-attr">Alric</span>I think the room deserves an answer. What exactly is your connection to Seva Sable?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dm-note"><strong>Assassination paths — replacement accusers</strong>If the party killed or warned a faction leader before the meeting, a replacement is present. The accusation still comes — but from a different voice, and with a different quality. Elbeth accuses on suspicion without evidence and knows it. Huw whispers something he did not intend to be heard. Cors is disappointed in Seva and finds his own opening. These accusations are messier than the standard three — which makes them land differently.</div>
+
+  <div class="faction-panel blue" id="panel-blue-acc2" data-faction="blue" data-path="killed-seva">
+    <div class="beat">
+      <div class="beat-header blue" onclick="toggleBeat('blue-acc2')">
+        <span class="beat-number">A</span>
+        <span class="beat-title">Elbeth accuses — party killed Seva, now stands with Alric (Path 1)</span>
+        <span class="beat-toggle" id="beat-toggle-blue-acc2">▼</span>
+      </div>
+      <div class="beat-body" id="beat-body-blue-acc2">
+        <p>Elbeth is leading the Courtesan delegation in Seva's place. She has been watching the party since they walked in. She does not have evidence — she has suspicion, and suspicion is enough.</p>
+        <p>She finds her opening when Alric makes a point about order and legitimate commerce. She sets down what she is holding.</p>
+        <div class="speech"><span class="speech-attr">Elbeth</span>I want to ask something. Those people standing with Alric — I know them. I met them not long ago, in considerably worse circumstances than this. And Seva Sable, who should be standing where I am standing, is not here tonight. I do not know why. But I think someone in this room might.</div>
+        <p>A pause. She looks at the party directly. She is not certain. She wants them to know she is not certain. She also wants them to know she is watching.</p>
+        <div class="speech"><span class="speech-attr">Elbeth — to the party</span>Where is Seva?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faction-panel blue" id="panel-blue-acc3" data-faction="blue" data-path="warned-alric">
+    <div class="beat">
+      <div class="beat-header blue" onclick="toggleBeat('blue-acc3')">
+        <span class="beat-number">A</span>
+        <span class="beat-title">Oskar accuses — party warned Alric, now stands with Alric (Path 4)</span>
+        <span class="beat-toggle" id="beat-toggle-blue-acc3">▼</span>
+      </div>
+      <div class="beat-body" id="beat-body-blue-acc3">
+        <p>This is the standard Oskar accusation — the party warned Alric of the assassination attempt, which placed them firmly on Alric's side. Oskar knows what was communicated and he knows what the party did with the information. He is angrier than usual because the warning means he arrived at this table disadvantaged.</p>
+        <p>Use the standard Oskar accusation text. His delivery has more edge than normal — he has been outplayed and he knows it.</p>
+        <div class="speech"><span class="speech-attr">Oskar</span>Before we go any further. Those people standing with Alric. I know them. They came to me. They worked for me. And then they dismantled the only protection my guild members had on that road — on Alric's coin. So when Alric speaks about what is good for this city, perhaps someone should ask him what kind of man hires the same hands to face in different directions.</div>
+        <p>A pause. Then, to the party.</p>
+        <div class="speech"><span class="speech-attr">Oskar</span>I'll ask you directly. Who are you here for?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faction-panel teal" id="panel-teal-acc2" data-faction="teal" data-path="killed-alric">
+    <div class="beat">
+      <div class="beat-header teal" onclick="toggleBeat('teal-acc2')">
+        <span class="beat-number">A</span>
+        <span class="beat-title">Huw whispers too loudly — party killed Alric, Caen replaces him (Path 3)</span>
+        <span class="beat-toggle" id="beat-toggle-teal-acc2">▼</span>
+      </div>
+      <div class="beat-body" id="beat-body-teal-acc2">
+        <p>Caen Rhys is present as a civic anchor rather than a merchant — he is holding the deal together in Alric's absence. Huw is at the table beside him, carrying the Merchant Guild's actual position. Huw knows what happened to Alric. He has been managing that knowledge all evening.</p>
+        <p>During a tense moment in the negotiations, Huw leans toward Caen Rhys and says something intended to be quiet. It is not quiet enough.</p>
+        <div class="speech"><span class="speech-attr">Huw — to Caen Rhys, not quite quietly enough</span>Magistrate — those people standing with Oskar. They were the last ones to see Alric tonight. I need you to understand what I am telling you.</div>
+        <p>The room goes very still. Huw realises what he has done. Caen Rhys's expression does not change. The accusation is now in the air without anyone having made it formally.</p>
+        <p>What happens next is chaos — pointed, political, fast. The room does not need Huw to elaborate. They heard enough.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faction-panel pink" id="panel-pink-acc2" data-faction="pink" data-path="killed-oskar">
+    <div class="beat">
+      <div class="beat-header pink" onclick="toggleBeat('pink-acc2')">
+        <span class="beat-number">A</span>
+        <span class="beat-title">Cors accuses — party killed Oskar, Anneth leads Trademasters (Path 5)</span>
+        <span class="beat-toggle" id="beat-toggle-pink-acc2">▼</span>
+      </div>
+      <div class="beat-body" id="beat-body-pink-acc2">
+        <p>Anneth Holdworn is leading the Trademaster delegation in Oskar's absence. Cors is beside her. Cors has secret loyalties to the Courtesans — but he is disappointed in Seva for ordering this. He is angry at the party, and he has an opening.</p>
+        <p>When Seva makes a point about the Trademaster guild's suppression of information, Cors sets down his knife on the table. Deliberately. He looks at the party.</p>
+        <div class="speech"><span class="speech-attr">Cors — quietly, but to the room</span>The people standing with the Courtesans tonight. Oskar Sternov, who should be sitting where my grandmother is sitting, is dead. I know that. And I know who was seen leaving the Honeywell building last night.</div>
+        <p>He does not look at Seva. He does not need to. The room reacts before he has finished speaking.</p>
+        <div class="speech"><span class="speech-attr">Cors — to the party, flat</span>Was it worth it?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faction-panel teal" id="panel-teal-acc3" data-faction="teal" data-path="warned-oskar">
+    <div class="beat">
+      <div class="beat-header teal" onclick="toggleBeat('teal-acc3')">
+        <span class="beat-number">A</span>
+        <span class="beat-title">Seva accuses — party warned Oskar, now stands with Oskar (Path 6)</span>
+        <span class="beat-toggle" id="beat-toggle-teal-acc3">▼</span>
+      </div>
+      <div class="beat-body" id="beat-body-teal-acc3">
+        <p>This is the standard Seva accusation — the party warned Oskar, which placed them on the Trademaster side. Seva arrived knowing what the party did. She has been waiting for her moment.</p>
+        <p>Use the standard Seva accusation text. Her delivery is colder than usual — she trusted them with a briefing and they used it to protect her target.</p>
+        <div class="speech"><span class="speech-attr">Seva</span>I want to name something. Those people — standing there with the Trademasters — came to me not long ago. They sat across from me and took my money. And then they went to The Establishment and put a young man on the floor to silence a story that I had commissioned. A story that was true. I don't know what Oskar paid them. I imagine it was enough.</div>
+        <p>She waits. Then, to the party.</p>
+        <div class="speech"><span class="speech-attr">Seva</span>I'm curious. Was it?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faction-panel pink" id="panel-pink-acc3" data-faction="pink" data-path="warned-seva">
+    <div class="beat">
+      <div class="beat-header pink" onclick="toggleBeat('pink-acc3')">
+        <span class="beat-number">A</span>
+        <span class="beat-title">Alric accuses — party warned Seva, now stands with Seva (Path 2)</span>
+        <span class="beat-toggle" id="beat-toggle-pink-acc3">▼</span>
+      </div>
+      <div class="beat-body" id="beat-body-pink-acc3">
+        <p>This is the standard Alric accusation — the party warned Seva, which placed them on the Courtesan side. Alric arrived knowing what the party did. He has been composing himself all evening.</p>
+        <p>Use the standard Alric accusation text. His composure is more effortful than usual — he hired them, they warned his target, and they are now standing in his meeting room on the other side.</p>
+        <div class="speech"><span class="speech-attr">Alric</span>I want to be transparent with our guests from Driftwood. This week, a member of their delegation was caught up in a situation that I can only describe as deliberately engineered. Criminal elements were involved. The matter was resolved — but by whom, I now find myself wondering. Because the people who resolved it are in this room today. As guests of the Courtesans Network. Which raises a question about who created the situation in the first place.</div>
+        <p>He looks at the party.</p>
+        <div class="speech"><span class="speech-attr">Alric</span>I think the room deserves an answer. What exactly is your connection to Seva Sable?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE COLLAPSE -->
+  <div class="section-heading">The collapse</div>
+
+  <div class="beat">
+    <div class="beat-header gold" onclick="toggleBeat('collapse-1')">
+      <span class="beat-number">B</span>
+      <span class="beat-title">The room reacts</span>
+      <span class="beat-toggle" id="beat-toggle-collapse-1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-collapse-1">
+      <p>The party has a moment to respond. It does not matter what they say. The damage is done. The faction leaders begin arguing — pointed, political, escalating. Aldous Crane watches for exactly long enough to confirm his assessment of Tallowhaven, then stands. Calder is already moving. The delegation files out through the main entrance with quiet and permanent finality. Emlyn, if present, goes with them.</p>
+      <p>The Sables begin filtering out through the kitchen annex. Quietly, efficiently, before the argument has fully escalated. By the time Caen Rhys acts, they are already gone.</p>
+      <p>Caen Rhys calls for calm. He is ignored. He calls again. He makes a decision — the meeting is lost — and turns to the party.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header gold" onclick="toggleBeat('collapse-2')">
+      <span class="beat-number">C</span>
+      <span class="beat-title">The faction they sided with turns on them</span>
+      <span class="beat-toggle" id="beat-toggle-collapse-2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-collapse-2">
+      <p>As Caen Rhys moves toward the party, the faction that hired them turns. Not physically. A look. A word. Quiet enough that only the party hears it.</p>
+      <div class="faction-panel blue visible" id="panel-blue-turn" data-faction="blue">
+        <div class="speech"><span class="speech-attr">Alric — quietly</span>You have cost me everything I have spent a year building. I will remember that.</div>
+      </div>
+      <div class="faction-panel teal" id="panel-teal-turn" data-faction="teal">
+        <div class="speech"><span class="speech-attr">Oskar — quietly</span>I knew what you were. I gave you the benefit of the doubt. That was my mistake.</div>
+      </div>
+      <div class="faction-panel pink" id="panel-pink-turn" data-faction="pink">
+        <div class="speech"><span class="speech-attr">Seva — barely audible, from across the room</span>Leave Tallowhaven tonight. If you are still here tomorrow, that becomes my problem to solve.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header gold" onclick="toggleBeat('collapse-3')">
+      <span class="beat-number">D</span>
+      <span class="beat-title">Caen Rhys leads them out</span>
+      <span class="beat-toggle" id="beat-toggle-collapse-3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-collapse-3">
+      <div class="speech"><span class="speech-attr">Caen Rhys</span>Come with me. Now. This is not a request.</div>
+      <p>He leads them through the anteroom and out through the emergency exit. He stops at the door.</p>
+      <div class="speech"><span class="speech-attr">Caen Rhys</span>Keep moving. I will find you before the night is out.</div>
+      <p>The door closes. The party is in Cooper's Square. The city is going about its evening. For a moment nothing happens. Then the faction comes.</p>
+    </div>
+  </div>
+
+  <!-- PART TWO — COOPER'S SQUARE -->
+  <div class="section-heading">Part Two — Cooper's Square</div>
+
+  <div class="dm-note"><strong>The space</strong>The party was here for the Bardic Interlude. Sylas's Step is at the north end. Walls run along the sides. Open at both ends — it channels rather than contains. The faction knows this city. They know where the party will be.</div>
+
+  <!-- BLUE PATH FINALE -->
+  <div class="faction-panel blue visible" id="panel-blue-finale" data-faction="blue">
+    <div class="beat">
+      <div class="beat-header blue" onclick="toggleBeat('blue-finale')">
+        <span class="beat-number">E</span>
+        <span class="beat-title">Alric's faction — party sided with Alric</span>
+        <span class="beat-toggle" id="beat-toggle-blue-finale">▼</span>
+      </div>
+      <div class="beat-body" id="beat-body-blue-finale">
+        <p>Huw arrives first. The polite assistant who booked their table is composed and cold in a way that suggests this is not the first time Alric has needed this kind of help.</p>
+        <div class="wave w1">
+          <span class="wave-label">Wave 1 — arrives immediately</span>
+          <p><strong>Prys</strong> — improvised weapon (candlestick, letter opener), breaks round 1</p>
+          <p><strong>Nesta</strong> — improvised weapon, breaks faster than Prys</p>
+          <p><strong>Bael</strong> — longsword and light crossbow, professional, holds longer</p>
+          <p><strong>Gethin</strong> — shortsword, follows Bael's lead entirely</p>
+        </div>
+        <div class="wave w2">
+          <span class="wave-label">Wave 2 — commits when wave 1 struggles</span>
+          <p><strong>Huw</strong> — rapier, Charm Person (1 slot) — directs from back, draws blade when muscle falls. More capable than anyone expected.</p>
+          <p><strong>Aldric</strong> — improvised weapon, follows Huw's instructions</p>
+        </div>
+        <div class="wave w3">
+          <span class="wave-label">Wave 3 — arrives when Huw is in trouble</span>
+          <p><strong>Alric Venn</strong> — picks up a fallen weapon. Frightened underneath the fury. Fights with desperate energy. Attempts to flee if last standing.</p>
+        </div>
+        <p style="font-size:13px;font-style:italic;color:var(--ink-faded);margin-top:8px;">Wyn, Caron, Cebb, and Sioned are gone before anyone reaches the square.</p>
+        <p style="font-size:13px;font-style:italic;color:var(--ink-faded);margin-top:4px;"><strong>Path 1 — Seva killed:</strong> Alric is livid but present. Elbeth leads the Courtesans — she is now watching from the opposite side of the square, not fighting. The Merchant faction fight proceeds as normal with Alric as the wave 3 arrival.</p>
+        <p style="font-size:13px;font-style:italic;color:var(--ink-faded);margin-top:4px;"><strong>Path 4 — Alric warned:</strong> Standard blue path. Alric is present and arrives as wave 3 as normal.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAL PATH FINALE -->
+  <div class="faction-panel teal" id="panel-teal-finale" data-faction="teal">
+    <div class="beat">
+      <div class="beat-header teal" onclick="toggleBeat('teal-finale')">
+        <span class="beat-number">E</span>
+        <span class="beat-title">Oskar's faction — party sided with Oskar</span>
+        <span class="beat-toggle" id="beat-toggle-teal-finale">▼</span>
+      </div>
+      <div class="beat-body" id="beat-body-teal-finale">
+        <p>Cors arrives first — or rather, the party realises he was already here. Called before the meeting started. That level of preparation tells them something about Oskar they did not fully appreciate.</p>
+        <div class="wave w1">
+          <span class="wave-label">Wave 1 — arrives immediately</span>
+          <p><strong>Roark</strong> — carpenter's mallet, stubborn, breaks when Cors goes down</p>
+          <p><strong>Mael</strong> — improvised, breaks early</p>
+          <p><strong>Tav</strong> — hand axe, angry, holds longer than Mael</p>
+          <p><strong>Efa Dun</strong> — dagger, follows Cors's lead</p>
+        </div>
+        <div class="wave w2">
+          <span class="wave-label">Wave 2 — commits alongside wave 1</span>
+          <p><strong>Drest</strong> — warhammer, slower but considerably more dangerous than any apprentice</p>
+          <p><strong>Cors Holdworn</strong> — heavy knife, the actual threat. Professional. Oskar's fixer.</p>
+          <p><strong>Ysolde</strong> — Thunderwave (surprise). The party did not see this coming. She leaves after casting.</p>
+        </div>
+        <div class="wave w3">
+          <span class="wave-label">Wave 3 — arrives when Cors is struggling</span>
+          <p><strong>Oskar Sternov</strong> — no weapon needed. Strong from forty years of craft work. Fights dirty and close. Cold anger. Attempts to flee if last standing.</p>
+        </div>
+        <p style="font-size:13px;font-style:italic;color:var(--ink-faded);margin-top:8px;">Siw is gone before anyone reaches the square. Anneth may remain in the square to watch — she does not fight.</p>
+        <p style="font-size:13px;font-style:italic;color:var(--ink-faded);margin-top:4px;"><strong>Path 3 — Alric killed:</strong> Oskar is livid and present. Caen Rhys is not part of the faction fight — he arrives later as the arresting authority. Huw fights in wave 2 as normal but without Alric arriving in wave 3. Oskar arrives in wave 3 as normal.</p>
+        <p style="font-size:13px;font-style:italic;color:var(--ink-faded);margin-top:4px;"><strong>Path 6 — Oskar warned:</strong> Standard teal path. Oskar is present and arrives as wave 3 as normal.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PINK PATH FINALE -->
+  <div class="faction-panel pink" id="panel-pink-finale" data-faction="pink">
+    <div class="beat">
+      <div class="beat-header pink" onclick="toggleBeat('pink-finale')">
+        <span class="beat-number">E</span>
+        <span class="beat-title">Seva's faction — party sided with Seva</span>
+        <span class="beat-toggle" id="beat-toggle-pink-finale">▼</span>
+      </div>
+      <div class="beat-body" id="beat-body-pink-finale">
+        <p>Elbeth arrives first. She has been waiting outside all evening. The party last saw her walking out of Coppergate Stables under her own power. She has had time to think about this moment.</p>
+        <div class="wave w1">
+          <span class="wave-label">Wave 1 — arrives immediately</span>
+          <p><strong>Elbeth Sable</strong> — shortsword, furious and unpredictable, has been waiting since Coppergate Stables</p>
+          <p><strong>Dalla Sable</strong> — shortsword, trained and composed, most dangerous wave 1 combatant across all three paths</p>
+          <p><strong>Perys Sable</strong> — dagger, quick and light, uses mobility rather than strength</p>
+          <p><strong>Nance</strong> — hand crossbow, experienced, fires from a position she has already scouted</p>
+        </div>
+        <div class="wave w2">
+          <span class="wave-label">Wave 2 — commits when wave 1 struggles</span>
+          <p><strong>Mira Sable</strong> — dagger, warm until she is not, then precise and efficient</p>
+          <p><strong>Cors Holdworn</strong> — heavy knife, steps sideways from the Trademaster group. A quiet repositioning the party may or may not notice.</p>
+        </div>
+        <div class="wave w3">
+          <span class="wave-label">Wave 3 — arrives when Mira is in trouble</span>
+          <p><strong>Seva Sable</strong> — dagger, Deflect reaction, Uncanny Poise. The most dangerous thing the party faces tonight. Attempts to flee if last standing.</p>
+        </div>
+        <p style="font-size:13px;font-style:italic;color:var(--ink-faded);margin-top:8px;">Sioned has already reported back to Seva before anyone reaches the square.</p>
+        <p style="font-size:13px;font-style:italic;color:var(--ink-faded);margin-top:4px;"><strong>Path 5 — Oskar killed:</strong> Seva is livid and present. Elbeth is not in this fight — she is leading the Courtesans as acting head and arrives as the Courtesan wave 3 leader. Mira leads wave 2 as normal. Seva arrives in wave 3 as normal. Cors does not step sideways in this path — he is mourning Oskar in his own way.</p>
+        <p style="font-size:13px;font-style:italic;color:var(--ink-faded);margin-top:4px;"><strong>Path 2 — Seva warned:</strong> Standard pink path. Seva is present and arrives as wave 3. Elbeth leads wave 1 as normal.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FACTION LEADER IN COMBAT -->
+  <div class="beat">
+    <div class="beat-header red" onclick="toggleBeat('leader')">
+      <span class="beat-number">F</span>
+      <span class="beat-title">The faction leader in combat — all paths</span>
+      <span class="beat-toggle" id="beat-toggle-leader">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-leader">
+      <p>The pattern is the same across all three paths. The leader hangs back while their people engage. Once the crew takes significant losses they commit — anger overcoming caution. If they are the last one standing they attempt to flee. Whether the party lets them go carries weight into Act 2.</p>
+      <div class="faction-panel blue visible" id="panel-blue-leader" data-faction="blue"><p style="margin-top:8px;"><strong>Alric</strong> — picks up a fallen weapon. Has never done this himself. Frightened underneath the fury but will not show it. Fights with desperate energy. Rapier if one is available, otherwise whatever is on the ground.</p></div>
+      <div class="faction-panel teal" id="panel-teal-leader" data-faction="teal"><p style="margin-top:8px;"><strong>Oskar</strong> — does not need a weapon. Built like someone who has worked with their hands for forty years. Fights close and dirty — grabs, shoves, uses his weight. Cold anger rather than hot. Harder to read than the others.</p></div>
+      <div class="faction-panel pink" id="panel-pink-leader" data-faction="pink"><p style="margin-top:8px;"><strong>Seva</strong> — exactly as dangerous as the party always suspected. Dagger, Deflect reaction, Uncanny Poise. Does not fight recklessly — fights efficiently. Every movement has a purpose.</p></div>
+    </div>
+  </div>
+
+  <!-- PART THREE — THE ARREST -->
+  <div class="section-heading">Part Three — The Arrest</div>
+
+  <div class="beat">
+    <div class="beat-header gray" onclick="toggleBeat('arrest')">
+      <span class="beat-number">G</span>
+      <span class="beat-title">Caen Rhys arrives with guards</span>
+      <span class="beat-toggle" id="beat-toggle-arrest">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-arrest">
+      <p>Caen Rhys arrives in Cooper's Square on foot — Pren and Tev a step behind, Oswin further back, the only armed person present. He does not need more than this. The fight is over. The party is standing in its aftermath. He walks to the centre of the square and looks at what has happened without visible reaction. He has already decided.</p>
+      <p>The crowd is at the edges — ordinary people drawn by noise and festival light. They are the mechanism. Caen Rhys is the authority. Together they are enough.</p>
+      <div class="speech"><span class="speech-attr">Caen Rhys</span>I am not going to ask what happened here. I am going to tell you what happens next. You will come with me. You will spend the night in the cells. And in the morning you will leave Tallowhaven. Whatever you were doing in this city is finished.</div>
+      <p>He does not wait for a response. The guards move. The party is taken to the Aldermen's Hall cells. Marek is already there.</p>
+    </div>
+  </div>
+
+  <div class="section-heading">DM Notes</div>
+
+  <div class="dm-note"><strong>Aldous Crane</strong>He does not react to the accusation or the argument. He watches. When he has seen enough he stands and leaves without a word. His departure is heavier than anything said in the room — the deal is dead, and everyone knows it the moment he moves toward the door.</div>
+
+  <div class="dm-note"><strong>Cors Holdworn</strong>His Courtesan loyalty is a background detail. In the teal path he fights for Oskar. In the pink path he steps toward the Sables during wave 2 — a quiet repositioning that most parties will miss. Do not draw attention to it. If a player notices and asks about it later, it is a thread available to pull in Act 2.</div>
+
+  <div class="dm-note"><strong>Ysolde's Thunderwave</strong>The master weaver casting a spell is the most surprising moment of the teal path fight. She casts once, walks away, and does not look back. She is not a combatant — she is a woman who has spent sixty years building something and spent one spell defending it.</div>
+
+  <div class="dm-note"><strong>Anneth Holdworn</strong>She does not fight. She may remain in Cooper's Square and watch what happens to the party with the quiet satisfaction of someone who has been patient for a very long time. Or she may leave with Siw. Either works — let the mood of the session decide.</div>
+
+  <div class="dm-note"><strong>The escape attempt</strong>If the faction leader flees and the party lets them go, that decision carries into Act 2. They are still out there. They know the party's faces. They know what was done. Leave it deliberately loose.</div>
+
+  <div class="dm-note"><strong>Replacement leaders — who sits where</strong>If Seva was killed, Elbeth leads the Courtesans. She is acting head, not a trained negotiator — she is angrier and less composed than Seva would have been, which makes the signing room more volatile. If Alric was killed, Caen Rhys holds the Merchant seat as a civic anchor — he is not a guild member, and the Driftwood delegation notices. If Oskar was killed, Anneth Holdworn leads the Trademasters. She is patient and controlled — the signing room is quieter than it would have been with Oskar, which is almost worse.</div>
+
+  <div class="dm-note"><strong>The assassination paths and the faction tabs</strong>The faction tab selector above controls which accusation and Cooper's Square content is visible. For assassination paths: Path 1 (killed Seva, sided with Alric) and Path 4 (warned Alric, sided with Alric) both use the blue tab. Path 3 (killed Alric, sided with Oskar) and Path 6 (warned Oskar, sided with Oskar) both use the teal tab. Path 2 (warned Seva, sided with Seva) and Path 5 (killed Oskar, sided with Seva) both use the pink tab. Within each tab, the specific accusation beat is labelled by path number.</div>
+
+  <div class="dm-note"><strong>Cors Holdworn — assassination path exception</strong>In Path 5 (Oskar killed), Cors does not step sideways to the Sables. He is grieving Oskar in his own way and his loyalties are temporarily suspended. He fights in the Trademaster formation through the whole fight — which is unusual and may prompt a player question worth leaving open.</div>
+
+  <div class="dm-note"><strong>Caen Rhys — no guards</strong>Caen Rhys arrives with Pren, Tev, and Oswin only. There is no standing guard force in Tallowhaven. His authority comes from the crowd at the edges and from the legitimacy of his position — not from swords. The party can see exactly who is behind him. That is the point.</div>
+
+  <footer>Abelon Campaign — Encounter Reference. The Festival Meeting and Finale / Act 1 Climax.</footer>
+</div>
+
+<script>
+  let activeFaction = 'blue';
+  let activePath = 'killed-seva';
+
+  function selectFaction(faction, btn) {
+    activeFaction = faction;
+    // Default path per faction
+    const defaults = { blue: 'killed-seva', teal: 'killed-alric', pink: 'killed-oskar' };
+    activePath = defaults[faction];
+
+    // Update level 1 buttons
+    document.querySelectorAll('#faction-tabs-l1 .faction-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Show correct path selector row
+    document.querySelectorAll('.path-selector').forEach(p => p.style.display = 'none');
+    document.getElementById('paths-' + faction).style.display = 'flex';
+
+    // Reset level 2 buttons to first option
+    const btns = document.querySelectorAll('#paths-' + faction + ' .faction-tab');
+    btns.forEach((b, i) => b.classList.toggle('active', i === 0));
+
+    updatePanels();
+  }
+
+  function selectPath(faction, path, btn) {
+    activePath = path;
+
+    // Update level 2 buttons
+    document.querySelectorAll('#paths-' + faction + ' .faction-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    updatePanels();
+  }
+
+  function updatePanels() {
+    document.querySelectorAll('.faction-panel').forEach(p => {
+      const pFaction = p.dataset.faction;
+      const pPath = p.dataset.path;
+
+      if (!pFaction) { p.classList.remove('visible'); return; }
+
+      // Panels with no path attribute (turn, finale, leader) show for matching faction only
+      if (!pPath) {
+        p.classList.toggle('visible', pFaction === activeFaction);
+        return;
+      }
+
+      // Accusation panels show only when faction AND path match
+      p.classList.toggle('visible', pFaction === activeFaction && pPath === activePath);
+    });
+  }
+
+  function toggleBeat(id){
+    const b=document.getElementById('beat-body-'+id);
+    const t=document.getElementById('beat-toggle-'+id);
+    if(!b||!t)return;
+    const o=b.classList.contains('open');
+    b.classList.toggle('open',!o);
+    t.classList.toggle('open',!o);
+  }
+
+  function expandAll(){
+    document.querySelectorAll('.beat-body').forEach(el=>el.classList.add('open'));
+    document.querySelectorAll('.beat-toggle').forEach(el=>el.classList.add('open'));
+  }
+
+  function collapseAll(){
+    document.querySelectorAll('.beat-body').forEach(el=>el.classList.remove('open'));
+    document.querySelectorAll('.beat-toggle').forEach(el=>el.classList.remove('open'));
+  }
+
+  // Also add flex display to path selector rows
+  document.querySelectorAll('.path-selector').forEach(p => {
+    p.style.display = 'none';
+    p.style.flexWrap = 'wrap';
+    p.style.gap = '4px';
+  });
+  document.getElementById('paths-blue').style.display = 'flex';
+
+  // Initialise panels
+  updatePanels();
+</script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Combat Reference — Road Ambush</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --bg:#1a1410;--bg2:#241f16;--bg3:#2a2318;
+    --ink:#e8d9bc;--ink2:#c4a882;--ink3:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.3);
+    --red-bg:rgba(153,60,29,0.2);--red-border:#993C1D;--red-text:#F0997B;
+    --gold-bg:rgba(133,79,11,0.2);--gold-border:#EF9F27;--gold-text:#EF9F27;
+    --teal-bg:rgba(15,110,86,0.2);--teal-border:#5DCAA5;--teal-text:#5DCAA5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.5;padding:1.25rem;}
+  h1{font-family:'Cinzel',serif;font-size:18px;font-weight:600;color:var(--accent);letter-spacing:.05em;margin-bottom:3px;}
+  .subtitle{font-size:13px;font-style:italic;color:var(--ink3);margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;}
+
+  .card{background:var(--bg2);border-radius:7px;overflow:hidden;}
+  .card.hostile{border:.5px solid var(--red-border);}
+  .card.neutral{border:.5px solid var(--gold-border);}
+
+  .card-header{padding:8px 12px;display:flex;align-items:center;gap:10px;}
+  .hostile .card-header{background:var(--red-bg);}
+  .neutral .card-header{background:var(--gold-bg);}
+
+  .card-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);flex:1;}
+  .card-tag{font-size:11px;font-style:italic;color:var(--ink3);}
+
+  .copy-btn{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:var(--bg3);cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+  .copy-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .copy-btn.copied{border-color:var(--teal-border);color:var(--teal-text);}
+
+  .card-body{padding:10px 12px;display:flex;flex-direction:column;gap:8px;}
+
+  /* Quick stats strip */
+  .quick-stats{display:flex;gap:6px;flex-wrap:wrap;}
+  .qs{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:2px 8px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink2);background:var(--bg3);}
+  .qs span{color:var(--ink3);margin-right:2px;}
+
+  /* Section */
+  .section{display:flex;flex-direction:column;gap:4px;}
+  .section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);padding-bottom:3px;border-bottom:.5px solid var(--rule-faint);}
+
+  /* Attack line */
+  .atk{font-size:13px;color:var(--ink2);}
+  .atk-name{font-weight:600;color:var(--ink);}
+  .atk-hit{color:var(--red-text);}
+  .atk-dmg{color:var(--gold-text);}
+  .atk-note{color:var(--ink3);font-style:italic;font-size:12px;}
+
+  /* Ability */
+  .abl{font-size:13px;color:var(--ink2);}
+  .abl-name{font-weight:600;color:var(--teal-text);}
+
+  /* Tactics — most prominent */
+  .tactics{font-size:14px;color:var(--ink);font-style:italic;padding:8px 10px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);line-height:1.55;}
+
+  /* Priority callout */
+  .priority{font-size:13px;padding:6px 10px;border-radius:4px;background:var(--red-bg);border:.5px solid var(--red-border);color:var(--red-text);}
+  .neutral .priority{background:var(--gold-bg);border-color:var(--gold-border);color:var(--gold-text);}
+
+  /* Retreat note */
+  .retreat-bar{background:var(--bg2);border:.5px solid var(--rule);border-radius:6px;padding:10px 14px;margin-bottom:1rem;}
+  .retreat-bar .section-label{margin-bottom:6px;}
+  .retreat-bar p{font-size:13px;color:var(--ink2);}
+  .retreat-bar p+p{margin-top:4px;}
+
+  footer{margin-top:1.5rem;padding-top:.75rem;border-top:.5px solid var(--rule-faint);font-size:11px;font-style:italic;color:var(--ink3);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+
+<h1>Combat Reference — Road Ambush</h1>
+<div class="subtitle">Broken Wing sympathisers — Level 1 party — Seva witnesses</div>
+
+<div class="retreat-bar">
+  <span class="section-label">Encounter behaviour</span>
+  <p>The ambushers want Marek free, not the party dead. They fight with purpose, not fury. Once two ambushers are incapacitated, <strong>Brath calls retreat</strong> — all remaining combatants attempt to disengage. Idony is most likely to escape. Pell is most likely to simply run.</p>
+  <p>Seva does not fight unless directly threatened. She does not flee. She watches.</p>
+</div>
+
+<div class="grid">
+
+  <!-- BRATH -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Brath</span>
+      <button class="copy-btn" onclick="copyJSON('brath', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag" style="font-size:11px;font-style:italic;color:var(--ink3);">Fighter 1 — leader</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>13</div>
+        <div class="qs"><span>HP</span>12</div>
+        <div class="qs"><span>Atk</span>+5</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Longsword — </span><span class="atk-hit">+5</span> / <span class="atk-dmg">1d8+3</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Second Wind (bonus, 1/short rest) — </span>Regain 1d10+2 HP. Use below 6 HP.</div>
+        <div class="abl"><span class="abl-name">Tactical Shout (recharge 5-6) — </span>One ally moves full speed, no opportunity attacks.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Moves straight toward Marek. Uses Tactical Shout to screen Marek's escape. Last to disengage. Does not fight to the death.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAVAN -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Davan</span>
+      <button class="copy-btn" onclick="copyJSON('davan', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag" style="font-size:11px;font-style:italic;color:var(--ink3);">Axes — charges, goes down swinging</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>12</div>
+        <div class="qs"><span>HP</span>11</div>
+        <div class="qs"><span>Atk</span>+4</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Handaxe (melee) — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">1d6+2</span></div>
+        <div class="atk"><span class="atk-name">Handaxe (thrown, round 1) — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">1d6+2</span> <span class="atk-note">range 20/60</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Scrapper (1/long rest) — </span>First time dropping to 0 HP, DC 10 Con save to drop to 1 HP instead.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Throws handaxe on round one then closes to melee. Charges with Brath. Most committed. Does not yield willingly.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IDONY -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Idony</span>
+      <button class="copy-btn" onclick="copyJSON('idony', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag" style="font-size:11px;font-style:italic;color:var(--ink3);">Rogue 1 — riverbank, flanker</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>13</div>
+        <div class="qs"><span>HP</span>8</div>
+        <div class="qs"><span>Atk</span>+4</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Shortsword — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">1d6+2</span> <span class="atk-note">+ 1d6 sneak attack if advantage or ally adjacent</span></div>
+        <div class="atk"><span class="atk-name">Dagger (thrown) — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">1d4+2</span> <span class="atk-note">range 20/60</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Cunning Action (bonus) — </span>Dash, Disengage, or Hide each turn.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Stays at riverbank using cover. Repositions each turn with Cunning Action. Always targets whoever is closest to Marek. First to escape when retreat is called.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PELL -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Pell</span>
+      <button class="copy-btn" onclick="copyJSON('pell', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag" style="font-size:11px;font-style:italic;color:var(--ink3);">Crossbow — bridge, least committed</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>11</div>
+        <div class="qs"><span>HP</span>9</div>
+        <div class="qs"><span>Atk</span>+2</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Light crossbow — </span><span class="atk-hit">+2</span> / <span class="atk-dmg">1d8</span> <span class="atk-note">range 80/320</span></div>
+        <div class="atk"><span class="atk-name">Club (if melee forced) — </span><span class="atk-hit">+2</span> / <span class="atk-dmg">1d4+1</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Reluctant — </span>DC 10 Wis save or flee if Brath is down and Pell is below half HP.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Holds the bridge. Fires crossbow each round, preferring targets in the open. Follows Brath. Most likely to simply run rather than disengage cleanly.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEVA -->
+  <div class="card neutral">
+    <div class="card-header">
+      <span class="card-name">Seva Sable</span>
+      <button class="copy-btn" onclick="copyJSON('seva', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag" style="font-size:11px;font-style:italic;color:var(--ink3);">Witness — does not fight unless forced</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>14</div>
+        <div class="qs"><span>HP</span>32</div>
+        <div class="qs"><span>Atk</span>+5</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="priority">Only enters combat if directly and physically threatened. She will make clear first that this would be a mistake.</div>
+      <div class="section">
+        <span class="section-label">If forced to fight</span>
+        <div class="atk"><span class="atk-name">Dagger (melee or thrown) — </span><span class="atk-hit">+5</span> / <span class="atk-dmg">1d4+3</span> <span class="atk-note">range 20/60</span></div>
+        <div class="atk"><span class="atk-name">Read the Room (action) — </span><span class="atk-note">DC 12 Insight — learn emotional state, duress, concealed weapons</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Uncanny Poise — </span>No opportunity attacks when she moves away.</div>
+        <div class="abl"><span class="abl-name">Deflect (reaction) — </span>Reduce incoming melee damage by 1d6+3.</div>
+        <div class="abl"><span class="abl-name">Composed — </span>Advantage vs frightened. Cannot be charmed by CR 2 or lower.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Does not move. Does not fight. Does not flee. Watches everything. She is deciding what the party is useful for.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Abelon Campaign — Combat Reference. Road Ambush / Act 1.</footer>
+
+<script>
+const forgeJSON = {
+  brath: {"com.battle-system.forge/name":"Brath","com.battle-system.forge/Z034":[{"id":"brath-001","name":"Tactical Shout (Recharge 5-6)","description":"One ally within 30 ft. can move up to their full speed without provoking opportunity attacks."},{"id":"brath-002","name":"Retreat Call","description":"Once two allies are incapacitated, Brath calls retreat. All remaining ambushers attempt to disengage."}],"com.battle-system.forge/Z035":[{"id":"brath-003","name":"Longsword","description":"Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] slashing damage."}],"com.battle-system.forge/Z003":"Neutral Good","com.battle-system.forge/Z007":13,"com.battle-system.forge/Z036":[{"id":"brath-004","name":"Second Wind (1/short rest)","description":"Regains [1d10+2] hit points."}],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.5,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":13,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":12,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":12,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":12,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":3,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Athletics +5","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":16,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":11},
+
+  davan: {"com.battle-system.forge/name":"Davan","com.battle-system.forge/Z034":[{"id":"davan-001","name":"Scrapper (1/long rest)","description":"The first time Davan would drop to 0 HP, he may make a DC 10 Constitution saving throw. On a success he drops to 1 HP instead."}],"com.battle-system.forge/Z035":[{"id":"davan-002","name":"Handaxe (melee)","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] slashing damage."},{"id":"davan-003","name":"Handaxe (thrown)","description":"Ranged Weapon Attack [1d20+4] to hit, range 20/60 ft., one target. [1d6+2] slashing damage."}],"com.battle-system.forge/Z003":"Neutral Good","com.battle-system.forge/Z007":12,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":13,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":12,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":11,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":11,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":2,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":14,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":10},
+
+  idony: {"com.battle-system.forge/name":"Idony","com.battle-system.forge/Z034":[{"id":"idony-001","name":"Sneak Attack","description":"Once per turn, Idony deals an extra [1d6] damage when she has advantage or an ally is adjacent to the target."}],"com.battle-system.forge/Z035":[{"id":"idony-002","name":"Shortsword","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] piercing damage. Add [1d6] sneak attack if advantage or ally adjacent."},{"id":"idony-003","name":"Dagger (thrown)","description":"Ranged Weapon Attack [1d20+4] to hit, range 20/60 ft., one target. [1d4+2] piercing damage."}],"com.battle-system.forge/Z003":"Neutral Good","com.battle-system.forge/Z007":13,"com.battle-system.forge/Z036":[{"id":"idony-004","name":"Cunning Action","description":"Idony can take the Dash, Disengage, or Hide action as a bonus action."}],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":11,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":11,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":15,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":8,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":12,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":8,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Stealth +4, Perception +3","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":10,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":13},
+
+  pell: {"com.battle-system.forge/name":"Pell","com.battle-system.forge/Z034":[{"id":"pell-001","name":"Reluctant","description":"If Brath is incapacitated and Pell is below half HP, Pell must make a DC 10 Wisdom saving throw or disengage and flee."}],"com.battle-system.forge/Z035":[{"id":"pell-002","name":"Club","description":"Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4+1] bludgeoning damage."},{"id":"pell-003","name":"Light Crossbow","description":"Ranged Weapon Attack [1d20+2] to hit, range 80/320 ft., one target. [1d8] piercing damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":11,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":-1,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.125,"com.battle-system.forge/Z022":9,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":11,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":9,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":9,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":13,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":10},
+
+  seva: {"com.battle-system.forge/name":"Seva Sable","com.battle-system.forge/Z034":[{"id":"seva-001","name":"Composed","description":"Advantage on saving throws against being frightened. Cannot be charmed by creatures of CR 2 or lower."},{"id":"seva-002","name":"Uncanny Poise","description":"Does not provoke opportunity attacks when moving away from a hostile creature."},{"id":"seva-003","name":"Threat Assessment","description":"At the start of combat, identifies the most dangerous creature within 60 ft. Has advantage on the first attack roll made against that creature."}],"com.battle-system.forge/Z035":[{"id":"seva-004","name":"Dagger (melee or thrown)","description":"Melee or Ranged Weapon Attack [1d20+5] to hit, reach 5 ft. or range 20/60 ft., one target. [1d4+3] piercing damage."},{"id":"seva-005","name":"Read the Room","description":"DC 12 Insight check on one creature — learns emotional state, whether acting under duress, and whether concealing a weapon."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":14,"com.battle-system.forge/Z036":[{"id":"seva-006","name":"Disengage","description":"Seva can take the Disengage action as a bonus action."}],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":6,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":2,"com.battle-system.forge/Z022":18,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":5,"com.battle-system.forge/Z018":16,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":32,"com.battle-system.forge/Z026":2,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":15,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common, Elvish","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":32,"com.battle-system.forge/Z029":3,"com.battle-system.forge/Z037":[{"id":"seva-007","name":"Deflect","description":"When hit by a melee attack she can see, Seva uses her reaction to reduce the damage by [1d6+3]."}],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 13","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Deception +8, Insight +7, Perception +5, Persuasion +8, Stealth +5","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":10,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":5,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":16}
+};
+
+function copyJSON(id, btn){
+  const json = JSON.stringify(forgeJSON[id]);
+  navigator.clipboard.writeText(json).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy Forge JSON';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

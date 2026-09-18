@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — The Aldermen's Hall</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(107,58,42,0.05);--beat-border:#c4a882;--success-bg:rgba(15,110,86,0.07);--success-border:#0F6E56;--success-text:#04342C;--warning-bg:rgba(133,79,11,0.08);--warning-border:#854F0B;--warning-text:#412402;--npc-bg:rgba(107,58,42,0.04);--npc-border:#c4a882;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(196,168,130,0.06);--beat-border:#5a4a38;--success-bg:rgba(93,202,165,0.07);--success-border:#5DCAA5;--success-text:#E1F5EE;--warning-bg:rgba(239,159,39,0.07);--warning-border:#EF9F27;--warning-text:#FAEEDA;--npc-bg:rgba(196,168,130,0.05);--npc-border:#5a4a38;}}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:32px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .environment-block{background:var(--beat-bg);border-left:3px solid var(--beat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .environment-block p{margin-bottom:.6rem;}.environment-block p:last-child{margin-bottom:0;}
+  .env-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+  @media(max-width:600px){.env-features{grid-template-columns:1fr;}}
+  .env-feature{display:flex;gap:8px;align-items:flex-start;}
+  .env-feature-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);min-width:80px;padding-top:3px;flex-shrink:0;}
+  .env-feature-desc{font-size:14px;color:var(--ink-mid);line-height:1.5;}
+  .npc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+  @media(max-width:600px){.npc-grid{grid-template-columns:1fr;}}
+  .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
+  .npc-card.grid-card{margin-bottom:0;}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-portrait{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);overflow:hidden;flex-shrink:0;background:var(--parchment-dark);display:flex;align-items:center;justify-content:center;position:relative;}
+  .npc-portrait.small{width:40px;height:40px;}
+  .npc-portrait img{width:100%;height:100%;object-fit:cover;}
+  .npc-portrait-placeholder{font-family:'Cinzel',serif;font-size:9px;color:var(--ink-faded);text-align:center;padding:3px;line-height:1.3;pointer-events:none;}
+  .npc-portrait input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin:12px 0 5px;}
+  .npc-desc{font-size:15px;color:var(--ink-mid);margin-bottom:6px;}
+  .npc-trait{display:flex;gap:8px;margin-bottom:5px;font-size:14px;}
+  .npc-trait-key{color:var(--ink-faded);min-width:90px;flex-shrink:0;font-style:italic;}
+  .speech-block{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header:hover{opacity:.8;}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+  .outcome{border-radius:5px;padding:12px 14px;margin-bottom:10px;font-size:15px;}
+  .outcome.success{background:var(--success-bg);border:.5px solid var(--success-border);color:var(--success-text);}
+  .outcome.warning{background:var(--warning-bg);border:.5px solid var(--warning-border);color:var(--warning-text);}
+  .outcome-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:6px;opacity:.8;}
+  .outcome p{margin-bottom:6px;}.outcome p:last-child{margin-bottom:0;}
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+  .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="encounter-header">
+    <span class="encounter-type">Encounter Reference — Act 1 / Tallowhaven</span>
+    <div class="encounter-title">The Aldermen's Hall</div>
+    <div class="encounter-subtitle">Delivering Marek, meeting Caen Rhys, and an accidental introduction to Alric Venn</div>
+    <div class="encounter-meta">
+      <span class="meta-tag">Social encounter</span>
+      <span class="meta-tag">No combat</span>
+      <span class="meta-tag">Merchant thread opens here</span>
+      <span class="meta-tag">First arrival in Tallowhaven</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+    <button class="ctrl-btn" onclick="expandBeats()">Beats only</button>
+    <button class="ctrl-btn" onclick="expandNPCs()">NPCs only</button>
+  </div>
+
+  <div class="section-heading">Environment</div>
+  <div class="environment-block">
+    <p>The Aldermen's Hall is a large, wide, low building on a cobbled street in Tallowhaven's civic quarter. It has civic weight through its footprint rather than its height — solid and functional, the size of a prosperous merchant's townhouse multiplied, making no attempt to impress. A raised wooden platform with six plain columns fronts the entrance. A noticeboard beside the door carries festival announcements and civic notices.</p>
+    <p>Inside: worn flagstone floors, practical furniture, documents and ledgers on heavy wooden desks. The building houses several civic functions — the magistrate's court, a records office, holding cells below. It has the atmosphere of a place where practical decisions are made by tired people with limited resources.</p>
+    <p>The party has access to the entrance, two antechambers, and the courtroom. The grander main hall and private rooms beyond are not their business today.</p>
+  </div>
+
+  <div class="env-features">
+    <div class="env-feature">
+      <span class="env-feature-label">Entrance</span>
+      <span class="env-feature-desc">Pren is at the desk. He has seen everyone and forgotten nobody. He controls access to the building with the calm efficiency of someone who has been doing this longer than most magistrates.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Antechambers</span>
+      <span class="env-feature-desc">Waiting areas with benches. Where Alric Venn will be found — present on his own business, not Marek's. The party passes through here before the courtroom.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Courtroom</span>
+      <span class="env-feature-desc">Tiered seating, a raised magistrate's desk. Functional rather than grand. Caen Rhys belongs behind that desk. The party and Marek stand before him.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Holding cells</span>
+      <span class="env-feature-desc">Below, accessed through a door the party does not go through. Tev takes Marek down here. The party does not see where Marek goes next.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Noticeboard</span>
+      <span class="env-feature-desc">Festival notices, civic announcements, debt postings. A natural thing for curious players to investigate on the way in. Seeds the festival without requiring exposition.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">The wider building</span>
+      <span class="env-feature-desc">The grand main hall and staircase exist but the party does not access them today. Their presence implies the building has more to offer in future sessions.</span>
+    </div>
+  </div>
+
+  <div class="section-heading">Key NPCs</div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('caen')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="caen-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="caen-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('caen',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Caen Rhys</span>
+        <span class="npc-role">Magistrate — tired, fair, running out of resources</span>
+      </div>
+      <span class="npc-toggle" id="caen-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="caen-body">
+      <span class="npc-section-label">Appearance</span>
+      <p class="npc-desc">Late fifties, plain magistrate's robes, neat but not grand. Sharp eyes that have heard every excuse and weighed every claim. Expression of measured authority worn thin by years of practical compromise. Tired but not cynical. He takes his role seriously even when it does not reward him for doing so.</p>
+      <span class="npc-section-label">The Marek matter</span>
+      <div class="npc-trait"><span class="npc-trait-key">His read</span><span>He is familiar with Marek-adjacent disruptions. This is not the first shrine ceremony that has been interrupted by someone making a point. He takes the testimony, processes Marek, and issues a nominal fine. He does not consider it worth more than that.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">His manner</span><span>Brisk and fair. He asks precise questions and expects precise answers. He is not unfriendly but he is busy. The party is one of several things he is dealing with today.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">The hearing</span><span>He asks the party to commit to attending a future hearing regarding the ambush if one is called. It almost certainly will not be called. He asks because that is the process.</span></div>
+      <span class="npc-section-label">His relationship with Alric</span>
+      <div class="npc-trait"><span class="npc-trait-key">Context</span><span>Alric is here today because Caen summoned him regarding an outstanding payment to the Aldermen's coffers from the festival fundraiser. Alric has negotiated grace pending the collection he has assigned to the party. Caen and Alric have a functional professional relationship built on mutual recognition of each other's limits.</span></div>
+    </div>
+  </div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('alric')">
+      <div class="npc-portrait" title="Click to load portrait">
+        <img id="alric-img" src="" alt="" style="display:none;">
+        <div class="npc-portrait-placeholder" id="alric-placeholder">Load<br>portrait</div>
+        <input type="file" accept="image/*" onchange="loadPortrait('alric',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Alric Venn</span>
+        <span class="npc-role">Merchants' Guildmaster — present on his own business</span>
+      </div>
+      <span class="npc-toggle" id="alric-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="alric-body">
+      <span class="npc-section-label">Appearance</span>
+      <p class="npc-desc">Fifties, well dressed without ostentation. The kind of wealth that does not need to announce itself. Calm, considered face, the bearing of someone who thinks in systems rather than people. He is always noting something.</p>
+      <span class="npc-section-label">Why he is here</span>
+      <p class="npc-desc">Caen Rhys summoned him regarding an outstanding payment to the Aldermen's coffers from the festival fundraiser. Alric manages the festival levy collection and has negotiated grace pending collection from a specific debtor. He is not here about Marek. He notices the party in passing.</p>
+      <span class="npc-section-label">The introduction</span>
+      <div class="npc-trait"><span class="npc-trait-key">How it happens</span><span>The party passes through the antechamber where Alric is waiting or concluding business. He makes eye contact. He introduces himself briefly. He has noticed capable-looking strangers delivering a prisoner and is curious about them.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">His pitch</span><span>He does not make it in the antechamber. He suggests breakfast. The Shallow Tuber tomorrow morning. He will explain what he has in mind then. He leaves the party space to accept or decline without pressure.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">His manner</span><span>Measured warmth. He is interested but not eager. He considers himself a good judge of capability and is provisionally interested in what he has seen. He does not oversell the meeting.</span></div>
+      <span class="npc-section-label">His aide</span>
+      <div class="npc-trait"><span class="npc-trait-key">Huw</span><span>Present, carrying documents, slightly too well pressed. He does not speak unless spoken to. He watches everything Alric watches.</span></div>
+    </div>
+  </div>
+
+  <div class="section-heading">Supporting Cast</div>
+  <div class="npc-grid">
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('pren')">
+        <div class="npc-portrait small">
+          <img id="pren-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="pren-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('pren',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Pren</span>
+          <span class="npc-role">Doorman — has seen everything, forgets nothing</span>
+        </div>
+        <span class="npc-toggle" id="pren-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="pren-body">
+        <p class="npc-desc">Older, neat but worn civic clothing, sharp eyes behind a tired face. He knows who has appointments, who is expected, and who is not. He sorted the party into a category before they finished their first sentence. He will direct them efficiently and without warmth. He is not unfriendly. He is simply busy.</p>
+      </div>
+    </div>
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('oswin')">
+        <div class="npc-portrait small">
+          <img id="oswin-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="oswin-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('oswin',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Oswin</span>
+          <span class="npc-role">Civic guard — present in the courtroom</span>
+        </div>
+        <span class="npc-toggle" id="oswin-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="oswin-body">
+        <p class="npc-desc">Forties, civic guard uniform, practical rather than military. Slightly soft around the middle. The comfortable posture of someone whose job rarely requires movement and who has made peace with that. Present in the courtroom during the hearing. Does nothing unless asked to.</p>
+      </div>
+    </div>
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('tev')">
+        <div class="npc-portrait small">
+          <img id="tev-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="tev-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('tev',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Tev</span>
+          <span class="npc-role">Gaoler — takes Marek below</span>
+        </div>
+        <span class="npc-toggle" id="tev-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="tev-body">
+        <p class="npc-desc">Fifties, heavyset, keyring at his belt. Weathered face with no particular expression. Has locked up enough people to have stopped thinking about what put them there. He takes Marek without drama. Marek's parting words, if any, are to Tev rather than to the party. Tev receives them without visible reaction.</p>
+      </div>
+    </div>
+
+    <div class="npc-card grid-card">
+      <div class="npc-header" onclick="toggleNPC('huw')">
+        <div class="npc-portrait small">
+          <img id="huw-img" src="" alt="" style="display:none;">
+          <div class="npc-portrait-placeholder" id="huw-placeholder">Load</div>
+          <input type="file" accept="image/*" onchange="loadPortrait('huw',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Huw</span>
+          <span class="npc-role">Alric's aide — carries documents, says little</span>
+        </div>
+        <span class="npc-toggle" id="huw-toggle">▼</span>
+      </div>
+      <div class="npc-body" id="huw-body">
+        <p class="npc-desc">Mid-twenties, neat guild clothing slightly too well pressed, carrying documents, eager without being obvious about it. Working very hard to appear composed in important company. He watches everything Alric watches and files it in the same place.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-heading">Encounter Beats</div>
+
+  <div class="dm-note"><strong>Purpose of this scene</strong>The party delivers Marek, completes the first job, gets paid eventually, and accidentally meets the most important guild contact in Tallowhaven. The Alric introduction should feel incidental rather than engineered. He notices them. They are worth noticing.</div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(1)">
+      <span class="beat-number">01</span>
+      <span class="beat-title">Arrival — the noticeboard and Pren</span>
+      <span class="beat-toggle" id="beat-toggle-1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-1">
+      <p>The party arrives at the Aldermen's Hall. The noticeboard outside is worth a moment — festival announcements, civic notices, a debt posting or two. It seeds Tallowhaven's commercial activity without requiring explanation.</p>
+      <p>Inside, Pren at the entrance desk processes them efficiently. He knows what a citizen's arrest delivery looks like. He directs them through the antechamber to the courtroom and tells them to wait.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(2)">
+      <span class="beat-number">02</span>
+      <span class="beat-title">The antechamber — Alric</span>
+      <span class="beat-toggle" id="beat-toggle-2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-2">
+      <p>Alric Venn is in the antechamber, concluding or waiting on his own business. He notices the party — specifically their bearing and the fact that they are delivering a prisoner rather than in trouble themselves. He introduces himself briefly, shakes hands, asks a question or two that seem like small talk and are not.</p>
+      <p>He suggests breakfast at the Shallow Tuber tomorrow morning. He will explain what he has in mind then. He does not press. He moves on.</p>
+      <p>Huw follows without speaking.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(3)">
+      <span class="beat-number">03</span>
+      <span class="beat-title">The courtroom — Caen Rhys</span>
+      <span class="beat-toggle" id="beat-toggle-3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-3">
+      <p>Caen Rhys takes their testimony from behind his desk. He is brisk and fair. He asks precise questions about the arrest, the escort, and the ambush on the road if it occurred. He writes things down.</p>
+      <p>His verdict on Marek: a nominal fine for public disorder, to be paid before release. Standard. He has seen this kind of thing before and has an efficient process for it.</p>
+      <p>He asks the party to commit to attending a future hearing if one is called regarding any prisoners taken during the ambush. He does not expect to call it. He asks because that is the process.</p>
+      <p>He pays Morfudd's agreed fee to the party on behalf of the arrest. This is also standard — the magistrate holds the payment to ensure delivery is completed before funds change hands.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(4)">
+      <span class="beat-number">04</span>
+      <span class="beat-title">Marek's departure</span>
+      <span class="beat-toggle" id="beat-toggle-4">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-4">
+      <p>Tev collects Marek and takes him below. Marek's final words before he goes are to Tev rather than to the party. They may be overheard. They are precise and slightly unsettling and Tev does not respond to them. He simply walks Marek through the door.</p>
+      <p>The party does not see what happens next. Marek is processed. He will be fined and released. He will walk out of the Aldermen's Hall later today and continue on his way. The party will not be there for that.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat(5)">
+      <span class="beat-number">05</span>
+      <span class="beat-title">Leaving the Hall</span>
+      <span class="beat-toggle" id="beat-toggle-5">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-5">
+      <p>The party is free to go. They have been paid. They are in Tallowhaven. The day is theirs.</p>
+      <p>They have a breakfast invitation from a well-dressed man they met for four minutes. That is the Merchant thread.</p>
+      <p>The Amber Cup is the natural next destination — they need somewhere to stay and Morra will see them settled. The evening begins there.</p>
+    </div>
+  </div>
+
+  <div class="section-heading">DM Notes</div>
+
+  <div class="dm-note"><strong>Alric's questions</strong>His small talk is assessment. He asks where they are from, how they found the escort work, what they thought of the road. He is listening for confidence, self-awareness, and whether they are the kind of people who make problems or solve them. He has formed a provisional opinion before he suggests breakfast.</div>
+
+  <div class="dm-note"><strong>Caen Rhys in the finale</strong>The party will sit across from this man again at the end of Act 1 under very different circumstances. Their first meeting should be unremarkable enough that the contrast lands properly when it comes. He is fair now. Whether he is fair then is a question for later.</div>
+
+  <div class="dm-note"><strong>Marek's last words</strong>Decide what Marek says to Tev before you run this scene. It should be something true, slightly abstract, and entirely unhelpful as a parting remark. Something he has been thinking about on the road. Tev does not engage with it. The party carries it if they heard it.</div>
+
+  <div class="dm-note"><strong>The hearing commitment</strong>The party commits to attending a future hearing. It will almost certainly never be called. If it becomes relevant later — if the magistrate needs leverage over them during the Act 1 finale — the commitment exists. File it away.</div>
+
+  <footer>Abelon Campaign — Encounter Reference. The Aldermen's Hall / Tallowhaven / Act 1.</footer>
+</div>
+
+<script>
+  function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
+  function expandBeats(){collapseAll();document.querySelectorAll('.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function expandNPCs(){collapseAll();document.querySelectorAll('.npc-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle').forEach(el=>el.classList.add('open'));}
+  function loadPortrait(id,input){if(!input.files||!input.files[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(id+'-img'),ph=document.getElementById(id+'-placeholder');if(img){img.src=e.target.result;img.style.display='block';}if(ph)ph.style.display='none';};r.readAsDataURL(input.files[0]);}
+</script>
+</body>
+</html>

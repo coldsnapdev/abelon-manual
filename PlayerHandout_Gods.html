@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Gods of Abelon</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.35);--teal-bg:rgba(15,110,86,0.07);--teal-border:#0F6E56;--blue-bg:rgba(24,95,165,0.07);--blue-border:#185FA5;--pink-bg:rgba(153,53,86,0.07);--pink-border:#993556;--gold-bg:rgba(133,79,11,0.07);--gold-border:#854F0B;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:11pt;line-height:1.55;}
+  .page{max-width:210mm;margin:0 auto;padding:16mm 18mm;transition:max-width .2s;}
+  @media print{@page{size:A4;margin:16mm 18mm;}body{background:white;}.page{max-width:none;margin:0;padding:0;}.page-break{break-before:page;}}
+  .doc-header{text-align:center;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:14px;}
+  .doc-label{font-family:'Cinzel',serif;font-size:0.68em;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:5px;}
+  .doc-title{font-family:'Cinzel',serif;font-size:2em;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:4px;}
+  .doc-subtitle{font-size:0.91em;font-style:italic;color:var(--ink-faded);}
+  .section-heading{font-family:'Cinzel',serif;font-size:0.68em;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);border-bottom:.5px solid var(--rule-faint);padding-bottom:4px;margin-bottom:8px;margin-top:14px;}
+  .section-heading:first-of-type{margin-top:0;}
+  .intro-note{font-size:0.91em;font-style:italic;color:var(--ink-mid);margin-bottom:10px;line-height:1.5;}
+  .pair{border-radius:5px;overflow:hidden;border:.5px solid var(--rule);margin-bottom:7px;break-inside:avoid;}
+  .pair.teal{border-color:var(--teal-border);}
+  .pair.blue{border-color:var(--blue-border);}
+  .pair.pink{border-color:var(--pink-border);}
+  .pair.gold{border-color:var(--gold-border);}
+  .pair-label{font-family:'Cinzel',serif;font-size:0.64em;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faded);padding:4px 10px;border-bottom:.5px solid var(--rule-faint);background:var(--parchment-dark);}
+  .pair.teal .pair-label{background:var(--teal-bg);}
+  .pair.blue .pair-label{background:var(--blue-bg);}
+  .pair.pink .pair-label{background:var(--pink-bg);}
+  .pair.gold .pair-label{background:var(--gold-bg);}
+  .pair-gods{display:grid;grid-template-columns:1fr 1fr;}
+  .god{padding:8px 10px 9px;}
+  .god:first-child{border-right:.5px solid var(--rule-faint);}
+  .god-name{font-family:'Cinzel',serif;font-size:1.18em;font-weight:600;color:var(--ink);display:block;margin-bottom:1px;}
+  .god-domain{font-size:0.82em;font-style:italic;color:var(--ink-faded);display:block;margin-bottom:5px;}
+  .god-desc{font-size:0.86em;color:var(--ink-mid);line-height:1.5;}
+  .page2-header{text-align:center;border-bottom:1px solid var(--rule);padding-bottom:8px;margin-bottom:14px;}
+  .page2-title{font-family:'Cinzel',serif;font-size:1.45em;font-weight:600;color:var(--accent);letter-spacing:.05em;}
+  .minor-grid{display:grid;grid-template-columns:1fr 1fr;border:.5px solid var(--rule);border-radius:5px;overflow:hidden;}
+  .minor-god{display:flex;gap:6px;align-items:baseline;padding:4.5px 8px;border-bottom:.5px solid var(--rule-faint);}
+  .minor-god:nth-child(4n+1),.minor-god:nth-child(4n+2){background:var(--parchment-mid);}
+  .minor-god:nth-child(odd){border-right:.5px solid var(--rule-faint);}
+  .minor-god:nth-last-child(1),.minor-god:nth-last-child(2){border-bottom:none;}
+  .minor-name{font-family:'Cinzel',serif;font-size:0.95em;font-weight:600;color:var(--ink);white-space:nowrap;}
+  .minor-sep{color:var(--rule);font-size:0.82em;}
+  .minor-domain{font-size:0.86em;font-style:italic;color:var(--ink-faded);}
+  .doc-footer{margin-top:14px;padding-top:8px;border-top:.5px solid var(--rule-faint);font-size:0.77em;font-style:italic;color:var(--ink-faded);text-align:center;}
+  .slider-bar{position:fixed;bottom:20px;right:20px;background:var(--parchment-dark);border:.5px solid var(--rule);border-radius:6px;padding:8px 12px;display:flex;align-items:center;gap:10px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
+  .slider-bar label{font-family:'Cinzel',serif;font-size:0.82em;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);white-space:nowrap;}
+  .slider-bar input{width:90px;accent-color:var(--accent);}
+  .slider-bar span{font-family:'Cinzel',serif;font-size:0.82em;color:var(--ink-faded);min-width:28px;text-align:right;}
+  @media print{.slider-bar{display:none;}}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+
+<div class="page">
+  <div class="doc-header">
+    <span class="doc-label">Player Reference &middot; Abelon: The Weight of the World</span>
+    <div class="doc-title">The Gods of Abelon</div>
+    <div class="doc-subtitle">A reference for Session Zero and beyond</div>
+  </div>
+
+  <div class="section-heading">The Eight &ndash; Major Gods</div>
+  <p class="intro-note">The eight major gods exist in four pairs. Each pair governs one aspect of existence. They were people once, long before anyone now living could remember.</p>
+
+  <div class="pair teal">
+    <div class="pair-label">The body &ndash; its being and its ending</div>
+    <div class="pair-gods">
+      <div class="god">
+        <span class="god-name">Aeron</span>
+        <span class="god-domain">Life</span>
+        <p class="god-desc">Life in Abelon is not a gift so much as a responsibility, and those who feel that most keenly tend to find their way to Aeron. The belief is practical rather than spiritual: something alive deserves to be tended, protected, not wasted. You see it in how his followers work rather than how they pray.</p>
+      </div>
+      <div class="god">
+        <span class="god-name">Zareth</span>
+        <span class="god-domain">Decay</span>
+        <p class="god-desc">Most people respect Zareth without thinking much about it, because the evidence is everywhere. The harvest rots and feeds the soil. The old tree falls and the young one grows through it. His followers understand that endings are part of the work rather than the enemy of it, and they do not look away from the dying or the dead.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pair blue">
+    <div class="pair-label">The soul &ndash; its journey and its rest</div>
+    <div class="pair-gods">
+      <div class="god">
+        <span class="god-name">Maelor</span>
+        <span class="god-domain">The soul&rsquo;s journey</span>
+        <p class="god-desc">Maelor governs the self that knows it exists: purpose, consciousness, the feeling that a life has a shape worth finding. His followers tend to be people who cannot stop asking why they are here, monks, philosophers, those who have come close to death and returned changed. To follow Maelor is to take your own story seriously enough to look for its meaning.</p>
+      </div>
+      <div class="god">
+        <span class="god-name">Kazimir</span>
+        <span class="god-domain">The soul&rsquo;s sealing</span>
+        <p class="god-desc">When a life ends, Kazimir is the one who closes the book, not with grief but with care. He governs memory and preservation, the keeping of what a person was, and his followers are those who understand that the back page matters as much as the first. Historians follow him, as do those who tend graves, carry oral traditions, and refuse to let someone be forgotten.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pair pink">
+    <div class="pair-label">The heart &ndash; its balance and its beating</div>
+    <div class="pair-gods">
+      <div class="god">
+        <span class="god-name">Avelyn</span>
+        <span class="god-domain">Harmony</span>
+        <p class="god-desc">Avelyn governs the bonds between people, the quiet presence of connection when it is working as it should. She is worshipped in the moments of stillness that come after something has been built together: a marriage settled into, a community that has learned to hold. Her followers are not people who seek peace so much as people who understand what it takes to keep it.</p>
+      </div>
+      <div class="god">
+        <span class="god-name">Varkov</span>
+        <span class="god-domain">Strife</span>
+        <p class="god-desc">Varkov has few formal followers but almost everyone has called on him at some point, in the moment before a fight or a hard negotiation or the argument that finally says the thing that needed saying. Strife in Abelon carries no shame. It is what happens when something matters enough to push against.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pair gold">
+    <div class="pair-label">The mind &ndash; its reason and its will</div>
+    <div class="pair-gods">
+      <div class="god">
+        <span class="god-name">Talwyn</span>
+        <span class="god-domain">Reason</span>
+        <p class="god-desc">Talwyn&rsquo;s shrines appear in libraries and courts and the rooms where consequential decisions get made, which tells you something about who follows him. The belief is not that thinking is virtuous in itself but that a wrong conclusion kills, and careful people understand this. His followers take time when others rush, and they are usually right to.</p>
+      </div>
+      <div class="god">
+        <span class="god-name">Sovan</span>
+        <span class="god-domain">Will</span>
+        <p class="god-desc">Sovan governs the spark, the impulse, the moment that arrives without announcement and asks to be acted on. There is no doctrine and no deliberation here, only the question of whether you trust what moves in you enough to move with it. His followers are people who have learned to answer that question without hesitating.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-footer">Abelon &ndash; The Weight of the World</div>
+</div>
+
+<div class="page page-break">
+  <div class="page2-header">
+    <span class="doc-label">Player Reference &middot; Abelon: The Weight of the World</span>
+    <div class="page2-title">The Gods of Abelon</div>
+  </div>
+
+  <div class="section-heading">The Many &ndash; Minor Gods</div>
+  <p class="intro-note">The minor gods are more recent, more numerous, and more varied. Each began as a person whose legacy inspired enough devotion to sustain them beyond death. They are still recognisably themselves, though belief shapes them slowly over time.</p>
+
+  <div class="minor-grid">
+    <div class="minor-god"><span class="minor-name">Sylas</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Song</span></div>
+    <div class="minor-god"><span class="minor-name">Hana</span><span class="minor-sep">&ndash;</span><span class="minor-domain">The Hunt</span></div>
+    <div class="minor-god"><span class="minor-name">Kiaya</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Chaos</span></div>
+    <div class="minor-god"><span class="minor-name">Lyrian</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Darkness</span></div>
+    <div class="minor-god"><span class="minor-name">Salmork</span><span class="minor-sep">&ndash;</span><span class="minor-domain">The Sails</span></div>
+    <div class="minor-god"><span class="minor-name">Julian</span><span class="minor-sep">&ndash;</span><span class="minor-domain">True Faith</span></div>
+    <div class="minor-god"><span class="minor-name">Klorel</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Self Preservation</span></div>
+    <div class="minor-god"><span class="minor-name">Shifty</span><span class="minor-sep">&ndash;</span><span class="minor-domain">The Unseen Self</span></div>
+    <div class="minor-god"><span class="minor-name">Thalen</span><span class="minor-sep">&ndash;</span><span class="minor-domain">The Gate</span></div>
+    <div class="minor-god"><span class="minor-name">Mirelda</span><span class="minor-sep">&ndash;</span><span class="minor-domain">The Hearth</span></div>
+    <div class="minor-god"><span class="minor-name">Corvin</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Oath</span></div>
+    <div class="minor-god"><span class="minor-name">Serastra</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Mercy</span></div>
+    <div class="minor-god"><span class="minor-name">Edran</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Maps</span></div>
+    <div class="minor-god"><span class="minor-name">Elira</span><span class="minor-sep">&ndash;</span><span class="minor-domain">The Table</span></div>
+    <div class="minor-god"><span class="minor-name">Arden</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Study</span></div>
+    <div class="minor-god"><span class="minor-name">Vestaine</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Matrimony</span></div>
+    <div class="minor-god"><span class="minor-name">Halric</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Justice</span></div>
+    <div class="minor-god"><span class="minor-name">Vael</span><span class="minor-sep">&ndash;</span><span class="minor-domain">The Seen Pattern</span></div>
+    <div class="minor-god"><span class="minor-name">Rheian</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Scepticism</span></div>
+    <div class="minor-god"><span class="minor-name">Isolde</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Forms</span></div>
+    <div class="minor-god"><span class="minor-name">Kaeru</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Protection</span></div>
+    <div class="minor-god"><span class="minor-name">Sekarth</span><span class="minor-sep">&ndash;</span><span class="minor-domain">Misfortune</span></div>
+  </div>
+
+  <div class="doc-footer">Abelon &ndash; The Weight of the World</div>
+</div>
+
+<div class="slider-bar">
+  <label>Text size</label>
+  <input type="range" min="8" max="20" value="11" step="0.5" id="font-slider" oninput="updateSize(this.value)">
+  <span id="size-val">11pt</span>
+</div>
+
+<script>
+function updateSize(val) {
+  document.body.style.fontSize = val + 'pt';
+  document.getElementById('size-val').textContent = val + 'pt';
+  // Scale page max-width proportionally — base is 210mm at 11pt
+  const base = 11;
+  const maxW = Math.round(210 * (val / base));
+  document.querySelectorAll('.page').forEach(p => p.style.maxWidth = maxW + 'mm');
+}
+</script>
+
+</body>
+</html>

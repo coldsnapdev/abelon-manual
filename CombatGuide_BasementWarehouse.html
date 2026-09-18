@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Combat Reference — The Basement Warehouse</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --bg:#1a1410;--bg2:#241f16;--bg3:#2a2318;
+    --ink:#e8d9bc;--ink2:#c4a882;--ink3:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.3);
+    --red-bg:rgba(153,60,29,0.2);--red-border:#993C1D;--red-text:#F0997B;
+    --gold-bg:rgba(133,79,11,0.2);--gold-border:#EF9F27;--gold-text:#EF9F27;
+    --teal-bg:rgba(15,110,86,0.2);--teal-border:#5DCAA5;--teal-text:#5DCAA5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.5;padding:1.25rem;}
+  h1{font-family:'Cinzel',serif;font-size:18px;font-weight:600;color:var(--accent);letter-spacing:.05em;margin-bottom:3px;}
+  .subtitle{font-size:13px;font-style:italic;color:var(--ink3);margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:1rem;}
+
+  .card{background:var(--bg2);border-radius:7px;overflow:hidden;}
+  .card.hostile{border:.5px solid var(--red-border);}
+
+  .card-header{padding:8px 12px;display:flex;align-items:center;gap:10px;}
+  .hostile .card-header{background:var(--red-bg);}
+
+  .card-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);flex:1;}
+  .card-tag{font-size:11px;font-style:italic;color:var(--ink3);}
+
+  .copy-btn{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:var(--bg3);cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+  .copy-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .copy-btn.copied{border-color:var(--teal-border);color:var(--teal-text);}
+
+  .card-body{padding:10px 12px;display:flex;flex-direction:column;gap:8px;}
+
+  .quick-stats{display:flex;gap:6px;flex-wrap:wrap;}
+  .qs{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:2px 8px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink2);background:var(--bg3);}
+  .qs span{color:var(--ink3);margin-right:2px;}
+
+  .section{display:flex;flex-direction:column;gap:4px;}
+  .section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);padding-bottom:3px;border-bottom:.5px solid var(--rule-faint);}
+
+  .atk{font-size:13px;color:var(--ink2);}
+  .atk-name{font-weight:600;color:var(--ink);}
+  .atk-hit{color:var(--red-text);}
+  .atk-dmg{color:var(--gold-text);}
+  .atk-note{color:var(--ink3);font-style:italic;font-size:12px;}
+
+  .abl{font-size:13px;color:var(--ink2);}
+  .abl-name{font-weight:600;color:var(--teal-text);}
+
+  .tactics{font-size:14px;color:var(--ink);font-style:italic;padding:8px 10px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);line-height:1.55;}
+
+  .priority{font-size:13px;padding:6px 10px;border-radius:4px;background:var(--red-bg);border:.5px solid var(--red-border);color:var(--red-text);}
+
+  .context-bar{background:var(--bg2);border:.5px solid var(--rule);border-radius:6px;padding:10px 14px;margin-bottom:1rem;}
+  .context-bar .section-label{margin-bottom:6px;}
+  .context-bar p{font-size:13px;color:var(--ink2);}
+  .context-bar p+p{margin-top:4px;}
+
+  .witnesses{background:var(--bg2);border:.5px solid var(--rule);border-radius:6px;padding:10px 14px;margin-bottom:1rem;}
+  .witnesses .section-label{margin-bottom:6px;}
+  .witness-row{font-size:13px;color:var(--ink2);padding:5px 0;border-bottom:.5px solid var(--rule-faint);}
+  .witness-row:last-child{border-bottom:none;}
+  .witness-name{font-family:'Cinzel',serif;font-size:12px;color:var(--ink);margin-right:6px;}
+
+  footer{margin-top:1.5rem;padding-top:.75rem;border-top:.5px solid var(--rule-faint);font-size:11px;font-style:italic;color:var(--ink3);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+
+<h1>Combat Reference — The Basement Warehouse</h1>
+<div class="subtitle">Tomas and Pol vs the party — underground, cramped, witnesses present — Level 2 party</div>
+
+<div class="context-bar">
+  <span class="section-label">Encounter behaviour</span>
+  <p>This fight only happens if the party tips Tomas from frustrated to committed. It is not inevitable. The trigger is a dismissive tone, an implied threat, reaching for a weapon too early, or being spoken over. Watch for the moment and let it land naturally.</p>
+  <p>Once it starts, Tomas fights to kill. He does not yield. Pol breaks if Tomas goes down — he uses the Dodge action rather than continuing to attack. He is not Tomas. He just wanted to belong to something.</p>
+  <p>Dask moves Marta toward the locked room when things escalate. He does not fight. The other family members stay at the edges. <strong>Sem's bedroll is still visible. Do not narrate it.</strong></p>
+</div>
+
+<div class="grid">
+
+  <!-- TOMAS -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Tomas</span>
+      <button class="copy-btn" onclick="copyJSON('tomas', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Commoner — fights to kill, does not yield</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>11</div>
+        <div class="qs"><span>HP</span>16</div>
+        <div class="qs"><span>Atk</span>+3</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="priority">Above half HP — advantage on all attack rolls. He is fully committed and he knows this space.</div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Improvised weapon or unarmed — </span><span class="atk-hit">+3</span> / <span class="atk-dmg">1d4+2 bludgeoning</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Home advantage — </span>Knows every corner of the basement. Uses alcoves and low beams to force the party to come to him.</div>
+        <div class="abl"><span class="abl-name">Relentless — </span>Does not disengage, retreat, or yield under any circumstances. Must be incapacitated to stop.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Goes for whoever spoke to him last. Stays in the centre of the room to deny movement. Uses the tight space — the party cannot spread out. Never asks for quarter and does not accept it.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POL -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Pol</span>
+      <button class="copy-btn" onclick="copyJSON('pol', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Commoner — stays because Tomas stays</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>10</div>
+        <div class="qs"><span>HP</span>9</div>
+        <div class="qs"><span>Atk</span>+2</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Improvised weapon or unarmed — </span><span class="atk-hit">+2</span> / <span class="atk-dmg">1d4+1 bludgeoning</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Breaks if Tomas falls — </span>Immediately switches to Dodge action when Tomas is incapacitated. Does not flee. Just stops.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Follows Tomas entirely. Attacks whoever Tomas is not attacking. Commits less than he appears to. Separate him from Tomas and he becomes significantly less dangerous.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="witnesses">
+  <span class="section-label">Witnesses — do not fight</span>
+  <div class="witness-row"><span class="witness-name">Dask</span>Moves Marta toward the locked room when fighting starts. Reappears in the doorway at some point during or after. Looks at what happened without expression. Does not say anything accusatory. The look is enough.</div>
+  <div class="witness-row"><span class="witness-name">Fetch</span>Put a hand on Tomas's arm. Said his name. Got shrugged off. Followed Dask. He is not proud of it but it was the right call.</div>
+  <div class="witness-row"><span class="witness-name">Marta</span>Moved to the locked room by Dask. Not visible during the fight.</div>
+  <div class="witness-row"><span class="witness-name">Anya</span>Pulls Sem close or covers his eyes. Stays at the edge of the room. Does not move toward the fight under any circumstances.</div>
+  <div class="witness-row"><span class="witness-name">Vorik</span>Watches from the far wall. Does not move. Does not speak.</div>
+  <div class="witness-row"><span class="witness-name">Liss</span>Back against the wall, drawn inward, watching from a corner. Not involved.</div>
+</div>
+
+<footer>Abelon Campaign — Combat Reference. The Basement Warehouse / Trademasters Mission 1 / Act 1.</footer>
+
+<script>
+const forgeJSON = {
+  tomas: {"com.battle-system.forge/name":"Tomas","com.battle-system.forge/Z034":[{"id":"tomas-001","name":"Relentless","description":"Tomas does not disengage, retreat, or yield. He must be reduced to 0 HP to stop fighting."},{"id":"tomas-002","name":"Committed (above half HP)","description":"While above half his maximum HP, Tomas has advantage on all attack rolls."},{"id":"tomas-003","name":"Home Advantage","description":"Tomas knows every corner of the basement. He uses alcoves and tight spaces to deny the party room to manoeuvre."}],"com.battle-system.forge/Z035":[{"id":"tomas-004","name":"Improvised Weapon","description":"Melee Weapon Attack [1d20+3] to hit, reach 5 ft., one target. [1d4+2] bludgeoning damage."}],"com.battle-system.forge/Z003":"Chaotic Neutral","com.battle-system.forge/Z007":11,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":11,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":16,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":16,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":2,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 9","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":14,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":-1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":9},
+  pol: {"com.battle-system.forge/name":"Pol","com.battle-system.forge/Z034":[{"id":"pol-001","name":"Breaks if Tomas Falls","description":"When Tomas is reduced to 0 HP, Pol immediately takes the Dodge action on his next turn and does not make further attacks. He does not flee — he just stops."}],"com.battle-system.forge/Z035":[{"id":"pol-002","name":"Improvised Weapon","description":"Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4+1] bludgeoning damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":10,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0.125,"com.battle-system.forge/Z022":9,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":11,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":10,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":9,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":9,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":12,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":10}
+};
+
+function copyJSON(id, btn){
+  const json = JSON.stringify(forgeJSON[id]);
+  navigator.clipboard.writeText(json).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy Forge JSON';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — The Assassination Paths</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;
+    --ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;
+    --accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);
+    --beat-bg:rgba(107,58,42,0.05);--beat-border:#c4a882;
+    --blue:#185FA5;--blue-bg:rgba(24,95,165,0.07);--blue-border:#185FA5;
+    --teal:#0F6E56;--teal-bg:rgba(15,110,86,0.07);--teal-border:#0F6E56;
+    --pink:#993556;--pink-bg:rgba(153,53,86,0.07);--pink-border:#993556;
+    --gold:#854F0B;--gold-bg:rgba(133,79,11,0.08);--gold-border:#854F0B;
+    --red:#993C1D;--red-bg:rgba(153,60,29,0.08);--red-border:#993C1D;
+    --success-bg:rgba(15,110,86,0.07);--success-border:#0F6E56;--success-text:#04342C;
+    --warning-bg:rgba(133,79,11,0.08);--warning-border:#854F0B;--warning-text:#412402;
+    --danger-bg:rgba(153,60,29,0.08);--danger-border:#993C1D;--danger-text:#4A1B0C;
+  }
+  @media(prefers-color-scheme:dark){:root{
+    --parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;
+    --ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);
+    --beat-bg:rgba(196,168,130,0.06);--beat-border:#5a4a38;
+    --blue:#85B7EB;--blue-bg:rgba(133,183,235,0.07);--blue-border:#85B7EB;
+    --teal:#5DCAA5;--teal-bg:rgba(93,202,165,0.07);--teal-border:#5DCAA5;
+    --pink:#ED93B1;--pink-bg:rgba(237,147,177,0.07);--pink-border:#ED93B1;
+    --gold:#EF9F27;--gold-bg:rgba(239,159,39,0.08);--gold-border:#EF9F27;
+    --red:#F0997B;--red-bg:rgba(240,153,123,0.08);--red-border:#F0997B;
+    --success-bg:rgba(93,202,165,0.07);--success-border:#5DCAA5;--success-text:#E1F5EE;
+    --warning-bg:rgba(239,159,39,0.08);--warning-border:#EF9F27;--warning-text:#FAEEDA;
+    --danger-bg:rgba(240,153,123,0.08);--danger-border:#F0997B;--danger-text:#FAECE7;
+  }}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:920px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:1.5rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .meta-tag.red{border-color:var(--red-border);color:var(--red);}
+
+  .tab-bar{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:1.5rem;border-bottom:1px solid var(--rule);padding-bottom:0;}
+  .tab{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;padding:8px 16px;border:.5px solid transparent;border-bottom:none;border-radius:4px 4px 0 0;cursor:pointer;color:var(--ink-faded);background:transparent;transition:all .15s;position:relative;top:1px;}
+  .tab:hover{color:var(--ink);background:var(--beat-bg);}
+  .tab.active.blue{color:var(--blue);background:var(--parchment);border-color:var(--blue-border);border-bottom-color:var(--parchment);}
+  .tab.active.teal{color:var(--teal);background:var(--parchment);border-color:var(--teal-border);border-bottom-color:var(--parchment);}
+  .tab.active.pink{color:var(--pink);background:var(--parchment);border-color:var(--pink-border);border-bottom-color:var(--parchment);}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .section-heading:first-child{margin-top:0;}
+
+  .environment-block{background:var(--beat-bg);border-left:3px solid var(--beat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .environment-block p{margin-bottom:.6rem;}.environment-block p:last-child{margin-bottom:0;}
+  .environment-block.blue{border-left-color:var(--blue);background:var(--blue-bg);}
+  .environment-block.teal{border-left-color:var(--teal);background:var(--teal-bg);}
+  .environment-block.pink{border-left-color:var(--pink);background:var(--pink-bg);}
+
+  .env-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+  @media(max-width:600px){.env-features{grid-template-columns:1fr;}}
+  .env-feature{display:flex;gap:8px;align-items:flex-start;}
+  .env-feature-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);min-width:90px;padding-top:3px;flex-shrink:0;}
+  .env-feature-desc{font-size:14px;color:var(--ink-mid);line-height:1.5;}
+
+  .npc-card{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--beat-bg);}
+  .npc-card.blue{border-color:var(--blue-border);background:var(--blue-bg);}
+  .npc-card.teal{border-color:var(--teal-border);background:var(--teal-bg);}
+  .npc-card.pink{border-color:var(--pink-border);background:var(--pink-bg);}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-portrait{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);overflow:hidden;flex-shrink:0;background:var(--parchment-dark);display:flex;align-items:center;justify-content:center;position:relative;}
+  .npc-portrait img{width:100%;height:100%;object-fit:cover;}
+  .npc-portrait-placeholder{font-family:'Cinzel',serif;font-size:9px;color:var(--ink-faded);text-align:center;padding:3px;line-height:1.3;pointer-events:none;}
+  .npc-portrait input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin:12px 0 5px;}
+  .npc-desc{font-size:15px;color:var(--ink-mid);margin-bottom:6px;}
+  .npc-trait{display:flex;gap:8px;margin-bottom:5px;font-size:14px;}
+  .npc-trait-key{color:var(--ink-faded);min-width:110px;flex-shrink:0;font-style:italic;}
+
+  .stats-bar{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;}
+  .stat{font-family:'Cinzel',serif;font-size:11px;padding:3px 10px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink-mid);background:var(--parchment-dark);}
+  .stat span{color:var(--ink-faded);margin-right:3px;}
+  .atk-line{font-size:14px;color:var(--ink-mid);margin-bottom:4px;}
+  .atk-name{font-weight:600;color:var(--ink);}
+  .atk-hit{color:var(--red);}
+  .atk-dmg{color:var(--gold);}
+  .ability-line{font-size:14px;color:var(--ink-mid);margin-bottom:4px;}
+  .ability-name{font-weight:600;color:var(--teal);}
+  .tactics-block{font-size:14px;font-style:italic;color:var(--ink);padding:8px 12px;background:var(--parchment-dark);border-radius:4px;border-left:2px solid var(--accent);line-height:1.55;margin-top:8px;}
+
+  .path-block{border-radius:6px;overflow:hidden;margin-bottom:1rem;}
+  .path-block.kill{border:.5px solid var(--red-border);}
+  .path-block.warn{border:.5px solid var(--success-border);}
+  .path-header{display:flex;align-items:center;gap:12px;padding:10px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .path-header:hover{opacity:.8;}
+  .path-header.kill{background:var(--danger-bg);}
+  .path-header.warn{background:var(--success-bg);}
+  .path-label{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;flex:1;}
+  .path-label.kill{color:var(--red);}
+  .path-label.warn{color:var(--teal);}
+  .path-toggle{font-size:14px;color:var(--ink-faded);transition:transform .2s;}
+  .path-toggle.open{transform:rotate(180deg);}
+  .path-body{display:none;padding:12px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .path-body.open{display:block;}
+  .path-body p{margin-bottom:8px;}.path-body p:last-child{margin-bottom:0;}
+
+  .speech{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
+  .speech-attr{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:4px;font-style:normal;}
+
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+  .warning-block{background:var(--warning-bg);border:.5px solid var(--warning-border);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--warning-text);}
+  .warning-block strong{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:5px;}
+  .outcome{border-radius:5px;padding:12px 14px;margin-bottom:10px;font-size:15px;}
+  .outcome.kill{background:var(--danger-bg);border:.5px solid var(--danger-border);color:var(--danger-text);}
+  .outcome.warn{background:var(--success-bg);border:.5px solid var(--success-border);color:var(--success-text);}
+  .outcome-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:6px;opacity:.8;}
+  .outcome p{margin-bottom:6px;}.outcome p:last-child{margin-bottom:0;}
+
+  .part-divider{border:none;border-top:1px solid var(--rule);margin:2rem 0;}
+
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="encounter-header">
+    <span class="encounter-type">Encounter Reference — Act 1 / Tallowhaven / Third Missions</span>
+    <div class="encounter-title">The Assassination Paths</div>
+    <div class="encounter-subtitle">Seven o'clock. Three private rooms. The party arrives too late for a briefing — but in time for a choice.</div>
+    <div class="encounter-meta">
+      <span class="meta-tag red">Combat — conditional</span>
+      <span class="meta-tag">Moral weight: extreme</span>
+      <span class="meta-tag">Follows Evening Invitations</span>
+      <span class="meta-tag">Feeds Festival Finale</span>
+    </div>
+  </div>
+
+  <div class="dm-note"><strong>How these scenes work</strong>The party was invited to meet with one faction leader at seven o'clock. The other two faction leaders are also in private rooms at seven o'clock — they had their own meetings to hold. The party can only attend one briefing. But they know where the other two are. If they go to a target rather than their own faction leader, the target reads the room almost immediately. They are not expecting the party. The party is not there for a briefing. What they are there for becomes clear within moments. The party then chooses: kill, or warn. Both paths lead to the Festival Finale, but through different doors.</div>
+
+  <div class="tab-bar">
+    <button class="tab active blue" onclick="showTab('seva',this,'blue')">Kill or Warn Seva</button>
+    <button class="tab" onclick="showTab('alric',this,'teal')">Kill or Warn Alric</button>
+    <button class="tab" onclick="showTab('oskar',this,'pink')">Kill or Warn Oskar</button>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB: SEVA -->
+  <!-- ============================================================ -->
+  <div class="tab-panel active" id="tab-seva">
+
+    <div class="dm-note"><strong>When this applies</strong>The party attended Alric's briefing and chose to act against Seva — or they skipped the briefing entirely and came here. Seva is in a private room above the Amber Cup. She chose this room because she controls it. That was wise thinking for every scenario except this one.</div>
+
+    <div class="section-heading">Location — Private Room, The Amber Cup</div>
+    <div class="environment-block pink">
+      <p>A private room above the main floor of the Amber Cup. Comfortable rather than grand — a round table, three chairs, candles, a decanter of wine that has not been touched. The door opens inward. There is one window overlooking the street below, too narrow to exit through quickly.</p>
+      <p>Mira is outside the door in the corridor when the party arrives. She recognises them. She lets them in without question — they are known faces. She steps in behind them.</p>
+      <p>Seva is seated. She looks up when the door opens, expecting her next appointment. Then she reads the room. It takes her approximately two seconds. She does not show what she concludes.</p>
+    </div>
+    <div class="env-features">
+      <div class="env-feature"><span class="env-feature-label">The room</span><span class="env-feature-desc">Small, enclosed. The table limits movement. Two exits — the door and the window. Neither is fast. Mira controls the door from behind the party.</span></div>
+      <div class="env-feature"><span class="env-feature-label">Lighting</span><span class="env-feature-desc">Three candles on the table. Warm, low. Enough to see clearly. Nothing dramatic about it.</span></div>
+      <div class="env-feature"><span class="env-feature-label">Noise</span><span class="env-feature-desc">The Amber Cup is busy below. Festival week. Music, conversation, the clink of glasses. A fight in this room would not be heard immediately.</span></div>
+      <div class="env-feature"><span class="env-feature-label">Mira</span><span class="env-feature-desc">Behind the party. Between them and the door. She will not draw a weapon until the situation is clear — but the moment it is clear, she will.</span></div>
+    </div>
+
+    <div class="section-heading">The Moment of Realisation</div>
+    <div class="environment-block">
+      <p>Seva looks at the party for a moment. Then she looks at the door — where Mira is standing. Then back at the party. She reaches for nothing. She does not stand.</p>
+      <div class="speech"><span class="speech-attr">Seva — quietly, to the room</span>Close the door, Mira.</div>
+      <p>A pause. When Mira has done it:</p>
+      <div class="speech"><span class="speech-attr">Seva</span>You are not here for a briefing. So. What are you here for?</div>
+      <p>She asks it directly. She already knows the answer. She wants to hear them say it — partly to understand exactly what they have decided, partly because she is buying the two seconds it takes Mira to position herself. She is entirely calm. This is not the first dangerous room she has been in.</p>
+    </div>
+
+    <div class="section-heading">Combatants</div>
+
+    <div class="npc-card pink">
+      <div class="npc-header" onclick="toggleNPC('seva-s')">
+        <div class="npc-portrait">
+          <img id="seva-s-img" style="display:none">
+          <span class="npc-portrait-placeholder" id="seva-s-ph">Add portrait</span>
+          <input type="file" accept="image/*" onchange="loadPortrait('seva-s',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Seva Sable</span>
+          <span class="npc-role">Courtesans Network — CR 2 — the most dangerous person in the room</span>
+        </div>
+        <span class="npc-toggle" id="toggle-seva-s">▼</span>
+      </div>
+      <div class="npc-body" id="body-seva-s">
+        <div class="stats-bar">
+          <span class="stat"><span>AC</span>14</span>
+          <span class="stat"><span>HP</span>32</span>
+          <span class="stat"><span>Atk</span>+5</span>
+          <span class="stat"><span>Spd</span>30</span>
+        </div>
+        <div class="atk-line"><span class="atk-name">Dagger</span> — <span class="atk-hit">+5</span> / <span class="atk-dmg">1d4+3</span> piercing</div>
+        <div class="atk-line"><span class="atk-name">Dagger (thrown)</span> — <span class="atk-hit">+5</span> / <span class="atk-dmg">1d4+3</span> piercing, range 20/60</div>
+        <div class="ability-line"><span class="ability-name">Read the Room</span> (action) — DC 12 Insight — learns emotional state and concealed weapons of one target</div>
+        <div class="ability-line"><span class="ability-name">Deflect</span> (reaction) — reduces one melee hit she can see by 1d6+3</div>
+        <div class="ability-line"><span class="ability-name">Uncanny Poise</span> — does not provoke opportunity attacks when moving away</div>
+        <div class="ability-line"><span class="ability-name">Composed</span> — advantage on saves vs frightened. Cannot be charmed by CR 2 or lower</div>
+        <div class="tactics-block">She does not panic. She uses her first action to Read the Room — she wants to know exactly who is most dangerous before she commits. She keeps the table between herself and the party for as long as possible. She uses Deflect on every melee hit she sees coming. She is fighting two against however many — she knows that. She is buying time for Mira and looking for an opening. She stands her ground. She does not flee.</div>
+        <div class="npc-section-label">The one thing</div>
+        <span class="npc-desc">She does not raise her voice. Not once. Even if she is losing. The quieter she gets, the more dangerous she is. Play this carefully — it is more unsettling than shouting.</span>
+      </div>
+    </div>
+
+    <div class="npc-card">
+      <div class="npc-header" onclick="toggleNPC('mira-s')">
+        <div class="npc-portrait">
+          <img id="mira-s-img" style="display:none">
+          <span class="npc-portrait-placeholder" id="mira-s-ph">Add portrait</span>
+          <input type="file" accept="image/*" onchange="loadPortrait('mira-s',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Mira Sable</span>
+          <span class="npc-role">Sable operative — CR 1/2 — controls the door, precise and unhurried</span>
+        </div>
+        <span class="npc-toggle" id="toggle-mira-s">▼</span>
+      </div>
+      <div class="npc-body" id="body-mira-s">
+        <div class="stats-bar">
+          <span class="stat"><span>AC</span>14</span>
+          <span class="stat"><span>HP</span>18</span>
+          <span class="stat"><span>Atk</span>+5</span>
+          <span class="stat"><span>Spd</span>30</span>
+        </div>
+        <div class="atk-line"><span class="atk-name">Dagger</span> — <span class="atk-hit">+5</span> / <span class="atk-dmg">1d4+3</span> piercing</div>
+        <div class="atk-line"><span class="atk-name">Dagger (thrown)</span> — <span class="atk-hit">+5</span> / <span class="atk-dmg">1d4+3</span> piercing, range 20/60</div>
+        <div class="ability-line"><span class="ability-name">Sneak Attack</span> — 1d6 extra when advantage or ally adjacent</div>
+        <div class="ability-line"><span class="ability-name">Uncanny Poise</span> — does not provoke opportunity attacks when moving away</div>
+        <div class="tactics-block">She starts at the door — behind the party. She draws her dagger the moment the situation is clear and moves toward whoever is furthest from Seva. She is trying to create a two-front problem. She is warm until she is not, and the transition is fast enough to surprise people who met her as the friendly face at the Amber Cup door. She does not break. She stands her ground alongside Seva.</div>
+      </div>
+    </div>
+
+    <hr class="part-divider">
+
+    <div class="section-heading">Path A — Kill Seva</div>
+    <div class="path-block kill">
+      <div class="path-header kill" onclick="togglePath('seva-kill')">
+        <span class="path-label kill">Kill path — Seva and Mira fight to the end</span>
+        <span class="path-toggle" id="ptoggle-seva-kill">▼</span>
+      </div>
+      <div class="path-body" id="pbody-seva-kill">
+        <p>The fight happens in a small room with a busy tavern below. It is over quickly — two against a full party in a confined space, neither of them willing to flee. When it is done the party has killed the leader of the Courtesans Network in a private room above the Amber Cup on festival night.</p>
+        <p>Getting out requires passing through the main floor of the Amber Cup. Morra will be behind the bar. She will look at them. She will know something happened upstairs. She will not stop them. She will remember everything.</p>
+      </div>
+    </div>
+
+    <div class="section-heading">Path B — Warn Seva</div>
+    <div class="path-block warn">
+      <div class="path-header warn" onclick="togglePath('seva-warn')">
+        <span class="path-label warn">Warn path — Seva listens, assesses, and responds</span>
+        <span class="path-toggle" id="ptoggle-seva-warn">▼</span>
+      </div>
+      <div class="path-body" id="pbody-seva-warn">
+        <p>The party tells her they were briefed by Alric to remove her. She listens without expression. When they finish she is quiet for a moment — not processing the information, she had already anticipated something like this — but deciding what the party is worth.</p>
+        <div class="speech"><span class="speech-attr">Seva — after a pause</span>Alric is more direct than I gave him credit for. Thank you for telling me.</div>
+        <p>She asks two questions: what exactly did Alric say, and what does the party want in return. She does not offer more than she is asked for unless the party asks. If they ask for coin she pays — a purse produced from somewhere on her person without ceremony. If they ask for nothing she files that too.</p>
+        <p>She tells them she will need them at the meeting tomorrow. Standing with the Courtesans. She expects them to be there. She says it as a statement of fact rather than a request. Whether the party agrees is their choice — she does not labour the point.</p>
+        <div class="speech"><span class="speech-attr">Seva — on the meeting</span>Come tomorrow. Stand where I can see you. That is all I am asking.</div>
+      </div>
+    </div>
+
+    <div class="section-heading">Outcomes — Festival Finale</div>
+    <div class="outcome kill">
+      <span class="outcome-label">Kill path — Path 1</span>
+      <p>Seva is dead. Elbeth steps in as acting Courtesan leader at the meeting. She suspects the party immediately — she does not know, but she suspects — and finds her opening to accuse them. The meeting collapses. Alric, who hired them, is livid that the accusation has landed on his guests. The fight at Cooper's Square is the Merchant faction path. See Festival Finale combat guide — blue path.</p>
+    </div>
+    <div class="outcome warn">
+      <span class="outcome-label">Warn path — Path 2</span>
+      <p>Seva arrives at the meeting knowing exactly what Alric tried to do. She waits for her moment. When the meeting is in full session she turns the accusation on the party — standing with Alric — for their connection to her network. The meeting collapses. Seva, whose warning was betrayed by the party's presence on Alric's side, is livid. The fight at Cooper's Square is the Courtesan faction path. See Festival Finale combat guide — pink path.</p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB: ALRIC -->
+  <!-- ============================================================ -->
+  <div class="tab-panel" id="tab-alric">
+
+    <div class="dm-note"><strong>When this applies</strong>The party attended Oskar's briefing and chose to act against Alric — or they skipped the briefing entirely and came here. Alric is in a private room at the Shallow Tuber. He reserved it. He is used to being the one who sets the terms of a meeting. That assumption is about to become a liability.</div>
+
+    <div class="section-heading">Location — Private Room, The Shallow Tuber</div>
+    <div class="environment-block blue">
+      <p>A private dining room at the back of the Shallow Tuber. Clean tablecloths, a meal that has not been touched, candles on a sideboard. The room is comfortable and contained — Alric uses it precisely because it is quiet and controlled.</p>
+      <p>Huw opens the door. He recognises the party immediately. He steps back to admit them, his expression professionally neutral. He moves to one side as they enter, placing himself between the party and the exit.</p>
+      <p>Alric is at the table. He looks up expecting the beginning of a conversation he has carefully prepared. Then he reads the room. It takes him slightly longer than Seva — he is a systems thinker, not an instinct reader — but he gets there.</p>
+    </div>
+    <div class="env-features">
+      <div class="env-feature"><span class="env-feature-label">The room</span><span class="env-feature-desc">Rectangular, one door, no window large enough to matter. The table runs most of the length. Movement around it is limited.</span></div>
+      <div class="env-feature"><span class="env-feature-label">Huw</span><span class="env-feature-desc">By the door. The party walked past him to get in. He is between them and the exit. He has not yet drawn anything.</span></div>
+      <div class="env-feature"><span class="env-feature-label">The meal</span><span class="env-feature-desc">Untouched. Alric does not eat at meetings. He ordered it because it signals that this is a relaxed conversation between people with aligned interests. That signal has expired.</span></div>
+      <div class="env-feature"><span class="env-feature-label">Noise</span><span class="env-feature-desc">The Shallow Tuber is quieter than the Amber Cup — a respectable establishment on a festival evening. There are other diners. The private room is soundproofed enough to require raised voices to be heard outside.</span></div>
+    </div>
+
+    <div class="section-heading">The Moment of Realisation</div>
+    <div class="environment-block">
+      <p>Alric looks at the party. He looks at Huw. He sets down the papers he was holding.</p>
+      <div class="speech"><span class="speech-attr">Alric — carefully</span>You are not here to discuss what I asked you to discuss.</div>
+      <p>He does not phrase it as a question. He is updating his model of the situation in real time and he does not want to waste words while he does it. After a moment:</p>
+      <div class="speech"><span class="speech-attr">Alric</span>I want to understand what has brought you to this room instead of the other one. Before anything else happens.</div>
+      <p>He is buying time. He is also genuinely trying to understand — he thinks in systems and he wants to know which system failed. Whether the party explains or moves is their choice. Either way Huw is watching.</p>
+    </div>
+
+    <div class="section-heading">Combatants</div>
+
+    <div class="npc-card blue">
+      <div class="npc-header" onclick="toggleNPC('alric-s')">
+        <div class="npc-portrait">
+          <img id="alric-s-img" style="display:none">
+          <span class="npc-portrait-placeholder" id="alric-s-ph">Add portrait</span>
+          <input type="file" accept="image/*" onchange="loadPortrait('alric-s',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Alric Venn</span>
+          <span class="npc-role">Merchants' Guildmaster — CR 1 — desperate energy, has never done this before</span>
+        </div>
+        <span class="npc-toggle" id="toggle-alric-s">▼</span>
+      </div>
+      <div class="npc-body" id="body-alric-s">
+        <div class="stats-bar">
+          <span class="stat"><span>AC</span>12</span>
+          <span class="stat"><span>HP</span>22</span>
+          <span class="stat"><span>Atk</span>+4</span>
+          <span class="stat"><span>Spd</span>30</span>
+        </div>
+        <div class="atk-line"><span class="atk-name">Rapier</span> — <span class="atk-hit">+4</span> / <span class="atk-dmg">1d8+2</span> piercing</div>
+        <div class="ability-line"><span class="ability-name">Suggestion</span> (1 slot) — DC 13 Wis save — one target follows a reasonable suggestion for 8 hours. Last resort only.</div>
+        <div class="tactics-block">He has never been in a fight. That is the truth underneath everything else. He is frightened and will not show it. He commits with desperate energy — a man with everything to lose going down swinging. He does not fight cleverly. He fights with feeling. He uses Suggestion only if cornered and out of other options. He does not flee. He stands his ground. He will not give them the satisfaction of running.</div>
+        <div class="npc-section-label">The one thing</div>
+        <span class="npc-desc">He is angrier than he has ever been. Not at the party exactly — at the situation, at the failure of his own planning, at whatever betrayal brought them here. That anger makes him more dangerous than his stats suggest and less predictable than usual.</span>
+      </div>
+    </div>
+
+    <div class="npc-card">
+      <div class="npc-header" onclick="toggleNPC('huw-s')">
+        <div class="npc-portrait">
+          <img id="huw-s-img" style="display:none">
+          <span class="npc-portrait-placeholder" id="huw-s-ph">Add portrait</span>
+          <input type="file" accept="image/*" onchange="loadPortrait('huw-s',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Huw</span>
+          <span class="npc-role">Alric's assistant — CR 1/2 — more capable than anyone realised</span>
+        </div>
+        <span class="npc-toggle" id="toggle-huw-s">▼</span>
+      </div>
+      <div class="npc-body" id="body-huw-s">
+        <div class="stats-bar">
+          <span class="stat"><span>AC</span>13</span>
+          <span class="stat"><span>HP</span>18</span>
+          <span class="stat"><span>Atk</span>+4</span>
+          <span class="stat"><span>Spd</span>30</span>
+        </div>
+        <div class="atk-line"><span class="atk-name">Rapier</span> — <span class="atk-hit">+4</span> / <span class="atk-dmg">1d8+2</span> piercing</div>
+        <div class="ability-line"><span class="ability-name">Charm Person</span> (1 slot) — DC 13 Wis save — target treats Huw as friendly for 1 hour</div>
+        <div class="ability-line"><span class="ability-name">Composed</span> — advantage on saves vs frightened</div>
+        <div class="tactics-block">He draws immediately when the situation is clear. He is cold in a way that surprises people who have only seen him taking notes and booking tables. He uses Charm Person immediately on his first turn — targeting whoever looks most dangerous. He positions himself to protect Alric rather than engage independently. He does not break. He fights until he cannot.</div>
+      </div>
+    </div>
+
+    <hr class="part-divider">
+
+    <div class="section-heading">Path A — Kill Alric</div>
+    <div class="path-block kill">
+      <div class="path-header kill" onclick="togglePath('alric-kill')">
+        <span class="path-label kill">Kill path — Alric and Huw fight to the end</span>
+        <span class="path-toggle" id="ptoggle-alric-kill">▼</span>
+      </div>
+      <div class="path-body" id="pbody-alric-kill">
+        <p>Two against a full party in a private dining room. Huw is the more capable fighter but he is protecting rather than attacking, which limits him. Alric fights with anger rather than skill. The fight is unlikely to last long.</p>
+        <p>Getting out means passing back through the Shallow Tuber. It is a respectable establishment. Other diners noticed the party go in. They will notice them come out. The staff will notice the private room is in a state. Nobody will stop them tonight. Tomorrow is a different question.</p>
+      </div>
+    </div>
+
+    <div class="section-heading">Path B — Warn Alric</div>
+    <div class="path-block warn">
+      <div class="path-header warn" onclick="togglePath('alric-warn')">
+        <span class="path-label warn">Warn path — Alric listens, recalibrates, responds</span>
+        <span class="path-toggle" id="ptoggle-alric-warn">▼</span>
+      </div>
+      <div class="path-body" id="pbody-alric-warn">
+        <p>The party tells him Oskar briefed them to remove him. He listens with the expression of someone who is not particularly surprised. He asks one question: what exactly did Oskar say. He listens to the answer without interrupting.</p>
+        <div class="speech"><span class="speech-attr">Alric — after a pause</span>Thank you. That is useful.</div>
+        <p>He thanks them with genuine warmth. The party may find this unsettling given what he will now do with the information. He does not elaborate on what that is. If the party asks for coin he pays — a sum produced from Huw without ceremony. He tells them he expects to see them at the meeting tomorrow. He says it as if it is already decided.</p>
+        <div class="speech"><span class="speech-attr">Alric</span>Be at the signing. Whatever side you stand on, be there. I will need capable people in that room.</div>
+      </div>
+    </div>
+
+    <div class="section-heading">Outcomes — Festival Finale</div>
+    <div class="outcome kill">
+      <span class="outcome-label">Kill path — Path 3</span>
+      <p>Alric is dead. Caen Rhys steps in as a civic anchor at the meeting — not as a merchant but as the legitimate authority who can hold the deal together. Huw, present at the table, whispers too loudly to Caen that the party is responsible for Alric's death. The meeting collapses. Oskar, who hired them, is livid that the accusation has landed on his guests. The fight at Cooper's Square is the Trademaster faction path. See Festival Finale combat guide — teal path.</p>
+    </div>
+    <div class="outcome warn">
+      <span class="outcome-label">Warn path — Path 4</span>
+      <p>Alric arrives at the meeting knowing what Oskar tried to do. He waits. When the moment arrives he turns the accusation on the party — standing with Oskar — for their connection to the Merchants. The meeting collapses. Alric, whose warning was betrayed by the party's presence on Oskar's side, is livid. The fight at Cooper's Square is the Merchant faction path. See Festival Finale combat guide — blue path.</p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB: OSKAR -->
+  <!-- ============================================================ -->
+  <div class="tab-panel" id="tab-oskar">
+
+    <div class="dm-note"><strong>When this applies</strong>The party attended Seva's briefing and chose to act against Oskar — or they skipped the briefing entirely and came here. Oskar is at the Honeywell office, working late. He is the most self-contained of the three targets — he does not need comfort or the right room. He is at his desk because that is where he works.</div>
+
+    <div class="section-heading">Location — Honeywell Office, After Hours</div>
+    <div class="environment-block teal">
+      <p>The Honeywell office above the forge floor. The forge below is banked for the night but still warm — the heat rises through the boards. The office is functional: a desk with years of use, ledgers, supply route maps, a window looking down at the dark floor below.</p>
+      <p>Tav is on the stairs when the party arrives. He recognises them — he has seen them at the Festival Finale briefings. He is not unfriendly but he is watchful. He shows them up without being asked.</p>
+      <p>Oskar is at his desk. He does not look up immediately when they enter. When he does, he reads them in the way he reads most things — quickly, without showing it. He sets down his pen.</p>
+    </div>
+    <div class="env-features">
+      <div class="env-feature"><span class="env-feature-label">The office</span><span class="env-feature-desc">Cramped and functional. The desk dominates. Movement around it is awkward. The window onto the forge floor below is glass — it can be broken but not quietly.</span></div>
+      <div class="env-feature"><span class="env-feature-label">The stairs</span><span class="env-feature-desc">The only exit. Tav came up behind the party. He is now at the top of the stairs, blocking the descent.</span></div>
+      <div class="env-feature"><span class="env-feature-label">The forge floor</span><span class="env-feature-desc">Empty and dark below. If the window goes, it is a fifteen-foot drop onto cold stone. Nobody is fleeing that way.</span></div>
+      <div class="env-feature"><span class="env-feature-label">Noise</span><span class="env-feature-desc">The forge district is quieter at night than the festival quarter. A fight in this office would be contained. Nobody is coming.</span></div>
+    </div>
+
+    <div class="section-heading">The Moment of Realisation</div>
+    <div class="environment-block">
+      <p>Oskar looks at the party. He looks at Tav. He does not reach for anything. He stands.</p>
+      <div class="speech"><span class="speech-attr">Oskar — without inflection</span>You are not here about the meeting.</div>
+      <p>He does not ask it. A pause. He looks at each of them in turn, the way he looked at the road crew on the Driftwood checkpoint — assessing the situation for what it is rather than what he would prefer it to be.</p>
+      <div class="speech"><span class="speech-attr">Oskar</span>Then say what you have come to say.</div>
+      <p>He crosses his arms. He is not performing calm — he is actually calm. He has been in difficult rooms before. He knows there are two of them and more of the party. He has already concluded that running is not an option and has moved past it.</p>
+    </div>
+
+    <div class="section-heading">Combatants</div>
+
+    <div class="npc-card teal">
+      <div class="npc-header" onclick="toggleNPC('oskar-s')">
+        <div class="npc-portrait">
+          <img id="oskar-s-img" style="display:none">
+          <span class="npc-portrait-placeholder" id="oskar-s-ph">Add portrait</span>
+          <input type="file" accept="image/*" onchange="loadPortrait('oskar-s',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Oskar Sternov</span>
+          <span class="npc-role">Trademaster — CR 1 — cold anger, fights close and dirty, no weapon needed</span>
+        </div>
+        <span class="npc-toggle" id="toggle-oskar-s">▼</span>
+      </div>
+      <div class="npc-body" id="body-oskar-s">
+        <div class="stats-bar">
+          <span class="stat"><span>AC</span>12</span>
+          <span class="stat"><span>HP</span>24</span>
+          <span class="stat"><span>Atk</span>+5</span>
+          <span class="stat"><span>Spd</span>30</span>
+        </div>
+        <div class="atk-line"><span class="atk-name">Unarmed strike</span> — <span class="atk-hit">+5</span> / <span class="atk-dmg">1d6+3</span> bludgeoning</div>
+        <div class="ability-line"><span class="ability-name">Grapple</span> — Strength contest +5 — grabs and holds, removing target from the fight</div>
+        <div class="ability-line"><span class="ability-name">Powerful Build</span> — counts as one size larger for grappling purposes</div>
+        <div class="tactics-block">He does not need a weapon. Built like someone who has worked with his hands for forty years. Cold anger rather than hot — he does not shout, does not waste energy, does not telegraph. He goes immediately for the most dangerous party member and tries to pin them — grapple first, then deal with the others. He uses the cramped office to his advantage, pushing people into the desk, the walls, the window. He does not flee. He does not yield.</div>
+        <div class="npc-section-label">The one thing</div>
+        <span class="npc-desc">He says nothing during the fight. Not a word. The silence is the most unsettling thing about fighting Oskar Sternov in a small room at night.</span>
+      </div>
+    </div>
+
+    <div class="npc-card">
+      <div class="npc-header" onclick="toggleNPC('tav-s')">
+        <div class="npc-portrait">
+          <img id="tav-s-img" style="display:none">
+          <span class="npc-portrait-placeholder" id="tav-s-ph">Add portrait</span>
+          <input type="file" accept="image/*" onchange="loadPortrait('tav-s',this)" onclick="event.stopPropagation()">
+        </div>
+        <div class="npc-info">
+          <span class="npc-name">Tav</span>
+          <span class="npc-role">Trademaster apprentice — CR 1/4 — angry, controls the stairs</span>
+        </div>
+        <span class="npc-toggle" id="toggle-tav-s">▼</span>
+      </div>
+      <div class="npc-body" id="body-tav-s">
+        <div class="stats-bar">
+          <span class="stat"><span>AC</span>12</span>
+          <span class="stat"><span>HP</span>11</span>
+          <span class="stat"><span>Atk</span>+4</span>
+          <span class="stat"><span>Spd</span>30</span>
+        </div>
+        <div class="atk-line"><span class="atk-name">Hand axe</span> — <span class="atk-hit">+4</span> / <span class="atk-dmg">1d6+2</span> slashing</div>
+        <div class="atk-line"><span class="atk-name">Hand axe (thrown, round 1)</span> — <span class="atk-hit">+4</span> / <span class="atk-dmg">1d6+2</span> slashing, range 20/60</div>
+        <div class="tactics-block">He throws on round one then closes to melee. He is at the top of the stairs — the only exit. He is angry enough to stay longer than is wise. He does not break. He holds until he cannot hold any longer. He has followed Oskar for long enough that loyalty has become identity.</div>
+      </div>
+    </div>
+
+    <hr class="part-divider">
+
+    <div class="section-heading">Path A — Kill Oskar</div>
+    <div class="path-block kill">
+      <div class="path-header kill" onclick="togglePath('oskar-kill')">
+        <span class="path-label kill">Kill path — Oskar and Tav fight to the end</span>
+        <span class="path-toggle" id="ptoggle-oskar-kill">▼</span>
+      </div>
+      <div class="path-body" id="pbody-oskar-kill">
+        <p>The fight happens in a cramped office above a dark forge with one exit. Oskar is the more dangerous of the two — Tav is committed but outmatched. When it is done the party has killed the Trademaster leader in his own office on the night before the signing.</p>
+        <p>Getting out means back down the stairs and through the ground floor of the Honeywell building. There may be night workers. The forge district is quiet at this hour but not empty. Nobody stops them. The body will be found in the morning.</p>
+      </div>
+    </div>
+
+    <div class="section-heading">Path B — Warn Oskar</div>
+    <div class="path-block warn">
+      <div class="path-header warn" onclick="togglePath('oskar-warn')">
+        <span class="path-label warn">Warn path — Oskar listens, concludes, responds</span>
+        <span class="path-toggle" id="ptoggle-oskar-warn">▼</span>
+      </div>
+      <div class="path-body" id="pbody-oskar-warn">
+        <p>The party tells him Seva briefed them to remove him. He listens. He does not react visibly. When they finish he is quiet for a moment — not processing, concluding.</p>
+        <div class="speech"><span class="speech-attr">Oskar</span>I know what she wants from the signing. Now I know what she is willing to do to get it.</div>
+        <p>He asks one question: what exactly did Seva say. He listens without interrupting. If the party asks for coin he produces it without ceremony — pulled from a drawer, a fair sum, no discussion of the amount. He tells them he expects to see them at the meeting. He says it as a statement rather than a request.</p>
+        <div class="speech"><span class="speech-attr">Oskar</span>Be at the signing tomorrow. That is all.</div>
+        <p>He turns back to his desk. The meeting is over. Tav shows them out.</p>
+      </div>
+    </div>
+
+    <div class="section-heading">Outcomes — Festival Finale</div>
+    <div class="outcome kill">
+      <span class="outcome-label">Kill path — Path 5</span>
+      <p>Oskar is dead. Anneth Holdworn leads the Trademaster delegation at the meeting. Cors, who has secret loyalties to the Courtesans and is disappointed in Seva for ordering this, finds his opening and accuses the party. The meeting collapses. Seva, who hired them, is livid that the accusation has exposed her. The fight at Cooper's Square is the Courtesan faction path. See Festival Finale combat guide — pink path.</p>
+    </div>
+    <div class="outcome warn">
+      <span class="outcome-label">Warn path — Path 6</span>
+      <p>Oskar arrives at the meeting knowing what Seva attempted. He waits. When the session is in full flow he turns the accusation on the party — standing with Seva — for their connection to the Trademasters. The meeting collapses. Oskar, whose warning was betrayed by the party's presence on Seva's side, is livid. The fight at Cooper's Square is the Trademaster faction path. See Festival Finale combat guide — teal path.</p>
+    </div>
+
+  </div>
+
+  <footer>Abelon Campaign — Encounter Reference. The Assassination Paths / Act 1 Third Missions.</footer>
+</div>
+
+<script>
+  function showTab(id, btn, colour) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => { t.classList.remove('active','blue','teal','pink'); });
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active', colour);
+  }
+  function toggleNPC(id) {
+    const b = document.getElementById('body-' + id);
+    const t = document.getElementById('toggle-' + id);
+    if (!b || !t) return;
+    const open = b.classList.contains('open');
+    b.classList.toggle('open', !open);
+    t.classList.toggle('open', !open);
+  }
+  function togglePath(id) {
+    const b = document.getElementById('pbody-' + id);
+    const t = document.getElementById('ptoggle-' + id);
+    if (!b || !t) return;
+    const open = b.classList.contains('open');
+    b.classList.toggle('open', !open);
+    t.classList.toggle('open', !open);
+  }
+  function loadPortrait(id, input) {
+    if (!input.files || !input.files[0]) return;
+    const r = new FileReader();
+    r.onload = e => {
+      const img = document.getElementById(id + '-img');
+      const ph = document.getElementById(id + '-ph');
+      if (img) { img.src = e.target.result; img.style.display = 'block'; }
+      if (ph) ph.style.display = 'none';
+    };
+    r.readAsDataURL(input.files[0]);
+  }
+</script>
+</body>
+</html>

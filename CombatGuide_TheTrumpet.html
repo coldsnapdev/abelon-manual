@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Combat Reference — The Trumpet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --bg:#1a1410;--bg2:#241f16;--bg3:#2a2318;
+    --ink:#e8d9bc;--ink2:#c4a882;--ink3:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.3);
+    --red-bg:rgba(153,60,29,0.2);--red-border:#993C1D;--red-text:#F0997B;
+    --gold-bg:rgba(133,79,11,0.2);--gold-border:#EF9F27;--gold-text:#EF9F27;
+    --teal-bg:rgba(15,110,86,0.2);--teal-border:#5DCAA5;--teal-text:#5DCAA5;
+    --blue-bg:rgba(24,95,165,0.2);--blue-border:#85B7EB;--blue-text:#85B7EB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.5;padding:1.25rem;}
+  h1{font-family:'Cinzel',serif;font-size:18px;font-weight:600;color:var(--accent);letter-spacing:.05em;margin-bottom:3px;}
+  .subtitle{font-size:13px;font-style:italic;color:var(--ink3);margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:1rem;}
+
+  .card{background:var(--bg2);border-radius:7px;overflow:hidden;}
+  .card.hostile{border:.5px solid var(--red-border);}
+  .card.reluctant{border:.5px solid var(--blue-border);}
+  .card.threat{border:.5px solid var(--gold-border);}
+
+  .card-header{padding:8px 12px;display:flex;align-items:center;gap:10px;}
+  .hostile .card-header{background:var(--red-bg);}
+  .reluctant .card-header{background:var(--blue-bg);}
+  .threat .card-header{background:var(--gold-bg);}
+
+  .card-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);flex:1;}
+  .card-tag{font-size:11px;font-style:italic;color:var(--ink3);}
+
+  .copy-btn{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:var(--bg3);cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+  .copy-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .copy-btn.copied{border-color:var(--teal-border);color:var(--teal-text);}
+
+  .cr-badge{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:var(--bg3);flex-shrink:0;}
+
+  .wave-badge{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:3px;flex-shrink:0;}
+  .wave-badge.w1{background:rgba(153,60,29,0.15);border:.5px solid var(--red-border);color:var(--red-text);}
+  .wave-badge.w2{background:rgba(133,79,11,0.15);border:.5px solid var(--gold-border);color:var(--gold-text);}
+  .wave-badge.w3{background:rgba(24,95,165,0.15);border:.5px solid var(--blue-border);color:var(--blue-text);}
+
+  .card-body{padding:10px 12px;display:flex;flex-direction:column;gap:8px;}
+
+  .quick-stats{display:flex;gap:6px;flex-wrap:wrap;}
+  .qs{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:2px 8px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink2);background:var(--bg3);}
+  .qs span{color:var(--ink3);margin-right:2px;}
+
+  .section{display:flex;flex-direction:column;gap:4px;}
+  .section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);padding-bottom:3px;border-bottom:.5px solid var(--rule-faint);}
+
+  .atk{font-size:13px;color:var(--ink2);}
+  .atk-name{font-weight:600;color:var(--ink);}
+  .atk-hit{color:var(--red-text);}
+  .atk-dmg{color:var(--gold-text);}
+  .atk-note{color:var(--ink3);font-style:italic;font-size:12px;}
+
+  .abl{font-size:13px;color:var(--ink2);}
+  .abl-name{font-weight:600;color:var(--teal-text);}
+
+  .tactics{font-size:14px;color:var(--ink);font-style:italic;padding:8px 10px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);line-height:1.55;}
+
+  .priority{font-size:13px;padding:6px 10px;border-radius:4px;margin-bottom:2px;}
+  .priority.red{background:var(--red-bg);border:.5px solid var(--red-border);color:var(--red-text);}
+  .priority.blue{background:var(--blue-bg);border:.5px solid var(--blue-border);color:var(--blue-text);}
+  .priority.gold{background:var(--gold-bg);border:.5px solid var(--gold-border);color:var(--gold-text);}
+
+  .context-bar{background:var(--bg2);border:.5px solid var(--rule);border-radius:6px;padding:10px 14px;margin-bottom:1rem;}
+  .context-bar .section-label{margin-bottom:6px;}
+  .context-bar p{font-size:13px;color:var(--ink2);}
+  .context-bar p+p{margin-top:4px;}
+
+  footer{margin-top:1.5rem;padding-top:.75rem;border-top:.5px solid var(--rule-faint);font-size:11px;font-style:italic;color:var(--ink3);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+
+<h1>Combat Reference — The Trumpet</h1>
+<div class="subtitle">Three waves — escalating — the room empties — Level 3 party — Medium</div>
+
+<div class="context-bar">
+  <span class="section-label">Encounter behaviour</span>
+  <p>This is a chaotic pub fight, not a tactical engagement. The combatants arrive in three waves and the room empties around them as uninvolved patrons flee. The first wave is impaired and manageable. The second wave is more serious. The third wave — specifically Davan Holt — is the real threat and the party will not see him coming until round three.</p>
+  <p>Wave 1 — Perran's table: Perran, Aldwyn, Osric, Fenn. Fenn runs in round one. The rest are drunk and committed in varying degrees.</p>
+  <p>Wave 2 — the bar: Brynn and Mags. Arrive when the table fight draws their attention. Brynn is a brawler. Mags has already decided what she is going to do.</p>
+  <p>Wave 3 — the door and back: Davan Holt at the door, Jori out the back. Davan has been watching all evening. He is the most dangerous person in the room and the party will not realise this until he moves. Jori is deeply reluctant.</p>
+  <p><strong>The room thins out fast.</strong> By the end of round one the uninvolved patrons have fled. The party has more space than they started with. That space will feel different when Davan Holt walks through the door in round three.</p>
+</div>
+
+<div class="grid">
+
+  <!-- PERRAN -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Perran Carew</span>
+      <span class="wave-badge w1">Wave 1</span>
+      <span class="cr-badge">CR 1/2</span>
+      <button class="copy-btn" onclick="copyJSON('perran', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Large, impaired, entitled — still a threat</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>11</div>
+        <div class="qs"><span>HP</span>16</div>
+        <div class="qs"><span>Atk</span>+4</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="priority red">Impaired — disadvantage on all attack rolls and Dexterity saving throws until the end of the encounter.</div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Unarmed strike — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d4+2) bludgeoning</span> <span class="atk-note">disadvantage from impairment</span></div>
+        <div class="atk"><span class="atk-name">Shove — </span><span class="atk-note">Strength contest to push one creature 5 ft. or knock prone. Perran is large enough to make this a real threat even drunk.</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Entitled — </span>Does not back down easily regardless of the situation. DC 14 Persuasion to talk him down once the fight has started.</div>
+        <div class="abl"><span class="abl-name">Large build — </span>+2 to Strength contests and shove attempts despite impairment.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Goes immediately for whoever confronted him. Relies on size rather than skill. Attempts to shove rather than strike when a target is adjacent. Does not run. Goes down swinging.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALDWYN -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Aldwyn</span>
+      <span class="wave-badge w1">Wave 1</span>
+      <span class="cr-badge">CR 1/4</span>
+      <button class="copy-btn" onclick="copyJSON('aldwyn', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Loyal, committed, drunk — backs Perran without thinking</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>11</div>
+        <div class="qs"><span>HP</span>11</div>
+        <div class="qs"><span>Atk</span>+3</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="priority red">Impaired — disadvantage on all attack rolls and Dexterity saving throws.</div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Unarmed or improvised — </span><span class="atk-hit">+3</span> / <span class="atk-dmg">(1d4+1) bludgeoning</span> <span class="atk-note">disadvantage from impairment</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Loyal — </span>Breaks when Perran goes down. DC 10 Wis save or surrenders immediately.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Follows Perran. Attacks whoever Perran is not attacking. Committed but not capable. Once Perran falls he has no reason to keep going and knows it.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OSRIC -->
+  <div class="card reluctant">
+    <div class="card-header">
+      <span class="card-name">Osric</span>
+      <span class="wave-badge w1">Wave 1</span>
+      <span class="cr-badge">CR 1/8</span>
+      <button class="copy-btn" onclick="copyJSON('osric', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Hesitant, uncomfortable — already aware this is going badly</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>11</div>
+        <div class="qs"><span>HP</span>7</div>
+        <div class="qs"><span>Atk</span>+2</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="priority blue">Impaired and already uncomfortable. DC 8 Wis save at the start of his first turn or he uses his action to look for a way out rather than attack.</div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Unarmed — </span><span class="atk-hit">+2</span> / <span class="atk-dmg">(1d4) bludgeoning</span> <span class="atk-note">disadvantage — he does not really want to do this</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Swings once if he cannot get out. Surrenders or flees at the first reasonable opportunity. He was not expecting the evening to go this way.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FENN -->
+  <div class="card reluctant">
+    <div class="card-header">
+      <span class="card-name">Fenn</span>
+      <span class="wave-badge w1">Wave 1</span>
+      <span class="cr-badge">CR 0</span>
+      <button class="copy-btn" onclick="copyJSON('fenn', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Gnome — runs in round one — small comedy beat</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>11</div>
+        <div class="qs"><span>HP</span>4</div>
+        <div class="qs"><span>Atk</span>+1</div>
+        <div class="qs"><span>Spd</span>25</div>
+      </div>
+      <div class="priority blue">Fenn looks for an exit in round one. Give him one unless the party actively blocks every door. His departure is a small comedy beat before things escalate. Do not make him fight.</div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Identifies the nearest exit on his first turn and moves toward it. Uses the Dash action. Does not look back. He is not coming back. This is not his problem anymore.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BRYNN -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Brynn</span>
+      <span class="wave-badge w2">Wave 2</span>
+      <span class="cr-badge">CR 1/4</span>
+      <button class="copy-btn" onclick="copyJSON('brynn', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Dwarf — bar brawler, solid, arrives round 2</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>13</div>
+        <div class="qs"><span>HP</span>13</div>
+        <div class="qs"><span>Atk</span>+4</div>
+        <div class="qs"><span>Spd</span>25</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Unarmed or barstool — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d6+2) bludgeoning</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Dwarven Resilience — </span>Advantage on saving throws against poison.</div>
+        <div class="abl"><span class="abl-name">Brawler — </span>+2 to Strength contests and grapple attempts.</div>
+        <div class="abl"><span class="abl-name">Sober — </span>No impairment. Brynn was not drinking heavily tonight.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Comes off the bar fast and goes for whoever looks most dangerous. Uses the barstool as an improvised weapon. Straightforward and effective. Breaks if Mags goes down.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAGS -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Mags</span>
+      <span class="wave-badge w2">Wave 2</span>
+      <span class="cr-badge">CR 1/4</span>
+      <button class="copy-btn" onclick="copyJSON('mags', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Sharp, calm, has already decided — arrives round 2</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>12</div>
+        <div class="qs"><span>HP</span>10</div>
+        <div class="qs"><span>Atk</span>+4</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Dagger — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d4+2) piercing</span></div>
+        <div class="atk"><span class="atk-name">Dagger (thrown) — </span><span class="atk-hit">+4</span> / <span class="atk-dmg">(1d4+2) piercing</span> <span class="atk-note">range 20/60 ft.</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Assessed the room — </span>Mags has been watching since the fight started. She knows which party member is the most dangerous and goes straight for them.</div>
+        <div class="abl"><span class="abl-name">Sober — </span>No impairment.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Moves directly toward the most dangerous party member — the one doing the most damage or causing the most problems for her side. Does not waste time. If the fight is clearly lost she disengages and leaves. She is not dying for Perran Carew.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAVAN HOLT -->
+  <div class="card threat">
+    <div class="card-header">
+      <span class="card-name">Davan Holt</span>
+      <span class="wave-badge w3">Wave 3</span>
+      <span class="cr-badge">CR 1</span>
+      <button class="copy-btn" onclick="copyJSON('davanholt', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Fighter 2 — professional, has been watching all evening — the real threat</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>15</div>
+        <div class="qs"><span>HP</span>19</div>
+        <div class="qs"><span>Atk</span>+5</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="priority gold">Davan Holt has been nursing one drink all evening and watching the room. He is the most dangerous person here. The party will not realise this until round three when he walks through the door. He moves with the economy of someone who has done this many times.</div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Longsword — </span><span class="atk-hit">+5</span> / <span class="atk-dmg">(1d8+3) slashing</span></div>
+        <div class="atk"><span class="atk-name">Longsword (x2, Extra Attack) — </span><span class="atk-hit">+5</span> / <span class="atk-dmg">(1d8+3) slashing</span> <span class="atk-note">two attacks per Attack action</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Extra Attack — </span>Two attacks per Attack action.</div>
+        <div class="abl"><span class="abl-name">Action Surge (1/short rest) — </span>Takes an additional action. Uses it on his first turn — four attacks on arrival if the party is not paying attention to the door.</div>
+        <div class="abl"><span class="abl-name">Second Wind (bonus, 1/short rest) — </span>Regains (1d10+2) HP. Uses below 10 HP.</div>
+        <div class="abl"><span class="abl-name">Threat Assessment — </span>Has been watching all evening. Identifies the most effective party member immediately and targets them first.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Enters from the door at the bottom of the room in round three. Uses Action Surge immediately — he has been waiting and he knows exactly what he is doing. Targets the most effective party member. Methodical and unhurried. Does not stop unless incapacitated.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JORI -->
+  <div class="card reluctant">
+    <div class="card-header">
+      <span class="card-name">Jori</span>
+      <span class="wave-badge w3">Wave 3</span>
+      <span class="cr-badge">CR 1/8</span>
+      <button class="copy-btn" onclick="copyJSON('jori', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Halfling — did not want to be here, now certain of it</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>11</div>
+        <div class="qs"><span>HP</span>6</div>
+        <div class="qs"><span>Atk</span>+2</div>
+        <div class="qs"><span>Spd</span>25</div>
+      </div>
+      <div class="priority blue">Jori comes in from the back but has no investment in the fight. DC 8 Wis save on his first turn or he finds a corner and stays in it. He is not a threat unless the party goes out of their way to make him one.</div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Dagger — </span><span class="atk-hit">+2</span> / <span class="atk-dmg">(1d4) piercing</span> <span class="atk-note">he will not use this unless directly attacked</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Halfling Luck — </span>When he rolls a 1 on an attack roll, ability check, or saving throw, he can reroll and must use the new result.</div>
+        <div class="abl"><span class="abl-name">Deeply reluctant — </span>Surrenders immediately if directly threatened. Was never going to fight. Just did not know how to say no to Davan Holt.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Enters from the back. Immediately looks for somewhere to not be. Finds a corner or ducks behind something. Does not attack unless the party comes for him specifically. Surrenders the moment anyone points a weapon at him directly.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Abelon Campaign — Combat Reference. The Trumpet / Trademasters Mission 2 / Act 1.</footer>
+
+<script>
+const forgeJSON = {
+  perran: {"com.battle-system.forge/name":"Perran Carew","com.battle-system.forge/Z034":[{"id":"perran-001","name":"Impaired","description":"Disadvantage on all attack rolls and Dexterity saving throws for the duration of the encounter."},{"id":"perran-002","name":"Entitled","description":"DC 14 Persuasion to talk down once the fight has started. Does not back down easily."},{"id":"perran-003","name":"Large Build","description":"+2 to Strength contests and shove attempts."}],"com.battle-system.forge/Z035":[{"id":"perran-004","name":"Unarmed Strike (Impaired)","description":"Melee Weapon Attack [1d20+4] to hit (disadvantage), reach 5 ft., one target. [1d4+2] bludgeoning damage."},{"id":"perran-005","name":"Shove","description":"Strength contest +5. On success push one creature 5 ft. away or knock prone. +2 from large build."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":11,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":1,"com.battle-system.forge/Z025":2,"com.battle-system.forge/Z016":0.5,"com.battle-system.forge/Z022":12,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":14,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":10,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":16,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":16,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":3,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 9","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Intimidation +3","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":16,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":-1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":9},
+  aldwyn: {"com.battle-system.forge/name":"Aldwyn","com.battle-system.forge/Z034":[{"id":"aldwyn-001","name":"Impaired","description":"Disadvantage on all attack rolls and Dexterity saving throws."},{"id":"aldwyn-002","name":"Breaks When Perran Falls","description":"When Perran is incapacitated, Aldwyn must make a DC 10 Wisdom saving throw or surrender immediately."}],"com.battle-system.forge/Z035":[{"id":"aldwyn-003","name":"Unarmed or Improvised (Impaired)","description":"Melee Weapon Attack [1d20+3] to hit (disadvantage), reach 5 ft., one target. [1d4+1] bludgeoning damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":11,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":10,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":11,"com.battle-system.forge/Z026":-1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":9,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":11,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":13,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":10},
+  osric: {"com.battle-system.forge/name":"Osric","com.battle-system.forge/Z034":[{"id":"osric-001","name":"Impaired","description":"Disadvantage on all attack rolls and Dexterity saving throws."},{"id":"osric-002","name":"Already Uncomfortable","description":"DC 8 Wisdom saving throw at the start of his first turn. On a failure he uses his action to look for an exit rather than attack."}],"com.battle-system.forge/Z035":[{"id":"osric-003","name":"Unarmed (Impaired)","description":"Melee Weapon Attack [1d20+2] to hit (disadvantage), reach 5 ft., one target. [1d4] bludgeoning damage. He does not really want to do this."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":11,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0.125,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":10,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":12,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":7,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":12,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common, Elvish","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":7,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":-1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Darkvision 60 ft., Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":9,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":11},
+  fenn: {"com.battle-system.forge/name":"Fenn","com.battle-system.forge/Z034":[{"id":"fenn-001","name":"Gnome Cunning","description":"Advantage on Intelligence, Wisdom, and Charisma saving throws against magic."},{"id":"fenn-002","name":"Runs Immediately","description":"On his first turn Fenn identifies the nearest exit and moves toward it using Dash. He is done."}],"com.battle-system.forge/Z035":[{"id":"fenn-003","name":"Dash","description":"Fenn uses his action to Dash toward the nearest exit. He does not look back."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":11,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":-1,"com.battle-system.forge/Z016":0,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":9,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":12,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":4,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":12,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common, Gnomish","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":4,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":-2,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Darkvision 60 ft., Passive Perception 10","com.battle-system.forge/Z002":"Small","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":7,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":25,"com.battle-system.forge/Z021":10},
+  brynn: {"com.battle-system.forge/name":"Brynn","com.battle-system.forge/Z034":[{"id":"brynn-001","name":"Dwarven Resilience","description":"Advantage on saving throws against poison."},{"id":"brynn-002","name":"Brawler","description":"+2 to Strength contests and grapple attempts."},{"id":"brynn-003","name":"Breaks if Mags Falls","description":"When Mags is incapacitated, Brynn must make a DC 10 Wisdom saving throw or stop fighting."}],"com.battle-system.forge/Z035":[{"id":"brynn-004","name":"Unarmed or Barstool","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] bludgeoning damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":13,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":-1,"com.battle-system.forge/Z025":2,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":9,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":14,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":11,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":13,"com.battle-system.forge/Z026":-1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":9,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common, Dwarvish","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":13,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"Poison","com.battle-system.forge/Z023":2,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Darkvision 60 ft., Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Athletics +4","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":15,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":25,"com.battle-system.forge/Z021":10},
+  mags: {"com.battle-system.forge/name":"Mags","com.battle-system.forge/Z034":[{"id":"mags-001","name":"Assessed the Room","description":"Mags knows which party member is most dangerous. She goes directly for them on her first turn."},{"id":"mags-002","name":"Not Dying for Perran","description":"When the fight is clearly lost — two allies down — Mags disengages and leaves."}],"com.battle-system.forge/Z035":[{"id":"mags-003","name":"Dagger","description":"Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d4+2] piercing damage."},{"id":"mags-004","name":"Dagger (thrown)","description":"Ranged Weapon Attack [1d20+4] to hit, range 20/60 ft., one target. [1d4+2] piercing damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":12,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":11,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":11,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":14,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":10,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":12,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":10,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Insight +3, Perception +3","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":11,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":13},
+  davanholt: {"com.battle-system.forge/name":"Davan Holt","com.battle-system.forge/Z034":[{"id":"dh-001","name":"Extra Attack","description":"Davan Holt makes two attacks when he takes the Attack action."},{"id":"dh-002","name":"Threat Assessment","description":"Has been watching all evening. Immediately identifies the most effective party member and targets them first."},{"id":"dh-003","name":"Action Surge (1/short rest)","description":"Takes one additional action on his turn. Uses it immediately on arrival in round 3 — four attacks on his first turn."}],"com.battle-system.forge/Z035":[{"id":"dh-004","name":"Longsword (x2)","description":"Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] slashing damage. Two attacks per Attack action."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":15,"com.battle-system.forge/Z036":[{"id":"dh-005","name":"Second Wind (1/short rest)","description":"Regains [1d10+2] hit points. Uses below 10 HP."}],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":2,"com.battle-system.forge/Z016":1,"com.battle-system.forge/Z022":11,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":14,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":13,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":19,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":11,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":19,"com.battle-system.forge/Z029":3,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":3,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 11","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Athletics +5, Perception +3","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":16,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":12},
+  jori: {"com.battle-system.forge/name":"Jori","com.battle-system.forge/Z034":[{"id":"jori-001","name":"Halfling Luck","description":"When Jori rolls a 1 on an attack roll, ability check, or saving throw, he can reroll and must use the new result."},{"id":"jori-002","name":"Deeply Reluctant","description":"DC 8 Wisdom saving throw on first turn. On a failure he finds a corner and stays in it. Surrenders immediately if directly threatened."}],"com.battle-system.forge/Z035":[{"id":"jori-003","name":"Dagger","description":"Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4] piercing damage. Will not use this unless directly attacked."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":11,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":-1,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0.125,"com.battle-system.forge/Z022":9,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":10,"com.battle-system.forge/Z024":1,"com.battle-system.forge/Z018":12,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":6,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common, Halfling","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":6,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":-1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Small","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":8,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":25,"com.battle-system.forge/Z021":10}
+};
+
+function copyJSON(id, btn){
+  const json = JSON.stringify(forgeJSON[id]);
+  navigator.clipboard.writeText(json).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy Forge JSON';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

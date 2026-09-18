@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abelon — Terrain Region Editor</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --brass-light: #e8c87a;
+  --brass-mid:   #c9a040;
+  --brass-dark:  #8a6820;
+  --brass-deep:  #4a3810;
+  --iron:        #3a3530;
+  --parchment:   #f0e4c0;
+  --ink:         #1a1208;
+}
+
+body {
+  font-family: 'Crimson Pro', serif;
+  background: #1a1410;
+  color: #d4b896;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Toolbar ── */
+#toolbar {
+  background: #12100d;
+  border-bottom: 1px solid #4a3820;
+  padding: 7px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+#toolbar h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #c9a96e;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.tb-sep { width: 1px; height: 20px; background: #4a3820; flex-shrink: 0; }
+
+.tb-btn {
+  background: #2a1f12;
+  border: 1px solid #6b4f2a;
+  color: #c9a96e;
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 5px 11px;
+  cursor: pointer;
+  border-radius: 3px;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.tb-btn:hover { background: #3a2a18; }
+.tb-btn.danger { border-color: #6a3020; color: #c07060; }
+.tb-btn.danger:hover { background: #3a1a10; }
+.tb-btn.success { border-color: #3a6040; color: #8abf8a; background: #1a3020; }
+.tb-btn.success:hover { background: #243828; }
+.tb-btn:disabled { opacity: 0.4; cursor: default; }
+
+#status-bar {
+  font-size: 11px;
+  font-style: italic;
+  color: #7a6a50;
+  margin-left: auto;
+}
+
+/* ── Main layout ── */
+#main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Sidebar ── */
+#sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #12100d;
+  border-right: 1px solid #4a3820;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sb-section {
+  padding: 10px 12px 8px;
+  border-bottom: 1px solid #2a1f12;
+}
+
+.sb-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: #6a5030;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+/* New region form */
+#new-region-form { display: flex; flex-direction: column; gap: 6px; }
+
+.form-row { display: flex; gap: 6px; align-items: center; }
+.form-row label { font-size: 11px; color: #8a7060; white-space: nowrap; min-width: 60px; }
+
+.sb-input {
+  background: #1a1410;
+  border: 1px solid #4a3820;
+  color: #d4b896;
+  font-family: 'Crimson Pro', serif;
+  font-size: 13px;
+  padding: 5px 8px;
+  border-radius: 3px;
+  width: 100%;
+}
+.sb-input:focus { outline: none; border-color: #8a6820; }
+.sb-input::placeholder { color: #4a3820; }
+
+input[type="color"].sb-input {
+  padding: 2px 4px;
+  height: 30px;
+  cursor: pointer;
+}
+
+input[type="number"].sb-input { width: 80px; }
+
+.multiplier-note {
+  font-size: 10px;
+  color: #5a4a30;
+  font-style: italic;
+  margin-top: -2px;
+}
+
+#start-draw-btn {
+  background: #1a3020;
+  border: 1px solid #3a6040;
+  color: #8abf8a;
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 3px;
+  width: 100%;
+  transition: background 0.15s;
+  margin-top: 2px;
+}
+#start-draw-btn:hover { background: #243828; }
+#start-draw-btn:disabled { opacity: 0.35; cursor: default; }
+
+/* Drawing controls (shown while drawing) */
+#draw-controls {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+}
+#draw-controls.active { display: flex; }
+
+.draw-hint {
+  font-size: 11px;
+  font-style: italic;
+  color: #7a9a6a;
+  line-height: 1.4;
+}
+
+.draw-btn-row { display: flex; gap: 6px; }
+.draw-btn {
+  flex: 1;
+  padding: 5px;
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+#close-poly-btn {
+  background: #1a3020;
+  border: 1px solid #3a6040;
+  color: #8abf8a;
+}
+#close-poly-btn:hover { background: #243828; }
+#close-poly-btn:disabled { opacity: 0.35; cursor: default; }
+#cancel-draw-btn {
+  background: #2a1208;
+  border: 1px solid #6a3020;
+  color: #bf7060;
+}
+#cancel-draw-btn:hover { background: #3a1810; }
+
+/* Region list */
+#region-list-wrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 0;
+}
+#region-list-wrap::-webkit-scrollbar { width: 4px; }
+#region-list-wrap::-webkit-scrollbar-thumb { background: #4a3820; border-radius: 2px; }
+
+.region-item {
+  padding: 7px 12px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background 0.1s;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.region-item:hover { background: #1e1810; }
+.region-item.selected { background: #201a10; }
+
+.region-item-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.region-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.region-name {
+  font-size: 13px;
+  color: #d4b896;
+  flex: 1;
+}
+
+.region-meta {
+  font-size: 10px;
+  color: #6a5a40;
+  font-style: italic;
+}
+
+.region-delete {
+  opacity: 0;
+  background: none;
+  border: none;
+  color: #8a4a4a;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+  transition: opacity 0.1s;
+}
+.region-item:hover .region-delete { opacity: 1; }
+
+.region-vertex-count {
+  font-size: 9px;
+  color: #4a3820;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.06em;
+}
+
+/* empty state */
+.list-empty {
+  padding: 16px 12px;
+  font-size: 12px;
+  font-style: italic;
+  color: #3a2c18;
+  text-align: center;
+}
+
+/* ── Canvas area ── */
+#canvas-wrap {
+  flex: 1;
+  overflow: auto;
+  background: #0d0b08;
+  position: relative;
+  cursor: crosshair;
+}
+
+#canvas-container {
+  position: relative;
+  display: inline-block;
+}
+
+#map-img {
+  display: block;
+  max-width: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+#draw-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  pointer-events: none;
+}
+
+#hit-layer {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+
+#no-map {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  color: #3a2c18;
+  pointer-events: none;
+}
+#no-map h2 { font-family: 'Cinzel', serif; font-size: 16px; font-weight: 400; color: #5a4028; margin-bottom: 6px; }
+#no-map p  { font-size: 12px; font-style: italic; }
+
+/* zoom */
+#zoom-controls {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 20;
+}
+.zoom-btn {
+  width: 28px; height: 28px;
+  background: #1a1410;
+  border: 1px solid #4a3820;
+  color: #c9a96e;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+}
+.zoom-btn:hover { background: #2a1f12; }
+
+#coord-display {
+  position: absolute;
+  bottom: 12px; left: 12px;
+  font-family: monospace;
+  font-size: 10px;
+  color: #5a4a38;
+  background: rgba(12,8,2,0.75);
+  padding: 3px 8px;
+  border-radius: 3px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* ── Edit mode ── */
+.region-item.editing {
+  background: #1e1a0e;
+  border-left-width: 3px;
+}
+
+.region-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.edit-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.edit-row label {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: #6a5030;
+  text-transform: uppercase;
+  width: 52px;
+  flex-shrink: 0;
+}
+
+.edit-input {
+  background: #0e0a04;
+  border: 1px solid #4a3820;
+  color: #d4b896;
+  font-family: 'Crimson Pro', serif;
+  font-size: 12px;
+  padding: 4px 7px;
+  border-radius: 3px;
+  flex: 1;
+}
+.edit-input:focus { outline: none; border-color: #8a6820; }
+
+input[type="color"].edit-input {
+  padding: 2px 3px;
+  height: 26px;
+  cursor: pointer;
+  flex: none;
+  width: 44px;
+}
+
+input[type="number"].edit-input {
+  width: 64px;
+  flex: none;
+}
+
+.edit-multiplier-note {
+  font-size: 9px;
+  color: #4a3820;
+  font-style: italic;
+  padding-left: 58px;
+  margin-top: -3px;
+}
+
+.edit-btn-row {
+  display: flex;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.edit-save-btn {
+  flex: 1;
+  background: #1a3020;
+  border: 1px solid #3a6040;
+  color: #8abf8a;
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.15s;
+}
+.edit-save-btn:hover { background: #243828; }
+
+.edit-cancel-btn {
+  flex: 1;
+  background: #1a1008;
+  border: 1px solid #4a3820;
+  color: #8a7060;
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.15s;
+}
+.edit-cancel-btn:hover { background: #2a1f10; }
+
+.region-edit-btn {
+  opacity: 0;
+  background: none;
+  border: 1px solid #4a3820;
+  color: #7a6040;
+  font-size: 10px;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  padding: 1px 6px;
+  border-radius: 2px;
+  transition: opacity 0.1s, border-color 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.region-item:hover .region-edit-btn { opacity: 1; }
+.region-edit-btn:hover { border-color: #8a6820; color: #c9a96e; }
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+
+<div id="toolbar">
+  <h1>⚔ ABELON — TERRAIN REGION EDITOR</h1>
+  <div class="tb-sep"></div>
+  <button class="tb-btn" onclick="document.getElementById('map-file').click()">Load Map</button>
+  <input type="file" id="map-file" accept="image/*" style="display:none">
+  <button class="tb-btn" onclick="document.getElementById('regions-file').click()">Import Regions</button>
+  <input type="file" id="regions-file" accept=".json" style="display:none">
+  <div class="tb-sep"></div>
+  <button class="tb-btn success" onclick="exportRegions()">Export Regions JSON</button>
+  <button class="tb-btn danger" onclick="clearAllRegions()">Clear All</button>
+  <span id="status-bar">Load a map to begin</span>
+</div>
+
+<div id="main">
+  <div id="sidebar">
+
+    <div class="sb-section">
+      <div class="sb-label">New Region</div>
+      <div id="new-region-form">
+        <div class="form-row">
+          <label>Name</label>
+          <input class="sb-input" type="text" id="r-name" placeholder="e.g. Greyspine Range">
+        </div>
+        <div class="form-row">
+          <label>Colour</label>
+          <input class="sb-input" type="color" id="r-color" value="#7a4f2a">
+        </div>
+        <div class="form-row">
+          <label>Multiplier</label>
+          <input class="sb-input" type="number" id="r-multiplier" value="0.5" min="0" max="5" step="0.05">
+        </div>
+        <div class="multiplier-note">
+          &lt;1 = slower &nbsp;·&nbsp; 1 = normal &nbsp;·&nbsp; &gt;1 = faster<br>
+          e.g. 0.5 = takes 2× as long
+        </div>
+        <button id="start-draw-btn" onclick="startDrawing()" disabled>Draw Region on Map</button>
+      </div>
+
+      <div id="draw-controls">
+        <div class="draw-hint">Click the map to place vertices. Close the polygon when done (min. 3 points).</div>
+        <div id="vertex-count" style="font-family:'Cinzel',serif;font-size:9px;color:#6a8a5a;letter-spacing:0.1em;">0 vertices placed</div>
+        <div class="draw-btn-row">
+          <button class="draw-btn" id="close-poly-btn" onclick="closePolygon()" disabled>Close & Save</button>
+          <button class="draw-btn" id="cancel-draw-btn" onclick="cancelDrawing()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sb-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column;padding-bottom:0;">
+      <div class="sb-label">Defined Regions</div>
+      <div id="region-list-wrap">
+        <div class="list-empty" id="list-empty">No regions defined yet</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="canvas-wrap">
+    <div id="canvas-container">
+      <div id="no-map">
+        <h2>No map loaded</h2>
+        <p>Click "Load Map" above to begin</p>
+      </div>
+      <canvas id="draw-canvas"></canvas>
+      <div id="hit-layer"></div>
+    </div>
+    <div id="zoom-controls">
+      <button class="zoom-btn" onclick="doZoom(1.25)">+</button>
+      <button class="zoom-btn" onclick="doZoom(0.8)">−</button>
+      <button class="zoom-btn" onclick="doZoom('fit')" title="Fit">⊡</button>
+    </div>
+    <div id="coord-display">x: — y: —</div>
+  </div>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────
+let regions     = [];   // { id, name, color, multiplier, vertices: [{x,y}] }
+let drawing     = false;
+let currentVerts= [];
+let selectedId  = null;
+let scale       = 1;
+let natW = 0, natH = 0;
+let imgLoaded   = false;
+
+const canvas  = document.getElementById('draw-canvas');
+const ctx     = canvas.getContext('2d');
+const hitLayer= document.getElementById('hit-layer');
+
+// ── Colours for new regions ────────────────────────────────────
+const PALETTE = ['#7a4f2a','#2a6a4a','#4a2a7a','#7a2a2a','#2a4a7a',
+                 '#7a6a2a','#2a6a6a','#6a2a6a','#3a6a2a','#7a3a4a'];
+let paletteIdx = 0;
+
+function nextColor() {
+  const c = PALETTE[paletteIdx % PALETTE.length];
+  paletteIdx++;
+  return c;
+}
+
+// ── Map loading ────────────────────────────────────────────────
+document.getElementById('map-file').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+
+  // Remove old img if any
+  const old = document.getElementById('map-img');
+  if (old) old.remove();
+
+  const img = document.createElement('img');
+  img.id = 'map-img';
+  img.src = url;
+  img.onload = () => {
+    natW = img.naturalWidth;
+    natH = img.naturalHeight;
+    imgLoaded = true;
+    document.getElementById('no-map').style.display = 'none';
+    const container = document.getElementById('canvas-container');
+    container.insertBefore(img, canvas);
+    fitToWindow();
+    document.getElementById('start-draw-btn').disabled = false;
+    setStatus('Map loaded — define a region and click Draw');
+  };
+});
+
+// ── Regions import ─────────────────────────────────────────────
+document.getElementById('regions-file').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      regions = data.regions || [];
+      regions.forEach(r => { if (!r.id) r.id = uid(); });
+      renderRegionList();
+      redraw();
+      setStatus(`Imported ${regions.length} region${regions.length!==1?'s':''}`);
+    } catch(err) {
+      alert('Could not parse regions file: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+});
+
+// ── Zoom ───────────────────────────────────────────────────────
+function fitToWindow() {
+  const wrap = document.getElementById('canvas-wrap');
+  const sw = wrap.clientWidth  / natW;
+  const sh = wrap.clientHeight / natH;
+  scale = Math.min(sw, sh, 1);
+  applyScale();
+}
+
+function doZoom(f) {
+  if (!imgLoaded) return;
+  if (f === 'fit') { fitToWindow(); return; }
+  scale = Math.max(0.1, Math.min(4, scale * f));
+  applyScale();
+}
+
+function applyScale() {
+  const img = document.getElementById('map-img');
+  if (!img) return;
+  const w = natW * scale;
+  const h = natH * scale;
+  img.style.width  = w + 'px';
+  img.style.height = h + 'px';
+  canvas.width  = w;
+  canvas.height = h;
+  canvas.style.width  = w + 'px';
+  canvas.style.height = h + 'px';
+  hitLayer.style.width  = w + 'px';
+  hitLayer.style.height = h + 'px';
+  document.getElementById('canvas-container').style.width  = w + 'px';
+  document.getElementById('canvas-container').style.height = h + 'px';
+  redraw();
+}
+
+// ── Mouse tracking ─────────────────────────────────────────────
+hitLayer.addEventListener('mousemove', e => {
+  const r = hitLayer.getBoundingClientRect();
+  const mx = Math.round((e.clientX - r.left) / scale);
+  const my = Math.round((e.clientY - r.top)  / scale);
+  document.getElementById('coord-display').textContent = `x: ${mx}  y: ${my}`;
+
+  if (drawing && currentVerts.length > 0) {
+    redraw();
+    // Draw rubber-band line
+    const last = currentVerts[currentVerts.length - 1];
+    ctx.beginPath();
+    ctx.setLineDash([4 * scale, 4 * scale]);
+    ctx.strokeStyle = 'rgba(200,180,100,0.7)';
+    ctx.lineWidth = 1.5;
+    ctx.moveTo(last.x * scale, last.y * scale);
+    ctx.lineTo(e.clientX - r.left, e.clientY - r.top);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+});
+
+hitLayer.addEventListener('click', e => {
+  if (!drawing) return;
+  const r = hitLayer.getBoundingClientRect();
+  const x = Math.round((e.clientX - r.left) / scale);
+  const y = Math.round((e.clientY - r.top)  / scale);
+  currentVerts.push({ x, y });
+  updateVertexCount();
+  redraw();
+});
+
+hitLayer.addEventListener('dblclick', e => {
+  if (!drawing) return;
+  e.preventDefault();
+  if (currentVerts.length >= 3) closePolygon();
+});
+
+// ── Drawing state ──────────────────────────────────────────────
+function startDrawing() {
+  const name = document.getElementById('r-name').value.trim();
+  if (!name) { alert('Please enter a region name first.'); return; }
+  if (!imgLoaded) return;
+
+  drawing = true;
+  currentVerts = [];
+
+  document.getElementById('new-region-form').style.display = 'none';
+  document.getElementById('draw-controls').classList.add('active');
+  document.getElementById('close-poly-btn').disabled = true;
+  updateVertexCount();
+  setStatus(`Drawing "${name}" — click to place vertices, double-click to close`);
+}
+
+function cancelDrawing() {
+  drawing = false;
+  currentVerts = [];
+  document.getElementById('new-region-form').style.display = '';
+  document.getElementById('draw-controls').classList.remove('active');
+  redraw();
+  setStatus('Drawing cancelled');
+}
+
+function closePolygon() {
+  if (currentVerts.length < 3) return;
+  const name       = document.getElementById('r-name').value.trim();
+  const color      = document.getElementById('r-color').value;
+  const multiplier = parseFloat(document.getElementById('r-multiplier').value) || 0.5;
+
+  regions.push({ id: uid(), name, color, multiplier, vertices: [...currentVerts] });
+
+  drawing = false;
+  currentVerts = [];
+
+  // Reset form
+  document.getElementById('r-name').value = '';
+  document.getElementById('r-color').value = nextColor();
+  document.getElementById('r-multiplier').value = '0.5';
+  document.getElementById('new-region-form').style.display = '';
+  document.getElementById('draw-controls').classList.remove('active');
+
+  renderRegionList();
+  redraw();
+  setStatus(`Region "${name}" saved (${multiplier}× speed)`);
+}
+
+function updateVertexCount() {
+  const n = currentVerts.length;
+  document.getElementById('vertex-count').textContent = `${n} vert${n!==1?'ices':'ex'} placed`;
+  document.getElementById('close-poly-btn').disabled = n < 3;
+}
+
+// ── Render ─────────────────────────────────────────────────────
+function redraw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw saved regions
+  regions.forEach(r => {
+    if (!r.vertices || r.vertices.length < 2) return;
+    const isSelected = r.id === selectedId;
+    const col = hexToRgba(r.color, isSelected ? 0.45 : 0.28);
+    const stroke = hexToRgba(r.color, isSelected ? 0.95 : 0.65);
+
+    ctx.beginPath();
+    ctx.moveTo(r.vertices[0].x * scale, r.vertices[0].y * scale);
+    r.vertices.slice(1).forEach(v => ctx.lineTo(v.x * scale, v.y * scale));
+    ctx.closePath();
+    ctx.fillStyle = col;
+    ctx.fill();
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = isSelected ? 2.5 : 1.5;
+    ctx.setLineDash([]);
+    ctx.stroke();
+
+    // Label
+    const cx = r.vertices.reduce((s,v) => s + v.x, 0) / r.vertices.length * scale;
+    const cy = r.vertices.reduce((s,v) => s + v.y, 0) / r.vertices.length * scale;
+    ctx.font = `${Math.max(9, 11 * scale)}px Cinzel, serif`;
+    ctx.fillStyle = 'rgba(240,228,192,0.85)';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(`${r.name} (${r.multiplier}×)`, cx, cy);
+  });
+
+  // Draw current in-progress polygon
+  if (drawing && currentVerts.length > 0) {
+    ctx.beginPath();
+    ctx.moveTo(currentVerts[0].x * scale, currentVerts[0].y * scale);
+    currentVerts.slice(1).forEach(v => ctx.lineTo(v.x * scale, v.y * scale));
+    ctx.strokeStyle = 'rgba(180,220,140,0.9)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6 * scale, 3 * scale]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Vertex dots
+    currentVerts.forEach((v, i) => {
+      ctx.beginPath();
+      ctx.arc(v.x * scale, v.y * scale, 4, 0, Math.PI * 2);
+      ctx.fillStyle = i === 0 ? '#c9a96e' : '#8abf8a';
+      ctx.fill();
+      ctx.strokeStyle = '#fff8e8';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+  }
+}
+
+// ── Region list ────────────────────────────────────────────────
+let editingId = null;
+
+function renderRegionList() {
+  const wrap = document.getElementById('region-list-wrap');
+
+  if (regions.length === 0) {
+    wrap.innerHTML = '<div class="list-empty" id="list-empty">No regions defined yet</div>';
+    return;
+  }
+
+  wrap.innerHTML = regions.map(r => {
+    const isSelected = r.id === selectedId;
+    const isEditing  = r.id === editingId;
+
+    const editForm = isEditing ? `
+      <div class="region-edit-form" onclick="event.stopPropagation()">
+        <div class="edit-row">
+          <label>Name</label>
+          <input class="edit-input" type="text" id="edit-name-${r.id}" value="${r.name.replace(/"/g,'&quot;')}">
+        </div>
+        <div class="edit-row">
+          <label>Colour</label>
+          <input class="edit-input" type="color" id="edit-color-${r.id}" value="${r.color}">
+        </div>
+        <div class="edit-row">
+          <label>Multiplier</label>
+          <input class="edit-input" type="number" id="edit-mult-${r.id}" value="${r.multiplier}" min="0.05" max="5" step="0.05">
+        </div>
+        <div class="edit-multiplier-note">&lt;1 = slower &nbsp;·&nbsp; 1 = normal &nbsp;·&nbsp; &gt;1 = faster</div>
+        <div class="edit-btn-row">
+          <button class="edit-save-btn" onclick="saveEdit('${r.id}')">Save</button>
+          <button class="edit-cancel-btn" onclick="cancelEdit()">Cancel</button>
+        </div>
+      </div>` : '';
+
+    return `
+      <div class="region-item${isSelected?' selected':''}${isEditing?' editing':''}"
+           style="border-left-color:${r.color}"
+           onclick="selectRegion('${r.id}')">
+        <div class="region-item-header">
+          <div class="region-swatch" style="background:${r.color}"></div>
+          <span class="region-name">${r.name}</span>
+          <button class="region-edit-btn" onclick="event.stopPropagation();startEdit('${r.id}')">Edit</button>
+          <button class="region-delete" onclick="event.stopPropagation();deleteRegion('${r.id}')">×</button>
+        </div>
+        <div class="region-meta">${r.multiplier}× speed &nbsp;·&nbsp; ${r.vertices.length} vertices</div>
+        ${editForm}
+      </div>`;
+  }).join('');
+}
+
+function selectRegion(id) {
+  if (editingId) return; // don't switch selection while editing
+  selectedId = selectedId === id ? null : id;
+  renderRegionList();
+  redraw();
+}
+
+function startEdit(id) {
+  editingId  = id;
+  selectedId = id;
+  renderRegionList();
+  redraw();
+  // Focus name field after render
+  const nameInput = document.getElementById(`edit-name-${id}`);
+  if (nameInput) { nameInput.focus(); nameInput.select(); }
+}
+
+function saveEdit(id) {
+  const r = regions.find(r => r.id === id);
+  if (!r) return;
+  const nameVal = document.getElementById(`edit-name-${id}`).value.trim();
+  const colorVal = document.getElementById(`edit-color-${id}`).value;
+  const multVal  = parseFloat(document.getElementById(`edit-mult-${id}`).value);
+  if (!nameVal) { alert('Name cannot be empty.'); return; }
+  if (isNaN(multVal) || multVal < 0) { alert('Multiplier must be zero or a positive number.'); return; }
+  r.name       = nameVal;
+  r.color      = colorVal;
+  r.multiplier = multVal;
+  editingId = null;
+  renderRegionList();
+  redraw();
+  setStatus(`Region "${r.name}" updated`);
+}
+
+function cancelEdit() {
+  editingId = null;
+  renderRegionList();
+}
+
+function deleteRegion(id) {
+  regions = regions.filter(r => r.id !== id);
+  if (selectedId === id) selectedId = null;
+  renderRegionList();
+  redraw();
+}
+
+function clearAllRegions() {
+  if (regions.length === 0) return;
+  if (!confirm('Delete all regions?')) return;
+  regions = [];
+  selectedId = null;
+  renderRegionList();
+  redraw();
+}
+
+// ── Export ─────────────────────────────────────────────────────
+function exportRegions() {
+  const output = {
+    note: "Terrain region definitions for Abelon: The Weight of the World",
+    scale: { gridPx: 60, gridMiles: 25 },
+    regions: regions.map(r => ({
+      id:         r.id,
+      name:       r.name,
+      color:      r.color,
+      multiplier: r.multiplier,
+      vertices:   r.vertices
+    }))
+  };
+  const blob = new Blob([JSON.stringify(output, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'abelon_regions.json';
+  a.click();
+  setStatus(`Exported ${regions.length} region${regions.length!==1?'s':''}`);
+}
+
+// ── Helpers ────────────────────────────────────────────────────
+function uid() {
+  return Math.random().toString(36).slice(2, 10);
+}
+
+function hexToRgba(hex, alpha) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+function setStatus(msg) {
+  document.getElementById('status-bar').textContent = msg;
+}
+
+// Initialise colour picker with first palette colour
+document.getElementById('r-color').value = PALETTE[0];
+</script>
+</body>
+</html>

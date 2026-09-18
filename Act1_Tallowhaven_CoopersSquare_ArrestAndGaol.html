@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — The Arrest and The Gaol</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;
+    --ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;
+    --accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);
+    --beat-bg:rgba(107,58,42,0.05);--beat-border:#c4a882;
+    --npc-bg:rgba(107,58,42,0.04);--npc-border:#c4a882;
+    --marek-bg:rgba(24,95,165,0.05);--marek-border:#185FA5;
+    --caen-bg:rgba(133,79,11,0.06);--caen-border:#854F0B;
+    --warning-bg:rgba(133,79,11,0.08);--warning-border:#854F0B;--warning-text:#412402;
+    --success-bg:rgba(15,110,86,0.07);--success-border:#0F6E56;--success-text:#04342C;
+  }
+  @media(prefers-color-scheme:dark){:root{
+    --parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;
+    --ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);
+    --beat-bg:rgba(196,168,130,0.06);--beat-border:#5a4a38;
+    --npc-bg:rgba(196,168,130,0.05);--npc-border:#5a4a38;
+    --marek-bg:rgba(133,183,235,0.06);--marek-border:#85B7EB;
+    --caen-bg:rgba(239,159,39,0.06);--caen-border:#EF9F27;
+    --warning-bg:rgba(239,159,39,0.08);--warning-border:#EF9F27;--warning-text:#FAEEDA;
+    --success-bg:rgba(93,202,165,0.07);--success-border:#5DCAA5;--success-text:#E1F5EE;
+  }}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:900px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+
+  .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
+
+  .environment-block{background:var(--beat-bg);border-left:3px solid var(--beat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .environment-block p{margin-bottom:.6rem;}.environment-block p:last-child{margin-bottom:0;}
+
+  .env-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+  @media(max-width:600px){.env-features{grid-template-columns:1fr;}}
+  .env-feature{display:flex;gap:8px;align-items:flex-start;}
+  .env-feature-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);min-width:90px;padding-top:3px;flex-shrink:0;}
+  .env-feature-desc{font-size:14px;color:var(--ink-mid);line-height:1.5;}
+
+  .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
+  .npc-card.marek{border-color:var(--marek-border);background:var(--marek-bg);}
+  .npc-card.caen{border-color:var(--caen-border);background:var(--caen-bg);}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-portrait{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);overflow:hidden;flex-shrink:0;background:var(--parchment-dark);display:flex;align-items:center;justify-content:center;position:relative;}
+  .npc-portrait img{width:100%;height:100%;object-fit:cover;}
+  .npc-portrait-placeholder{font-family:'Cinzel',serif;font-size:9px;color:var(--ink-faded);text-align:center;padding:3px;line-height:1.3;pointer-events:none;}
+  .npc-portrait input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin:12px 0 5px;}
+  .npc-desc{font-size:15px;color:var(--ink-mid);margin-bottom:6px;}
+  .npc-trait{display:flex;gap:8px;margin-bottom:5px;font-size:14px;}
+  .npc-trait-key{color:var(--ink-faded);min-width:110px;flex-shrink:0;font-style:italic;}
+
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header:hover{opacity:.8;}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+
+  .speech{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
+  .speech-attr{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:4px;font-style:normal;}
+
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+
+  .warning-block{background:var(--warning-bg);border:.5px solid var(--warning-border);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--warning-text);}
+  .warning-block strong{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:5px;}
+
+  .outcome{border-radius:5px;padding:12px 14px;margin-bottom:10px;font-size:15px;}
+  .outcome.success{background:var(--success-bg);border:.5px solid var(--success-border);color:var(--success-text);}
+  .outcome.neutral{background:var(--beat-bg);border:.5px solid var(--beat-border);color:var(--ink-mid);}
+  .outcome-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:6px;opacity:.8;}
+  .outcome p{margin-bottom:6px;}.outcome p:last-child{margin-bottom:0;}
+
+  .part-divider{border:none;border-top:1px solid var(--rule);margin:2.5rem 0;}
+
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="encounter-header">
+    <span class="encounter-type">Encounter Reference — Act 1 / Tallowhaven / Act 1 Closing</span>
+    <div class="encounter-title">The Arrest and The Gaol</div>
+    <div class="encounter-subtitle">Caen Rhys ends it — a night in the cells — morning and the road east</div>
+    <div class="encounter-meta">
+      <span class="meta-tag">No combat</span>
+      <span class="meta-tag">Act 1 close</span>
+      <span class="meta-tag">Act 2 seed</span>
+      <span class="meta-tag">Follows Festival Finale</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+    <button class="ctrl-btn" onclick="expandBeats()">Beats only</button>
+    <button class="ctrl-btn" onclick="expandNPCs()">NPCs only</button>
+  </div>
+
+  <!-- PART ONE: THE ARREST -->
+
+  <div class="section-heading">Part One — Cooper's Square</div>
+
+  <div class="environment-block">
+    <p>The square after the fight. Torchlight, the smell of the festival still in the air. Faction crew down or fled. The square is not empty — it never quite empties on festival night. People have been drawn by noise and light and the particular pull of something going wrong nearby. Some of them were here an hour ago for the Bardic Interlude. Some are festival-goers who took a wrong turn. Some are ordinary Tallowhaven residents who heard the commotion from their windows.</p>
+    <p>There are perhaps thirty or forty of them at the edges of the square. They look frightened. They are not advancing. They are simply present — watching, waiting to understand what they are looking at.</p>
+  </div>
+
+  <div class="env-features">
+    <div class="env-feature">
+      <span class="env-feature-label">The crowd</span>
+      <span class="env-feature-desc">Ordinary people. Unarmed. Recognisably the same faces from the earlier evening. Some of them have seen the party before. All of them are frightened of what they are seeing now.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">The square</span>
+      <span class="env-feature-desc">Sylas's Step visible at the south. Festival lanterns still lit. The aftermath of the fight is visible — fallen weapons, overturned furniture from a stall, the general evidence of something that went badly.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Caen Rhys</span>
+      <span class="env-feature-desc">Arrives from the civic quarter on foot. Pren and Tev a step behind. Oswin further back — the only armed person present, hand not on his weapon. Caen Rhys walks to the centre of the square without urgency.</span>
+    </div>
+    <div class="env-feature">
+      <span class="env-feature-label">Timing</span>
+      <span class="env-feature-desc">He arrives into aftermath, not mid-fight. The fight has resolved itself. The party is standing. The faction crew is not. This is important — he is not stopping anything. He is naming what has happened and deciding what comes next.</span>
+    </div>
+  </div>
+
+  <div class="section-heading">Key NPCs — Part One</div>
+
+  <div class="npc-card caen">
+    <div class="npc-header" onclick="toggleNPC('caen')">
+      <div class="npc-portrait">
+        <img id="caen-img" style="display:none">
+        <span class="npc-portrait-placeholder" id="caen-placeholder">Add portrait</span>
+        <input type="file" accept="image/*" onchange="loadPortrait('caen',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Caen Rhys</span>
+        <span class="npc-role">Magistrate — highest civil authority in Tallowhaven</span>
+      </div>
+      <span class="npc-toggle" id="caen-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="caen-body">
+      <span class="npc-section-label">In this scene</span>
+      <p class="npc-desc">He has seen the party before — across his courtroom desk when they delivered Marek. He knows who they are and has probably been tracking the shape of their involvement all week. He is not surprised. He is tired in the way that people are tired when things go exactly as they feared.</p>
+      <span class="npc-section-label">What he knows</span>
+      <div class="npc-trait"><span class="npc-trait-key">The politics</span><span>The trade deal is dead. Aldous Crane left the room. Whatever faction the party sided with, the other two are damaged. The city needs the visible common thread through this evening's events to disappear. The party is that thread.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">His authority</span><span>He is the highest civil authority in Tallowhaven. He has no standing army, no police force, and no mechanism to compel compliance from people who choose not to comply. What he has is legitimacy — the collective agreement of the city that his word means something — and thirty frightened witnesses.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">His manner</span><span>Completely calm. Not performing calm — actually calm. He has made the decision before he walked into the square. He is here to implement it, not to negotiate it.</span></div>
+      <span class="npc-section-label">His three lines</span>
+      <div class="speech"><span class="speech-attr">Caen Rhys — looking at the crowd, then at the party</span>Are you going to kill all of them too?</div>
+      <div class="speech"><span class="speech-attr">Caen Rhys — a beat, no answer expected</span>I think you've made your point.</div>
+      <div class="speech"><span class="speech-attr">Caen Rhys — turning toward the civic quarter</span>Come with me. Before this gets worse.</div>
+      <div class="npc-trait" style="margin-top:10px;"><span class="npc-trait-key">Delivery</span><span>He does not wait for responses between the lines. He is not issuing threats. He is simply describing the situation accurately and offering the only resolution that does not make everything worse. He starts walking after the third line. He expects them to follow.</span></div>
+    </div>
+  </div>
+
+  <div class="section-heading">Encounter Beats — Part One</div>
+
+  <div class="dm-note"><strong>Purpose of this scene</strong>The fight is over. Caen Rhys arrives to name what has happened and move the party out of the square before the situation compounds. The crowd is the mechanism — not a threat but a moral weight. The party is offered a dignified exit and most parties will take it. The few who do not should feel the cost of refusing it.</div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('sq1')">
+      <span class="beat-number">01</span>
+      <span class="beat-title">The aftermath — the crowd arrives</span>
+      <span class="beat-toggle" id="beat-toggle-sq1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-sq1">
+      <p>Before Caen Rhys arrives, give the party a moment in the aftermath. The faction crew is down or gone. The square is quiet in the way places are quiet immediately after something loud has stopped. Then the crowd becomes visible — at the edges, in the alleys, leaning from windows. Thirty or forty people. Some of them the party recognises from earlier in the evening. All of them look frightened.</p>
+      <p>The party is standing in a square surrounded by the evidence of a fight they won, in front of a crowd of ordinary people who do not know what they are looking at. Let that register before Caen Rhys arrives.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('sq2')">
+      <span class="beat-number">02</span>
+      <span class="beat-title">Caen Rhys arrives</span>
+      <span class="beat-toggle" id="beat-toggle-sq2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-sq2">
+      <p>He walks in from the civic quarter. Pren and Tev behind him. Oswin further back — present, hand not on his weapon, deliberately non-threatening. Caen Rhys does not hurry. He crosses the square and stops a few metres from the party.</p>
+      <p>He looks at what has happened. He looks at the crowd. He looks at the party. Then he delivers his three lines without pause between them, turns, and begins walking back toward the Aldermen's Hall.</p>
+      <p>He does not check whether the party is following. He knows they will.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('sq3')">
+      <span class="beat-number">03</span>
+      <span class="beat-title">If the party does not follow</span>
+      <span class="beat-toggle" id="beat-toggle-sq3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-sq3">
+      <p>Caen Rhys stops. He does not turn around immediately. When he does, his expression is the same — tired, decided, unafraid.</p>
+      <div class="speech"><span class="speech-attr">Caen Rhys</span>There is no version of this evening that ends well for you if you stay in this square. I am offering you the version that ends least badly. That offer has a short life.</div>
+      <p>He turns and continues walking. If the party still does not follow, the crowd begins to close — not aggressively, simply by existing in greater numbers on all sides. Oswin remains where he is. Caen Rhys does not return.</p>
+      <p>The party can leave Tallowhaven tonight without going through the cells if they choose. But they lose the gaol scene, the conversation with Marek, and Caen Rhys's provision of the cart. They leave with nothing but the road and whatever they carry.</p>
+    </div>
+  </div>
+
+  <div class="warning-block"><strong>If the party attacks Caen Rhys or the crowd</strong>Attacking Caen Rhys is attacking the highest civil authority in Tallowhaven in front of dozens of witnesses. Attacking the crowd is attacking unarmed civilians. Either choice ends the campaign's relationship with Tallowhaven permanently and transforms the party's reputation across the Western Reach. This is not a recoverable position. Play the consequences honestly and without mercy — not as punishment, but because the world responds to what people do in it.</div>
+
+  <hr class="part-divider">
+
+  <!-- PART TWO: THE GAOL -->
+
+  <div class="section-heading">Part Two — The Cells, Before Dawn</div>
+
+  <div class="environment-block">
+    <p>Below the Aldermen's Hall. Stone, low ceilings, the smell of damp and old wood. Two cells, separated by iron bars. Basic but not cruel — a bench, a blanket, a bucket. The kind of place designed for overnight holding rather than long sentences.</p>
+    <p>Marek is already here. He has been here since the Cooper's Square disturbance earlier in the evening. He is sitting on the bench in the manner of someone who has no particular objection to sitting on benches. He looks at the party when they arrive with the expression of someone noting an interesting development, then looks away again.</p>
+    <p>Tev locks the cell and goes upstairs. They are alone.</p>
+  </div>
+
+  <div class="section-heading">Key NPCs — Part Two</div>
+
+  <div class="npc-card marek">
+    <div class="npc-header" onclick="toggleNPC('marek')">
+      <div class="npc-portrait">
+        <img id="marek-img" style="display:none">
+        <span class="npc-portrait-placeholder" id="marek-placeholder">Add portrait</span>
+        <input type="file" accept="image/*" onchange="loadPortrait('marek',this)" onclick="event.stopPropagation()">
+      </div>
+      <div class="npc-info">
+        <span class="npc-name">Marek Talan</span>
+        <span class="npc-role">Fallen paladin — on his third arrest with this party's involvement</span>
+      </div>
+      <span class="npc-toggle" id="marek-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="marek-body">
+      <span class="npc-section-label">In this scene</span>
+      <p class="npc-desc">He is not performing anything. He is not grateful to see them, not hostile, not particularly interested in their evening. He is a man who has been in cells before and finds them neither distressing nor interesting. What he finds interesting is the pattern — the same people, arrested again, in the same building. He files this without commenting on it at length.</p>
+      <span class="npc-section-label">His interior state</span>
+      <div class="npc-trait"><span class="npc-trait-key">The anger</span><span>It is there but it sits below the surface. He is not angry at the party specifically. He is angry at the shape of things — at how reliably the world confirms his diagnosis. His exterior is calm and tired. The anger is what has kept him moving for years without faith to drive him.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">The purpose</span><span>He feels it but does not trust it. When faith left there was a gap and something has grown into that gap that feels like purpose but might only be the shape of what is missing. He is not self-aware enough to articulate this. It shows in how he talks — with certainty about the world, with nothing certain about himself.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">The party</span><span>He sees them as well-meaning people operating at ground level — solving visible problems without understanding the structure that produces them. He does not dislike them. He simply does not think what they have done this week matters in the way they think it does. He has met people like them before.</span></div>
+      <span class="npc-section-label">What he says</span>
+      <div class="npc-trait"><span class="npc-trait-key">On the arrest</span><span>One sentence acknowledging that this is the second or third time his situation and theirs have intersected. Not a joke. Not an accusation. A statement of fact delivered briefly before moving on.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">On their week</span><span>He knows roughly what they have been doing. Word moves through a city during a festival. He is not impressed, but he is not contemptuous either. He simply does not think it reaches far enough.</span></div>
+      <div class="speech"><span class="speech-attr">Marek — on what the party has done this week</span>You did what you could. The same as the people in Crossroads. Good work, careful work, and it reaches as far as it reaches. Which is not very far. Which is the problem.</div>
+      <div class="speech"><span class="speech-attr">Marek — after a pause</span>There were people there six months ago who thought the same way you do. Ask Turian of the Lamplighters what difference it made. If you find yourself that way.</div>
+      <p style="margin-top:8px;font-size:14px;font-style:italic;color:var(--ink-faded);">He does not explain who Turian is, what the Lamplighters are, or what happened. He says it the way you mention a place you have been — as a fact that exists, not a setup. He does not repeat it or return to it. If the party asks, he gives them very little: someone he crossed paths with, people who believed in what they were doing, worth finding if they end up that way. Then he moves on or falls silent.</p>
+      <span class="npc-section-label">What he does not say</span>
+      <div class="npc-trait"><span class="npc-trait-key">Crossroads</span><span>He does not tell them to go there. He does not suggest they follow him. He mentions it once in the context of comparison and stops. Whether they follow that thread is entirely their choice, which is what makes it feel like one.</span></div>
+      <div class="npc-trait"><span class="npc-trait-key">His plans</span><span>He does not tell them where he is going or what he intends. He has no intention of influencing them in any particular direction. He is simply a man in a cell who has been talking to someone for a few minutes before silence becomes more comfortable.</span></div>
+    </div>
+  </div>
+
+  <div class="section-heading">Encounter Beats — Part Two</div>
+
+  <div class="dm-note"><strong>Purpose of this scene</strong>The party lands in the same cell as Marek. The conversation that follows does three things: gives Marek a voice that is consistent with who he is, plants Crossroads and Turian without engineering it, and positions the party for the morning scene with Caen Rhys. It should feel like a conversation rather than a briefing. Most of it can happen through player questions.</div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('g1')">
+      <span class="beat-number">01</span>
+      <span class="beat-title">Arrival in the cells</span>
+      <span class="beat-toggle" id="beat-toggle-g1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-g1">
+      <p>Tev brings them down. Marek is already there, sitting. He watches them arrive. When Tev has gone he acknowledges the situation in one sentence — the third time their paths have crossed in the same direction — then looks away. He is not avoiding conversation. He simply does not feel the need to manufacture it.</p>
+      <p>The party can initiate or not. The scene does not require them to talk to Marek. If they do not, they get the morning with Caen Rhys and leave. If they do, the scene opens up.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('g2')">
+      <span class="beat-number">02</span>
+      <span class="beat-title">The conversation — if the party engages</span>
+      <span class="beat-toggle" id="beat-toggle-g2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-g2">
+      <p>Marek answers questions. He is precise and brief. He does not volunteer more than he is asked. He does not perform warmth or patience — he simply talks to them the way he talks to anyone, which is directly and without particular investment in how it lands.</p>
+      <p>If the conversation reaches their week in Tallowhaven — what they did, who they helped, what they resolved — he listens and responds with something in the territory of the speech above. Not a lecture. Not a verdict. A comparison to something he has already seen, delivered with the mild frustration of someone who has watched this pattern enough times to find it predictable.</p>
+      <p>Crossroads and Turian arrive in that context — not as a destination, not as an invitation, just as the most recent example he can put a name to. He mentions it once. He moves on.</p>
+      <p>If the party asks about the broken wing gesture, the missing fingers, or his faith, he answers briefly and accurately. He is not evasive about any of it. He simply does not consider these things as interesting as the party might.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('g3')">
+      <span class="beat-number">03</span>
+      <span class="beat-title">The rest of the night</span>
+      <span class="beat-toggle" id="beat-toggle-g3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-g3">
+      <p>At some point the conversation ends or the party sleeps. Marek sits. He may sleep. He may not. When the party wakes, he is in the same position, looking at nothing in particular, waiting for whatever comes next without visible anxiety about it.</p>
+      <p>This is a quiet beat. Do not fill it. The party has had a long night. The cells are not comfortable but they are not dangerous. Let time pass.</p>
+    </div>
+  </div>
+
+  <hr class="part-divider">
+
+  <!-- PART THREE: CAEN RHYS BEFORE DAWN -->
+
+  <div class="section-heading">Part Three — The Magistrate, Before Dawn</div>
+
+  <div class="environment-block">
+    <p>Caen Rhys comes down before first light. He carries no light source — Tev is ahead of him with a lamp. He looks like a man who has not slept, which is accurate. He has been at his desk for most of the night and has made the decisions that needed making.</p>
+    <p>He looks at the party. He looks at Marek. He does what he came to do.</p>
+  </div>
+
+  <div class="section-heading">Encounter Beats — Part Three</div>
+
+  <div class="dm-note"><strong>Purpose of this scene</strong>Caen Rhys closes Act 1 and opens the road east. He is not apologising. He is not explaining himself at length. He is a practical man making a practical decision and being honest about what it costs the party and what it buys the city. The cart is the provision. Marek is the question.</div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('c1')">
+      <span class="beat-number">01</span>
+      <span class="beat-title">Caen Rhys states the situation</span>
+      <span class="beat-toggle" id="beat-toggle-c1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-c1">
+      <p>He does not build to it. He states it plainly, standing outside the cell, looking at them through the bars.</p>
+      <div class="speech"><span class="speech-attr">Caen Rhys</span>The trade deal is finished. Aldous Crane left before the square. The festival ends this morning and when it does, three factions with damaged pride and a dead agreement are going to need somewhere to put what happened. I need you not to be here when that starts.</div>
+      <p>A pause. He is not asking for a reaction.</p>
+      <div class="speech"><span class="speech-attr">Caen Rhys</span>This is not a punishment. You can call it one if that helps. There is a cart on the south road with four days of provisions. It will be there until sunrise. After that it won't be.</div>
+      <p>If pressed on why he is helping them, his answer is brief and honest:</p>
+      <div class="speech"><span class="speech-attr">Caen Rhys — if asked</span>Exile without a road is abandonment. I am not that kind of magistrate.</div>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('c2')">
+      <span class="beat-number">02</span>
+      <span class="beat-title">The Marek question</span>
+      <span class="beat-toggle" id="beat-toggle-c2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-c2">
+      <p>He turns and looks at Marek. Then he turns back to the party.</p>
+      <div class="speech"><span class="speech-attr">Caen Rhys</span>Is he with you?</div>
+      <p>He does not address Marek directly. He does not explain the question. He has nowhere to put Marek either, and the cart solves two problems at once if the answer is yes. He will not pretend otherwise if asked.</p>
+      <p>Marek, for his part, does not answer. He watches the party. His expression is the expression of someone waiting to hear how a thing they did not arrange has been arranged for them. He does not look grateful or insulted. He looks mildly interested.</p>
+      <p>The party answers yes or no. Either is valid. If yes, Marek is released with them and takes the cart east with whoever is in it. If no, Tev will deal with Marek separately — he will be released later in the morning and the road takes him where it takes him. The party may encounter him again or may not. Leave it open.</p>
+    </div>
+  </div>
+
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('c3')">
+      <span class="beat-number">03</span>
+      <span class="beat-title">Release and departure</span>
+      <span class="beat-toggle" id="beat-toggle-c3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-c3">
+      <p>Tev opens the cell. Caen Rhys steps back to let the party out. He does not offer a handshake or any particular farewell. He watches them go with the expression of a man who has done what he could with what he had.</p>
+      <p>If a player thanks him, he nods. If a player challenges him — on the fairness of the exile, on what happens to Tallowhaven, on whether the factions will be held accountable — he answers honestly and briefly. He does not pretend the situation is just. He does not pretend he had better options.</p>
+      <div class="speech"><span class="speech-attr">Caen Rhys — if challenged on the factions</span>They'll answer for what they did. In time, and in the way cities answer for things. Slowly, incompletely, and without the satisfaction of anyone who deserved better.</div>
+      <p>The party walks up through the Aldermen's Hall. The building is quiet at this hour. The noticeboard by the door still has its festival notices. Some of them are already out of date.</p>
+      <p>Outside: Tallowhaven before dawn. The south road. The cart where Caen Rhys said it would be.</p>
+      <p>Act 1 is over.</p>
+    </div>
+  </div>
+
+  <div class="section-heading">Outcomes</div>
+
+  <div class="outcome success">
+    <span class="outcome-label">Party takes the cart east — Marek with them</span>
+    <p>The most complete version. The party leaves with provisions, a road, and a travelling companion who has already told them about Crossroads and Turian without quite meaning to send them there. Act 2 begins with the party in motion and Marek's unresolved presence as a live wire.</p>
+  </div>
+
+  <div class="outcome neutral">
+    <span class="outcome-label">Party takes the cart east — Marek not with them</span>
+    <p>Clean departure. Crossroads is still in play if the party remembered Marek's mention of it. Turian is a name they heard once in a cell. They can follow it or not. Marek remains a loose thread in the world — somewhere on the road, ahead of them or behind.</p>
+  </div>
+
+  <div class="outcome neutral">
+    <span class="outcome-label">Party left the square without going through the cells</span>
+    <p>They have no cart, no provisions beyond what they carry, and have not heard Marek's account of Crossroads or Turian. The road east is still available. Crossroads can be introduced by other means in Act 2. The party simply arrives there without the context that the gaol scene would have given them.</p>
+  </div>
+
+  <div class="section-heading">DM Notes</div>
+
+  <div class="dm-note"><strong>The crowd as mechanism</strong>The crowd is not a threat. It is a moral weight. The party cannot attack thirty unarmed civilians and remain the protagonists of their own story. Most players will feel this without being told. The crowd does not advance, does not threaten, and does not speak as a unit. It simply exists in the square, frightened and watching.</div>
+
+  <div class="dm-note"><strong>Caen Rhys is not a villain</strong>He is a pragmatist doing the only available thing in an impossible political situation. The exile serves the city more than the party and he knows it. He does not pretend otherwise. He does not apologise. He is the kind of man who can say "this is not fair and it is necessary" without those two things being in contradiction, and who will look you in the eye while saying it.</div>
+
+  <div class="dm-note"><strong>Marek's un-self-awareness</strong>He does not know what he left behind in Crossroads. He remembers people who wanted to make a change. He sent the party toward the consequences of his own ideas without knowing those consequences exist. The dramatic irony is the engine — do not collapse it by having him hint at self-knowledge he does not have. He is certain about the world and uncertain about nothing except the purpose he can feel but cannot verify.</div>
+
+  <div class="dm-note"><strong>Turian and the Lamplighters</strong>A name and a group, mentioned once and not repeated. The party may ask, and Marek's answer is brief: people he met, people who believed in what they were doing, worth finding if the party ends up that way. He moves on. Plant it and leave it. Crossroads will deliver the full weight of it when the party arrives.</div>
+
+  <div class="dm-note"><strong>The cart</strong>It is there. Four days of provisions — road food, water, basic bedding. A working horse. No note, no explanation. Caen Rhys arranged it and has nothing more to say about it. The party can ask questions about it if they like. The cart does not answer questions.</div>
+
+  <div class="dm-note"><strong>Act 2 and the road east</strong>The cart points south out of Tallowhaven. The road east branches within a day's travel. Crossroads is east — several days at road speed. The journey is unscripted. Use it for the quiet moments that cannot be planned: watch rotation, camp conversations, the first signs that the landscape is changing. The world between Tallowhaven and Crossroads is where Act 2 begins before Act 2 officially starts.</div>
+
+  <footer>Abelon Campaign — Encounter Reference. The Arrest and The Gaol / Act 1 Close.</footer>
+</div>
+
+<script>
+  function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(id){const b=document.getElementById('beat-body-'+id),t=document.getElementById('beat-toggle-'+id);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
+  function expandBeats(){collapseAll();document.querySelectorAll('.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function expandNPCs(){collapseAll();document.querySelectorAll('.npc-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function loadPortrait(id,input){if(!input.files||!input.files[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(id+'-img'),ph=document.getElementById(id+'-placeholder');if(img){img.src=e.target.result;img.style.display='block';}if(ph)ph.style.display='none';};r.readAsDataURL(input.files[0]);}
+</script>
+</body>
+</html>

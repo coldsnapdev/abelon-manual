@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abelon — Map Coordinate Picker</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Cinzel', Georgia, serif;
+    background: #1a1410;
+    color: #d4b896;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
+
+  #toolbar {
+    background: #12100d;
+    border-bottom: 1px solid #4a3820;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+
+  #toolbar h1 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #c9a96e;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .toolbar-sep {
+    width: 1px;
+    height: 20px;
+    background: #4a3820;
+  }
+
+  #load-btn {
+    background: #2a1f12;
+    border: 1px solid #6b4f2a;
+    color: #c9a96e;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  #load-btn:hover { background: #3a2a18; }
+
+  #scale-input-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #8a7560;
+  }
+  #scale-input-group input {
+    width: 52px;
+    background: #2a1f12;
+    border: 1px solid #4a3820;
+    color: #c9a96e;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    padding: 4px 6px;
+    border-radius: 3px;
+    text-align: center;
+  }
+
+  #status {
+    font-size: 11px;
+    color: #6a8a5a;
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    margin-left: auto;
+  }
+
+  #export-btn {
+    background: #1a3020;
+    border: 1px solid #3a6040;
+    color: #8abf8a;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  #export-btn:hover { background: #243828; }
+
+  #clear-btn {
+    background: #2a1212;
+    border: 1px solid #5a2828;
+    color: #bf8a8a;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  #clear-btn:hover { background: #381818; }
+
+  #main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  #sidebar {
+    width: 220px;
+    min-width: 220px;
+    background: #12100d;
+    border-right: 1px solid #4a3820;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  #sidebar-header {
+    padding: 10px 12px 6px;
+    border-bottom: 1px solid #2a1f12;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #sidebar-header h2 {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: #8a7060;
+    text-transform: uppercase;
+  }
+
+  #add-place-row {
+    display: flex;
+    gap: 4px;
+  }
+
+  #new-place-input {
+    flex: 1;
+    background: #1a1410;
+    border: 1px solid #4a3820;
+    color: #d4b896;
+    font-family: 'Crimson Pro', serif;
+    font-size: 12px;
+    padding: 4px 7px;
+    border-radius: 3px;
+  }
+  #new-place-input::placeholder { color: #5a4a38; }
+
+  #add-place-btn {
+    background: #2a1f12;
+    border: 1px solid #6b4f2a;
+    color: #c9a96e;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  #add-place-btn:hover { background: #3a2a18; }
+
+  #place-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 6px 0;
+  }
+
+  #place-list::-webkit-scrollbar { width: 4px; }
+  #place-list::-webkit-scrollbar-track { background: #12100d; }
+  #place-list::-webkit-scrollbar-thumb { background: #4a3820; border-radius: 2px; }
+
+  .place-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: background 0.1s;
+    font-family: 'Crimson Pro', serif;
+    font-size: 13px;
+  }
+  .place-item:hover { background: #1e1810; }
+  .place-item.active {
+    background: #201a10;
+    border-left-color: #c9a96e;
+    color: #e8d0a8;
+  }
+  .place-item.recorded {
+    color: #6a8a5a;
+  }
+  .place-item.active.recorded {
+    color: #8abf8a;
+  }
+
+  .place-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1px solid #4a3820;
+    background: transparent;
+    flex-shrink: 0;
+  }
+  .place-item.recorded .place-dot {
+    background: #6a8a5a;
+    border-color: #6a8a5a;
+  }
+  .place-item.active .place-dot {
+    background: #c9a96e;
+    border-color: #c9a96e;
+  }
+
+  .place-name { flex: 1; }
+
+  .place-coords {
+    font-size: 10px;
+    color: #5a6a50;
+    font-family: monospace;
+    white-space: nowrap;
+  }
+
+  .delete-btn {
+    opacity: 0;
+    background: none;
+    border: none;
+    color: #8a4a4a;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 2px;
+    line-height: 1;
+    transition: opacity 0.1s;
+  }
+  .place-item:hover .delete-btn { opacity: 1; }
+
+  #map-container {
+    flex: 1;
+    overflow: auto;
+    background: #0d0b08;
+    position: relative;
+    cursor: crosshair;
+  }
+
+  #map-canvas {
+    display: block;
+    position: relative;
+  }
+
+  #map-canvas img {
+    display: block;
+    max-width: none;
+  }
+
+  #overlay {
+    position: absolute;
+    top: 0; left: 0;
+    pointer-events: none;
+  }
+
+  #drop-zone {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #4a3820;
+    pointer-events: none;
+  }
+  #drop-zone h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    color: #6a5030;
+  }
+  #drop-zone p {
+    font-family: 'Crimson Pro', serif;
+    font-size: 13px;
+    color: #3a2a18;
+  }
+
+  .marker {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #c9a96e;
+    border: 2px solid #fff8e8;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    box-shadow: 0 0 4px rgba(0,0,0,0.8);
+  }
+  .marker.active {
+    background: #ff6b35;
+    border-color: #fff;
+    width: 12px;
+    height: 12px;
+  }
+  .marker-label {
+    position: absolute;
+    font-family: 'Crimson Pro', serif;
+    font-size: 10px;
+    color: #e8d0a8;
+    background: rgba(18,10,4,0.75);
+    padding: 1px 4px;
+    border-radius: 2px;
+    white-space: nowrap;
+    transform: translate(-50%, -130%);
+    pointer-events: none;
+  }
+
+  #zoom-controls {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 10;
+  }
+  .zoom-btn {
+    width: 28px;
+    height: 28px;
+    background: #1a1410;
+    border: 1px solid #4a3820;
+    color: #c9a96e;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.1s;
+  }
+  .zoom-btn:hover { background: #2a1f12; }
+
+  #info-bar {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    font-family: monospace;
+    font-size: 10px;
+    color: #5a4a38;
+    background: rgba(18,10,4,0.7);
+    padding: 3px 8px;
+    border-radius: 3px;
+    pointer-events: none;
+  }
+
+  #progress-bar {
+    height: 2px;
+    background: #2a1f12;
+    position: relative;
+  }
+  #progress-fill {
+    height: 100%;
+    background: #6a8a5a;
+    transition: width 0.3s;
+  }
+
+  #sidebar-footer {
+    padding: 8px 12px;
+    border-top: 1px solid #2a1f12;
+    font-family: 'Crimson Pro', serif;
+    font-size: 11px;
+    color: #5a4a38;
+  }
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div></div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
+  var root = '';
+  for (var i=0;i<depth();i++) root += '../';
+  if (root === '') root = './';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var nav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
+      relTop.appendChild(nav);
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+
+<div id="toolbar">
+  <h1>⚔ ABELON — MAP COORDINATE PICKER</h1>
+  <div class="toolbar-sep"></div>
+  <button id="load-btn" onclick="document.getElementById('file-input').click()">Load Map Image</button>
+  <input type="file" id="file-input" accept="image/*" style="display:none">
+  <div class="toolbar-sep"></div>
+  <div id="scale-input-group">
+    <span>Grid px:</span>
+    <input type="number" id="grid-px" value="60" min="1">
+    <span>= Miles:</span>
+    <input type="number" id="grid-miles" value="25" min="1">
+  </div>
+  <div class="toolbar-sep"></div>
+  <span id="status">Load a map image to begin</span>
+  <button id="export-btn" onclick="exportData()">Export JSON</button>
+  <button id="clear-btn" onclick="clearAll()">Clear All Coords</button>
+</div>
+
+<div id="main">
+  <div id="sidebar">
+    <div id="sidebar-header">
+      <h2>Locations</h2>
+      <div id="add-place-row">
+        <input type="text" id="new-place-input" placeholder="Add new place..." onkeydown="if(event.key==='Enter')addPlace()">
+        <button id="add-place-btn" onclick="addPlace()">+</button>
+      </div>
+    </div>
+    <div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
+    <div id="place-list"></div>
+    <div id="sidebar-footer" id="sidebar-footer">
+      <span id="count-label">0 of 0 recorded</span>
+    </div>
+  </div>
+
+  <div id="map-container" onclick="handleMapClick(event)">
+    <div id="map-canvas">
+      <div id="drop-zone">
+        <h2>No map loaded</h2>
+        <p>Click "Load Map Image" above to begin</p>
+      </div>
+      <div id="overlay"></div>
+    </div>
+    <div id="zoom-controls">
+      <button class="zoom-btn" onclick="zoom(1.25)">+</button>
+      <button class="zoom-btn" onclick="zoom(0.8)">−</button>
+      <button class="zoom-btn" onclick="zoom('fit')" title="Fit to window">⊡</button>
+    </div>
+    <div id="info-bar">x: — y: —</div>
+  </div>
+</div>
+
+<script>
+const PLACES_DEFAULT = [
+  "Alderheart","Ashen Hollow","Blackfen Watch","Bracken Ridge","Brightwater",
+  "Brindle Hollow","Broken Choir","Coldtide Anchoridge","Coralrest","Crossroads",
+  "Dapplefen","Driftisle","Driftwood Point","Emberdeep","Farrowfield",
+  "Fenwatch","Frostfall Pass","Glassfall Crater","Goldreach Bay","Greenrest",
+  "Greywillow","Gullspire","Halren Ford","Hollowmere","Ironvein Hold",
+  "Karrick's Spine","Lantern Strand","Larkspur Vale","Marchwatch","Millrun",
+  "Mossfall","Northlight Beacon","Oldbarrow","Pearlstrand","Redfield",
+  "Riftspire","Saltmere Crossing","Seabreak Cliffs","Seaglass Cove","Skerry Reach",
+  "Stonewake Shrine","Stormhaven Isle","Sunmere Island","The Silent Mile",
+  "Thistlefort","Thornwatch","Tidebreak","Tallowhaven","Westmere Bridge",
+  "Whispergrove"
+];
+
+let places = {};
+let activePlace = null;
+let imgEl = null;
+let scale = 1;
+let naturalW = 0, naturalH = 0;
+
+PLACES_DEFAULT.forEach(name => {
+  places[name] = { x: null, y: null };
+});
+
+function renderList() {
+  const list = document.getElementById('place-list');
+  const sorted = Object.keys(places).sort();
+  const recorded = sorted.filter(n => places[n].x !== null).length;
+
+  list.innerHTML = sorted.map(name => {
+    const p = places[name];
+    const isRecorded = p.x !== null;
+    const isActive = name === activePlace;
+    const coordStr = isRecorded ? `${p.x},${p.y}` : '';
+    return `<div class="place-item${isActive?' active':''}${isRecorded?' recorded':''}" onclick="selectPlace('${name.replace(/'/g,"\\'")}')">
+      <div class="place-dot"></div>
+      <span class="place-name">${name}</span>
+      ${isRecorded ? `<span class="place-coords">${coordStr}</span>` : ''}
+      <button class="delete-btn" onclick="event.stopPropagation();deleteName('${name.replace(/'/g,"\\'")}')">×</button>
+    </div>`;
+  }).join('');
+
+  document.getElementById('count-label').textContent = `${recorded} of ${sorted.length} recorded`;
+  document.getElementById('progress-fill').style.width = sorted.length ? (recorded/sorted.length*100)+'%' : '0%';
+  renderMarkers();
+}
+
+function selectPlace(name) {
+  activePlace = name;
+  updateStatus();
+  renderList();
+}
+
+function addPlace() {
+  const input = document.getElementById('new-place-input');
+  const name = input.value.trim();
+  if (!name) return;
+  if (places[name] !== undefined) { input.value=''; return; }
+  places[name] = { x: null, y: null };
+  activePlace = name;
+  input.value = '';
+  renderList();
+  updateStatus();
+  const el = document.querySelector(`.place-item.active`);
+  if (el) el.scrollIntoView({ block: 'nearest' });
+}
+
+function deleteName(name) {
+  delete places[name];
+  if (activePlace === name) activePlace = null;
+  renderList();
+  updateStatus();
+}
+
+function handleMapClick(e) {
+  if (!imgEl || !activePlace) return;
+  const rect = imgEl.getBoundingClientRect();
+  const containerRect = document.getElementById('map-container').getBoundingClientRect();
+
+  const clickX = e.clientX - rect.left;
+  const clickY = e.clientY - rect.top;
+
+  if (clickX < 0 || clickY < 0 || clickX > rect.width || clickY > rect.height) return;
+
+  const px = Math.round(clickX / scale);
+  const py = Math.round(clickY / scale);
+
+  places[activePlace] = { x: px, y: py };
+
+  const sorted = Object.keys(places).sort();
+  const idx = sorted.indexOf(activePlace);
+  const next = sorted[idx + 1] || null;
+  activePlace = next;
+
+  renderList();
+  updateStatus();
+  if (next) {
+    const el = document.querySelector('.place-item.active');
+    if (el) el.scrollIntoView({ block: 'nearest' });
+  }
+}
+
+function renderMarkers() {
+  const overlay = document.getElementById('overlay');
+  if (!imgEl) { overlay.innerHTML = ''; return; }
+  const w = naturalW * scale;
+  const h = naturalH * scale;
+  overlay.style.width = w + 'px';
+  overlay.style.height = h + 'px';
+
+  overlay.innerHTML = Object.entries(places)
+    .filter(([n, p]) => p.x !== null)
+    .map(([n, p]) => {
+      const sx = p.x * scale;
+      const sy = p.y * scale;
+      const isActive = n === activePlace;
+      return `<div class="marker${isActive?' active':''}" style="left:${sx}px;top:${sy}px"></div>
+              <div class="marker-label" style="left:${sx}px;top:${sy}px">${n}</div>`;
+    }).join('');
+}
+
+function updateStatus() {
+  const s = document.getElementById('status');
+  if (!imgEl) { s.textContent = 'Load a map image to begin'; return; }
+  if (!activePlace) { s.textContent = 'All locations recorded — or select one to re-pick'; return; }
+  s.textContent = `Click map to place: ${activePlace}`;
+  s.style.color = '#c9a96e';
+}
+
+document.getElementById('map-container').addEventListener('mousemove', e => {
+  if (!imgEl) return;
+  const rect = imgEl.getBoundingClientRect();
+  const x = Math.round((e.clientX - rect.left) / scale);
+  const y = Math.round((e.clientY - rect.top) / scale);
+  document.getElementById('info-bar').textContent = `x: ${x}  y: ${y}`;
+});
+
+function zoom(factor) {
+  if (!imgEl) return;
+  if (factor === 'fit') {
+    const container = document.getElementById('map-container');
+    const scaleW = container.clientWidth / naturalW;
+    const scaleH = container.clientHeight / naturalH;
+    scale = Math.min(scaleW, scaleH, 1);
+  } else {
+    scale = Math.min(Math.max(scale * factor, 0.1), 4);
+  }
+  applyScale();
+}
+
+function applyScale() {
+  if (!imgEl) return;
+  imgEl.style.width = (naturalW * scale) + 'px';
+  imgEl.style.height = (naturalH * scale) + 'px';
+  renderMarkers();
+}
+
+document.getElementById('file-input').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+  const canvas = document.getElementById('map-canvas');
+  document.getElementById('drop-zone').style.display = 'none';
+
+  if (imgEl) imgEl.remove();
+  imgEl = document.createElement('img');
+  imgEl.src = url;
+  imgEl.style.display = 'block';
+  imgEl.onload = () => {
+    naturalW = imgEl.naturalWidth;
+    naturalH = imgEl.naturalHeight;
+    canvas.insertBefore(imgEl, document.getElementById('overlay'));
+    zoom('fit');
+    updateStatus();
+    renderList();
+    if (!activePlace) {
+      const first = Object.keys(places).sort()[0];
+      if (first) { activePlace = first; renderList(); updateStatus(); }
+    }
+  };
+});
+
+function exportData() {
+  const gridPx = parseFloat(document.getElementById('grid-px').value) || 60;
+  const gridMiles = parseFloat(document.getElementById('grid-miles').value) || 25;
+  const output = {
+    scale: { gridPx, gridMiles, note: `${gridPx}px = ${gridMiles} miles = 1 day walk = 12hr ride` },
+    locations: {}
+  };
+  Object.keys(places).sort().forEach(name => {
+    output.locations[name] = places[name];
+  });
+
+  const blob = new Blob([JSON.stringify(output, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'abelon_coordinates.json';
+  a.click();
+}
+
+function clearAll() {
+  if (!confirm('Clear all recorded coordinates? Place names will remain.')) return;
+  Object.keys(places).forEach(n => { places[n] = { x: null, y: null }; });
+  activePlace = Object.keys(places).sort()[0] || null;
+  renderList();
+  updateStatus();
+}
+
+renderList();
+updateStatus();
+</script>
+</body>
+</html>
