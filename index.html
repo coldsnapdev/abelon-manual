@@ -6,69 +6,84 @@
 <title>Abelon DM Site</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
-  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);}
-  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);}}
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--teal:#0F6E56;--teal-bg:rgba(15,110,86,0.08);}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--teal:#5DCAA5;--teal-bg:rgba(93,202,165,0.08);}}
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.6;padding:2rem 1.25rem 4rem;}
-  .page{max-width:840px;margin:0 auto;}
-  h1{font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--accent);letter-spacing:.04em;margin-bottom:6px;}
-  .subtitle{font-size:14px;font-style:italic;color:var(--ink-faded);margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule);}
-  h2{font-family:'Cinzel',serif;font-size:16px;font-weight:600;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin:2.2rem 0 .8rem;padding-bottom:6px;border-bottom:1px solid var(--rule-faint);}
-  ul{list-style:none;}
-  li{padding:7px 0;border-bottom:1px solid var(--rule-faint);font-size:15px;}
-  li:last-child{border-bottom:none;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.6;padding:1.5rem 1.25rem 4rem;}
+  .page{max-width:900px;margin:0 auto;}
+  h1{font-family:'Cinzel',serif;font-size:26px;font-weight:600;color:var(--accent);letter-spacing:.04em;margin-bottom:14px;}
+
+  .shortcuts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.5rem;}
+  a.pin{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;background:var(--parchment-mid);border:1px solid var(--rule);border-radius:4px;padding:6px 10px;}
+  a.pin:hover{color:var(--accent);border-color:var(--accent);}
+
+  .now-panel{background:var(--teal-bg);border:1px solid var(--teal);border-radius:8px;padding:16px 20px;margin-bottom:2rem;}
+  .now-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;}
+  .now-main{font-size:17px;margin-bottom:6px;}
+  .now-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faded);}
+  .now-status{font-size:14px;color:var(--ink-mid);font-style:italic;margin-bottom:8px;}
+  .now-motion summary{cursor:pointer;font-size:13px;color:var(--ink-faded);font-family:'Cinzel',serif;letter-spacing:.04em;text-transform:uppercase;}
+  .now-motion ul{list-style:none;margin-top:8px;}
+  .now-motion li{padding:4px 0;font-size:14px;border-bottom:1px solid var(--rule-faint);}
+  .now-motion li:last-child{border-bottom:none;}
+  .im-link{font-size:13px;}
+
+  h2{font-family:'Cinzel',serif;font-size:17px;font-weight:600;color:var(--accent);letter-spacing:.07em;text-transform:uppercase;margin:0 0 .9rem;padding-bottom:8px;border-bottom:1px solid var(--rule);}
+  section.major{margin-bottom:2.5rem;}
+  ol.sequence{list-style:none;counter-reset:none;}
+  ol.sequence li{padding:8px 0;border-bottom:1px solid var(--rule-faint);font-size:15px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  ol.sequence li:last-child{border-bottom:none;}
+  ol.sequence li.current{background:var(--teal-bg);margin:0 -10px;padding:8px 10px;border-radius:6px;border-bottom:none;}
+  .num{font-family:'Cinzel',serif;font-size:11px;color:var(--ink-faded);min-width:20px;}
+  .here{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);}
+  section.major ul{list-style:none;}
+  section.major li{padding:7px 0;border-bottom:1px solid var(--rule-faint);font-size:15px;}
+  section.major li:last-child{border-bottom:none;}
+  .subhead{font-size:12px;color:var(--ink-faded);text-transform:uppercase;letter-spacing:.08em;font-family:'Cinzel',serif;margin:14px 0 6px;}
+
   a{color:var(--ink-mid);text-decoration:none;border-bottom:1px dotted var(--rule);}
   a:hover{color:var(--accent);}
-  a.pair{font-size:13px;color:var(--ink-faded);}
+  .pair{font-size:13px;color:var(--ink-faded);}
   .note{font-size:12px;color:var(--ink-faded);font-style:italic;}
-  section{scroll-margin-top:70px;}
+
+  section.minor{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;padding-top:1.5rem;border-top:2px solid var(--rule-faint);opacity:.85;}
+  .minor-col h3{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faded);margin-bottom:6px;}
+  .minor-col ul{list-style:none;}
+  .minor-col li{padding:3px 0;font-size:13px;}
+  section:not(.minor){scroll-margin-top:20px;}
 </style>
 </head>
 <body>
 <div class="page">
   <h1>Abelon DM Site</h1>
-  <div class="subtitle">Encounters, combat guides, reference material, and tools for running Abelon: The Weight of the World. Unlisted &mdash; not indexed, no public links point here.</div>
+  <div class="shortcuts"><a class="pin" href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a> <a class="pin" href="CombatGuide_TheStarling.html">The Starling</a> <a class="pin" href="DMCheatSheet_2024Rules.html">DM Cheat Sheet — D&D 2024</a></div>
   
-    <section id="act1">
+    <section class="now-panel">
+      <h2 class="now-label">Where we are now</h2>
+      <div class="now-main">
+        <span class='now-tag'>Current scene</span> <a href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a>
+         &middot; <span class='now-tag'>Combat guide</span> <a href="CombatGuide_TheStarling.html">The Starling</a>
+      </div>
+      <p class="now-status">Danzel is about to join via Mira in Tallowhaven, and the Starling questline is beginning.</p>
+      <details class="now-motion">
+        <summary>In motion (4)</summary>
+        <ul><li>Oskar's Warehouse quest — accepted, not yet executed <span class="im-link">&mdash; <a href="Act1_Tallowhaven_HoneywellOffice_OskarIntroduction.html">Honeywell Office</a></span></li><li>Otho's Zarethi box and ring — party holds both; Otho missing with the Shrinekeepers' Diary</li><li>Seva Sable relationship — deeply distrustful, rocky but reparable <span class="im-link">&mdash; <a href="Act1_Tallowhaven_Street_SevaIntroduction.html">Private Table, The Amber Cup</a></span></li><li>Devrin/Tobin manhunt — open, unpursued</li></ul>
+      </details>
+    </section>
+  
+    <section id="act1" class="major">
       <h2>Act 1 Encounters</h2>
-      <ul>
-        <li><a href="Act1_BrindleHollow_Road_Ambush.html">Ambush on the Road</a> &middot; <a class="pair" href="CombatGuide_RoadAmbush.html">Combat guide: Road Ambush</a></li><li><a href="Act1_BrindleHollow_StarAndRaven_PartyMeeting.html">The Star and Raven</a></li><li><a href="Act1_BrindleHollow_StillwaterShrine_MarekArrest.html">The Stillwater Shrine</a></li><li><a href="Act1_Tallowhaven_AldermensHall_Arrival.html">The Aldermen's Hall</a></li><li><a href="Act1_Tallowhaven_AmberCup_Arrival.html">The Amber Cup</a></li><li><a href="Act1_Tallowhaven_HoneywellOffice_OskarIntroduction.html">Honeywell Office</a></li><li><a href="Act1_Tallowhaven_ShallowTuber_AlricIntroduction.html">The Shallow Tuber</a></li><li><a href="Act1_Tallowhaven_Street_SevaIntroduction.html">Private Table, The Amber Cup</a></li><li><a href="Act1_Tallowhaven_CopperVine_DebtCollection.html">The Copper Vine</a></li><li><a href="Act1_Tallowhaven_CrostHousehold_NecklaceRetrieval.html">The Crost Household</a></li><li><a href="Act1_Tallowhaven_Warehouses_WorkerEviction.html">The Basement Warehouse</a> &middot; <a class="pair" href="CombatGuide_BasementWarehouse.html">Combat guide: The Basement Warehouse</a></li><li><a href="Act1_Tallowhaven_CoopersSquare_BardicInterlude.html">Cooper's Square (Bardic Interlude)</a></li><li><a href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a> &middot; <a class="pair" href="CombatGuide_TheStarling.html">Combat guide: The Starling</a></li><li><a href="Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html">The Trumpet</a> &middot; <a class="pair" href="CombatGuide_TheTrumpet.html">Combat guide: The Trumpet</a></li><li><a href="Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html">The Driftwood Point Supply Problem</a> &middot; <a class="pair" href="CombatGuide_DriftwoodRoad.html">Combat guide: The Driftwood Road</a></li><li><a href="Act1_Tallowhaven_EveningInvitations_ThirdMissions.html">The Evening Invitations</a></li><li><a href="Act1_Tallowhaven_AssassinationPaths.html">The Assassination Paths</a> &middot; <a class="pair" href="CombatGuide_AssassinationPaths.html">Combat guide: Assassination Paths</a></li><li><a href="Act1_Tallowhaven_CoopersSquare_ArrestAndGaol.html">The Arrest and The Gaol</a></li><li><a href="Act1_Tallowhaven_FestivalMeeting_Finale.html">The Festival Meeting & Finale</a> &middot; <a class="pair" href="CombatGuide_FestivalFinale.html">Combat guide: The Festival Finale</a></li>
-      </ul>
+      <ol class="sequence"><li class=""><span class="num">01</span> <a href="Act1_BrindleHollow_Road_Ambush.html">Ambush on the Road</a> <span class="pair">&middot; <a href="CombatGuide_RoadAmbush.html">Road Ambush</a></span> </li><li class=""><span class="num">02</span> <a href="Act1_BrindleHollow_StarAndRaven_PartyMeeting.html">The Star and Raven</a> </li><li class=""><span class="num">03</span> <a href="Act1_BrindleHollow_StillwaterShrine_MarekArrest.html">The Stillwater Shrine</a> </li><li class=""><span class="num">04</span> <a href="Act1_Tallowhaven_AldermensHall_Arrival.html">The Aldermen's Hall</a> </li><li class=""><span class="num">05</span> <a href="Act1_Tallowhaven_AmberCup_Arrival.html">The Amber Cup</a> </li><li class=""><span class="num">06</span> <a href="Act1_Tallowhaven_HoneywellOffice_OskarIntroduction.html">Honeywell Office</a> </li><li class=""><span class="num">07</span> <a href="Act1_Tallowhaven_ShallowTuber_AlricIntroduction.html">The Shallow Tuber</a> </li><li class=""><span class="num">08</span> <a href="Act1_Tallowhaven_Street_SevaIntroduction.html">Private Table, The Amber Cup</a> </li><li class=""><span class="num">09</span> <a href="Act1_Tallowhaven_CopperVine_DebtCollection.html">The Copper Vine</a> </li><li class=""><span class="num">10</span> <a href="Act1_Tallowhaven_CrostHousehold_NecklaceRetrieval.html">The Crost Household</a> </li><li class=""><span class="num">11</span> <a href="Act1_Tallowhaven_Warehouses_WorkerEviction.html">The Basement Warehouse</a> <span class="pair">&middot; <a href="CombatGuide_BasementWarehouse.html">The Basement Warehouse</a></span> </li><li class=""><span class="num">12</span> <a href="Act1_Tallowhaven_CoopersSquare_BardicInterlude.html">Cooper's Square (Bardic Interlude)</a> </li><li class="current"><span class="num">13</span> <a href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a> <span class="pair">&middot; <a href="CombatGuide_TheStarling.html">The Starling</a></span> <span class="here">&#9679; you are here</span></li><li class=""><span class="num">14</span> <a href="Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html">The Trumpet</a> <span class="pair">&middot; <a href="CombatGuide_TheTrumpet.html">The Trumpet</a></span> </li><li class=""><span class="num">15</span> <a href="Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html">The Driftwood Point Supply Problem</a> <span class="pair">&middot; <a href="CombatGuide_DriftwoodRoad.html">The Driftwood Road</a></span> </li><li class=""><span class="num">16</span> <a href="Act1_Tallowhaven_EveningInvitations_ThirdMissions.html">The Evening Invitations</a> </li><li class=""><span class="num">17</span> <a href="Act1_Tallowhaven_AssassinationPaths.html">The Assassination Paths</a> <span class="pair">&middot; <a href="CombatGuide_AssassinationPaths.html">Assassination Paths</a></span> </li><li class=""><span class="num">18</span> <a href="Act1_Tallowhaven_CoopersSquare_ArrestAndGaol.html">The Arrest and The Gaol</a> </li><li class=""><span class="num">19</span> <a href="Act1_Tallowhaven_FestivalMeeting_Finale.html">The Festival Meeting & Finale</a> <span class="pair">&middot; <a href="CombatGuide_FestivalFinale.html">The Festival Finale</a></span> </li></ol>
     </section>
-
-    <section id="combat">
+  
+    <section id="combat" class="major">
       <h2>Combat Guides</h2>
-      <ul>
-        <li><a href="CombatGuide_RoadAmbush.html">Road Ambush</a> &middot; <a class="pair" href="Act1_BrindleHollow_Road_Ambush.html">Encounter: Ambush on the Road</a></li><li><a href="CombatGuide_BasementWarehouse.html">The Basement Warehouse</a> &middot; <a class="pair" href="Act1_Tallowhaven_Warehouses_WorkerEviction.html">Encounter: The Basement Warehouse</a></li><li><a href="CombatGuide_TheStarling.html">The Starling</a> &middot; <a class="pair" href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">Encounter: The Starling</a></li><li><a href="CombatGuide_TheTrumpet.html">The Trumpet</a> &middot; <a class="pair" href="Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html">Encounter: The Trumpet</a></li><li><a href="CombatGuide_DriftwoodRoad.html">The Driftwood Road</a> &middot; <a class="pair" href="Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html">Encounter: The Driftwood Point Supply Problem</a></li><li><a href="CombatGuide_AssassinationPaths.html">Assassination Paths</a> &middot; <a class="pair" href="Act1_Tallowhaven_AssassinationPaths.html">Encounter: The Assassination Paths</a></li><li><a href="CombatGuide_FestivalFinale.html">The Festival Finale</a> &middot; <a class="pair" href="Act1_Tallowhaven_FestivalMeeting_Finale.html">Encounter: The Festival Meeting & Finale</a></li><li><a href="CombatGuide_NorthernAmbush.html">Northern Ambush (session log)</a> <span class="note">(Played, not part of the original plan)</span></li><li><a href="CombatGuide_WolfAmbush.html">Wolf Ambush (session log)</a> <span class="note">(Played, not part of the original plan)</span></li>
-      </ul>
+      <ul><li><a href="CombatGuide_RoadAmbush.html">Road Ambush</a> <span class="pair">&middot; <a href="Act1_BrindleHollow_Road_Ambush.html">Ambush on the Road</a></span></li><li><a href="CombatGuide_BasementWarehouse.html">The Basement Warehouse</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_Warehouses_WorkerEviction.html">The Basement Warehouse</a></span></li><li><a href="CombatGuide_TheStarling.html">The Starling</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a></span></li><li><a href="CombatGuide_TheTrumpet.html">The Trumpet</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html">The Trumpet</a></span></li><li><a href="CombatGuide_DriftwoodRoad.html">The Driftwood Road</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html">The Driftwood Point Supply Problem</a></span></li><li><a href="CombatGuide_AssassinationPaths.html">Assassination Paths</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_AssassinationPaths.html">The Assassination Paths</a></span></li><li><a href="CombatGuide_FestivalFinale.html">The Festival Finale</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_FestivalMeeting_Finale.html">The Festival Meeting & Finale</a></span></li></ul>
+      <p class='subhead'>Played, off the original plan</p><ul><li><a href="CombatGuide_NorthernAmbush.html">Northern Ambush (session log)</a> <span class="note">(Played, not part of the original plan)</span></li><li><a href="CombatGuide_WolfAmbush.html">Wolf Ambush (session log)</a> <span class="note">(Played, not part of the original plan)</span></li></ul>
     </section>
-
-    <section id="reference">
-      <h2>Reference</h2>
-      <ul>
-        <li><a href="Abelon_MasterReference_Economy.html">Economy — Master Reference</a></li><li><a href="Abelon_RandomEncounters.html">Random Encounters</a></li><li><a href="PlayerHandout_Gods.html">The Gods of Abelon (player handout)</a></li><li><a href="DMCheatSheet_2024Rules.html">DM Cheat Sheet — D&D 2024</a></li>
-      </ul>
-    </section>
-
-    <section id="tools">
-      <h2>Tools</h2>
-      <ul>
-        <li><a href="wayfinder.html">The Wayfinder</a></li><li><a href="region_editor.html">Terrain Region Editor</a></li><li><a href="map_coordinate_picker.html">Map Coordinate Picker</a></li><li><a href="abelon-dicecloud-setup.html">DiceCloud Setup Guide</a></li>
-      </ul>
-    </section>
-
-    <section id="sessionzero">
-      <h2>Session Zero</h2>
-      <ul>
-        <li><a href="SessionZero_TheTable.html">The Table</a></li>
-      </ul>
-    </section>
-
-    <section id="sessionlog">
-      <h2>Session Log</h2>
-      <ul>
-        <li><a href="Vaelseer_Encounter.html">Vaelseer NPC Reference</a></li><li><a href="Session 1/Intro dialogue.txt">Session 1 — Intro Dialogue</a></li>
-      </ul>
+  
+    <section class="minor">
+      <div class="minor-col"><h3>Reference</h3><ul><li><a href="Abelon_MasterReference_Economy.html">Economy — Master Reference</a></li><li><a href="Abelon_RandomEncounters.html">Random Encounters</a></li><li><a href="PlayerHandout_Gods.html">The Gods of Abelon (player handout)</a></li><li><a href="DMCheatSheet_2024Rules.html">DM Cheat Sheet — D&D 2024</a></li></ul></div><div class="minor-col"><h3>Tools</h3><ul><li><a href="wayfinder.html">The Wayfinder</a></li><li><a href="region_editor.html">Terrain Region Editor</a></li><li><a href="map_coordinate_picker.html">Map Coordinate Picker</a></li><li><a href="abelon-dicecloud-setup.html">DiceCloud Setup Guide</a></li></ul></div><div class="minor-col"><h3>Session Zero</h3><ul><li><a href="SessionZero_TheTable.html">The Table</a></li></ul></div><div class="minor-col"><h3>Session Log</h3><ul><li><a href="Vaelseer_Encounter.html">Vaelseer NPC Reference</a></li><li><a href="Session 1/Intro dialogue.txt">Session 1 — Intro Dialogue</a></li></ul></div>
     </section>
 </div>
 </body>
