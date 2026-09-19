@@ -6,131 +6,115 @@
 <title>Encounter — The Evening Invitations</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
-  :root{
-    --parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;
-    --ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;
-    --accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);
-    --blue:#185FA5;--blue-bg:rgba(24,95,165,0.06);--blue-border:#185FA5;
-    --teal:#0F6E56;--teal-bg:rgba(15,110,86,0.06);--teal-border:#0F6E56;
-    --pink:#993556;--pink-bg:rgba(153,53,86,0.06);--pink-border:#993556;
-    --gold:#854F0B;--gold-bg:rgba(133,79,11,0.08);--gold-border:#854F0B;
-    --red:#993C1D;--red-bg:rgba(153,60,29,0.08);--red-border:#993C1D;
-    --decision-bg:rgba(133,79,11,0.1);--decision-border:#854F0B;
-  }
-  @media(prefers-color-scheme:dark){:root{
-    --parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;
-    --ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;
-    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);
-    --blue:#85B7EB;--blue-bg:rgba(133,183,235,0.06);--blue-border:#85B7EB;
-    --teal:#5DCAA5;--teal-bg:rgba(93,202,165,0.06);--teal-border:#5DCAA5;
-    --pink:#ED93B1;--pink-bg:rgba(237,147,177,0.06);--pink-border:#ED93B1;
-    --gold:#EF9F27;--gold-bg:rgba(239,159,39,0.08);--gold-border:#EF9F27;
-    --red:#F0997B;--red-bg:rgba(240,153,123,0.08);--red-border:#F0997B;
-    --decision-bg:rgba(239,159,39,0.1);--decision-border:#EF9F27;
-  }}
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(15,110,86,0.05);--beat-border:#0F6E56;--glance-bg:rgba(107,58,42,0.06);--glance-border:#6b3a2a;--npc-bg:rgba(15,110,86,0.05);--npc-border:#0F6E56;--loc-bg:rgba(74,56,40,0.04);--warn-bg:rgba(133,79,11,0.08);--warn-border:#854F0B;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(93,202,165,0.06);--beat-border:#5DCAA5;--glance-bg:rgba(196,168,130,0.06);--glance-border:#c4a882;--npc-bg:rgba(93,202,165,0.06);--npc-border:#5DCAA5;--loc-bg:rgba(196,168,130,0.04);--warn-bg:rgba(239,159,39,0.07);--warn-border:#EF9F27;}}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
-  .page{max-width:900px;margin:0 auto;padding:2.5rem 2rem 4rem;}
-  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:1.5rem;}
   .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
-  .encounter-title{font-family:'Cinzel',serif;font-size:32px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:30px;font-weight:600;color:var(--accent);letter-spacing:.03em;line-height:1.15;margin-bottom:6px;}
   .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
   .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
   .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
-  .meta-tag.decision{border-color:var(--gold);color:var(--gold);}
+  .description{font-size:15px;font-style:italic;color:var(--ink-mid);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule-faint);}
+  .glance{background:var(--glance-bg);border:1px solid var(--glance-border);border-radius:6px;padding:14px 18px;margin-bottom:1.5rem;}
+  .glance-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;}
+  .glance-part{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);margin:12px 0 6px;}
+  .glance-part:first-of-type{margin-top:0;}
+  .glance-item{margin-bottom:8px;font-size:14.5px;}
+  .glance-item:last-child{margin-bottom:0;}
+  .glance-item strong{font-family:'Cinzel',serif;font-weight:600;font-size:12.5px;letter-spacing:.02em;color:var(--ink);}
   .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
-
-  /* Faction panels */
-  .faction-panel{border-radius:8px;overflow:hidden;margin-bottom:2rem;}
-  .faction-panel.blue{border:.5px solid var(--blue-border);}
-  .faction-panel.teal{border:.5px solid var(--teal-border);}
-  .faction-panel.pink{border:.5px solid var(--pink-border);}
-  .faction-header{display:flex;align-items:center;gap:16px;padding:16px 20px;cursor:pointer;user-select:none;}
-  .faction-header.blue{background:var(--blue-bg);}
-  .faction-header.teal{background:var(--teal-bg);}
-  .faction-header.pink{background:var(--pink-bg);}
-  .faction-header:hover{opacity:.85;}
-  .faction-name{font-family:'Cinzel',serif;font-size:16px;font-weight:600;flex:1;}
-  .faction-name.blue{color:var(--blue);}
-  .faction-name.teal{color:var(--teal);}
-  .faction-name.pink{color:var(--pink);}
-  .faction-sub{font-size:13px;font-style:italic;color:var(--ink-faded);}
-  .faction-toggle{font-size:18px;color:var(--ink-faded);transition:transform .2s;}
-  .faction-toggle.open{transform:rotate(180deg);}
-  .faction-body{display:none;padding:16px 20px 20px;}
-  .faction-body.open{display:block;}
-
-  /* Sub sections within faction */
-  .sub-heading{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin:16px 0 8px;padding-bottom:4px;border-bottom:.5px solid var(--rule-faint);}
-  .block{padding:12px 16px;border-radius:5px;margin-bottom:10px;font-size:15px;color:var(--ink-mid);}
-  .block p{margin-bottom:6px;}.block p:last-child{margin-bottom:0;}
-  .block.blue{background:var(--blue-bg);border-left:3px solid var(--blue-border);}
-  .block.teal{background:var(--teal-bg);border-left:3px solid var(--teal-border);}
-  .block.pink{background:var(--pink-bg);border-left:3px solid var(--pink-border);}
-  .block.gold{background:var(--gold-bg);border-left:3px solid var(--gold-border);}
-  .block.red{background:var(--red-bg);border-left:3px solid var(--red-border);}
-  .block.neutral{background:var(--parchment-mid);border-left:3px solid var(--rule);}
-
-  /* Speech */
-  .speech{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
-  .speech-attr{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:4px;font-style:normal;}
-
-  /* Option paths */
-  .option{border-radius:6px;overflow:hidden;margin-bottom:10px;}
-  .option-header{display:flex;align-items:center;gap:12px;padding:10px 14px;cursor:pointer;user-select:none;}
-  .option-header.mission{background:var(--red-bg);border:.5px solid var(--red-border);}
-  .option-header.double{background:var(--gold-bg);border:.5px solid var(--gold-border);}
-  .option-header.confess{background:var(--parchment-mid);border:.5px solid var(--rule);}
-  .option-header:hover{opacity:.8;}
-  .option-label{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;flex:1;}
-  .option-label.mission{color:var(--red);}
-  .option-label.double{color:var(--gold);}
-  .option-label.confess{color:var(--ink-faded);}
-  .option-toggle{font-size:14px;color:var(--ink-faded);transition:transform .2s;}
-  .option-toggle.open{transform:rotate(180deg);}
-  .option-body{display:none;padding:12px 14px;border:.5px solid var(--rule-faint);border-top:none;border-radius:0 0 6px 6px;font-size:15px;color:var(--ink-mid);}
-  .option-body.open{display:block;}
-  .option-body p{margin-bottom:8px;}.option-body p:last-child{margin-bottom:0;}
-
-  /* Defence block */
-  .defence{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-top:12px;}
-  .defence-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px;}
-
-  /* Decision box */
-  .decision-box{background:var(--decision-bg);border:.5px solid var(--decision-border);border-radius:6px;padding:16px 20px;margin:1.5rem 0;text-align:center;}
-  .decision-title{font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;}
-
-  /* DM notes */
+  .location{background:var(--loc-bg);border-left:3px solid var(--rule);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .location-name{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mid);display:block;margin-bottom:6px;}
+  .location p{font-size:14.5px;color:var(--ink-mid);font-style:italic;}
+  .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:2px 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-field{margin:10px 0;}
+  .npc-field-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:3px;}
+  .npc-field p{font-size:14.5px;color:var(--ink-mid);}
+  .npc-field.combat{background:var(--warn-bg);border-left:2px solid var(--warn-border);padding:8px 10px;border-radius:0 4px 4px 0;}
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header:hover{opacity:.8;}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+  .beat-body .outcome{margin-bottom:10px;}
+  .beat-body .outcome strong{font-family:'Cinzel',serif;font-size:12px;color:var(--ink);display:block;margin-bottom:2px;}
   .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
   .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
-
   .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
   .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
-  .ctrl-btn:hover{background:var(--parchment-mid);color:var(--ink);}
-
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
   footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
 </style>
 </head>
 <body>
 <!-- ABELON-NAV-START -->
 <style>
-  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
-  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);--n-teal:#0F6E56;--n-teal-bg:rgba(15,110,86,0.08);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);--n-teal:#5DCAA5;--n-teal-bg:rgba(93,202,165,0.08);}}
   #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
   #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
   #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
   #abelon-nav-root a:hover{color:var(--n-accent);}
   #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
   #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
-  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
   #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
   #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
   #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+  #an-pay-btn{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);border-radius:3px;padding:3px 8px;font:inherit;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+  #an-pay-btn:hover{border-color:var(--n-accent);color:var(--n-accent);}
+  #an-pay-btn.has-data{border-color:var(--n-teal);color:var(--n-teal);}
+  #an-pay-summary{font-family:'Crimson Pro',Georgia,serif;font-size:12px;text-transform:none;letter-spacing:0;color:var(--n-ink-faded);}
+  #an-pay-panel{display:none;max-width:900px;margin:10px auto 0;background:var(--n-teal-bg);border:1px solid var(--n-teal);border-radius:6px;padding:14px 16px;font-family:'Crimson Pro',Georgia,serif;}
+  #an-pay-panel.open{display:block;}
+  #an-pay-panel .an-pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:10px;}
+  #an-pay-panel label{display:block;font-family:'Cinzel',Georgia,serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--n-ink-faded);margin-bottom:3px;}
+  #an-pay-panel input[type=text],#an-pay-panel textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:13px;background:var(--n-parch);color:var(--n-ink);border:1px solid var(--n-rule);border-radius:4px;padding:6px 8px;}
+  #an-pay-panel textarea{min-height:44px;resize:vertical;}
+  #an-pay-actions{display:flex;gap:8px;}
+  #an-pay-actions button{font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:4px;cursor:pointer;}
+  #an-pay-save{background:var(--n-teal);border:1px solid var(--n-teal);color:var(--n-parch);}
+  #an-pay-clear{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-cancel{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-note{font-size:10px;color:var(--n-ink-faded);font-style:italic;margin-top:8px;}
 </style>
 <div id="abelon-nav-root"><div class="an-row">
   <div class="an-crumb" id="abelon-nav-crumb"></div>
   <div class="an-related" id="abelon-nav-related-top"></div>
-</div></div>
+</div>
+<div id="an-pay-panel">
+  <div class="an-pay-grid">
+    <div><label>Agreed total</label><input type="text" id="an-pay-total" placeholder="e.g. 60gp"></div>
+    <div><label>Paid so far</label><input type="text" id="an-pay-paid" placeholder="e.g. 30gp"></div>
+    <div><label>Not yet paid</label><input type="text" id="an-pay-owed" placeholder="e.g. 30gp on completion"></div>
+  </div>
+  <label>Notes</label>
+  <textarea id="an-pay-notes" placeholder="Terms, conditions, who's paying..."></textarea>
+  <div id="an-pay-actions" style="margin-top:10px;">
+    <button type="button" id="an-pay-save">Save</button>
+    <button type="button" id="an-pay-clear">Clear</button>
+    <button type="button" id="an-pay-cancel">Cancel</button>
+  </div>
+  <div id="an-pay-note">Saved to this browser only (localStorage) — won't sync to your phone or another computer.</div>
+</div>
+</div>
 <div id="abelon-nav-related-footer"></div>
 <script>
 (function(){
@@ -140,14 +124,15 @@
   if (root === '') root = './';
   fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
     var file = decodeURIComponent(location.pathname.split('/').pop());
-    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c;});
     var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
     var crumb = document.getElementById('abelon-nav-crumb');
     var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
     crumb.appendChild(home);
     if (page) {
       var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
-      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var catObj = cats[page.category] || {};
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = catObj.label || page.category; crumb.appendChild(catLink);
       var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
       var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
     }
@@ -167,15 +152,67 @@
     if (page && page.category === 'act1') {
       var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
       var idx = siblings.findIndex(function(p){return p.id===page.id;});
-      var nav = document.createElement('span');
-      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
-      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
-      relTop.appendChild(nav);
+      var pnav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; pnav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){pnav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; pnav.appendChild(next); }
+      relTop.appendChild(pnav);
+    }
+
+    // --- Payment widget: only on categories flagged paymentTracking in the manifest ---
+    var catObj2 = cats[page && page.category] || {};
+    if (page && catObj2.paymentTracking) {
+      var LS_KEY = 'abelonPayment:' + page.id;
+      function getPayment(){ try { var raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch(e){} return null; }
+      function setPayment(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
+      function clearPayment(){ localStorage.removeItem(LS_KEY); }
+
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.id = 'an-pay-btn';
+      var summary = document.createElement('span'); summary.id = 'an-pay-summary';
+      relTop.appendChild(btn); relTop.appendChild(summary);
+
+      var panel = document.getElementById('an-pay-panel');
+      var fTotal = document.getElementById('an-pay-total');
+      var fPaid = document.getElementById('an-pay-paid');
+      var fOwed = document.getElementById('an-pay-owed');
+      var fNotes = document.getElementById('an-pay-notes');
+
+      function refreshButton(){
+        var p = getPayment();
+        if (p && (p.total || p.paid || p.owed || p.notes)) {
+          btn.textContent = '\uD83D\uDCB0 Payment \u2713';
+          btn.classList.add('has-data');
+          var bits = [];
+          if (p.total) bits.push(p.total + ' agreed');
+          if (p.paid) bits.push(p.paid + ' paid');
+          summary.textContent = bits.join(' \u00b7 ');
+        } else {
+          btn.textContent = '\uD83D\uDCB0 Payment';
+          btn.classList.remove('has-data');
+          summary.textContent = '';
+        }
+      }
+      function openPanel(){
+        var p = getPayment() || {};
+        fTotal.value = p.total || ''; fPaid.value = p.paid || ''; fOwed.value = p.owed || ''; fNotes.value = p.notes || '';
+        panel.classList.add('open');
+      }
+      btn.addEventListener('click', openPanel);
+      document.getElementById('an-pay-cancel').addEventListener('click', function(){ panel.classList.remove('open'); });
+      document.getElementById('an-pay-clear').addEventListener('click', function(){ clearPayment(); panel.classList.remove('open'); refreshButton(); });
+      document.getElementById('an-pay-save').addEventListener('click', function(){
+        setPayment({ total: fTotal.value.trim(), paid: fPaid.value.trim(), owed: fOwed.value.trim(), notes: fNotes.value.trim(),
+                     pageId: page.id, pageTitle: page.title, pageFile: page.file });
+        panel.classList.remove('open');
+        refreshButton();
+      });
+      refreshButton();
     }
   }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
 })();
 </script>
 <!-- ABELON-NAV-END -->
+
 
 <div class="page">
 
@@ -183,323 +220,86 @@
     <span class="encounter-type">Encounter Reference — Act 1 / Tallowhaven / Third Missions</span>
     <div class="encounter-title">The Evening Invitations</div>
     <div class="encounter-subtitle">Seven o'clock. Three locations. The party can only go to one.</div>
-    <div class="encounter-meta">
-      <span class="meta-tag decision">Choice point</span>
-      <span class="meta-tag">No combat</span>
-      <span class="meta-tag">Moral weight: extreme</span>
-      <span class="meta-tag">Seeds the finale</span>
-    </div>
+    <div class="encounter-meta"><span class="meta-tag">Choice point</span><span class="meta-tag">No combat</span><span class="meta-tag">Moral weight: extreme</span><span class="meta-tag">Seeds the finale</span></div>
   </div>
+
+  <p class="description">All three faction leaders invite the party to meet at seven o'clock, the same evening, in three different places -- and each one wants a rival removed before tomorrow's signing. Whichever meeting the party attends, they'll recognise the justification: every grievance traces back to one of the party's own second missions. They choose to take the job, warn the target, or confess their part in causing the problem -- and whatever they choose reshapes how the signing collapses the next day.</p>
+
+  <div class="glance"><span class="glance-label">At a glance</span><div class="glance-item"><strong>The setup:</strong> three invitations arrive within the same hour -- Alric by note, Oskar in person, Seva via Mira. The party can attend only one; the full ask only comes once they're in the room.</div><div class="glance-item"><strong>The pattern:</strong> every justification traces back to a mission the party already ran: The Starling caused Alric's grievance, the Driftwood Road caused Oskar's, The Trumpet caused Seva's. Don't point this out -- let them work it out.</div><div class="glance-item"><strong>The ask, always ambiguous:</strong> none of the three ever say “kill.” Removed, gone, not at that table. The party decides what that means and lives with it.</div><div class="glance-item"><strong>Three choices per meeting:</strong> take the mission, warn the target, or confess the party's own role in creating the grievance -- each changes the shape of tomorrow.</div></div>
 
   <div class="controls">
     <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
     <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
   </div>
 
-  <div class="decision-box">
-    <span class="decision-title">⬡ The choice point</span>
-    <p style="font-size:15px;color:var(--ink-mid);">Each faction delivers an invitation on the same afternoon. Same time. Different locations. The party chooses where to go — and by choosing, commits. The full briefing only happens after they arrive. They will not know what they are being asked to do until they are already in the room.</p>
+  <div class="section-heading">Location Descriptions</div>
+  <div class="location"><span class="location-name">The Shallow Tuber (Alric)</span><p>A private room, his territory and terms. Food on the table, untouched. Composed, well dressed, no pleasantries before he begins.</p></div><div class="location"><span class="location-name">The Honeywell Office (Oskar)</span><p>After hours, the forge below banked but still warm. He doesn't offer a seat and gets straight to it.</p></div><div class="location"><span class="location-name">Private room, the Amber Cup (Seva)</span><p>Mira outside the door. Seva already seated, unhurried -- she's been thinking about this conversation for some time.</p></div>
+
+  <div class="section-heading">NPCs</div>
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('alric-ei')">
+      <div class="npc-info">
+        <span class="npc-name">Alric Venn</span>
+        <span class="npc-role">Wants Seva Sable removed before the signing</span>
+      </div>
+      <span class="npc-toggle" id="alric-ei-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="alric-ei-body"><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Tallowhaven has to decide what kind of city it wants to be -- and Seva's network is the fragmentation holding it back from unifying under legitimate commerce.</p></div><div class="npc-field"><span class="npc-field-label">What he knows</span><p>Describes the Courtesans' interference with the Driftwood delegation -- Emlyn Hale barely holding together, the delegation rattled -- as proof Seva has to go before the signing. He doesn't know this was the party's own work on The Starling.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Measured, but the feeling underneath is genuine. Line: “The Courtesans have had their time. Tallowhaven needs to decide what kind of city it wants to be. I have made my decision. I need to know if you have made yours.” If confronted about the Driftwood Road being his own doing, absorbs it and recalibrates rather than withdrawing.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('oskar-ei')">
+      <div class="npc-info">
+        <span class="npc-name">Oskar Sternov</span>
+        <span class="npc-role">Wants Alric Venn removed before the signing</span>
+      </div>
+      <span class="npc-toggle" id="oskar-ei-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="oskar-ei-body"><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Stop Alric's Driftwood deal from hollowing out everything the Trademasters have spent a generation building -- guild certification, prices, standards, all of it.</p></div><div class="npc-field"><span class="npc-field-label">What he knows</span><p>Describes the Driftwood Road toll operation, without calling it that, as the only thing that had been protecting Tallowhaven craftspeople -- and states, flatly, that Alric knew what it meant and sent the party to dismantle it anyway.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Not visibly angry -- stating facts. Line: “I am not asking you to enjoy this. I am asking you to understand what is at stake. The road was protecting people. Alric knew that. So did you.” If confessed to, already knows -- has known since shortly after it happened, and was waiting to see if they'd tell him.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('seva-ei')">
+      <div class="npc-info">
+        <span class="npc-name">Seva Sable</span>
+        <span class="npc-role">Wants Oskar Sternov removed before the signing</span>
+      </div>
+      <span class="npc-toggle" id="seva-ei-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="seva-ei-body"><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Stop Oskar from using violence to protect a guild certification system that exists to exclude competition and justify prices ordinary people can't afford.</p></div><div class="npc-field"><span class="npc-field-label">What she knows</span><p>Describes what happened to Calla and Perran Carew -- intimidation, silencing, a fight -- as proof of what Oskar will do to protect the system, without knowing this was the party's own work on The Trumpet.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Precise, not emotional -- watches the party's faces as she says it plainly. Line: “I am not asking you to enjoy this either. But I am asking you to consider what it means that he sent people to hurt a journalist and a boy. And then ask yourself what he will do next if nobody stops him.” If confessed to: “So you were the ones,” filed without visible anger.</p></div></div>
   </div>
 
-  <div class="section-heading">How the invitations arrive</div>
-  <div class="block neutral">
-    <p><strong style="font-family:'Cinzel',serif;font-size:13px;">Alric</strong> — Huw delivers a folded note to wherever the party is staying. Formal, brief. Alric has reserved a private room at the Shallow Tuber this evening and expects them at seven. No further explanation.</p>
-    <p><strong style="font-family:'Cinzel',serif;font-size:13px;">Oskar</strong> — Oskar finds them himself, as he always does. Direct, no ceremony. He needs an hour of their time this evening at the Honeywell office. Seven o'clock. He does not wait for a response.</p>
-    <p><strong style="font-family:'Cinzel',serif;font-size:13px;">Seva</strong> — Mira finds them. Warm, unhurried, as if it is a social call. Seva would like to see them this evening at a private room above the Amber Cup. Seven o'clock. Mira smiles and does not elaborate.</p>
-  </div>
-
-  <div class="dm-note"><strong>Timing</strong>The three invitations arrive within the same hour. The party has time to discuss before seven but not time to attend more than one meeting. If they attempt to split the party, each faction leader notices immediately that not everyone is present and will not give the full briefing until the whole group is there.</div>
-
-  <!-- ALRIC -->
-  <div class="faction-panel blue">
-    <div class="faction-header blue" onclick="toggleFaction('alric')">
-      <div>
-        <div class="faction-name blue">Alric Venn — The Shallow Tuber</div>
-        <div class="faction-sub">Wants Seva Sable removed before the signing</div>
-      </div>
-      <span class="faction-toggle" id="alric-toggle">▼</span>
+  <div class="section-heading">Encounter Beats</div>
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('A')">
+      <span class="beat-number">A</span>
+      <span class="beat-title">Alric's briefing -- Seva must go</span>
+      <span class="beat-toggle" id="beat-toggle-A">▼</span>
     </div>
-    <div class="faction-body" id="alric-body">
-
-      <span class="sub-heading">The setting</span>
-      <div class="block blue">
-        <p>A private room at the Shallow Tuber. His territory, his table, his terms. There is food on the table that he has not touched. He is composed and well dressed. Huw is not present.</p>
-        <p>He waits for the party to be seated before he begins. He does not offer pleasantries.</p>
-      </div>
-
-      <span class="sub-heading">His justification</span>
-      <div class="block blue">
-        <p>He tells them about what the Courtesans did to the Driftwood delegation. Seva's people went crawling through Tallowhaven's back streets — harassing a member of the Driftwood delegation, involving criminal muscle, creating exactly the kind of chaos that makes serious trade partners walk away. Emlyn Hale is barely holding it together. The delegation is rattled.</p>
-        <p>He is measured but the feeling underneath is genuine. Tallowhaven is stronger together. The Driftwood deal is not just about his guild — it is about the city's future. Seva and her network are a relic of a time when this city ran on whispers and leverage rather than legitimate commerce. She is the reason Tallowhaven stays fragmented when it could be unified.</p>
-        <p>She has to go before the signing. He does not use any other words for it. He does not elaborate on method. He looks at the party and waits.</p>
-      </div>
-
-      <div class="speech">
-        <span class="speech-attr">Alric</span>
-        The Courtesans have had their time. Tallowhaven needs to decide what kind of city it wants to be. I have made my decision. I need to know if you have made yours.
-      </div>
-
-      <span class="sub-heading">What the party recognises</span>
-      <div class="block gold">
-        <p>The chaos Alric is describing — Emlyn, the muscle, the hassle — is The Starling. That was their mission. They retrieved Elbeth for Seva. The rattled delegation, the nervous Emlyn, the criminal element that got involved — all of that traces back to what they did.</p>
-        <p>Alric does not know they were involved. He is describing the consequences of their work as the reason he needs them to commit murder.</p>
-      </div>
-
-      <span class="sub-heading">What Seva says if the party goes to her</span>
-      <div class="defence">
-        <span class="defence-label">Seva's defence — if confronted</span>
-        <p>She listens without interrupting. When the party finishes she is quiet for a moment. Then she acknowledges that she became aware the Driftwood delegation had been destabilised and that she moved to protect one of her own people. She does not consider this threatening anyone. She considers it protection.</p>
-        <p>She then pivots. She asks the party whether Alric mentioned what the Driftwood deal actually means for anyone in Tallowhaven who earns a living outside the merchant guild structure. Because she knows what it means. And the party might want to hear it before they decide whose side they are on.</p>
-        <p>If the party confesses their involvement in The Starling she is still for a moment. Then: <em>"So you were the ones."</em> She does not say it with anger. She files it. The party will not know what she concludes from that until much later.</p>
-      </div>
-
-      <span class="sub-heading">The three options</span>
-
-      <div class="option">
-        <div class="option-header mission" onclick="toggleOption('alric-mission')">
-          <span class="option-label mission">3a — Take the mission</span>
-          <span class="option-toggle" id="alric-mission-toggle">▼</span>
-        </div>
-        <div class="option-body" id="alric-mission-body">
-          <p>The party agrees to remove Seva before the signing. Alric pays half immediately. He tells them she will be at the Amber Cup preparing for the evening. He expects them at the signing the following day.</p>
-          <p>What remove means is left deliberately unclear. The party has to decide what they are willing to do. Alric does not clarify unless pushed, and even then he says only that she cannot be present at the meeting.</p>
-          <p>Consequences: Seva's absence from the meeting destabilises the Courtesan faction. Her network does not scatter but it loses coordination at the critical moment. The Merchants arrive at the signing in a stronger position. The collapse still happens — the Trademasters see an opportunity in the power vacuum — but the shape of it is different.</p>
-        </div>
-      </div>
-
-      <div class="option">
-        <div class="option-header double" onclick="toggleOption('alric-double')">
-          <span class="option-label double">3b — Double cross — warn Seva</span>
-          <span class="option-toggle" id="alric-double-toggle">▼</span>
-        </div>
-        <div class="option-body" id="alric-double-body">
-          <p>The party takes the briefing and then goes to Seva. She listens. She already suspected something was coming — she is Seva — but confirmation changes her plans for the signing entirely.</p>
-          <p>She is not grateful in any demonstrative way. She is precise. She asks two questions: what exactly did Alric say, and what does the party want in return for the warning. She takes the answers and does not show her hand.</p>
-          <p>At the signing, Seva arrives knowing Alric tried to have her removed. She does not confront him immediately. She waits. When the collapse happens it is at a moment of her choosing rather than by accident. Alric will eventually know the party warned her. That conversation happens in the aftermath.</p>
-        </div>
-      </div>
-
-      <div class="option">
-        <div class="option-header confess" onclick="toggleOption('alric-confess')">
-          <span class="option-label confess">3c — Confess to Alric</span>
-          <span class="option-toggle" id="alric-confess-toggle">▼</span>
-        </div>
-        <div class="option-body" id="alric-confess-body">
-          <p>The party tells Alric that the chaos he is describing — Emlyn, the muscle, the rattled delegation — was their work. They did The Starling for Seva.</p>
-          <p>Alric is still for a moment. This is the second time in the act his composure cracks slightly. Then he says something precise and damaging: <em>"So she used you to create the problem and now I am asking you to fix it. I wonder if she planned that."</em></p>
-          <p>He does not withdraw the mission. He recalibrates. He is now looking at the party differently — not with distrust exactly, but with the assessment of someone updating their model. He may adjust the offer. He will definitely remember this conversation.</p>
-        </div>
-      </div>
-
+    <div class="beat-body" id="beat-body-A"><div class="outcome"><strong>Take the mission</strong>Alric pays half immediately, tells them Seva will be at the Amber Cup preparing for the evening, and expects them at the signing as his guests. He never says kill -- only that she can't be present.</div><div class="outcome"><strong>Warn Seva</strong>She listens, unsurprised she was Seva, but the confirmation reshapes her plans for the signing entirely. She asks what Alric said and what the party wants in return, and doesn't show her hand. She'll turn the tables at a moment of her own choosing.</div><div class="outcome"><strong>Confess to Alric</strong>His composure cracks slightly -- the second time in the act. “So she used you to create the problem and now I am asking you to fix it. I wonder if she planned that.” He doesn't withdraw the mission, but he's now watching the party differently.</div><p>A private room at the Shallow Tuber, Huw absent. Alric waits for the party to be seated, then delivers his case without preamble -- the Courtesans destabilised the Driftwood delegation, and Tallowhaven's future depends on Seva going before the signing.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('B')">
+      <span class="beat-number">B</span>
+      <span class="beat-title">Oskar's briefing -- Alric must go</span>
+      <span class="beat-toggle" id="beat-toggle-B">▼</span>
     </div>
-  </div>
-
-  <!-- OSKAR -->
-  <div class="faction-panel teal">
-    <div class="faction-header teal" onclick="toggleFaction('oskar')">
-      <div>
-        <div class="faction-name teal">Oskar Sternov — The Honeywell Office</div>
-        <div class="faction-sub">Wants Alric Venn removed before the signing</div>
-      </div>
-      <span class="faction-toggle" id="oskar-toggle">▼</span>
+    <div class="beat-body" id="beat-body-B"><div class="outcome"><strong>Take the mission</strong>Oskar pays half immediately, says Alric will be at the Shallow Tuber making final preparations, and expects the party at the signing as part of the Trademaster delegation. If pushed on method: “Use your judgement. You have shown me you have some.”</div><div class="outcome"><strong>Warn Alric</strong>He listens, unsurprised, asks exactly what Oskar said, and thanks them with a warmth the party may find unsettling given what he'll do with the information. He arrives at the signing prepared; Oskar will know by the end of it.</div><div class="outcome"><strong>Confess to Oskar</strong>A long quiet moment, then: “I know.” He's known since shortly after it happened and was waiting to see if they'd tell him. He speaks more plainly as a result, though the mission stands.</div><p>The Honeywell office, after hours, no seat offered. Oskar states his case as fact rather than accusation: the Driftwood Road was protecting livelihoods, Alric knew it, and sent the party to dismantle it anyway.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('C')">
+      <span class="beat-number">C</span>
+      <span class="beat-title">Seva's briefing -- Oskar must go</span>
+      <span class="beat-toggle" id="beat-toggle-C">▼</span>
     </div>
-    <div class="faction-body" id="oskar-body">
-
-      <span class="sub-heading">The setting</span>
-      <div class="block teal">
-        <p>The Honeywell office, after hours. The forge below is banked but still warm. He does not offer them a seat. He stands at his desk, the annotated Trumpet article nowhere in sight tonight. He gets straight to it.</p>
-      </div>
-
-      <span class="sub-heading">His justification</span>
-      <div class="block teal">
-        <p>He tells them about the Driftwood Road. He does not call it a toll operation. He calls it the only thing standing between Tallowhaven craftspeople and a flood of cheap unguilded imports. The road was protecting livelihoods. Guild members. People with families. Alric knew exactly what the road meant and he sent the party to dismantle it anyway.</p>
-        <p>Tomorrow Alric signs a deal that will enrich the Merchant Guild and hollow out everything the Trademasters have spent a generation building. Prices will drop. Standards will drop. The guild certification that guarantees quality — that the party has seen in operation on the Driftwood Road — will become worthless.</p>
-        <p>He is not angry in any visible way. He is stating facts. Alric has to go before that signature goes down. He says it exactly like that.</p>
-      </div>
-
-      <div class="speech">
-        <span class="speech-attr">Oskar</span>
-        I am not asking you to enjoy this. I am asking you to understand what is at stake. The road was protecting people. Alric knew that. So did you.
-      </div>
-
-      <span class="sub-heading">What the party recognises</span>
-      <div class="block gold">
-        <p>The road Oskar is describing is the Driftwood Road mission. That was their work. They cleared it for Alric. Oskar is telling them that the thing they did for money is the direct cause of the harm he is now asking them to prevent — and he is telling them this while asking them to fix it.</p>
-        <p>The line <em>so did you</em> may or may not land depending on whether Oskar has worked out their involvement. He has not confirmed it. But the party will feel it.</p>
-      </div>
-
-      <span class="sub-heading">What Alric says if the party goes to him</span>
-      <div class="defence">
-        <span class="defence-label">Alric's defence — if confronted</span>
-        <p>Alric does not deny that the Driftwood deal will affect local suppliers. He frames it as progress. Tallowhaven cannot remain an island. The guild protection clause the Trademasters are pushing would make the city economically uncompetitive within a generation. He is protecting the city's future at the cost of some short-term disruption to guild interests.</p>
-        <p>He is persuasive. He is not entirely wrong. The party will find it difficult to know what to believe.</p>
-        <p>If the party confesses their involvement in clearing the road he absorbs this without visible reaction. He then says: <em>"You did what you were paid to do. That is not something I hold against you."</em> He means it, which is almost worse.</p>
-      </div>
-
-      <span class="sub-heading">The three options</span>
-
-      <div class="option">
-        <div class="option-header mission" onclick="toggleOption('oskar-mission')">
-          <span class="option-label mission">3a — Take the mission</span>
-          <span class="option-toggle" id="oskar-mission-toggle">▼</span>
-        </div>
-        <div class="option-body" id="oskar-mission-body">
-          <p>The party agrees to remove Alric before the signing. Oskar pays half immediately. He tells them Alric will be at the Shallow Tuber making final preparations. He expects the party at the signing the following day as part of the Trademaster delegation.</p>
-          <p>He does not say kill. He says removed from the equation. He does not answer follow-up questions about method. If pushed he says: <em>"Use your judgement. You have shown me you have some."</em></p>
-          <p>Consequences: Alric's absence from the meeting leaves the Merchant delegation without its architect. Huw is present but cannot lead. The Driftwood counterpart is confused and alarmed. The Trademaster clause gains ground in the vacuum. The collapse still comes — the Courtesans see an opening — but the Merchants are on the back foot from the start.</p>
-        </div>
-      </div>
-
-      <div class="option">
-        <div class="option-header double" onclick="toggleOption('oskar-double')">
-          <span class="option-label double">3b — Double cross — warn Alric</span>
-          <span class="option-toggle" id="oskar-double-toggle">▼</span>
-        </div>
-        <div class="option-body" id="oskar-double-body">
-          <p>The party takes the briefing and goes to Alric. He listens with the expression of someone who is not particularly surprised. He asks one question: what exactly did Oskar say.</p>
-          <p>He thanks them with genuine warmth that the party may find unsettling given what he will now do with the information. At the signing Alric arrives knowing Oskar tried to have him removed. He has made arrangements. The Trademaster representative at the table finds the morning considerably more difficult than anticipated.</p>
-          <p>Oskar will know the party warned Alric before the signing is over. He will not forget it.</p>
-        </div>
-      </div>
-
-      <div class="option">
-        <div class="option-header confess" onclick="toggleOption('oskar-confess')">
-          <span class="option-label confess">3c — Confess to Oskar</span>
-          <span class="option-toggle" id="oskar-confess-toggle">▼</span>
-        </div>
-        <div class="option-body" id="oskar-confess-body">
-          <p>The party tells Oskar that the road he is describing — the toll operation they dismantled — was their work. They did the Driftwood Road mission for Alric.</p>
-          <p>Oskar is quiet for a long moment. Then: <em>"I know."</em> He has known since shortly after it happened. He waited to see if they would tell him. The fact that they have changes his assessment of them — not enough to withdraw the mission, but enough to speak more plainly than he otherwise would.</p>
-          <p>He tells them that the road was the only card the Trademasters had left. They played it and lost. Now he is asking them to make it right. Whether they consider that a reasonable ask is up to them.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- SEVA -->
-  <div class="faction-panel pink">
-    <div class="faction-header pink" onclick="toggleFaction('seva')">
-      <div>
-        <div class="faction-name pink">Seva Sable — Private Room, Amber Cup</div>
-        <div class="faction-sub">Wants Oskar Sternov removed before the signing</div>
-      </div>
-      <span class="faction-toggle" id="seva-toggle">▼</span>
-    </div>
-    <div class="faction-body" id="seva-body">
-
-      <span class="sub-heading">The setting</span>
-      <div class="block pink">
-        <p>A private room above the Amber Cup. Mira is outside the door. Seva is already there when the party arrives, seated, unhurried. She has been thinking about this conversation for some time.</p>
-      </div>
-
-      <span class="sub-heading">Her justification</span>
-      <div class="block pink">
-        <p>She tells them what Oskar did to Calla and Perran Carew. A journalist doing her job and a young man who, whatever his faults, did not deserve what happened in that establishment. Oskar sent people to intimidate, to silence, to ensure that the story about the quality of Tallowhaven goods — the unguilded imports, the inflated local prices, the protection racket dressed up as guild pride — never reached the public.</p>
-        <p>She is not emotional about it. She is precise. The Trademasters are not protecting Tallowhaven. They are protecting themselves. The guild certification system exists to exclude competition and justify prices that ordinary people in this city cannot afford. Oskar will do anything — including violence — to keep that system intact.</p>
-        <p>She needs him gone before the signing. She says it plainly and does not reach for a euphemism. She watches the party's faces as she says it.</p>
-      </div>
-
-      <div class="speech">
-        <span class="speech-attr">Seva</span>
-        I am not asking you to enjoy this either. But I am asking you to consider what it means that he sent people to hurt a journalist and a boy. And then ask yourself what he will do next if nobody stops him.
-      </div>
-
-      <span class="sub-heading">What the party recognises</span>
-      <div class="block gold">
-        <p>The journalist and the boy — Calla and Perran — are The Trumpet. That was their mission. They did that for Oskar. The pub fight, the intimidation, the silencing of the story — all of it was their work. Seva is describing the consequences of their second mission as the moral justification for asking them to commit murder.</p>
-        <p>This is the sharpest version of the chickens coming home to roost. Perran Carew specifically. The party put him on the floor of The Establishment. Seva is now describing what was done to him as the reason Oskar has to die.</p>
-      </div>
-
-      <span class="sub-heading">What Oskar says if the party goes to him</span>
-      <div class="defence">
-        <span class="defence-label">Oskar's defence — if confronted</span>
-        <p>Oskar does not deny that things got out of hand at The Establishment. He says the intention was to discourage a fabricated story from running — a story commissioned by the Courtesans, incidentally, not discovered by a diligent journalist. He did not authorise anyone to be seriously hurt.</p>
-        <p>He then says something that is honest in a way that is not entirely comfortable: the Courtesans have been running Tallowhaven's information economy for twenty years. Every piece of leverage in this city passes through Seva's hands at some point. That is not a network. That is a stranglehold. And she will use it to kill the Trademaster clause because the clause limits her.</p>
-        <p>If the party confesses their involvement in The Trumpet he does not react visibly. He says: <em>"Then you know what the story was actually about. And you know who commissioned it."</em> He lets that sit.</p>
-      </div>
-
-      <span class="sub-heading">The three options</span>
-
-      <div class="option">
-        <div class="option-header mission" onclick="toggleOption('seva-mission')">
-          <span class="option-label mission">3a — Take the mission</span>
-          <span class="option-toggle" id="seva-mission-toggle">▼</span>
-        </div>
-        <div class="option-body" id="seva-mission-body">
-          <p>The party agrees to remove Oskar before the signing. Seva pays half immediately — more than the other factions, without being asked. She tells them Oskar will be at the Honeywell office until late, finalising the Trademaster position for tomorrow. She expects the party at the signing the following day as guests of the hosting arrangement.</p>
-          <p>She does not say kill. She says make sure he is not at that table tomorrow. She does not elaborate. If pushed she meets their eyes and says nothing further. The silence is the answer.</p>
-          <p>Consequences: Oskar's absence removes the Trademaster clause's main champion from the table. The guild representatives present cannot hold the position without him. The Driftwood counterpart, relieved, moves toward Alric's terms. The Courtesans read the room and begin collecting exactly the information they came for. The collapse still comes — Alric eventually notices what the network is doing — but the Merchants and Trademasters both feel outmanoeuvred.</p>
-        </div>
-      </div>
-
-      <div class="option">
-        <div class="option-header double" onclick="toggleOption('seva-double')">
-          <span class="option-label double">3b — Double cross — warn Oskar</span>
-          <span class="option-toggle" id="seva-double-toggle">▼</span>
-        </div>
-        <div class="option-body" id="seva-double-body">
-          <p>The party takes the briefing and goes to Oskar. He receives the warning with the expression of someone who suspected this was coming and is mildly interested to have it confirmed. He asks two questions: what did Seva say exactly, and what does the party want.</p>
-          <p>He does not offer money. He offers something more specific — a promise that if the Trademaster clause passes tomorrow the party will have standing with the guild that money cannot buy. Whether that means anything to them is their decision.</p>
-          <p>At the signing Oskar arrives knowing Seva tried to have him removed. He is grimly prepared. The Courtesan network finds its usual methods unusually ineffective during the meeting. Seva will know the party warned him before the morning is over. The look she gives them across the room when she realises says everything.</p>
-        </div>
-      </div>
-
-      <div class="option">
-        <div class="option-header confess" onclick="toggleOption('seva-confess')">
-          <span class="option-label confess">3c — Confess to Seva</span>
-          <span class="option-toggle" id="seva-confess-toggle">▼</span>
-        </div>
-        <div class="option-body" id="seva-confess-body">
-          <p>The party tells Seva that the events at The Establishment — Calla, Perran, the fight — were their work. They did The Trumpet for Oskar.</p>
-          <p>Seva looks at them for a long moment. Then she nods once, slowly, the way someone nods when they have just had a suspicion confirmed. She says: <em>"I wondered."</em> She does not say what she wondered, or what conclusion she drew, or what she intends to do with the information.</p>
-          <p>She does not withdraw the mission. She adjusts her read of the party significantly. From this point forward she will treat them as people whose loyalty is genuinely uncertain — which means she will be more careful, more specific, and more watchful. That is not entirely a bad thing for the party. Seva paying close attention to someone is its own kind of currency.</p>
-        </div>
-      </div>
-
-    </div>
+    <div class="beat-body" id="beat-body-C"><div class="outcome"><strong>Take the mission</strong>Seva pays half immediately -- more than the other two, unasked -- and says Oskar will be at Honeywell finalising the Trademaster position. She never says kill: “Make sure he is not at that table tomorrow.” If pushed further, she says nothing more. The silence is the answer.</div><div class="outcome"><strong>Warn Oskar</strong>He receives it with the look of someone who suspected this was coming. He doesn't offer money -- he offers standing with the guild that money can't buy, if the Trademaster clause passes. He arrives at the signing grimly prepared; Seva will know by the end of the morning.</div><div class="outcome"><strong>Confess to Seva</strong>A long look, then a single slow nod: “I wondered.” She doesn't say what she concludes, doesn't withdraw the mission, but treats the party from here as people whose loyalty is genuinely uncertain -- which means watching them more closely, not less.</div><p>A private room above the Amber Cup, Mira outside the door. Seva has clearly been thinking about this conversation for some time, and lays out her case precisely: Oskar sent people to intimidate a journalist and hurt a young man to protect a certification system that exists to exclude competition.</p></div>
   </div>
 
   <div class="section-heading">DM Notes</div>
+  <div class="dm-note"><strong>The party caused this</strong>Every justification in this scene traces back to one of the party's own second missions -- The Starling, the Driftwood Road, The Trumpet. They may not realise this immediately. Let them work it out; don't point it out.</div><div class="dm-note"><strong>“Remove” is always ambiguous</strong>None of the three faction leaders ever say kill -- removed, gone, unable to attend, not at that table. A party that detains rather than kills has still completed the mission as far as the faction leader is concerned, as long as the target is absent from the signing.</div><div class="dm-note"><strong>The confess option</strong>Available in every scene and changes the texture of the briefing significantly -- but none of the three leaders withdraw the mission on hearing it. All three permanently update their read of the party.</div><div class="dm-note"><strong>The targets aren't innocent</strong>All three are partially culpable for the situation that led to the attempt against them. Warning a target isn't warning an innocent person -- it's warning someone who helped create the conditions that made the attempt inevitable.</div><div class="dm-note"><strong>What happens next</strong>Whatever the party chooses tonight plays out at the signing tomorrow, covered in the Festival Meeting and Assassination Paths encounters -- their choices here determine who's in the room, who knows what, and who's already been betrayed before anyone sits down.</div>
 
-  <div class="dm-note"><strong>The party caused this</strong>Every justification in this scene traces back to a second mission the party completed. The Starling led to Alric's grievance. The Driftwood Road led to Oskar's. The Trumpet led to Seva's. The party is the mechanism through which all three faction grievances were created. They may not realise this immediately. Let them work it out. Do not point it out.</div>
-
-  <div class="dm-note"><strong>Take out is always ambiguous</strong>None of the three faction leaders use the word kill. They say removed, gone, unable to attend, not at that table. The party has to decide what they are willing to do and live with the ambiguity of the instruction. A party that detains rather than kills has still completed the mission as far as the faction leader is concerned — as long as the target is absent from the signing.</div>
-
-  <div class="dm-note"><strong>The confess option</strong>This is available in every scene and changes the texture of the briefing significantly. Oskar already knows. Alric absorbs it without visible reaction. Seva files it. None of them withdraw the mission. All of them update their assessment of the party permanently.</div>
-
-  <div class="dm-note"><strong>The target's defence</strong>None of the three targets are innocent. All three are partially culpable for the situation that led to the assassination attempt against them. The party warning a target is not warning an innocent person — it is warning someone who played a role in creating the conditions that made the attempt inevitable. Let the party sit with that.</div>
-
-  <div class="dm-note"><strong>What happens next</strong>Whatever the party chooses tonight, the signing happens tomorrow. The encounter file for the signing covers the collapse and its aftermath. The party's choices here determine the shape of that collapse — who is in the room, who knows what, and who has been betrayed by whom before anyone sits down.</div>
-
-  <footer>Abelon Campaign — Encounter Reference. The Evening Invitations / Third Missions / Act 1 Finale.</footer>
+  <footer>Abelon Campaign — Encounter Reference. The Evening Invitations / Third Missions / Act 1.</footer>
 </div>
 
 <script>
-  function toggleFaction(id){
-    const b=document.getElementById(id+'-body');
-    const t=document.getElementById(id+'-toggle');
-    if(!b||!t)return;
-    const o=b.classList.contains('open');
-    b.classList.toggle('open',!o);
-    t.classList.toggle('open',!o);
-  }
-  function toggleOption(id){
-    const b=document.getElementById(id+'-body');
-    const t=document.getElementById(id+'-toggle');
-    if(!b||!t)return;
-    const o=b.classList.contains('open');
-    b.classList.toggle('open',!o);
-    t.classList.toggle('open',!o);
-  }
-  function expandAll(){
-    document.querySelectorAll('.faction-body,.option-body').forEach(el=>el.classList.add('open'));
-    document.querySelectorAll('.faction-toggle,.option-toggle').forEach(el=>el.classList.add('open'));
-  }
-  function collapseAll(){
-    document.querySelectorAll('.faction-body,.option-body').forEach(el=>el.classList.remove('open'));
-    document.querySelectorAll('.faction-toggle,.option-toggle').forEach(el=>el.classList.remove('open'));
-  }
+  function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
 </script>
 </body>
 </html>

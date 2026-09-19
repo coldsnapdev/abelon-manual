@@ -3,64 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mission — The Driftwood Point Supply Problem</title>
+<title>Encounter — The Driftwood Point Supply Problem</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
-  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(24,95,165,0.05);--beat-border:#185FA5;--combat-bg:rgba(153,60,29,0.05);--combat-border:#993C1D;--success-bg:rgba(15,110,86,0.07);--success-border:#0F6E56;--success-text:#04342C;--warning-bg:rgba(133,79,11,0.08);--warning-border:#854F0B;--warning-text:#412402;--danger-bg:rgba(153,60,29,0.08);--danger-border:#993C1D;--danger-text:#4A1B0C;--npc-bg:rgba(24,95,165,0.05);--npc-border:#185FA5;--npc-combat-bg:rgba(153,60,29,0.05);--npc-combat-border:#993C1D;}
-  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(133,183,235,0.06);--beat-border:#85B7EB;--combat-bg:rgba(240,153,123,0.05);--combat-border:#F0997B;--success-bg:rgba(93,202,165,0.07);--success-border:#5DCAA5;--success-text:#E1F5EE;--warning-bg:rgba(239,159,39,0.07);--warning-border:#EF9F27;--warning-text:#FAEEDA;--danger-bg:rgba(240,153,123,0.08);--danger-border:#F0997B;--danger-text:#FAECE7;--npc-bg:rgba(133,183,235,0.06);--npc-border:#85B7EB;--npc-combat-bg:rgba(240,153,123,0.05);--npc-combat-border:#F0997B;}}
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(15,110,86,0.05);--beat-border:#0F6E56;--glance-bg:rgba(107,58,42,0.06);--glance-border:#6b3a2a;--npc-bg:rgba(15,110,86,0.05);--npc-border:#0F6E56;--loc-bg:rgba(74,56,40,0.04);--warn-bg:rgba(133,79,11,0.08);--warn-border:#854F0B;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(93,202,165,0.06);--beat-border:#5DCAA5;--glance-bg:rgba(196,168,130,0.06);--glance-border:#c4a882;--npc-bg:rgba(93,202,165,0.06);--npc-border:#5DCAA5;--loc-bg:rgba(196,168,130,0.04);--warn-bg:rgba(239,159,39,0.07);--warn-border:#EF9F27;}}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
   .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
-  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:1.5rem;}
   .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
-  .encounter-title{font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:30px;font-weight:600;color:var(--accent);letter-spacing:.03em;line-height:1.15;margin-bottom:6px;}
   .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
   .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
   .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
-  .meta-tag.combat{border-color:var(--danger-border);color:var(--danger-text);}
-  .phase-divider{display:flex;align-items:center;gap:16px;margin:2.5rem 0 1.5rem;}
-  .phase-label{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;white-space:nowrap;padding:4px 14px;border-radius:3px;}
-  .phase-label.investigation{background:var(--beat-bg);border:.5px solid var(--beat-border);color:var(--ink);}
-  .phase-label.combat{background:var(--combat-bg);border:.5px solid var(--combat-border);color:var(--ink);}
-  .phase-divider-line{flex:1;height:.5px;background:var(--rule);}
+  .description{font-size:15px;font-style:italic;color:var(--ink-mid);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule-faint);}
+  .glance{background:var(--glance-bg);border:1px solid var(--glance-border);border-radius:6px;padding:14px 18px;margin-bottom:1.5rem;}
+  .glance-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;}
+  .glance-part{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);margin:12px 0 6px;}
+  .glance-part:first-of-type{margin-top:0;}
+  .glance-item{margin-bottom:8px;font-size:14.5px;}
+  .glance-item:last-child{margin-bottom:0;}
+  .glance-item strong{font-family:'Cinzel',serif;font-weight:600;font-size:12.5px;letter-spacing:.02em;color:var(--ink);}
   .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
-  .overview-block{background:var(--beat-bg);border-left:3px solid var(--beat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
-  .overview-block p{margin-bottom:.6rem;}.overview-block p:last-child{margin-bottom:0;}
-  .combat-block{background:var(--combat-bg);border-left:3px solid var(--combat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
-  .combat-block p{margin-bottom:.6rem;}.combat-block p:last-child{margin-bottom:0;}
-  .npc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
-  @media(max-width:600px){.npc-grid{grid-template-columns:1fr;}}
+  .location{background:var(--loc-bg);border-left:3px solid var(--rule);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .location-name{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mid);display:block;margin-bottom:6px;}
+  .location p{font-size:14.5px;color:var(--ink-mid);font-style:italic;}
   .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
-  .npc-card.combat-npc{border-color:var(--npc-combat-border);background:var(--npc-combat-bg);}
-  .npc-card.grid-card{margin-bottom:0;}
   .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
   .npc-header:hover{opacity:.8;}
-  .npc-portrait{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);overflow:hidden;flex-shrink:0;background:var(--parchment-dark);display:flex;align-items:center;justify-content:center;position:relative;}
-  .npc-portrait.small{width:40px;height:40px;}
-  .npc-portrait img{width:100%;height:100%;object-fit:cover;}
-  .npc-portrait-placeholder{font-family:'Cinzel',serif;font-size:9px;color:var(--ink-faded);text-align:center;padding:3px;line-height:1.3;pointer-events:none;}
-  .npc-portrait input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
   .npc-info{flex:1;}
   .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
   .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
   .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
   .npc-toggle.open{transform:rotate(180deg);}
-  .npc-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body{display:none;padding:2px 14px 14px;border-top:.5px solid var(--rule-faint);}
   .npc-body.open{display:block;}
-  .npc-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin:12px 0 5px;}
-  .npc-desc{font-size:15px;color:var(--ink-mid);margin-bottom:6px;}
-  .npc-trait{display:flex;gap:8px;margin-bottom:5px;font-size:14px;}
-  .npc-trait-key{color:var(--ink-faded);min-width:100px;flex-shrink:0;font-style:italic;}
-  .speech-block{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
-  .stat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:8px 0;text-align:center;}
-  .stat-box{background:var(--parchment-dark);border:.5px solid var(--rule);border-radius:4px;padding:4px 2px;}
-  .stat-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);display:block;}
-  .stat-value{font-size:15px;font-weight:600;color:var(--ink);display:block;}
-  .stat-mod{font-size:11px;color:var(--ink-faded);display:block;}
+  .npc-field{margin:10px 0;}
+  .npc-field-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:3px;}
+  .npc-field p{font-size:14.5px;color:var(--ink-mid);}
+  .npc-field.combat{background:var(--warn-bg);border-left:2px solid var(--warn-border);padding:8px 10px;border-radius:0 4px 4px 0;}
   .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
-  .beat.combat-beat{border-color:var(--combat-border);}
   .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
-  .beat-header.combat-header{background:var(--combat-bg);}
   .beat-header:hover{opacity:.8;}
   .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
   .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
@@ -69,46 +53,68 @@
   .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
   .beat-body.open{display:block;}
   .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
-  .outcome{border-radius:5px;padding:12px 14px;margin-bottom:10px;font-size:15px;}
-  .outcome.success{background:var(--success-bg);border:.5px solid var(--success-border);color:var(--success-text);}
-  .outcome.warning{background:var(--warning-bg);border:.5px solid var(--warning-border);color:var(--warning-text);}
-  .outcome.danger{background:var(--danger-bg);border:.5px solid var(--danger-border);color:var(--danger-text);}
-  .outcome-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:6px;opacity:.8;}
-  .outcome p{margin-bottom:6px;}.outcome p:last-child{margin-bottom:0;}
+  .beat-body .outcome{margin-bottom:10px;}
+  .beat-body .outcome strong{font-family:'Cinzel',serif;font-size:12px;color:var(--ink);display:block;margin-bottom:2px;}
   .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
   .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
-  .info-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
-  @media(max-width:600px){.info-row{grid-template-columns:1fr;}}
-  .info-card{background:var(--beat-bg);border:.5px solid var(--beat-border);border-radius:5px;padding:12px 14px;font-size:14px;color:var(--ink-mid);}
-  .info-card-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px;}
   .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
   .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
   .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
-  .ctrl-btn.combat-link{border-color:#993C1D;color:#F0997B;text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
-  .ctrl-btn.combat-link:hover{background:rgba(153,60,29,0.1);}
   footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
 </style>
 </head>
 <body>
 <!-- ABELON-NAV-START -->
 <style>
-  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
-  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);--n-teal:#0F6E56;--n-teal-bg:rgba(15,110,86,0.08);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);--n-teal:#5DCAA5;--n-teal-bg:rgba(93,202,165,0.08);}}
   #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
   #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
   #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
   #abelon-nav-root a:hover{color:var(--n-accent);}
   #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
   #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
-  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
   #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
   #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
   #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+  #an-pay-btn{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);border-radius:3px;padding:3px 8px;font:inherit;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+  #an-pay-btn:hover{border-color:var(--n-accent);color:var(--n-accent);}
+  #an-pay-btn.has-data{border-color:var(--n-teal);color:var(--n-teal);}
+  #an-pay-summary{font-family:'Crimson Pro',Georgia,serif;font-size:12px;text-transform:none;letter-spacing:0;color:var(--n-ink-faded);}
+  #an-pay-panel{display:none;max-width:900px;margin:10px auto 0;background:var(--n-teal-bg);border:1px solid var(--n-teal);border-radius:6px;padding:14px 16px;font-family:'Crimson Pro',Georgia,serif;}
+  #an-pay-panel.open{display:block;}
+  #an-pay-panel .an-pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:10px;}
+  #an-pay-panel label{display:block;font-family:'Cinzel',Georgia,serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--n-ink-faded);margin-bottom:3px;}
+  #an-pay-panel input[type=text],#an-pay-panel textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:13px;background:var(--n-parch);color:var(--n-ink);border:1px solid var(--n-rule);border-radius:4px;padding:6px 8px;}
+  #an-pay-panel textarea{min-height:44px;resize:vertical;}
+  #an-pay-actions{display:flex;gap:8px;}
+  #an-pay-actions button{font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:4px;cursor:pointer;}
+  #an-pay-save{background:var(--n-teal);border:1px solid var(--n-teal);color:var(--n-parch);}
+  #an-pay-clear{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-cancel{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-note{font-size:10px;color:var(--n-ink-faded);font-style:italic;margin-top:8px;}
 </style>
 <div id="abelon-nav-root"><div class="an-row">
   <div class="an-crumb" id="abelon-nav-crumb"></div>
   <div class="an-related" id="abelon-nav-related-top"></div>
-</div></div>
+</div>
+<div id="an-pay-panel">
+  <div class="an-pay-grid">
+    <div><label>Agreed total</label><input type="text" id="an-pay-total" placeholder="e.g. 60gp"></div>
+    <div><label>Paid so far</label><input type="text" id="an-pay-paid" placeholder="e.g. 30gp"></div>
+    <div><label>Not yet paid</label><input type="text" id="an-pay-owed" placeholder="e.g. 30gp on completion"></div>
+  </div>
+  <label>Notes</label>
+  <textarea id="an-pay-notes" placeholder="Terms, conditions, who's paying..."></textarea>
+  <div id="an-pay-actions" style="margin-top:10px;">
+    <button type="button" id="an-pay-save">Save</button>
+    <button type="button" id="an-pay-clear">Clear</button>
+    <button type="button" id="an-pay-cancel">Cancel</button>
+  </div>
+  <div id="an-pay-note">Saved to this browser only (localStorage) — won't sync to your phone or another computer.</div>
+</div>
+</div>
 <div id="abelon-nav-related-footer"></div>
 <script>
 (function(){
@@ -118,14 +124,15 @@
   if (root === '') root = './';
   fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
     var file = decodeURIComponent(location.pathname.split('/').pop());
-    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c;});
     var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
     var crumb = document.getElementById('abelon-nav-crumb');
     var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
     crumb.appendChild(home);
     if (page) {
       var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
-      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var catObj = cats[page.category] || {};
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = catObj.label || page.category; crumb.appendChild(catLink);
       var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
       var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
     }
@@ -145,15 +152,67 @@
     if (page && page.category === 'act1') {
       var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
       var idx = siblings.findIndex(function(p){return p.id===page.id;});
-      var nav = document.createElement('span');
-      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
-      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
-      relTop.appendChild(nav);
+      var pnav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; pnav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){pnav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; pnav.appendChild(next); }
+      relTop.appendChild(pnav);
+    }
+
+    // --- Payment widget: only on categories flagged paymentTracking in the manifest ---
+    var catObj2 = cats[page && page.category] || {};
+    if (page && catObj2.paymentTracking) {
+      var LS_KEY = 'abelonPayment:' + page.id;
+      function getPayment(){ try { var raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch(e){} return null; }
+      function setPayment(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
+      function clearPayment(){ localStorage.removeItem(LS_KEY); }
+
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.id = 'an-pay-btn';
+      var summary = document.createElement('span'); summary.id = 'an-pay-summary';
+      relTop.appendChild(btn); relTop.appendChild(summary);
+
+      var panel = document.getElementById('an-pay-panel');
+      var fTotal = document.getElementById('an-pay-total');
+      var fPaid = document.getElementById('an-pay-paid');
+      var fOwed = document.getElementById('an-pay-owed');
+      var fNotes = document.getElementById('an-pay-notes');
+
+      function refreshButton(){
+        var p = getPayment();
+        if (p && (p.total || p.paid || p.owed || p.notes)) {
+          btn.textContent = '\uD83D\uDCB0 Payment \u2713';
+          btn.classList.add('has-data');
+          var bits = [];
+          if (p.total) bits.push(p.total + ' agreed');
+          if (p.paid) bits.push(p.paid + ' paid');
+          summary.textContent = bits.join(' \u00b7 ');
+        } else {
+          btn.textContent = '\uD83D\uDCB0 Payment';
+          btn.classList.remove('has-data');
+          summary.textContent = '';
+        }
+      }
+      function openPanel(){
+        var p = getPayment() || {};
+        fTotal.value = p.total || ''; fPaid.value = p.paid || ''; fOwed.value = p.owed || ''; fNotes.value = p.notes || '';
+        panel.classList.add('open');
+      }
+      btn.addEventListener('click', openPanel);
+      document.getElementById('an-pay-cancel').addEventListener('click', function(){ panel.classList.remove('open'); });
+      document.getElementById('an-pay-clear').addEventListener('click', function(){ clearPayment(); panel.classList.remove('open'); refreshButton(); });
+      document.getElementById('an-pay-save').addEventListener('click', function(){
+        setPayment({ total: fTotal.value.trim(), paid: fPaid.value.trim(), owed: fOwed.value.trim(), notes: fNotes.value.trim(),
+                     pageId: page.id, pageTitle: page.title, pageFile: page.file });
+        panel.classList.remove('open');
+        refreshButton();
+      });
+      refreshButton();
     }
   }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
 })();
 </script>
 <!-- ABELON-NAV-END -->
+
 
 <div class="page">
 
@@ -161,518 +220,143 @@
     <span class="encounter-type">Mission Reference — Act 1 / Merchants / Second Mission</span>
     <div class="encounter-title">The Driftwood Point Supply Problem</div>
     <div class="encounter-subtitle">Investigate the disruption, find the bottleneck, clear the road</div>
-    <div class="encounter-meta">
-      <span class="meta-tag">Investigation then combat</span>
-      <span class="meta-tag">Level 3 party</span>
-      <span class="meta-tag combat">Combat all but certain</span>
-      <span class="meta-tag">Hidden Trademaster connection</span>
-    </div>
+    <div class="encounter-meta"><span class="meta-tag">Investigation then combat</span><span class="meta-tag">Level 3 party</span><span class="meta-tag">Combat all but certain</span><span class="meta-tag">Hidden Trademaster connection</span></div>
   </div>
+
+  <p class="description">Alric asks the party to find out why merchants trading with Driftwood Point haven't received their goods. Three merchant interviews point to a checkpoint on the road that's been blocking traffic for ten days under a thin legal cover, run by a crew who feel oddly confident about being challenged. The party investigates, then fights their way through the checkpoint -- and comes away with one loose thread (the operation was hired "through channels") that won't resolve until much later in the campaign.</p>
+
+  <div class="glance"><span class="glance-label">At a glance</span><div class="glance-part">Part 1 — Investigation</div><div class="glance-item"><strong>The brief:</strong> Alric names three affected merchants and pays half upfront. He doesn't tell the party where to look beyond that.</div><div class="glance-item"><strong>What the merchants add up to:</strong> a checkpoint on the road, running ten days, blocking both directions, using a landowner's name (Cadog Melyn) as cover, run by someone who feels sanctioned from somewhere</div><div class="glance-item"><strong>Anwen:</strong> a courier who paid the toll rather than turn back -- the best source of tactical detail if the party finds her</div><div class="glance-item"><strong>The hidden layer:</strong> Trademaster-connected. Not discoverable this mission, no matter what the party does -- surfaces much later.</div><div class="glance-part">Part 2 — The Road</div><div class="glance-item"><strong>The mirror:</strong> this toll crew are capable people who took a job that pays well and asks few questions -- exactly what the party has been doing</div><div class="glance-item"><strong>Radek:</strong> the leader, genuinely enjoys the power more than the legal argument -- his tell is landing one extra hit he didn't need to</div><div class="glance-item"><strong>Escalation:</strong> starts as a transaction (Peck handles it), becomes an argument (Radek steps in), becomes a fight with backstops closing from both ends of the bottleneck</div><div class="glance-item"><strong>The thread:</strong> if questioned, Thessaly may mention the job came "through channels" -- the party can't follow it yet, but they carry it</div></div>
 
   <div class="controls">
     <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
     <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
-    <button class="ctrl-btn" onclick="expandSection('beat')">Investigation beats</button>
-    <button class="ctrl-btn" onclick="expandSection('combat')">Combat beats</button>
-    <button class="ctrl-btn" onclick="expandNPCs()">NPCs only</button>
-    <a class="ctrl-btn combat-link" href="CombatGuide_DriftwoodRoad.html" target="_blank">⚔ Combat Guide</a>
   </div>
 
-  <div class="section-heading">Mission Overview</div>
-  <div class="overview-block">
-    <p>Alric presents this as a matter of guild reputation. Merchants who trusted him have been left without goods during the most visible trading period of the year. He needs the party to speak to the affected traders, find out what they know, trace the problem back, and solve it. He pays half upfront.</p>
-    <p>He mentions Lande at Fabled Furnitures as an aside — she had issues with a shipment going the other way too. He remembered what mattered to him. He did not retain the directional detail.</p>
-    <p>The party is expected to do the legwork. The investigation leads naturally to the road. The road leads naturally to a fight.</p>
-  </div>
+  <div class="section-heading">Location Descriptions</div>
+  <div class="location"><span class="location-name">The road to Driftwood Point</span><p>A natural bottleneck -- bridge, ford, forest track, or rocky defile depending on the map. A cart waits, paperwork changes hands, and it looks like a checkpoint rather than an ambush until it isn't.</p></div><div class="location"><span class="location-name">The Establishment (referenced)</span><p>Not visited this mission, but the checkpoint's operation and paperwork make clear it's run with real organisation, not opportunism.</p></div>
 
-  <div class="info-row">
-    <div class="info-card">
-      <span class="info-card-label">The hidden layer</span>
-      The toll operation is Trademaster-connected. The party cannot discover this during this mission regardless of what they do. No documents, no names, no overheard conversations point that way. The connection surfaces later through pattern recognition.
-    </div>
-    <div class="info-card">
-      <span class="info-card-label">The seeded detail</span>
-      A waiter mentions the chef's special is unavailable due to a delivery issue from the coast. This happens before the mission is offered. A party that connected the dots at dinner will feel the satisfaction of having noticed early.
-    </div>
-  </div>
-
-  <!-- PHASE 1: INVESTIGATION -->
-  <div class="phase-divider">
-    <span class="phase-label investigation">Phase One — Investigation</span>
-    <div class="phase-divider-line"></div>
-  </div>
-
-  <div class="section-heading">Investigation NPCs</div>
-
+  <div class="section-heading">NPCs</div>
   <div class="npc-card">
     <div class="npc-header" onclick="toggleNPC('mared')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="mared-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="mared-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('mared',this)" onclick="event.stopPropagation()">
-      </div>
       <div class="npc-info">
-        <span class="npc-name">Mared Ffion — Silvermark</span>
-        <span class="npc-role">Jeweller — composed, precise, gives the Anwen lead</span>
+        <span class="npc-name">Mared Ffion</span>
+        <span class="npc-role">Silvermark Jeweller &mdash; composed, precise, gives the Anwen lead</span>
       </div>
       <span class="npc-toggle" id="mared-toggle">▼</span>
     </div>
-    <div class="npc-body" id="mared-body">
-      <span class="npc-section-label">Personality and tone</span>
-      <p class="npc-desc">Polite because the party comes from Alric and she values that relationship, but the politeness has an edge. She is not rude. She is precise. She tells them exactly what she ordered, exactly when it was due, and exactly what it is costing her. She does not embellish. The facts are damning enough.</p>
-      <span class="npc-section-label">What she knows</span>
-      <div class="npc-trait"><span class="npc-trait-key">Her order</span><span>Rare coastal gems, expected ten days ago, not arrived. She names the specific stones without expecting the party to know what they are.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">The Anwen lead</span><span>A Driftwood Point courier got through last week with someone else's goods. The courier mentioned a checkpoint on the road. She did not follow up because it was not her place. She is following up now by telling the party.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Her expectation</span><span>She wants results. She is watching to see if the party is worth her time. She will remember how this interaction goes.</span></div>
-    </div>
-  </div>
-
-  <div class="npc-card">
+    <div class="npc-body" id="mared-body"><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Polite because the party comes from Alric, but the politeness has an edge -- precise rather than warm. States facts without embellishment; they're damning enough on their own.</p></div><div class="npc-field"><span class="npc-field-label">What she knows</span><p>Rare coastal gems, expected ten days ago, not arrived. A Driftwood Point courier (Anwen) got through last week with someone else's goods and mentioned a checkpoint -- Mared didn't follow up herself, but tells the party now.</p></div><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Wants results, and is watching to see if the party is worth her time.</p></div></div>
+  </div><div class="npc-card">
     <div class="npc-header" onclick="toggleNPC('osip')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="osip-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="osip-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('osip',this)" onclick="event.stopPropagation()">
-      </div>
       <div class="npc-info">
-        <span class="npc-name">Osip Baran — Osip Baran's Butchers</span>
-        <span class="npc-role">Butcher — direct, frustrated, seeds doubt about Alric</span>
+        <span class="npc-name">Osip Baran</span>
+        <span class="npc-role">Butcher &mdash; direct, frustrated, seeds doubt about Alric</span>
       </div>
       <span class="npc-toggle" id="osip-toggle">▼</span>
     </div>
-    <div class="npc-body" id="osip-body">
-      <span class="npc-section-label">Personality and tone</span>
-      <p class="npc-desc">Not angry at the party. Angry at the situation and the party is the nearest available audience. Blunt, slightly loud, entirely honest. He warms up quickly if the party takes him seriously rather than treating him as an information source to be processed.</p>
-      <span class="npc-section-label">What he knows</span>
-      <div class="npc-trait"><span class="npc-trait-key">The timeline</span><span>Deliveries stopped arriving about ten days ago. He knows because he has been counting. That timeline, combined with what the party learns elsewhere, establishes when the toll operation started.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">On Alric</span><span>He went along with the fish stocking because the guild said the supply was reliable. He has heard that before. When Alric took over there was a whole thing about a northern supply route that was going to transform how Tallowhaven traded. That went nowhere. He is not saying Alric is dishonest. He is saying Alric is optimistic in ways that cost other people money.</span></div>
-      <span class="npc-section-label">The line that stings</span>
-      <div class="speech-block">Not dishonest. Just optimistic in ways that cost other people money.</div>
-    </div>
-  </div>
-
-  <div class="npc-card">
+    <div class="npc-body" id="osip-body"><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Not angry at the party, angry at the situation -- blunt and loud, warms up quickly if taken seriously.</p></div><div class="npc-field"><span class="npc-field-label">What he knows</span><p>Deliveries stopped about ten days ago -- he's been counting, which pins the timeline. Recalls a previous northern supply route Alric championed that went nowhere.</p></div><div class="npc-field"><span class="npc-field-label">What he keeps secret</span><p>Not accusing Alric of dishonesty -- just optimism that costs other people money. Line: “Not dishonest. Just optimistic in ways that cost other people money.”</p></div></div>
+  </div><div class="npc-card">
     <div class="npc-header" onclick="toggleNPC('lande')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="lande-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="lande-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('lande',this)" onclick="event.stopPropagation()">
-      </div>
       <div class="npc-info">
-        <span class="npc-name">Lande — Fabled Furnitures</span>
-        <span class="npc-role">Elf furniture maker — measured, precise, both directions blocked</span>
+        <span class="npc-name">Lande &amp; Caeryn</span>
+        <span class="npc-role">Fabled Furnitures &mdash; both directions blocked</span>
       </div>
       <span class="npc-toggle" id="lande-toggle">▼</span>
     </div>
-    <div class="npc-body" id="lande-body">
-      <span class="npc-section-label">Personality and tone</span>
-      <p class="npc-desc">An elven woman who has been making furniture in Tallowhaven for longer than most of the city's current residents have been alive. She has seen supply disruptions before and is not panicking. What she is is quietly furious, which is more unsettling than Osip's bluntness. She speaks carefully and precisely. She assesses the party before deciding how much to share.</p>
-      <span class="npc-section-label">What she knows</span>
-      <div class="npc-trait"><span class="npc-trait-key">Both directions</span><span>She was enticed by Alric to ship furniture to Driftwood Point. Her courier was turned back. She was also expecting goods coming in. Neither direction is working. She is losing money twice over from the same problem.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Cadog Melyn</span><span>She produces a small ledger and reads out the name. Someone mentioned it when they were turned back. She wrote it down because she writes things down. She does not know what it means but the party will.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Her husband</span><span>Caeryn was the courier who was turned back. If the party asks the right questions she calls him through. He gives the ground level account.</span></div>
-    </div>
-  </div>
-
-  <div class="npc-card">
-    <div class="npc-header" onclick="toggleNPC('caeryn')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="caeryn-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="caeryn-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('caeryn',this)" onclick="event.stopPropagation()">
-      </div>
-      <div class="npc-info">
-        <span class="npc-name">Caeryn</span>
-        <span class="npc-role">Lande's husband — the courier who was turned back</span>
-      </div>
-      <span class="npc-toggle" id="caeryn-toggle">▼</span>
-    </div>
-    <div class="npc-body" id="caeryn-body">
-      <span class="npc-section-label">Personality and tone</span>
-      <p class="npc-desc">Younger than Lande in elf terms and considerably more openly annoyed about what happened. Where Lande describes the situation with careful language he describes it with the frustration of someone who was physically turned back by people he could not argue past. He is not reckless. He is simply less guarded about showing how he feels.</p>
-      <span class="npc-section-label">What he knows</span>
-      <div class="npc-trait"><span class="npc-trait-key">The checkpoint</span><span>Describes the location, the people, the paperwork. The man running it engaged with his arguments and then made clear the arguments were not the point. The confidence of someone who knows the job is sanctioned from somewhere difficult to challenge.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Why he turned back</span><span>He had Lande's goods and a return trip to consider. Pressing on would have meant a confrontation he was not equipped for alone. He is not proud of the decision but it was the right one.</span></div>
-    </div>
-  </div>
-
-  <div class="npc-card">
+    <div class="npc-body" id="lande-body"><div class="npc-field"><span class="npc-field-label">Lande</span><p>An elf furniture maker, quietly furious rather than panicking -- more unsettling than Osip's bluntness. Assesses the party before deciding how much to share. Both her outgoing shipment and an incoming one are blocked; she produces a ledger with Cadog Melyn's name written down from something overheard.</p></div><div class="npc-field"><span class="npc-field-label">Caeryn</span><p>Lande's husband, the courier who was turned back. More openly annoyed, less guarded than Lande. Describes the checkpoint's location, people, and paperwork -- the man running it engaged with his arguments, then made clear the arguments weren't the point.</p></div></div>
+  </div><div class="npc-card">
     <div class="npc-header" onclick="toggleNPC('anwen')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="anwen-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="anwen-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('anwen',this)" onclick="event.stopPropagation()">
-      </div>
       <div class="npc-info">
         <span class="npc-name">Anwen</span>
-        <span class="npc-role">Driftwood Point courier — paid the toll, killing time before heading back</span>
+        <span class="npc-role">Driftwood Point courier &mdash; paid the toll, killing time before heading back</span>
       </div>
       <span class="npc-toggle" id="anwen-toggle">▼</span>
     </div>
-    <div class="npc-body" id="anwen-body">
-      <span class="npc-section-label">Finding her</span>
-      <p class="npc-desc">Mared mentions that a Driftwood Point courier got through last week. A vendor or innkeeper who deals with visiting traders knows where she tends to eat. The party finds her at lunch or dinner at a specific establishment if they follow the lead and interact well enough with the right person.</p>
-      <span class="npc-section-label">Personality and tone</span>
-      <p class="npc-desc">Guarded at first — she does not know who the party are or what they want. Warms up when she understands they are trying to fix the problem rather than assign blame. She paid the toll because turning back with a full cart was worse and she has a living to make. She is not proud of it but she is pragmatic about it. The dark humour of someone who has had a genuinely bad week and has reached the stage of finding it faintly funny.</p>
-      <span class="npc-section-label">What she knows</span>
-      <div class="npc-trait"><span class="npc-trait-key">The checkpoint</span><span>Location, roughly how many people, the paperwork, Cadog Melyn's name on the document. She describes the leader without naming him — physically imposing, engaged with her argument and then made clear it was not the point.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">The Sekarth comment</span><span>After describing the toll experience she adds something like: "That, plus the fact that every tradey in this town is looking at me like Sekarth himself, I'd say this has been a trip to quickly forget."</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">The key detail</span><span>Almost as an afterthought — the leader said something that suggested he was not worried about being moved on. The confidence of someone operating with backing from a direction that makes things difficult to challenge. She cannot say more because she does not know more. The party carries it.</span></div>
+    <div class="npc-body" id="anwen-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>Found at lunch or dinner at a specific establishment if the party follows the lead and asks the right vendor or innkeeper.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Guarded at first, warms up once she understands the party wants to fix the problem, not assign blame. Dark humour of someone who's had a genuinely bad week. Line, mid-vent: “That, plus the fact that every tradey in this town is looking at me like Sekarth himself, I'd say this has been a trip to quickly forget.”</p></div><div class="npc-field"><span class="npc-field-label">What she knows</span><p>Checkpoint location, roughly how many people, the paperwork, Cadog Melyn's name (independently corroborating Lande's ledger). Almost as an afterthought: the leader seemed unworried about being challenged -- confidence from somewhere that makes things hard to contest. She can't say more; the party carries it.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('toll-leaders')">
+      <div class="npc-info">
+        <span class="npc-name">Radek &amp; Peck</span>
+        <span class="npc-role">The checkpoint &mdash; leader and negotiator</span>
+      </div>
+      <span class="npc-toggle" id="toll-leaders-toggle">▼</span>
     </div>
+    <div class="npc-body" id="toll-leaders-body"><div class="npc-field"><span class="npc-field-label">Radek (leader)</span><p>Genuinely enjoys having power over people at a bottleneck more than he cares about the legal argument, though he uses it. Engages seriously with counter-arguments, which is unsettling. Tell: lands one extra hit he didn't need to, early, before the fight even starts.</p></div><div class="npc-field combat"><span class="npc-field-label">Combat -- Radek</span><p>AC 16, HP 52. Greataxe +6, 1d12+4 slashing (extra attack on a crit). Action Surge (1/short rest), Second Wind (1d10+4 as bonus action, 1/short rest). Intimidation +5, used actively -- failed save gives the target disadvantage on their next attack against him. Fights with enjoyment, not efficiency; last to go down, not gracefully.</p></div><div class="npc-field"><span class="npc-field-label">Peck (negotiator)</span><p>Quick-witted, faintly absurdist gnome bard who delivers the toll demand with practiced comic timing, then steps back the moment combat starts -- not cowardice, professionalism. Exit line: something theatrical about preferring not to get blood on the ledger. If Radek falls and Peck's still standing, he puts his hands up with professional detachment -- no loyalty beyond the job.</p></div><div class="npc-field combat"><span class="npc-field-label">Combat -- Peck</span><p>AC 13, HP 22. Vicious Mockery (DC 13), Dissonant Whispers (DC 13), Healing Word on self/allies, Bardic Inspiration (1d6, 1/short rest). Steps back from melee, uses Vicious Mockery from range if directly threatened -- priority is survival, not victory.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('toll-backstops')">
+      <div class="npc-info">
+        <span class="npc-name">Morda, Brek &amp; Gort</span>
+        <span class="npc-role">The checkpoint &mdash; backstops and muscle</span>
+      </div>
+      <span class="npc-toggle" id="toll-backstops-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="toll-backstops-body"><div class="npc-field combat"><span class="npc-field-label">Morda (Tallowhaven-side backstop)</span><p>Half-orc ranger, appears behind the party once they're committed. AC 14, HP 32. Shortsword +5 (1d6+3) / Longbow +5 (1d8+3, 150/600ft). Hunter's Mark, Colossus Slayer (+1d8 vs a target below max HP).</p></div><div class="npc-field combat"><span class="npc-field-label">Brek (Driftwood-side backstop)</span><p>Older dwarf ranger holding the coast-facing end, clear professional shorthand with Morda. AC 15, HP 38. Handaxe +4 (1d6+2) / Longbow +4 (1d8+2, 150/600ft). Hunter's Mark, Dwarven Resilience.</p></div><div class="npc-field combat"><span class="npc-field-label">Gort</span><p>Orc fighter standing with Radek, entirely reliable, no interest in the argument -- just the work. AC 15, HP 38. Longsword +5 (1d8+3). Relentless Endurance (drops to 1 HP instead of 0, 1/long rest), Second Wind.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('thessaly')">
+      <div class="npc-info">
+        <span class="npc-name">Thessaly</span>
+        <span class="npc-role">The checkpoint &mdash; magic user, held back, complicated feelings</span>
+      </div>
+      <span class="npc-toggle" id="thessaly-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="thessaly-body"><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Set back or concealed, may go unnoticed until a spell lands. Not cruel like Radek -- just here, doing a job, trying not to think too hard about it.</p></div><div class="npc-field"><span class="npc-field-label">What she keeps secret</span><p>If questioned after the fight, most likely of the group to mention the job coming through channels rather than directly -- not the Trademaster connection itself, just that thread. The party can't follow it yet.</p></div><div class="npc-field combat"><span class="npc-field-label">Combat</span><p>AC 12, HP 26. Thunderwave (DC 13, 2d8, pushes 10ft), Hold Person (DC 13), Misty Step (bonus action, 30ft), Magic Missile (3 darts, 1d4+1 each, auto-hit).</p></div></div>
   </div>
 
-  <div class="section-heading">Investigation Beats</div>
-
-  <div class="dm-note"><strong>Sequence is flexible</strong>The party can visit the merchants in any order. The picture assembles differently depending on the sequence. Lande is the most informative but most guarded. Osip is the most immediate but has the least tactical detail. Mared is the most composed and gives the Anwen lead. A thorough investigation gives the party tactical advantage at the road. Skipping straight to the road after the first lead means arriving less prepared.</div>
-
+  <div class="section-heading">Encounter Beats</div>
   <div class="beat">
-    <div class="beat-header" onclick="toggleBeat('i1')">
-      <span class="beat-number">I.1</span>
-      <span class="beat-title">Alric's brief — the Shallow Tuber</span>
-      <span class="beat-toggle" id="beat-toggle-i1">▼</span>
+    <div class="beat-header" onclick="toggleBeat('I1')">
+      <span class="beat-number">I1</span>
+      <span class="beat-title">Alric's brief</span>
+      <span class="beat-toggle" id="beat-toggle-I1">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-i1">
-      <p>Alric describes the problem as a matter of guild reputation. Merchants who trusted him are losing money during the most visible trading period of the year. He gives them three names — Mared Ffion at Silvermark, Osip Baran at the butchers, and Lande at Fabled Furnitures. He mentions Lande had issues going the other way too. He says this as an aside. He does not elaborate.</p>
-      <p>He pays half upfront. He expects them to find out what happened and fix it. He does not tell them where to look beyond the three merchants.</p>
-    </div>
-  </div>
-
-  <div class="beat">
-    <div class="beat-header" onclick="toggleBeat('i2')">
-      <span class="beat-number">I.2</span>
+    <div class="beat-body" id="beat-body-I1"><p>Alric describes it as a matter of guild reputation -- merchants who trusted him are losing money in the most visible trading week of the year. He names three merchants (Mared, Osip, Lande), mentions as an aside that Lande had issues going the other way too, pays half upfront, and leaves the legwork to the party.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('I2')">
+      <span class="beat-number">I2</span>
       <span class="beat-title">The merchant conversations</span>
-      <span class="beat-toggle" id="beat-toggle-i2">▼</span>
+      <span class="beat-toggle" id="beat-toggle-I2">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-i2">
-      <p>The party visits the three merchants in whatever order they choose. Each conversation gives them a different piece of the picture.</p>
-      <p>From Mared: the Anwen lead and confirmation that someone got through by paying.</p>
-      <p>From Osip: the timeline — ten days — and doubt about Alric's reliability as an architect of grand plans.</p>
-      <p>From Lande and Caeryn: both directions are blocked, Cadog Melyn's name, and a ground level account of what the checkpoint looks like and how it operates.</p>
-      <p>By the end of the merchant visits the party knows there is a checkpoint, it has been running for ten days, it blocks both directions, it uses a landowner's name as legal cover, and its leader operates with the confidence of someone who feels protected.</p>
-    </div>
-  </div>
-
-  <div class="beat">
-    <div class="beat-header" onclick="toggleBeat('i3')">
-      <span class="beat-number">I.3</span>
+    <div class="beat-body" id="beat-body-I2"><p>Visitable in any order. Mared gives the Anwen lead; Osip gives the ten-day timeline and doubt about Alric; Lande and Caeryn give both-directions confirmation, Cadog Melyn's name, and a ground-level account of the checkpoint. By the end, the party knows there's a bottleneck, running ten days, blocking both ways, with grey legal cover and a leader who feels protected.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('I3')">
+      <span class="beat-number">I3</span>
       <span class="beat-title">Finding Anwen</span>
-      <span class="beat-toggle" id="beat-toggle-i3">▼</span>
+      <span class="beat-toggle" id="beat-toggle-I3">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-i3">
-      <p>Mared's mention of a courier who got through gives the party a thread to pull. A successful conversation with a vendor or innkeeper who deals with visiting traders from Driftwood Point locates Anwen — she is having lunch or dinner at a specific establishment and is killing time before heading back tomorrow.</p>
-      <p>She fills in the tactical detail: rough number of people at the checkpoint, the paperwork operation, the leader's manner. She gives them Cadog Melyn's name a second time, independently corroborating Lande's ledger entry.</p>
-      <p>Her Sekarth comment lands naturally in the middle of venting. The key detail about the leader's confidence comes almost as an afterthought as she is wrapping up. Let it sit without drawing attention to it.</p>
+    <div class="beat-body" id="beat-body-I3"><p>A successful conversation with a vendor or innkeeper who deals with Driftwood Point traders locates her at a meal, killing time before heading back. She fills in tactical detail -- headcount, paperwork, the leader's manner -- and independently corroborates Cadog Melyn's name. The detail about the leader's confidence comes almost as an afterthought; let it sit without drawing attention to it.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('C1')">
+      <span class="beat-number">C1</span>
+      <span class="beat-title">Arrival at the checkpoint</span>
+      <span class="beat-toggle" id="beat-toggle-C1">▼</span>
     </div>
-  </div>
-
-  <div class="beat">
-    <div class="beat-header" onclick="toggleBeat('i4')">
-      <span class="beat-number">I.4</span>
-      <span class="beat-title">What the party knows before they go</span>
-      <span class="beat-toggle" id="beat-toggle-i4">▼</span>
+    <div class="beat-body" id="beat-body-C1"><p>It looks like a checkpoint, not an ambush -- a cart waiting, Peck visible and official-looking. Morda is behind the party before they realise it (DC 14 Perception to spot early); Brek is ahead past the bottleneck; Thessaly isn't immediately obvious (DC 16). A prepared party gets the advantage of noticing.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('C2')">
+      <span class="beat-number">C2</span>
+      <span class="beat-title">The transaction, then the argument</span>
+      <span class="beat-toggle" id="beat-toggle-C2">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-i4">
-      <p>A bottleneck on the road between Tallowhaven and Driftwood Point. Running for ten days. Blocking both directions deliberately. Legal cover from Cadog Melyn's land ownership — genuinely grey rather than obviously false. A leader who is physically imposing and rhetorically confident. Multiple operatives. The operation feels sanctioned from somewhere.</p>
-      <p>A party that visited all three merchants and found Anwen has enough tactical detail to approach the checkpoint with a plan. A party that skipped straight to the road after the first lead arrives less prepared but gets there faster. Both are valid choices with different consequences.</p>
-    </div>
-  </div>
-
-  <!-- PHASE 2: COMBAT -->
-  <div class="phase-divider">
-    <span class="phase-label combat">Phase Two — The Road</span>
-    <div class="phase-divider-line"></div>
-  </div>
-
-  <div class="section-heading">The Toll Faction</div>
-
-  <div class="dm-note"><strong>The mirror dynamic</strong>This group are capable people who took a job that pays well and asks few questions. The party has been doing exactly that for the last few sessions. There but for the grace of the gods. Nobody in this group is a villain by nature. They are professionals in a morally ambiguous situation, which is precisely what the party is.</div>
-
-  <div class="npc-card combat-npc">
-    <div class="npc-header" onclick="toggleNPC('radek')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="radek-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="radek-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('radek',this)" onclick="event.stopPropagation()">
-      </div>
-      <div class="npc-info">
-        <span class="npc-name">Radek</span>
-        <span class="npc-role">Human Fighter — leader, charismatic brute, enjoys himself too much</span>
-      </div>
-      <span class="npc-toggle" id="radek-toggle">▼</span>
-    </div>
-    <div class="npc-body" id="radek-body">
-      <span class="npc-section-label">Personality</span>
-      <p class="npc-desc">He has the legal argument available and uses it, but underneath it he simply enjoys having power over people in a confined space with nobody to answer to. The legal cover is convenient rather than genuinely motivating. He engages with counter-arguments seriously, which is unsettling. He knows the legal position is grey. He also knows he is standing at a bottleneck with six people and the party has nowhere easy to go. At some point he says something or does something that makes clear the argument was never really the point.</p>
-      <div class="npc-trait"><span class="npc-trait-key">In combat</span><span>Fights with genuine enjoyment. Not reckless but not efficient either. Lands hits he did not need to land. Says things during combat. The last to go down and does not do so gracefully.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">One more punch</span><span>He lands one more hit than necessary just for the love of it. This is his tell. Play it once, early, so the party understands who they are dealing with.</span></div>
-      <span class="npc-section-label">Stats</span>
-      <div class="stat-grid">
-        <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">16</span></div>
-        <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">52</span></div>
-        <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">18</span><span class="stat-mod">+4</span></div>
-        <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
-        <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">16</span><span class="stat-mod">+3</span></div>
-        <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+6</span></div>
-      </div>
-      <div class="npc-trait" style="margin-top:8px;"><span class="npc-trait-key">Weapon</span><span>Greataxe — 1d12+4 slashing. On a critical hit he makes one additional attack as part of the same action.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Action Surge</span><span>Once per short rest, takes an additional action on his turn. He uses this when someone challenges him or when the fight starts going against him.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Second Wind</span><span>Once per short rest, regains 1d10+4 HP as a bonus action.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Intimidation</span><span>+5. He uses it actively rather than passively. A failed save means the target has disadvantage on their next attack roll against him.</span></div>
-    </div>
-  </div>
-
-  <div class="npc-card combat-npc">
-    <div class="npc-header" onclick="toggleNPC('peck')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="peck-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="peck-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('peck',this)" onclick="event.stopPropagation()">
-      </div>
-      <div class="npc-info">
-        <span class="npc-name">Peck</span>
-        <span class="npc-role">Gnome Bard — handles the transaction, steps back when it turns</span>
-      </div>
-      <span class="npc-toggle" id="peck-toggle">▼</span>
-    </div>
-    <div class="npc-body" id="peck-body">
-      <span class="npc-section-label">Personality</span>
-      <p class="npc-desc">Quick-witted, faintly absurdist, finds the whole situation faintly comic without quite endorsing it. He delivers the toll demand with the timing of someone who knows it is a terrible situation but has committed to making it work. He makes the party almost like him before the fight starts. He steps aside when combat begins — not out of cowardice, out of professionalism. He knows his value is not in a brawl.</p>
-      <div class="npc-trait"><span class="npc-trait-key">His exit line</span><span>Something theatrical as he steps back. A comment about preferring not to get blood on the ledger. Play it for the dark comedy without undercutting the tension of the fight.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">If combat ends</span><span>If Radek goes down and Peck is still standing he assesses the situation with professional detachment and puts his hands up. He has no loyalty beyond the job. The job has clearly changed shape.</span></div>
-      <span class="npc-section-label">Stats</span>
-      <div class="stat-grid">
-        <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">13</span></div>
-        <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">22</span></div>
-        <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">8</span><span class="stat-mod">-1</span></div>
-        <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
-        <div class="stat-box"><span class="stat-label">CHA</span><span class="stat-value">16</span><span class="stat-mod">+3</span></div>
-        <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+4</span></div>
-      </div>
-      <div class="npc-trait" style="margin-top:8px;"><span class="npc-trait-key">Spells</span><span>Vicious Mockery (save DC 13), Dissonant Whispers (save DC 13), Healing Word (uses on himself or allies if needed). Bardic Inspiration — grants 1d6 to one ally per short rest.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Behaviour</span><span>Steps back from combat. Uses Vicious Mockery from range if directly threatened. His priority is survival, not victory.</span></div>
-    </div>
-  </div>
-
-  <div class="npc-grid">
-
-    <div class="npc-card combat-npc grid-card">
-      <div class="npc-header" onclick="toggleNPC('morda')">
-        <div class="npc-portrait small">
-          <img id="morda-img" src="" alt="" style="display:none;">
-          <div class="npc-portrait-placeholder" id="morda-placeholder">Load</div>
-          <input type="file" accept="image/*" onchange="loadPortrait('morda',this)" onclick="event.stopPropagation()">
-        </div>
-        <div class="npc-info">
-          <span class="npc-name">Morda</span>
-          <span class="npc-role">Half-orc Ranger — Tallowhaven side backstop</span>
-        </div>
-        <span class="npc-toggle" id="morda-toggle">▼</span>
-      </div>
-      <div class="npc-body" id="morda-body">
-        <p class="npc-desc">Appears behind the party once they are committed to the bottleneck. Quiet and professional. Gender ambiguous, weathered, has been doing outdoor jobs long enough to have stopped explaining themselves. Close range threat in melee, effective at range if the party tries to retreat.</p>
-        <div class="stat-grid" style="margin-top:8px;">
-          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">14</span></div>
-          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">32</span></div>
-          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
-          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">16</span><span class="stat-mod">+3</span></div>
-          <div class="stat-box"><span class="stat-label">WIS</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
-          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+5</span></div>
-        </div>
-        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Weapons</span><span>Shortsword +5 (1d6+3) / Longbow +5 (1d8+3, range 150/600ft)</span></div>
-        <div class="npc-trait" style="font-size:14px;"><span class="npc-trait-key">Special</span><span>Hunter's Mark — bonus action, additional 1d6 damage to marked target. Colossus Slayer — once per turn, +1d8 damage to a target below max HP.</span></div>
-      </div>
-    </div>
-
-    <div class="npc-card combat-npc grid-card">
-      <div class="npc-header" onclick="toggleNPC('brek')">
-        <div class="npc-portrait small">
-          <img id="brek-img" src="" alt="" style="display:none;">
-          <div class="npc-portrait-placeholder" id="brek-placeholder">Load</div>
-          <input type="file" accept="image/*" onchange="loadPortrait('brek',this)" onclick="event.stopPropagation()">
-        </div>
-        <div class="npc-info">
-          <span class="npc-name">Brek</span>
-          <span class="npc-role">Dwarf Ranger — Driftwood Point side backstop</span>
-        </div>
-        <span class="npc-toggle" id="brek-toggle">▼</span>
-      </div>
-      <div class="npc-body" id="brek-body">
-        <p class="npc-desc">Older and more weathered than Morda, holds the coast-facing end of the bottleneck. Has clearly worked with Morda before. The two have a functional shorthand that suggests a professional relationship built over time. Same stat block as Morda with slightly higher HP reflecting his experience.</p>
-        <div class="stat-grid" style="margin-top:8px;">
-          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">15</span></div>
-          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">38</span></div>
-          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
-          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">15</span><span class="stat-mod">+2</span></div>
-          <div class="stat-box"><span class="stat-label">WIS</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
-          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+4</span></div>
-        </div>
-        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Weapons</span><span>Handaxe +4 (1d6+2) / Longbow +4 (1d8+2, range 150/600ft)</span></div>
-        <div class="npc-trait" style="font-size:14px;"><span class="npc-trait-key">Special</span><span>Hunter's Mark as Morda. Dwarven Resilience — advantage on saving throws against poison.</span></div>
-      </div>
-    </div>
-
-    <div class="npc-card combat-npc grid-card">
-      <div class="npc-header" onclick="toggleNPC('gort')">
-        <div class="npc-portrait small">
-          <img id="gort-img" src="" alt="" style="display:none;">
-          <div class="npc-portrait-placeholder" id="gort-placeholder">Load</div>
-          <input type="file" accept="image/*" onchange="loadPortrait('gort',this)" onclick="event.stopPropagation()">
-        </div>
-        <div class="npc-info">
-          <span class="npc-name">Gort</span>
-          <span class="npc-role">Orc Fighter — stands with Radek, does what he is told</span>
-        </div>
-        <span class="npc-toggle" id="gort-toggle">▼</span>
-      </div>
-      <div class="npc-body" id="gort-body">
-        <p class="npc-desc">Physically imposing, less interesting than Radek as a personality, entirely reliable. He does what Radek does and he does it without commentary. He is not stupid — he simply has no interest in the argument. He is here for the work.</p>
-        <div class="stat-grid" style="margin-top:8px;">
-          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">15</span></div>
-          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">38</span></div>
-          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">17</span><span class="stat-mod">+3</span></div>
-          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">11</span><span class="stat-mod">+0</span></div>
-          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">15</span><span class="stat-mod">+2</span></div>
-          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+5</span></div>
-        </div>
-        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Weapon</span><span>Longsword +5 (1d8+3 slashing)</span></div>
-        <div class="npc-trait" style="font-size:14px;"><span class="npc-trait-key">Special</span><span>Relentless Endurance — once per long rest, when reduced to 0HP drops to 1HP instead. Second Wind — once per short rest, regains 1d10+2 HP as bonus action.</span></div>
-      </div>
-    </div>
-
-    <div class="npc-card combat-npc grid-card">
-      <div class="npc-header" onclick="toggleNPC('thessaly')">
-        <div class="npc-portrait small">
-          <img id="thessaly-img" src="" alt="" style="display:none;">
-          <div class="npc-portrait-placeholder" id="thessaly-placeholder">Load</div>
-          <input type="file" accept="image/*" onchange="loadPortrait('thessaly',this)" onclick="event.stopPropagation()">
-        </div>
-        <div class="npc-info">
-          <span class="npc-name">Thessaly</span>
-          <span class="npc-role">Elf — magic user, held back, complicated feelings</span>
-        </div>
-        <span class="npc-toggle" id="thessaly-toggle">▼</span>
-      </div>
-      <div class="npc-body" id="thessaly-body">
-        <p class="npc-desc">Set back from the main confrontation, elevated or concealed if the terrain allows. The party may not notice her until a spell lands. She has clearly made choices that led her here and has complicated feelings about some of them. She is not cruel like Radek. She is simply here, doing a job, trying not to think too hard about what the job is.</p>
-        <div class="stat-grid" style="margin-top:8px;">
-          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">12</span></div>
-          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">26</span></div>
-          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">8</span><span class="stat-mod">-1</span></div>
-          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
-          <div class="stat-box"><span class="stat-label">INT</span><span class="stat-value">16</span><span class="stat-mod">+3</span></div>
-          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+5</span></div>
-        </div>
-        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Spells</span><span>Thunderwave (DC 13, 2d8 thunder, pushes 10ft), Hold Person (DC 13), Misty Step (bonus action teleport 30ft), Magic Missile (3 darts, 1d4+1 each, auto-hit)</span></div>
-        <div class="npc-trait" style="font-size:14px;"><span class="npc-trait-key">If questioned</span><span>Most likely of the group to say something interesting when subdued — not about the Trademaster connection, but about how the job came through channels. The party cannot follow that thread yet. They carry it.</span></div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="section-heading">Combat Beats</div>
-
-  <div class="dm-note"><strong>Map pending</strong>The exact tactical layout depends on the map selected. The encounter is designed around a bottleneck — a point where the road narrows and carts must slow. Whether that is a bridge, a ford, a forest track, or a rocky defile, the principles hold. Morda behind. Brek ahead. Radek and Gort at the centre. Thessaly elevated or set back. Peck visible at the front until combat starts.</div>
-
-  <div class="beat combat-beat">
-    <div class="beat-header combat-header" onclick="toggleBeat('c1')">
-      <span class="beat-number">C.1</span>
-      <span class="beat-title">Arrival — the checkpoint in view</span>
-      <span class="beat-toggle" id="beat-toggle-c1">▼</span>
-    </div>
-    <div class="beat-body" id="beat-body-c1">
-      <p>The party approaches the bottleneck. People are there. It looks like a checkpoint rather than an ambush — a cart waiting, Peck visible and official-looking, paperwork in hand. Radek is present but silent. Morda is behind the party before they realise it. Brek is ahead on the far side, visible only if someone looks past the bottleneck. Thessaly is not immediately obvious.</p>
-      <p>A Perception check against DC 14 spots Morda before she is in position. DC 16 spots Thessaly's position. Let prepared parties have this advantage.</p>
-    </div>
-  </div>
-
-  <div class="beat combat-beat">
-    <div class="beat-header combat-header" onclick="toggleBeat('c2')">
-      <span class="beat-number">C.2</span>
-      <span class="beat-title">The transaction — Peck works</span>
-      <span class="beat-toggle" id="beat-toggle-c2">▼</span>
-    </div>
-    <div class="beat-body" id="beat-body-c2">
-      <p>Peck greets them warmly. He explains the toll with practiced ease. Cadog Melyn's name on the document. Maintenance fee for use of the crossing. Entirely standard. He quotes a figure. His timing is good. He almost makes it sound reasonable.</p>
-      <p>Radek says nothing yet. He is letting Peck work.</p>
-    </div>
-  </div>
-
-  <div class="beat combat-beat">
-    <div class="beat-header combat-header" onclick="toggleBeat('c3')">
-      <span class="beat-number">C.3</span>
-      <span class="beat-title">The argument — Radek enters</span>
-      <span class="beat-toggle" id="beat-toggle-c3">▼</span>
-    </div>
-    <div class="beat-body" id="beat-body-c3">
-      <p>If the party challenges the legal basis Peck handles it pleasantly. If they push harder Radek enters the conversation. He engages with the argument genuinely, which is unsettling. He knows the position is grey. He also knows where he is standing and who is behind the party.</p>
-      <p>At some point he does something that makes clear the argument was never the point. A carter who has been waiting too long says something impatient and Radek's response is one beat more than it needed to be. Let that land before anything else happens.</p>
-    </div>
-  </div>
-
-  <div class="beat combat-beat">
-    <div class="beat-header combat-header" onclick="toggleBeat('c4')">
-      <span class="beat-number">C.4</span>
+    <div class="beat-body" id="beat-body-C2"><p>Peck explains the toll with practiced ease -- Cadog Melyn's name, a maintenance fee, entirely standard-sounding. If the party challenges the legal basis, he handles it pleasantly; if they push harder, Radek enters and engages with the argument genuinely, which is unsettling. At some point -- ideally sparked by an impatient waiting carter -- he does something one beat more than necessary. Let that land before anything else happens.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('C3')">
+      <span class="beat-number">C3</span>
       <span class="beat-title">The fight</span>
-      <span class="beat-toggle" id="beat-toggle-c4">▼</span>
+      <span class="beat-toggle" id="beat-toggle-C3">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-c4">
-      <p>Morda and Brek close from both ends when combat starts. Thessaly's first spell lands from somewhere the party did not expect — prioritise this reveal if they failed the Perception check. Gort moves with Radek. Peck steps aside with a comment and finds somewhere to be that is not in the middle of it.</p>
-      <p>Radek fights with genuine enjoyment. He uses Action Surge when challenged or when the fight starts going against him. He says things during combat. He is the last to go down.</p>
-      <p>The sheep on the open ground, if present on the map, cause minor chaos if anyone runs through them. Disadvantage on the next attack roll from the distraction is reasonable.</p>
-    </div>
-  </div>
-
-  <div class="beat combat-beat">
-    <div class="beat-header combat-header" onclick="toggleBeat('c5')">
-      <span class="beat-number">C.5</span>
-      <span class="beat-title">Aftermath</span>
-      <span class="beat-toggle" id="beat-toggle-c5">▼</span>
-    </div>
-    <div class="beat-body" id="beat-body-c5">
-      <p>Peck, if still standing, puts his hands up with professional detachment. The job has changed shape. He has no particular loyalty to Radek beyond the contract.</p>
-      <p>Prisoners can be taken. Nobody names who hired the group even if subdued and questioned. The documentation naming Cadog Melyn exists but proves nothing about the actual employer. Thessaly, if questioned, may say something about the job coming through channels rather than directly. The party cannot follow that thread yet. They carry it.</p>
-      <p>The road is clear. The fish will arrive. The Driftwood Point relationship is back on track.</p>
-    </div>
-  </div>
-
-  <div class="section-heading">Outcomes</div>
-
-  <div class="outcome success">
-    <span class="outcome-label">Full investigation then road cleared</span>
-    <p>The party visited all three merchants, found Anwen, and arrived at the bottleneck with tactical detail. They know roughly what to expect. Alric receives the report with measured satisfaction. He notes they found the full picture — both directions blocked — without commenting that he already knew part of it. He pays the second half. The party carries Thessaly's comment about the job coming through channels.</p>
-  </div>
-
-  <div class="outcome success">
-    <span class="outcome-label">Partial investigation then road cleared</span>
-    <p>The party followed the first lead and went straight to the road. The fight was harder. The road is still clear. Alric pays the second half. He notes they were efficient. He does not say what he noticed about what they missed.</p>
-  </div>
-
-  <div class="outcome warning">
-    <span class="outcome-label">Party pays the toll and turns back</span>
-    <p>The road is not cleared. Alric's supply line is not restored. He receives the report without visible anger. He is disappointed in a specific way that the party will understand. He will find another solution. He will not be using them for anything that requires nerve for a while.</p>
+    <div class="beat-body" id="beat-body-C3"><div class="outcome"><strong>Full investigation, then road cleared</strong>Alric receives the report with measured satisfaction -- notes they found the full picture without saying he already knew part of it. Pays the second half. The party carries Thessaly's comment about channels.</div><div class="outcome"><strong>Partial investigation, then road cleared</strong>Harder fight, same clear road. Alric pays the second half and notes they were efficient -- without saying what he noticed about what they missed.</div><div class="outcome"><strong>Party pays the toll and turns back</strong>Road stays blocked, supply line not restored. Alric is disappointed in a specific, legible way, finds another solution, and won't use the party for anything requiring nerve for a while.</div><p>Morda and Brek close from both ends. Thessaly's first spell lands from an unexpected angle, especially if the Perception checks failed. Gort moves with Radek; Peck steps aside and finds somewhere to be. Radek uses Action Surge when challenged or losing, talks throughout, and is the last down -- not gracefully.</p></div>
   </div>
 
   <div class="section-heading">DM Notes</div>
-
-  <div class="dm-note"><strong>The hidden Trademaster layer</strong>The toll operation was commissioned through Trademaster-connected channels. This is not discoverable during this mission. No documents, no names, no conversations point that way. Thessaly's comment about the job coming through channels is the only thread available and it leads nowhere yet. The connection surfaces in Act 1's third round when the factions are already in motion and the party can look back and understand what they were part of.</div>
-
-  <div class="dm-note"><strong>Osip's comment about Alric</strong>Not dishonest. Just optimistic in ways that cost other people money. The party carries this. It does not need to be resolved. It is a perspective on a man they are working for, offered by someone with a legitimate grievance. Let it sit.</div>
-
-  <div class="dm-note"><strong>Radek's extra punch</strong>Play this once, early in the encounter, before combat starts if possible. A moment where he does something one beat more than necessary to a bystander or a waiting carter. It establishes who he is before the fight and makes the combat feel like the continuation of something rather than a surprise.</div>
-
-  <div class="dm-note"><strong>Peck's exit</strong>Make it funny and make it human. He is a professional stepping out of a situation that has moved beyond his job description. The comment about the ledger should land as dark comedy without undercutting the tension of what is happening around him. One good line, well timed, then he is out of the way.</div>
+  <div class="dm-note"><strong>The hidden Trademaster layer</strong>The toll operation was commissioned through Trademaster-connected channels. Not discoverable this mission -- no documents, names, or conversations point that way. Thessaly's “channels” comment is the only thread, and it leads nowhere yet. It surfaces in Act 1's third round, once the factions are already in motion.</div><div class="dm-note"><strong>Osip's line about Alric</strong>“Not dishonest. Just optimistic in ways that cost other people money.” Doesn't need resolving -- it's a legitimate perspective from someone with a real grievance. Let it sit.</div><div class="dm-note"><strong>Radek's extra punch</strong>Play it once, early, ideally before combat starts -- one beat more than necessary directed at a bystander or waiting carter. It establishes who he is before the fight, so the combat feels like a continuation rather than a surprise.</div><div class="dm-note"><strong>Peck's exit</strong>Make it funny and human -- a professional stepping out of a situation that's moved past his job description. One good line, well timed, then out of the way.</div><div class="dm-note"><strong>The seeded detail</strong>A waiter mentioned a delivery issue from the coast before this mission was even offered. A party that connected the dots at dinner earns the satisfaction of having noticed early.</div>
 
   <footer>Abelon Campaign — Mission Reference. The Driftwood Point Supply Problem / Tallowhaven / Act 1 Merchants Second Mission.</footer>
 </div>
 
 <script>
   function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
-  function toggleBeat(id){const b=document.getElementById('beat-body-'+id),t=document.getElementById('beat-toggle-'+id);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
   function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
   function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
-  function expandSection(type){collapseAll();if(type==='beat'){document.querySelectorAll('[id^="beat-body-i"]').forEach(el=>el.classList.add('open'));document.querySelectorAll('[id^="beat-toggle-i"]').forEach(el=>el.classList.add('open'));}else if(type==='combat'){document.querySelectorAll('[id^="beat-body-c"]').forEach(el=>el.classList.add('open'));document.querySelectorAll('[id^="beat-toggle-c"]').forEach(el=>el.classList.add('open'));}}
-  function expandNPCs(){collapseAll();document.querySelectorAll('.npc-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle').forEach(el=>el.classList.add('open'));}
-  function loadPortrait(id,input){if(!input.files||!input.files[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(id+'-img'),ph=document.getElementById(id+'-placeholder');if(img){img.src=e.target.result;img.style.display='block';}if(ph)ph.style.display='none';};r.readAsDataURL(input.files[0]);}
 </script>
 </body>
 </html>

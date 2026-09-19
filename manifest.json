@@ -6,85 +6,88 @@
       "title": "Ambush on the Road",
       "category": "act1",
       "order": 1,
-      "pair": "cg-road-ambush"
+      "pair": "cg-road-ambush",
+      "chapter": "brindle-hollow",
+      "chapterOrder": 3
     },
     {
       "id": "act1-star-raven",
       "file": "Act1_BrindleHollow_StarAndRaven_PartyMeeting.html",
       "title": "The Star and Raven",
       "category": "act1",
-      "order": 2
+      "order": 2,
+      "chapter": "brindle-hollow",
+      "chapterOrder": 1
     },
     {
       "id": "act1-stillwater",
       "file": "Act1_BrindleHollow_StillwaterShrine_MarekArrest.html",
       "title": "The Stillwater Shrine",
       "category": "act1",
-      "order": 3
+      "order": 3,
+      "chapter": "brindle-hollow",
+      "chapterOrder": 2
     },
     {
       "id": "act1-aldermens",
       "file": "Act1_Tallowhaven_AldermensHall_Arrival.html",
       "title": "The Aldermen's Hall",
       "category": "act1",
-      "order": 4
+      "order": 4,
+      "chapter": "tallowhaven",
+      "path": "generic",
+      "pathOrder": 1
     },
     {
       "id": "act1-ambercup",
       "file": "Act1_Tallowhaven_AmberCup_Arrival.html",
       "title": "The Amber Cup",
       "category": "act1",
-      "order": 5
-    },
-    {
-      "id": "act1-honeywell",
-      "file": "Act1_Tallowhaven_HoneywellOffice_OskarIntroduction.html",
-      "title": "Honeywell Office",
-      "category": "act1",
-      "order": 6
-    },
-    {
-      "id": "act1-shallowtuber",
-      "file": "Act1_Tallowhaven_ShallowTuber_AlricIntroduction.html",
-      "title": "The Shallow Tuber",
-      "category": "act1",
-      "order": 7
-    },
-    {
-      "id": "act1-street-seva",
-      "file": "Act1_Tallowhaven_Street_SevaIntroduction.html",
-      "title": "Private Table, The Amber Cup",
-      "category": "act1",
-      "order": 8
+      "order": 5,
+      "chapter": "tallowhaven",
+      "path": "generic",
+      "pathOrder": 2
     },
     {
       "id": "act1-coppervine",
-      "file": "Act1_Tallowhaven_CopperVine_DebtCollection.html",
-      "title": "The Copper Vine",
+      "file": "Act1_Tallowhaven_Merchants_ShallowTuberAndCopperVine.html",
+      "title": "The Shallow Tuber & The Copper Vine",
       "category": "act1",
-      "order": 9
+      "order": 9,
+      "chapter": "tallowhaven",
+      "path": "merchants",
+      "pathOrder": 1
     },
     {
       "id": "act1-crost",
-      "file": "Act1_Tallowhaven_CrostHousehold_NecklaceRetrieval.html",
-      "title": "The Crost Household",
+      "file": "Act1_Tallowhaven_Courtesans_StreetAndCrostHousehold.html",
+      "title": "A Street in Tallowhaven & The Crost Household",
       "category": "act1",
-      "order": 10
+      "order": 10,
+      "chapter": "tallowhaven",
+      "path": "courtesans",
+      "pathOrder": 1
     },
     {
       "id": "act1-warehouses",
-      "file": "Act1_Tallowhaven_Warehouses_WorkerEviction.html",
-      "title": "The Basement Warehouse",
+      "file": "Act1_Tallowhaven_Trademasters_HoneywellAndWarehouse.html",
+      "title": "Honeywell Office & The Basement Warehouse",
       "category": "act1",
       "order": 11,
-      "pair": "cg-basement-warehouse"
+      "pair": "cg-basement-warehouse",
+      "chapter": "tallowhaven",
+      "path": "trademasters",
+      "pathOrder": 1
     },
     {
       "id": "act1-coopers-bardic",
       "file": "Act1_Tallowhaven_CoopersSquare_BardicInterlude.html",
       "title": "Cooper's Square (Bardic Interlude)",
       "category": "act1",
-      "order": 12
+      "order": 12,
+      "chapter": "tallowhaven",
+      "path": "generic",
+      "pathOrder": 3
     },
     {
       "id": "act1-starling",
@@ -92,7 +95,10 @@
       "title": "The Starling",
       "category": "act1",
       "order": 13,
-      "pair": "cg-starling"
+      "pair": "cg-starling",
+      "chapter": "tallowhaven",
+      "path": "courtesans",
+      "pathOrder": 2
     },
     {
       "id": "act1-trumpet",
@@ -100,7 +106,10 @@
       "title": "The Trumpet",
       "category": "act1",
       "order": 14,
-      "pair": "cg-trumpet"
+      "pair": "cg-trumpet",
+      "chapter": "tallowhaven",
+      "path": "trademasters",
+      "pathOrder": 2
     },
     {
       "id": "act1-driftwood",
@@ -108,14 +117,20 @@
       "title": "The Driftwood Point Supply Problem",
       "category": "act1",
       "order": 15,
-      "pair": "cg-driftwood"
+      "pair": "cg-driftwood",
+      "chapter": "tallowhaven",
+      "path": "merchants",
+      "pathOrder": 3,
+      "subLabel": "(b) Real Barricade"
     },
     {
       "id": "act1-evening",
       "file": "Act1_Tallowhaven_EveningInvitations_ThirdMissions.html",
       "title": "The Evening Invitations",
       "category": "act1",
-      "order": 16
+      "order": 16,
+      "chapter": "conclusion",
+      "chapterOrder": 1
     },
     {
       "id": "act1-assassination",
@@ -123,22 +138,28 @@
       "title": "The Assassination Paths",
       "category": "act1",
       "order": 17,
-      "pair": "cg-assassination"
+      "pair": "cg-assassination",
+      "chapter": "conclusion",
+      "chapterOrder": 2
     },
     {
       "id": "act1-arrest",
       "file": "Act1_Tallowhaven_CoopersSquare_ArrestAndGaol.html",
       "title": "The Arrest and The Gaol",
       "category": "act1",
-      "order": 18
+      "order": 18,
+      "chapter": "conclusion",
+      "chapterOrder": 4
     },
     {
       "id": "act1-finale",
       "file": "Act1_Tallowhaven_FestivalMeeting_Finale.html",
-      "title": "The Festival Meeting & Finale",
+      "title": "The Festival Meeting",
       "category": "act1",
       "order": 19,
-      "pair": "cg-finale"
+      "pair": "cg-finale",
+      "chapter": "conclusion",
+      "chapterOrder": 3
     },
     {
       "id": "cg-road-ambush",
@@ -289,12 +310,56 @@
       "category": "sessionlog",
       "order": 2,
       "nonHtml": true
+    },
+    {
+      "id": "act1-northern-ambush",
+      "title": "Northern Ambush",
+      "category": "act1",
+      "chapter": "tallowhaven",
+      "path": "generic",
+      "pathOrder": 4,
+      "missing": true,
+      "missingNote": "No encounter write-up yet -- combat guide exists",
+      "pair": "cg-northern-ambush"
+    },
+    {
+      "id": "act1-wolf-ambush",
+      "title": "Wolf Ambush",
+      "category": "act1",
+      "chapter": "tallowhaven",
+      "path": "generic",
+      "pathOrder": 5,
+      "missing": true,
+      "missingNote": "No encounter write-up yet -- combat guide exists",
+      "pair": "cg-wolf-ambush"
+    },
+    {
+      "id": "act1-bear-ambush",
+      "title": "Bear Ambush",
+      "category": "act1",
+      "chapter": "tallowhaven",
+      "path": "generic",
+      "pathOrder": 6,
+      "missing": true,
+      "missingNote": "No encounter write-up or combat guide yet"
+    },
+    {
+      "id": "act1-driftwood-fake",
+      "title": "Driftwood Checkpoint",
+      "category": "act1",
+      "chapter": "tallowhaven",
+      "path": "merchants",
+      "pathOrder": 2,
+      "subLabel": "(a) Fake Barricade",
+      "missing": true,
+      "missingNote": "No encounter write-up or combat guide yet"
     }
   ],
   "categories": [
     {
       "id": "act1",
-      "label": "Act 1 Encounters"
+      "label": "Act 1 Encounters",
+      "paymentTracking": true
     },
     {
       "id": "combat",
@@ -337,5 +402,16 @@
         "text": "Devrin/Tobin manhunt \u2014 open, unpursued"
       }
     ]
+  },
+  "pathLabels": {
+    "generic": "Generic",
+    "merchants": "Merchants Path",
+    "trademasters": "Trademasters Path",
+    "courtesans": "Courtesans Path"
+  },
+  "chapterLabels": {
+    "brindle-hollow": "Brindle Hollow",
+    "tallowhaven": "Tallowhaven",
+    "conclusion": "Act 1 Conclusion"
   }
 }

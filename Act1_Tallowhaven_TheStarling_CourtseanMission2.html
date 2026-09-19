@@ -3,67 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mission — The Starling</title>
+<title>Encounter — The Starling</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
-  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(153,53,86,0.05);--beat-border:#993556;--combat-bg:rgba(153,60,29,0.05);--combat-border:#993C1D;--success-bg:rgba(15,110,86,0.07);--success-border:#0F6E56;--success-text:#04342C;--warning-bg:rgba(133,79,11,0.08);--warning-border:#854F0B;--warning-text:#412402;--danger-bg:rgba(153,60,29,0.08);--danger-border:#993C1D;--danger-text:#4A1B0C;--npc-bg:rgba(153,53,86,0.05);--npc-border:#993556;--npc-combat-bg:rgba(153,60,29,0.05);--npc-combat-border:#993C1D;}
-  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(237,147,177,0.06);--beat-border:#ED93B1;--combat-bg:rgba(240,153,123,0.05);--combat-border:#F0997B;--success-bg:rgba(93,202,165,0.07);--success-border:#5DCAA5;--success-text:#E1F5EE;--warning-bg:rgba(239,159,39,0.07);--warning-border:#EF9F27;--warning-text:#FAEEDA;--danger-bg:rgba(240,153,123,0.08);--danger-border:#F0997B;--danger-text:#FAECE7;--npc-bg:rgba(237,147,177,0.06);--npc-border:#ED93B1;--npc-combat-bg:rgba(240,153,123,0.05);--npc-combat-border:#F0997B;}}
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(15,110,86,0.05);--beat-border:#0F6E56;--glance-bg:rgba(107,58,42,0.06);--glance-border:#6b3a2a;--npc-bg:rgba(15,110,86,0.05);--npc-border:#0F6E56;--loc-bg:rgba(74,56,40,0.04);--warn-bg:rgba(133,79,11,0.08);--warn-border:#854F0B;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(93,202,165,0.06);--beat-border:#5DCAA5;--glance-bg:rgba(196,168,130,0.06);--glance-border:#c4a882;--npc-bg:rgba(93,202,165,0.06);--npc-border:#5DCAA5;--loc-bg:rgba(196,168,130,0.04);--warn-bg:rgba(239,159,39,0.07);--warn-border:#EF9F27;}}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
   .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
-  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:1.5rem;}
   .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
-  .encounter-title{font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:30px;font-weight:600;color:var(--accent);letter-spacing:.03em;line-height:1.15;margin-bottom:6px;}
   .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
   .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
   .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
-  .meta-tag.combat{border-color:var(--danger-border);color:var(--danger-text);}
-  .phase-divider{display:flex;align-items:center;gap:16px;margin:2.5rem 0 1.5rem;}
-  .phase-label{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;white-space:nowrap;padding:4px 14px;border-radius:3px;}
-  .phase-label.investigation{background:var(--beat-bg);border:.5px solid var(--beat-border);color:var(--ink);}
-  .phase-label.combat{background:var(--combat-bg);border:.5px solid var(--combat-border);color:var(--ink);}
-  .phase-divider-line{flex:1;height:.5px;background:var(--rule);}
+  .description{font-size:15px;font-style:italic;color:var(--ink-mid);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule-faint);}
+  .glance{background:var(--glance-bg);border:1px solid var(--glance-border);border-radius:6px;padding:14px 18px;margin-bottom:1.5rem;}
+  .glance-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;}
+  .glance-part{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);margin:12px 0 6px;}
+  .glance-part:first-of-type{margin-top:0;}
+  .glance-item{margin-bottom:8px;font-size:14.5px;}
+  .glance-item:last-child{margin-bottom:0;}
+  .glance-item strong{font-family:'Cinzel',serif;font-weight:600;font-size:12.5px;letter-spacing:.02em;color:var(--ink);}
   .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
-  .overview-block{background:var(--beat-bg);border-left:3px solid var(--beat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
-  .overview-block p{margin-bottom:.6rem;}.overview-block p:last-child{margin-bottom:0;}
-  .combat-block{background:var(--combat-bg);border-left:3px solid var(--combat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
-  .combat-block p{margin-bottom:.6rem;}.combat-block p:last-child{margin-bottom:0;}
-  .info-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
-  @media(max-width:600px){.info-row,.npc-grid{grid-template-columns:1fr;}}
-  .info-card{background:var(--beat-bg);border:.5px solid var(--beat-border);border-radius:5px;padding:12px 14px;font-size:14px;color:var(--ink-mid);}
-  .info-card-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px;}
-  .npc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+  .location{background:var(--loc-bg);border-left:3px solid var(--rule);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .location-name{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mid);display:block;margin-bottom:6px;}
+  .location p{font-size:14.5px;color:var(--ink-mid);font-style:italic;}
   .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
-  .npc-card.combat-npc{border-color:var(--npc-combat-border);background:var(--npc-combat-bg);}
-  .npc-card.grid-card{margin-bottom:0;}
   .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
   .npc-header:hover{opacity:.8;}
-  .npc-portrait{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);overflow:hidden;flex-shrink:0;background:var(--parchment-dark);display:flex;align-items:center;justify-content:center;position:relative;}
-  .npc-portrait.small{width:40px;height:40px;}
-  .npc-portrait img{width:100%;height:100%;object-fit:cover;}
-  .npc-portrait-placeholder{font-family:'Cinzel',serif;font-size:9px;color:var(--ink-faded);text-align:center;padding:3px;line-height:1.3;pointer-events:none;}
-  .npc-portrait input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
   .npc-info{flex:1;}
   .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
   .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
   .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
   .npc-toggle.open{transform:rotate(180deg);}
-  .npc-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body{display:none;padding:2px 14px 14px;border-top:.5px solid var(--rule-faint);}
   .npc-body.open{display:block;}
-  .npc-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin:12px 0 5px;}
-  .npc-desc{font-size:15px;color:var(--ink-mid);margin-bottom:6px;}
-  .npc-trait{display:flex;gap:8px;margin-bottom:5px;font-size:14px;}
-  .npc-trait-key{color:var(--ink-faded);min-width:100px;flex-shrink:0;font-style:italic;}
-  .speech-block{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
-  .stat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:8px 0;text-align:center;}
-  .stat-box{background:var(--parchment-dark);border:.5px solid var(--rule);border-radius:4px;padding:4px 2px;}
-  .stat-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);display:block;}
-  .stat-value{font-size:15px;font-weight:600;color:var(--ink);display:block;}
-  .stat-mod{font-size:11px;color:var(--ink-faded);display:block;}
+  .npc-field{margin:10px 0;}
+  .npc-field-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:3px;}
+  .npc-field p{font-size:14.5px;color:var(--ink-mid);}
+  .npc-field.combat{background:var(--warn-bg);border-left:2px solid var(--warn-border);padding:8px 10px;border-radius:0 4px 4px 0;}
   .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
-  .beat.combat-beat{border-color:var(--combat-border);}
   .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
-  .beat-header.combat-header{background:var(--combat-bg);}
   .beat-header:hover{opacity:.8;}
   .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
   .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
@@ -72,42 +53,68 @@
   .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
   .beat-body.open{display:block;}
   .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
-  .outcome{border-radius:5px;padding:12px 14px;margin-bottom:10px;font-size:15px;}
-  .outcome.success{background:var(--success-bg);border:.5px solid var(--success-border);color:var(--success-text);}
-  .outcome.warning{background:var(--warning-bg);border:.5px solid var(--warning-border);color:var(--warning-text);}
-  .outcome.danger{background:var(--danger-bg);border:.5px solid var(--danger-border);color:var(--danger-text);}
-  .outcome-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:6px;opacity:.8;}
-  .outcome p{margin-bottom:6px;}.outcome p:last-child{margin-bottom:0;}
+  .beat-body .outcome{margin-bottom:10px;}
+  .beat-body .outcome strong{font-family:'Cinzel',serif;font-size:12px;color:var(--ink);display:block;margin-bottom:2px;}
   .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
   .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
   .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
   .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
   .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
-  .ctrl-btn.combat-link{border-color:#993C1D;color:#F0997B;text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
-  .ctrl-btn.combat-link:hover{background:rgba(153,60,29,0.1);}
   footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
 </style>
 </head>
 <body>
 <!-- ABELON-NAV-START -->
 <style>
-  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
-  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);--n-teal:#0F6E56;--n-teal-bg:rgba(15,110,86,0.08);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);--n-teal:#5DCAA5;--n-teal-bg:rgba(93,202,165,0.08);}}
   #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
   #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
   #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
   #abelon-nav-root a:hover{color:var(--n-accent);}
   #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
   #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
-  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
   #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
   #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
   #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+  #an-pay-btn{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);border-radius:3px;padding:3px 8px;font:inherit;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+  #an-pay-btn:hover{border-color:var(--n-accent);color:var(--n-accent);}
+  #an-pay-btn.has-data{border-color:var(--n-teal);color:var(--n-teal);}
+  #an-pay-summary{font-family:'Crimson Pro',Georgia,serif;font-size:12px;text-transform:none;letter-spacing:0;color:var(--n-ink-faded);}
+  #an-pay-panel{display:none;max-width:900px;margin:10px auto 0;background:var(--n-teal-bg);border:1px solid var(--n-teal);border-radius:6px;padding:14px 16px;font-family:'Crimson Pro',Georgia,serif;}
+  #an-pay-panel.open{display:block;}
+  #an-pay-panel .an-pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:10px;}
+  #an-pay-panel label{display:block;font-family:'Cinzel',Georgia,serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--n-ink-faded);margin-bottom:3px;}
+  #an-pay-panel input[type=text],#an-pay-panel textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:13px;background:var(--n-parch);color:var(--n-ink);border:1px solid var(--n-rule);border-radius:4px;padding:6px 8px;}
+  #an-pay-panel textarea{min-height:44px;resize:vertical;}
+  #an-pay-actions{display:flex;gap:8px;}
+  #an-pay-actions button{font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:4px;cursor:pointer;}
+  #an-pay-save{background:var(--n-teal);border:1px solid var(--n-teal);color:var(--n-parch);}
+  #an-pay-clear{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-cancel{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-note{font-size:10px;color:var(--n-ink-faded);font-style:italic;margin-top:8px;}
 </style>
 <div id="abelon-nav-root"><div class="an-row">
   <div class="an-crumb" id="abelon-nav-crumb"></div>
   <div class="an-related" id="abelon-nav-related-top"></div>
-</div></div>
+</div>
+<div id="an-pay-panel">
+  <div class="an-pay-grid">
+    <div><label>Agreed total</label><input type="text" id="an-pay-total" placeholder="e.g. 60gp"></div>
+    <div><label>Paid so far</label><input type="text" id="an-pay-paid" placeholder="e.g. 30gp"></div>
+    <div><label>Not yet paid</label><input type="text" id="an-pay-owed" placeholder="e.g. 30gp on completion"></div>
+  </div>
+  <label>Notes</label>
+  <textarea id="an-pay-notes" placeholder="Terms, conditions, who's paying..."></textarea>
+  <div id="an-pay-actions" style="margin-top:10px;">
+    <button type="button" id="an-pay-save">Save</button>
+    <button type="button" id="an-pay-clear">Clear</button>
+    <button type="button" id="an-pay-cancel">Cancel</button>
+  </div>
+  <div id="an-pay-note">Saved to this browser only (localStorage) — won't sync to your phone or another computer.</div>
+</div>
+</div>
 <div id="abelon-nav-related-footer"></div>
 <script>
 (function(){
@@ -117,14 +124,15 @@
   if (root === '') root = './';
   fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
     var file = decodeURIComponent(location.pathname.split('/').pop());
-    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c;});
     var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
     var crumb = document.getElementById('abelon-nav-crumb');
     var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
     crumb.appendChild(home);
     if (page) {
       var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
-      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var catObj = cats[page.category] || {};
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = catObj.label || page.category; crumb.appendChild(catLink);
       var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
       var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
     }
@@ -144,426 +152,202 @@
     if (page && page.category === 'act1') {
       var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
       var idx = siblings.findIndex(function(p){return p.id===page.id;});
-      var nav = document.createElement('span');
-      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
-      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
-      relTop.appendChild(nav);
+      var pnav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; pnav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){pnav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; pnav.appendChild(next); }
+      relTop.appendChild(pnav);
+    }
+
+    // --- Payment widget: only on categories flagged paymentTracking in the manifest ---
+    var catObj2 = cats[page && page.category] || {};
+    if (page && catObj2.paymentTracking) {
+      var LS_KEY = 'abelonPayment:' + page.id;
+      function getPayment(){ try { var raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch(e){} return null; }
+      function setPayment(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
+      function clearPayment(){ localStorage.removeItem(LS_KEY); }
+
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.id = 'an-pay-btn';
+      var summary = document.createElement('span'); summary.id = 'an-pay-summary';
+      relTop.appendChild(btn); relTop.appendChild(summary);
+
+      var panel = document.getElementById('an-pay-panel');
+      var fTotal = document.getElementById('an-pay-total');
+      var fPaid = document.getElementById('an-pay-paid');
+      var fOwed = document.getElementById('an-pay-owed');
+      var fNotes = document.getElementById('an-pay-notes');
+
+      function refreshButton(){
+        var p = getPayment();
+        if (p && (p.total || p.paid || p.owed || p.notes)) {
+          btn.textContent = '\uD83D\uDCB0 Payment \u2713';
+          btn.classList.add('has-data');
+          var bits = [];
+          if (p.total) bits.push(p.total + ' agreed');
+          if (p.paid) bits.push(p.paid + ' paid');
+          summary.textContent = bits.join(' \u00b7 ');
+        } else {
+          btn.textContent = '\uD83D\uDCB0 Payment';
+          btn.classList.remove('has-data');
+          summary.textContent = '';
+        }
+      }
+      function openPanel(){
+        var p = getPayment() || {};
+        fTotal.value = p.total || ''; fPaid.value = p.paid || ''; fOwed.value = p.owed || ''; fNotes.value = p.notes || '';
+        panel.classList.add('open');
+      }
+      btn.addEventListener('click', openPanel);
+      document.getElementById('an-pay-cancel').addEventListener('click', function(){ panel.classList.remove('open'); });
+      document.getElementById('an-pay-clear').addEventListener('click', function(){ clearPayment(); panel.classList.remove('open'); refreshButton(); });
+      document.getElementById('an-pay-save').addEventListener('click', function(){
+        setPayment({ total: fTotal.value.trim(), paid: fPaid.value.trim(), owed: fOwed.value.trim(), notes: fNotes.value.trim(),
+                     pageId: page.id, pageTitle: page.title, pageFile: page.file });
+        panel.classList.remove('open');
+        refreshButton();
+      });
+      refreshButton();
     }
   }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
 })();
 </script>
 <!-- ABELON-NAV-END -->
 
+
 <div class="page">
 
   <div class="encounter-header">
     <span class="encounter-type">Mission Reference — Act 1 / Courtesans Network / Second Mission</span>
     <div class="encounter-title">The Starling</div>
-    <div class="encounter-subtitle">Find Elbeth Sable before the deadline — the situation is not what it appears</div>
-    <div class="encounter-meta">
-      <span class="meta-tag">Investigation then combat</span>
-      <span class="meta-tag">Level 3 party</span>
-      <span class="meta-tag combat">Combat in tight quarters</span>
-      <span class="meta-tag">Consequence for Merchants — opaque to party</span>
-    </div>
+    <div class="encounter-subtitle">Find Elbeth Sable before the deadline &mdash; the situation is not what it appears</div>
+    <div class="encounter-meta"><span class="meta-tag">Investigation then combat</span><span class="meta-tag">Level 3 party</span><span class="meta-tag">Combat in tight quarters</span><span class="meta-tag">Consequence for Merchants — opaque to party</span></div>
   </div>
+
+  <p class="description">Seva asks the party to find and rescue Elbeth Sable, missing for two days after a threatening note. The trail runs through a panicking young delegate who sent the note himself and lost control of it, to a fixer who arranged the original job, to a stables where Elbeth is being held by opportunists who bit off more than they could chew. Elbeth walks out under her own power. What the party never learns is that this whole affair quietly costs Alric a concession he was counting on.</p>
+
+  <div class="glance"><span class="glance-label">At a glance</span><div class="glance-part">Part 1 — Investigation</div><div class="glance-item"><strong>Seva's brief:</strong> unusually direct -- this is personal, not professional. Elbeth is missing; a threatening note points to Emlyn Hale of the Driftwood delegation.</div><div class="glance-item"><strong>Emlyn Hale:</strong> sent the note himself to sound powerful, then the hired muscle overstepped and took Elbeth for real. He's now being extorted by everyone involved and cracks fast under any real pressure.</div><div class="glance-item"><strong>Oakstrong:</strong> the fixer who arranged the original job, self-named with complete sincerity. Gives up the address once he realises the situation has escalated past what he agreed to facilitate.</div><div class="glance-item"><strong>The hidden consequence:</strong> Emlyn returns to his delegation duties shaken and unreliable on a clause Alric needed -- Alric notices and looks at the Courtesans. The party never sees this connection.</div><div class="glance-part">Part 2 — The Coppergate Stables</div><div class="glance-item"><strong>Setup:</strong> tight quarters, one real entrance, a roof ladder for a careful approach. Drace's crew isn't expecting a rescue party.</div><div class="glance-item"><strong>Drace:</strong> an opportunist, shrewder than his crew -- will negotiate and walk away if he's clearly losing, no ideological commitment to any of this</div><div class="glance-item"><strong>Elbeth:</strong> injured but coherent, furious, and walks out under her own power. Has spent two days listening and has a full picture of the operation to hand Seva.</div><div class="glance-item"><strong>Easter egg:</strong> Harwick wears a Broken Wing emblem -- not an operative, just resonated with the symbol. Third context the party may have seen it in. Means nothing yet.</div></div>
 
   <div class="controls">
     <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
     <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
-    <button class="ctrl-btn" onclick="expandSection('beat')">Investigation beats</button>
-    <button class="ctrl-btn" onclick="expandSection('combat')">Combat beats</button>
-    <button class="ctrl-btn" onclick="expandNPCs()">NPCs only</button>
-    <a class="ctrl-btn combat-link" href="CombatGuide_TheStarling.html" target="_blank">⚔ Combat Guide</a>
   </div>
 
-  <div class="section-heading">Mission Overview</div>
-  <div class="overview-block">
-    <p>Mira finds a party member and delivers Seva's message. The private table upstairs at the Amber Cup. Seva explains that Elbeth Sable has been missing for two days. She received a threatening note — something about a starling, clearly meant as a warning — from a member of the Driftwood Point delegation named Emlyn Hale. She believes Elbeth is being held. She needs the party to find her and get her out safely before the deadline.</p>
-    <p>Seva wants Elbeth back. She does not want the delegation touched. She does not want a scene during festival week. She pays half upfront.</p>
-    <p>What Seva does not know yet is that Emlyn is not in control of the situation. He is as trapped as Elbeth is, in his own way.</p>
-  </div>
+  <div class="section-heading">Location Descriptions</div>
+  <div class="location"><span class="location-name">The Anchor and Reed</span><p>The respectable inn where the Driftwood delegation is quartered for festival week -- not hard to find, and Emlyn hasn't left his room in two days.</p></div><div class="location"><span class="location-name">The Tallow and Grain</span><p>A working quarter establishment busy enough that a conversation doesn't stand out -- where Oakstrong conducts business.</p></div><div class="location"><span class="location-name">The Coppergate Stables</span><p>A single-storey working stables on a quiet street. The stable yard has hay bales, a horse pen, and enough daily traffic that the building doesn't stand out. Inside: an internal staircase to a small mezzanine balcony, and an external roof ladder offering a careful party an unexpected angle in. Elbeth is held in the sleeping area at the rear of the ground floor.</p></div>
 
-  <div class="info-row">
-    <div class="info-card">
-      <span class="info-card-label">The hidden consequence</span>
-      The downstream effect on the Merchants is entirely opaque to the party. Emlyn Hale returns to his delegation duties shaken and noncommittal about a clause Alric was counting on. Alric notices. He looks at the Courtesans. The party never sees this connection.
-    </div>
-    <div class="info-card">
-      <span class="info-card-label">The easter egg</span>
-      Harwick is wearing something with a Broken Wing emblem — a patch, a pin, cloth tied at the wrist. He is not an operative. He just found the symbol and the feeling resonated. A party that notices has now seen it in three contexts. It means nothing yet.
-    </div>
-  </div>
-
-  <div class="phase-divider">
-    <span class="phase-label investigation">Phase One — Investigation</span>
-    <div class="phase-divider-line"></div>
-  </div>
-
-  <div class="section-heading">Investigation NPCs</div>
-
+  <div class="section-heading">NPCs</div>
   <div class="npc-card">
     <div class="npc-header" onclick="toggleNPC('seva')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="seva-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="seva-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('seva',this)" onclick="event.stopPropagation()">
-      </div>
       <div class="npc-info">
         <span class="npc-name">Seva Sable</span>
-        <span class="npc-role">The employer — controlled, genuinely worried, gives the starting point</span>
+        <span class="npc-role">The employer &mdash; controlled, genuinely worried, gives the starting point</span>
       </div>
       <span class="npc-toggle" id="seva-toggle">▼</span>
     </div>
-    <div class="npc-body" id="seva-body">
-      <span class="npc-section-label">Her manner in this scene</span>
-      <p class="npc-desc">More direct than usual. The composure is intact but the party will notice that this is not a professional assessment. Elbeth matters to her personally. She does not perform distress but she is not performing calm either. She is simply focused on the problem.</p>
-      <span class="npc-section-label">What she gives them</span>
-      <div class="npc-trait"><span class="npc-trait-key">The note</span><span>She describes it without showing it. Something about a starling coming home in fewer feathers. Clearly a threat. She believed it was a kidnapping. She still believes that. She does not yet know the full picture.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Emlyn Hale</span><span>A member of the Driftwood Point delegation. Staying at the Anchor and Reed, the inn used by the visiting delegation. That is where the trail starts.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Her instruction</span><span>Find Elbeth. Get her out safely. Do not touch the delegation. Do not create a scene. She will handle Emlyn Hale herself once the festival is over.</span></div>
-      <span class="npc-section-label">After the mission</span>
-      <div class="npc-trait"><span class="npc-trait-key">Seva's question</span><span>When the party returns she receives Elbeth in private. When she comes back out she asks one question about Emlyn — not what the party did with him, but what he was like when they found him. She listens to the answer and files it away. Something will happen to Emlyn Hale after the festival. It will not be loud.</span></div>
-    </div>
-  </div>
-
-  <div class="npc-card">
+    <div class="npc-body" id="seva-body"><div class="npc-field"><span class="npc-field-label">Personality points</span><p>More direct than usual -- composure intact, but the party will notice this isn't a professional assessment. Elbeth matters to her personally; she's not performing distress, but she's not performing calm either.</p></div><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Find Elbeth, get her out safely. Explicitly does not want the delegation touched or a scene made during festival week.</p></div><div class="npc-field"><span class="npc-field-label">What she knows</span><p>Describes the threatening note without showing it -- something about a starling coming home in fewer feathers. Believes it's a kidnapping; she's not wrong, just not seeing the whole picture. Points the party at Emlyn Hale and the Anchor and Reed.</p></div><div class="npc-field"><span class="npc-field-label">What she keeps secret</span><p>Will handle Emlyn Hale herself after the festival -- not loud, not shared with the party. Afterward, asks one question about what he was like when they found him, and files the answer away.</p></div></div>
+  </div><div class="npc-card">
     <div class="npc-header" onclick="toggleNPC('emlyn')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="emlyn-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="emlyn-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('emlyn',this)" onclick="event.stopPropagation()">
-      </div>
       <div class="npc-info">
         <span class="npc-name">Emlyn Hale</span>
-        <span class="npc-role">Driftwood delegation member — panicking, out of his depth, will tell everything</span>
+        <span class="npc-role">Driftwood delegation member &mdash; panicking, out of his depth, will tell everything</span>
       </div>
       <span class="npc-toggle" id="emlyn-toggle">▼</span>
     </div>
-    <div class="npc-body" id="emlyn-body">
-      <span class="npc-section-label">Who he is</span>
-      <p class="npc-desc">A young man of good family whose respectable position in the Driftwood Point delegation does not quite match his private habits. Posh, well connected, and catastrophically out of his depth. He sent the threatening note before the kidnapping happened — he wanted to sound powerful. The thugs were supposed to make a vague point. Instead they took Elbeth, realised how much leverage that gave them, and started extorting him. He is now being extorted by everyone involved and cannot tell anyone without explaining why.</p>
-      <span class="npc-section-label">Finding him</span>
-      <p class="npc-desc">He is in his room at the Anchor and Reed, the inn where the Driftwood delegation is staying. He has barely left it in two days. He is not hiding — he has nowhere to go. A request for Emlyn Hale at the front desk is all it takes to find him.</p>
-      <span class="npc-section-label">Getting him to talk</span>
-      <div class="npc-trait"><span class="npc-trait-key">First approach</span><span>He stonewalls. He is frightened of Seva, frightened of the thugs, frightened of the delegation finding out. DC 13 Persuasion or Intimidation to break through. He is not good at holding the line.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Once talking</span><span>He tells them everything. The note, the muscle, the intermediary, the fact that it all went wrong. He does not have Elbeth's location because he hired through an intermediary and the intermediary handles everything. He gives them Oakstrong's name and where to find him.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">His manner</span><span>Frightened, slightly pathetic, genuinely relieved that someone is trying to fix it. He may cry. He is not proud of any of this. The party will almost feel sorry for him. Almost.</span></div>
-      <span class="npc-section-label">What he cannot give them</span>
-      <div class="npc-trait"><span class="npc-trait-key">Elbeth's location</span><span>He genuinely does not know it. Oakstrong handles that. This is not evasion.</span></div>
-    </div>
-  </div>
-
-  <div class="npc-card">
+    <div class="npc-body" id="emlyn-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>A young man of good family whose respectable position doesn't match his private habits -- posh, well connected, catastrophically out of his depth. Hasn't left his room in two days, and looks terrible.</p></div><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Sent the threatening note himself to sound powerful -- the hired muscle was only meant to make a vague point. They took Elbeth for real instead and are now extorting him too.</p></div><div class="npc-field"><span class="npc-field-label">What he knows</span><p>The note, the muscle, the intermediary, and how badly it all went. Gives up Oakstrong's name once pressed.</p></div><div class="npc-field"><span class="npc-field-label">What he keeps secret</span><p>Doesn't know Elbeth's location -- genuinely, not evasion. The intermediary handles that.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Stonewalls at first (DC 13 Persuasion or Intimidation breaks it), then talks and doesn't stop. Frightened, slightly pathetic, genuinely relieved someone's trying to fix it -- may cry. The party will almost feel sorry for him.</p></div></div>
+  </div><div class="npc-card">
     <div class="npc-header" onclick="toggleNPC('oakstrong')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="oakstrong-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="oakstrong-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('oakstrong',this)" onclick="event.stopPropagation()">
-      </div>
       <div class="npc-info">
         <span class="npc-name">Oakstrong</span>
-        <span class="npc-role">Fixer — self-named, professional pride, knows the address</span>
+        <span class="npc-role">Fixer &mdash; self-named, professional pride, knows the address</span>
       </div>
       <span class="npc-toggle" id="oakstrong-toggle">▼</span>
     </div>
-    <div class="npc-body" id="oakstrong-body">
-      <span class="npc-section-label">Who he is</span>
-      <p class="npc-desc">A fixer operating in Tallowhaven's working quarter who chose the name Oakstrong himself, probably relatively recently, and says it with complete sincerity. He connects supply and demand and takes a fee. He is not a villain. He is a professional who facilitated a job that has since escalated far beyond what he agreed to, and he has his own reasons for wanting it resolved quietly.</p>
-      <span class="npc-section-label">Finding him</span>
-      <p class="npc-desc">Emlyn gives the party his name and directs them to the Tallow and Grain, a working quarter establishment where Oakstrong tends to conduct business. He is not hiding. A DC 12 Investigation or streetwise approach locates him without much difficulty.</p>
-      <span class="npc-section-label">Getting the address</span>
-      <div class="npc-trait"><span class="npc-trait-key">His position</span><span>He will not give up a client's location easily. Professional reputation. He says this with complete sincerity and the name Oakstrong. DC 14 Persuasion or a reasonable bribe gets it. Making the alternative sufficiently unappealing also works. He is pragmatic.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Why he cooperates</span><span>Drace has escalated beyond what Oakstrong agreed to facilitate. A hostage situation is considerably more serious than the original instruction. He has his own exposure here and a professional interest in this resolving quietly. He gives the address because it is the sensible thing to do.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">His manner</span><span>Attempts to project dangerous competence. Mostly succeeds because people do not look closely enough to notice the gap between the image and the reality. He says Oakstrong like it is the most natural name in the world. The party should find this faintly amusing without it undercutting the scene.</span></div>
-    </div>
-  </div>
-
-  <div class="section-heading">Investigation Beats</div>
-
-  <div class="beat">
-    <div class="beat-header" onclick="toggleBeat('i1')">
-      <span class="beat-number">I.1</span>
-      <span class="beat-title">Seva's brief — the private table</span>
-      <span class="beat-toggle" id="beat-toggle-i1">▼</span>
-    </div>
-    <div class="beat-body" id="beat-body-i1">
-      <p>Mira has already done her work. The party is upstairs. Seva is already seated. She gets to it more quickly than usual — she does not have the same patience for preamble when someone she cares about is missing.</p>
-      <p>She describes the situation, the note, Emlyn Hale's name, the inn. She pays half upfront. She says she will find them when it is done. Her manner makes clear that done means Elbeth is safe, not merely located.</p>
-    </div>
-  </div>
-
-  <div class="beat">
-    <div class="beat-header" onclick="toggleBeat('i2')">
-      <span class="beat-number">I.2</span>
-      <span class="beat-title">Finding Emlyn</span>
-      <span class="beat-toggle" id="beat-toggle-i2">▼</span>
-    </div>
-    <div class="beat-body" id="beat-body-i2">
-      <p>The Anchor and Reed is not difficult to find — it is the respectable inn where the Driftwood delegation has been quartered for festival week. A request for Emlyn Hale at the front desk. He is in his room. He has been in his room for two days.</p>
-      <p>He opens the door looking terrible. He was not expecting visitors and is visibly calculating whether these particular visitors are good or bad news. He tries to stonewall. He is not good at it. Once the party applies any meaningful pressure he starts talking and does not stop easily.</p>
-      <p>He tells them everything. He gives them Oakstrong's name and the Tallow and Grain. He apologises several times. He may cry at some point. He genuinely does not know where Elbeth is.</p>
-    </div>
-  </div>
-
-  <div class="beat">
-    <div class="beat-header" onclick="toggleBeat('i3')">
-      <span class="beat-number">I.3</span>
-      <span class="beat-title">Finding Oakstrong</span>
-      <span class="beat-toggle" id="beat-toggle-i3">▼</span>
-    </div>
-    <div class="beat-body" id="beat-body-i3">
-      <p>The Tallow and Grain is a working quarter establishment — busy enough that a conversation does not stand out, plain enough that nobody asks questions. Oakstrong is there conducting business with the unruffled air of someone who considers himself a professional. He introduces himself as Oakstrong without any indication that this requires explanation.</p>
-      <p>He resists giving the address on professional grounds. He does not resist for long. Drace's escalation has left him exposed and he knows it. A bribe, a persuasive argument, or a clear statement of consequences gets the address. He gives it with the dignity of someone making a pragmatic decision rather than capitulating.</p>
-      <p>He also mentions, as the party leaves, that whatever happens in there is nothing to do with him. He says this to their backs. He means it.</p>
-    </div>
-  </div>
-
-  <div class="phase-divider">
-    <span class="phase-label combat">Phase Two — The Coppergate Stables</span>
-    <div class="phase-divider-line"></div>
-  </div>
-
-  <div class="section-heading">The Location</div>
-  <div class="combat-block">
-    <p>The Coppergate Stables — a single storey working stables on a quiet street in the working quarter. Drace has access to the main building, which serves as both workspace and holding space. The stable yard outside has hay bales stacked along the fence line, a horse pen with a trough, and enough coming and going of animals and workers during the day that the building does not stand out.</p>
-    <p>The main building has two points of entry beyond the front: an internal staircase leading up to a small mezzanine balcony, and an external ladder on the outside of the building going up to the roof. A careful party can use the roof ladder to get above the building and observe or drop in from an unexpected angle. The balcony overlooks the main working area below.</p>
-    <p>Elbeth is being held in the sleeping area at the rear of the ground floor. She is injured — the initial confrontation was not gentle — but she is coherent and very angry. She has been paying attention to everything she can observe from where she is sitting for two days. She walks out under her own power.</p>
-    <p>Drace and the others are not expecting a rescue party. Emlyn does not know the address, so as far as Drace is concerned the only person who could lead someone here is Oakstrong, and Oakstrong is professional. The element of surprise is available to a party that approaches carefully — particularly if they use the roof ladder.</p>
-  </div>
-
-  <div class="section-heading">Combat NPCs</div>
-
-  <div class="npc-card combat-npc">
+    <div class="npc-body" id="oakstrong-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>Operates in the working quarter, chose the name himself relatively recently, says it with complete sincerity.</p></div><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Protect his professional reputation -- won't give up a client's location easily on principle, but is pragmatic underneath it.</p></div><div class="npc-field"><span class="npc-field-label">What he knows</span><p>The address. Drace has escalated far beyond what Oakstrong agreed to facilitate, and he has his own exposure now.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>DC 14 Persuasion, a reasonable bribe, or an unappealing enough alternative gets the address -- he gives it as a sensible business decision, not a capitulation. Tells the party's backs, as they leave, that whatever happens in there is nothing to do with him. He means it.</p></div></div>
+  </div><div class="npc-card">
     <div class="npc-header" onclick="toggleNPC('drace')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="drace-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="drace-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('drace',this)" onclick="event.stopPropagation()">
-      </div>
       <div class="npc-info">
         <span class="npc-name">Drace</span>
-        <span class="npc-role">Leader — opportunist, shrewder than the others, will negotiate if losing</span>
+        <span class="npc-role">Leader &mdash; opportunist, shrewder than the others, will negotiate if losing</span>
       </div>
       <span class="npc-toggle" id="drace-toggle">▼</span>
     </div>
-    <div class="npc-body" id="drace-body">
-      <span class="npc-section-label">Who he is</span>
-      <p class="npc-desc">He saw a frightened young man with money and made a calculation. The calculation was correct — the leverage was real and Emlyn has been paying. What Drace did not fully account for was the network's reach or the quality of people it might send. He is shrewd but not sophisticated. He will fight if he thinks he can win and negotiate if he thinks he cannot.</p>
-      <span class="npc-section-label">Tactics</span>
-      <div class="npc-trait"><span class="npc-trait-key">In combat</span><span>Directs the others efficiently. Not reckless. Uses the tight space to his advantage — he knows the room better than the party does.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">If losing</span><span>Will offer to walk away. He has no ideological commitment to this situation. If the party is clearly winning he becomes practical very quickly. He wants to leave. He will.</span></div>
-      <span class="npc-section-label">Stats</span>
-      <div class="stat-grid">
-        <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">14</span></div>
-        <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">38</span></div>
-        <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">15</span><span class="stat-mod">+2</span></div>
-        <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
-        <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
-        <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+4</span></div>
+    <div class="npc-body" id="drace-body"><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Saw a frightened young man with money and made a calculation that was correct about the leverage, wrong about who the network might send.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Shrewd, not sophisticated. Directs the others efficiently, uses the room's tight space to his advantage. No ideological commitment -- if the fight turns against him, he offers to walk away, practically, not desperately.</p></div><div class="npc-field combat"><span class="npc-field-label">Combat</span><p>AC 14, HP 38. Shortsword +4 (1d6+2) / Hand crossbow +4 (1d6+2, 30/120ft). Cunning Action, Evasion (no damage instead of half on a successful Dex save).</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('crew')">
+      <div class="npc-info">
+        <span class="npc-name">Sot, Harwick &amp; Brenna</span>
+        <span class="npc-role">Drace's crew</span>
       </div>
-      <div class="npc-trait" style="margin-top:8px;"><span class="npc-trait-key">Weapons</span><span>Shortsword +4 (1d6+2) / Hand crossbow +4 (1d6+2, range 30/120ft)</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Special</span><span>Cunning Action — Dash, Disengage, or Hide as bonus action. Evasion — if he succeeds on a Dex save he takes no damage instead of half.</span></div>
+      <span class="npc-toggle" id="crew-toggle">▼</span>
     </div>
-  </div>
-
-  <div class="npc-grid">
-
-    <div class="npc-card combat-npc grid-card">
-      <div class="npc-header" onclick="toggleNPC('harwick')">
-        <div class="npc-portrait small">
-          <img id="harwick-img" src="" alt="" style="display:none;">
-          <div class="npc-portrait-placeholder" id="harwick-placeholder">Load</div>
-          <input type="file" accept="image/*" onchange="loadPortrait('harwick',this)" onclick="event.stopPropagation()">
-        </div>
-        <div class="npc-info">
-          <span class="npc-name">Harwick</span>
-          <span class="npc-role">Thug — wearing the Broken Wing emblem</span>
-        </div>
-        <span class="npc-toggle" id="harwick-toggle">▼</span>
-      </div>
-      <div class="npc-body" id="harwick-body">
-        <p class="npc-desc">Has slightly more personality than Sot which makes the party more likely to look at him. He is wearing something with a Broken Wing emblem — a patch, a pin, cloth tied at the wrist. He is not an operative. He heard Marek's ideas at some point, found the symbol, and wears it because the feeling resonated. He is here because Drace pays. The two things are unconnected in his mind.</p>
-        <div class="stat-grid" style="margin-top:8px;">
-          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">12</span></div>
-          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">26</span></div>
-          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
-          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">11</span><span class="stat-mod">+0</span></div>
-          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
-          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+4</span></div>
-        </div>
-        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Weapon</span><span>Club +4 (1d4+2 bludgeoning)</span></div>
-      </div>
-    </div>
-
-    <div class="npc-card combat-npc grid-card">
-      <div class="npc-header" onclick="toggleNPC('sot')">
-        <div class="npc-portrait small">
-          <img id="sot-img" src="" alt="" style="display:none;">
-          <div class="npc-portrait-placeholder" id="sot-placeholder">Load</div>
-          <input type="file" accept="image/*" onchange="loadPortrait('sot',this)" onclick="event.stopPropagation()">
-        </div>
-        <div class="npc-info">
-          <span class="npc-name">Sot</span>
-          <span class="npc-role">Thug — follows Drace, no strong opinions</span>
-        </div>
-        <span class="npc-toggle" id="sot-toggle">▼</span>
-      </div>
-      <div class="npc-body" id="sot-body">
-        <p class="npc-desc">Does what Drace does. Has no particular investment in the situation beyond the pay. Will break if Drace breaks.</p>
-        <div class="stat-grid" style="margin-top:8px;">
-          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">11</span></div>
-          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">22</span></div>
-          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
-          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">10</span><span class="stat-mod">+0</span></div>
-          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">12</span><span class="stat-mod">+1</span></div>
-          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+3</span></div>
-        </div>
-        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Weapon</span><span>Handaxe +3 (1d6+1 slashing)</span></div>
-      </div>
-    </div>
-
-    <div class="npc-card combat-npc grid-card">
-      <div class="npc-header" onclick="toggleNPC('brenna')">
-        <div class="npc-portrait small">
-          <img id="brenna-img" src="" alt="" style="display:none;">
-          <div class="npc-portrait-placeholder" id="brenna-placeholder">Load</div>
-          <input type="file" accept="image/*" onchange="loadPortrait('brenna',this)" onclick="event.stopPropagation()">
-        </div>
-        <div class="npc-info">
-          <span class="npc-name">Brenna</span>
-          <span class="npc-role">Thug — the most dangerous of the three after Drace</span>
-        </div>
-        <span class="npc-toggle" id="brenna-toggle">▼</span>
-      </div>
-      <div class="npc-body" id="brenna-body">
-        <p class="npc-desc">More capable than Sot and less predictable. She does not break as easily as the others when the fight turns. She has done this before and is not particularly frightened of capable people.</p>
-        <div class="stat-grid" style="margin-top:8px;">
-          <div class="stat-box"><span class="stat-label">AC</span><span class="stat-value">13</span></div>
-          <div class="stat-box"><span class="stat-label">HP</span><span class="stat-value">30</span></div>
-          <div class="stat-box"><span class="stat-label">STR</span><span class="stat-value">14</span><span class="stat-mod">+2</span></div>
-          <div class="stat-box"><span class="stat-label">DEX</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
-          <div class="stat-box"><span class="stat-label">CON</span><span class="stat-value">13</span><span class="stat-mod">+1</span></div>
-          <div class="stat-box"><span class="stat-label">ATK</span><span class="stat-value">+4</span></div>
-        </div>
-        <div class="npc-trait" style="margin-top:6px;font-size:14px;"><span class="npc-trait-key">Weapons</span><span>Shortsword +4 (1d6+2) / Dagger thrown +4 (1d4+2, range 20/60ft)</span></div>
-        <div class="npc-trait" style="font-size:14px;"><span class="npc-trait-key">Special</span><span>If she is the last one standing she fights until dropped rather than surrendering. She will not beg.</span></div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="section-heading">Elbeth Sable</div>
-
-  <div class="npc-card">
+    <div class="npc-body" id="crew-body"><div class="npc-field combat"><span class="npc-field-label">Sot</span><p>Follows Drace, no particular investment beyond pay -- breaks if Drace breaks. AC 11, HP 22. Handaxe +3 (1d6+1).</p></div><div class="npc-field combat"><span class="npc-field-label">Harwick</span><p>Wears a Broken Wing emblem (patch, pin, cloth at the wrist) -- not an operative, just found the symbol and it resonated. Here because Drace pays; the two things are unconnected in his mind. AC 12, HP 26. Club +4 (1d4+2).</p></div><div class="npc-field combat"><span class="npc-field-label">Brenna</span><p>The most dangerous of the three after Drace -- more capable, less predictable, doesn't break easily. Fights until dropped rather than surrendering if she's the last one standing. AC 13, HP 30. Shortsword +4 (1d6+2) / thrown dagger +4 (1d4+2, 20/60ft).</p></div></div>
+  </div><div class="npc-card">
     <div class="npc-header" onclick="toggleNPC('elbeth')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="elbeth-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="elbeth-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('elbeth',this)" onclick="event.stopPropagation()">
-      </div>
       <div class="npc-info">
         <span class="npc-name">Elbeth Sable</span>
-        <span class="npc-role">The one being rescued — injured, furious, has been paying attention</span>
+        <span class="npc-role">The one being rescued &mdash; injured, furious, has been paying attention</span>
       </div>
       <span class="npc-toggle" id="elbeth-toggle">▼</span>
     </div>
-    <div class="npc-body" id="elbeth-body">
-      <span class="npc-section-label">When the party finds her</span>
-      <p class="npc-desc">She is in a back room. Bruised face, injured but coherent. She is not frightened. She is angry in the specific way of someone who has had two days to sit with a situation and has used every minute of it productively. She has paid attention to everything she could observe — sounds, voices, routines, the layout of the space beyond her door as much as she could deduce it.</p>
-      <span class="npc-section-label">Her manner</span>
-      <div class="npc-trait"><span class="npc-trait-key">Walking out</span><span>She walks out under her own power. She makes a point of this. Do not have the party carry her or support her unless she specifically requests it, which she will not.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">On the way back</span><span>She says very little. She is saving it for Seva. The party should feel the weight of what happened without it being narrated at them.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">On Emlyn</span><span>If the party mentions him she makes a sound that is not quite a laugh. Zero sympathy. She knew exactly what kind of person he was before any of this happened. That is, in a sense, how this started.</span></div>
-      <span class="npc-section-label">What she knows</span>
-      <div class="npc-trait"><span class="npc-trait-key">Information gathered</span><span>She has been listening for two days. She has a detailed picture of Drace's operation, his habits, his relationship with the others. She passes this to Seva. It is not relevant to the party's immediate mission but Seva will find it useful.</span></div>
-    </div>
+    <div class="npc-body" id="elbeth-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>Bruised, injured, coherent -- not frightened. Angry in the specific way of someone who's used two days productively.</p></div><div class="npc-field"><span class="npc-field-label">What she knows</span><p>Has been listening for two days -- a detailed picture of Drace's operation, habits, and relationships, which she passes to Seva. Not relevant to the party's immediate task, but useful to Seva later.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Walks out under her own power and makes a point of it -- doesn't want to be carried or supported unless she specifically asks. Says very little on the way back, saving it for Seva. On Emlyn: a sound that isn't quite a laugh. Zero sympathy -- she knew exactly what kind of person he was before any of this started.</p></div></div>
   </div>
 
-  <div class="section-heading">Combat Beats</div>
-
-  <div class="dm-note"><strong>Tight quarters</strong>This fight happens in a small space. The party cannot spread out, flanking is harder to establish, and anyone who goes down is immediately in a dangerous position. Drace knows the room. The party does not. Use that asymmetry in the first round.</div>
-
-  <div class="beat combat-beat">
-    <div class="beat-header combat-header" onclick="toggleBeat('c1')">
-      <span class="beat-number">C.1</span>
+  <div class="section-heading">Encounter Beats</div>
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('I1')">
+      <span class="beat-number">I1</span>
+      <span class="beat-title">Seva's brief</span>
+      <span class="beat-toggle" id="beat-toggle-I1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-I1"><p>The party finds themselves upstairs at the private table, Mira's work already done. Seva gets to the point faster than usual -- no patience for preamble when someone she cares about is missing. She describes the note, names Emlyn Hale and the Anchor and Reed, pays half upfront, and makes clear that “done” means Elbeth safe, not merely located.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('I2')">
+      <span class="beat-number">I2</span>
+      <span class="beat-title">Finding Emlyn</span>
+      <span class="beat-toggle" id="beat-toggle-I2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-I2"><p>The Anchor and Reed isn't hard to find. Emlyn opens his door looking terrible, visibly calculating whether these visitors are good or bad news. He tries to stonewall and isn't good at it -- once real pressure lands, he tells the party everything, gives up Oakstrong's name and the Tallow and Grain, and apologises more than once. He genuinely doesn't know where Elbeth is.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('I3')">
+      <span class="beat-number">I3</span>
+      <span class="beat-title">Finding Oakstrong</span>
+      <span class="beat-toggle" id="beat-toggle-I3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-I3"><p>The Tallow and Grain is busy enough that nothing stands out. Oakstrong introduces himself without any sense that the name needs explaining, and resists giving up the address on professional grounds -- but not for long, since Drace's escalation has left him exposed too. He gives the address with the dignity of a pragmatic decision, and mentions to the party's backs, as they leave, that whatever happens next is nothing to do with him.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('C1')">
+      <span class="beat-number">C1</span>
       <span class="beat-title">The approach</span>
-      <span class="beat-toggle" id="beat-toggle-c1">▼</span>
+      <span class="beat-toggle" id="beat-toggle-C1">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-c1">
-      <p>The party has the address. They approach the location. A careful approach — Stealth DC 13 — allows them to reach the door without being heard. A successful check means they choose when the fight starts. A failed check means Drace has a round of preparation.</p>
-      <p>There is no back exit. This is not a bridge with two ends. It is a room with a door and the party is standing at it.</p>
-    </div>
-  </div>
-
-  <div class="beat combat-beat">
-    <div class="beat-header combat-header" onclick="toggleBeat('c2')">
-      <span class="beat-number">C.2</span>
+    <div class="beat-body" id="beat-body-C1"><p>The party has the address. A careful approach (Stealth DC 13) lets them reach the door unheard and choose when the fight starts; a failed check gives Drace a round of preparation. There's no back exit -- a room with a door, and the party standing at it.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('C2')">
+      <span class="beat-number">C2</span>
       <span class="beat-title">The fight</span>
-      <span class="beat-toggle" id="beat-toggle-c2">▼</span>
+      <span class="beat-toggle" id="beat-toggle-C2">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-c2">
-      <p>Four against the party in close quarters. Drace directs the others efficiently. Brenna is the most dangerous and does not break easily. Sot and Harwick follow Drace's lead.</p>
-      <p>The Broken Wing emblem on Harwick is visible during the fight if a player looks — a patch, a pin, something worn rather than displayed. Do not draw attention to it. Let it be found.</p>
-      <p>Drace will offer to walk away if the fight turns clearly against him. He has no ideological commitment. He makes the offer practically, not desperately. If the party accepts he takes Sot and Harwick and leaves. Brenna makes her own decision.</p>
-    </div>
-  </div>
-
-  <div class="beat combat-beat">
-    <div class="beat-header combat-header" onclick="toggleBeat('c3')">
-      <span class="beat-number">C.3</span>
+    <div class="beat-body" id="beat-body-C2"><p>Four against the party in close quarters, where flanking is hard and going down is dangerous. Drace directs efficiently and knows the room better than the party does. Brenna is the real threat; Sot and Harwick follow Drace's lead. Harwick's Broken Wing emblem is visible if a player looks closely -- don't draw attention to it, let it be found. If the fight turns clearly against him, Drace offers to walk away, practically, and takes Sot and Harwick with him if the party accepts. Brenna decides for herself.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('C3')">
+      <span class="beat-number">C3</span>
       <span class="beat-title">Finding Elbeth</span>
-      <span class="beat-toggle" id="beat-toggle-c3">▼</span>
+      <span class="beat-toggle" id="beat-toggle-C3">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-c3">
-      <p>The back room. She is there. She looks at whoever opens the door with the expression of someone who has been waiting and is not going to make it easy by being grateful.</p>
-      <p>She stands up. She walks to the door. She goes with the party.</p>
-    </div>
-  </div>
-
-  <div class="section-heading">Outcomes</div>
-
-  <div class="outcome success">
-    <span class="outcome-label">Elbeth recovered, thugs dealt with</span>
-    <p>The party returns to the Amber Cup. Seva receives Elbeth in private. When she comes back out she pays the second half and asks her one question about Emlyn. She files the answer. Something will happen to Emlyn Hale after the festival. It will not be loud. The party is not told what it is.</p>
-  </div>
-
-  <div class="outcome warning">
-    <span class="outcome-label">Elbeth recovered, Drace walked away</span>
-    <p>Seva pays the second half. She notes that Drace is still out there. She does not say this as a criticism. She is simply noting it. She will deal with it. She always does.</p>
-  </div>
-
-  <div class="outcome warning">
-    <span class="outcome-label">Deadline missed but Elbeth recovered</span>
-    <p>Seva pays the second half. The deadline passing had consequences she does not share with the party. She is grateful Elbeth is safe. The rest is her problem to manage.</p>
-  </div>
-
-  <div class="outcome danger">
-    <span class="outcome-label">Elbeth not recovered</span>
-    <p>Seva does not get angry at the party. She becomes very still. She thanks them for trying. She will handle it herself. The Courtesan relationship does not close but it is different now. She trusted them with something that mattered and it did not work. That is information she will carry.</p>
+    <div class="beat-body" id="beat-body-C3"><div class="outcome"><strong>Elbeth recovered, thugs dealt with</strong>Seva pays the second half after receiving Elbeth in private, asks her one question about Emlyn, and files the answer. Something will happen to him after the festival -- quietly, and the party isn't told what.</div><div class="outcome"><strong>Elbeth recovered, Drace walked away</strong>Seva pays the second half and simply notes Drace is still out there -- not a criticism. She'll deal with it herself, in time.</div><div class="outcome"><strong>Deadline missed but Elbeth recovered</strong>Paid, and grateful Elbeth is safe -- but the missed deadline had consequences she doesn't share with the party.</div><div class="outcome"><strong>Elbeth not recovered</strong>Seva goes very still, thanks them for trying, and handles it herself. The relationship doesn't close, but it's different now -- she trusted them with something that mattered and it didn't work.</div><p>She's in the back room, and looks at whoever opens the door with the expression of someone who's been waiting and isn't going to make it easy by being grateful. She stands, walks to the door, and goes with the party under her own power.</p></div>
   </div>
 
   <div class="section-heading">DM Notes</div>
+  <div class="dm-note"><strong>Emlyn Hale's fate</strong>Seva deals with him after the festival -- not physically, she's not that crude, but the leverage she already held over him now comes with the knowledge of what he did. He becomes notably noncommittal about a clause in the Driftwood deal; Alric notices. The party never connects it. That's correct.</div><div class="dm-note"><strong>Elbeth walking out</strong>Don't soften this. She's injured and walks out under her own power -- a statement about who she is and what the Network is. She's not going to perform vulnerability for the party's benefit.</div><div class="dm-note"><strong>The Broken Wing emblem</strong>Don't mention it in narration unless a player specifically looks at Harwick. If asked, he doesn't explain it -- personal, not something he discusses with people trying to hit him. The observation joins a pattern that pays off in Act 2.</div><div class="dm-note"><strong>Oakstrong</strong>Play him with complete sincerity. He chose the name and stands by it -- the comedy is in how seriously he takes himself, not in the party laughing at him.</div>
 
-  <div class="dm-note"><strong>Emlyn Hale's fate</strong>Seva will deal with him after the festival. Not physically. She is not that crude. But the leverage the network held over him is now accompanied by the knowledge of what he did. He will spend a long time being very careful and very cooperative. He will also become notably noncommittal about a specific clause in the Driftwood deal. Alric will notice. The party will not connect these things. That is correct.</div>
-
-  <div class="dm-note"><strong>Elbeth walking out</strong>Do not soften this. She is injured and she walks out under her own power. It is a statement about who she is and what the network is. She has been through something difficult and she is not going to perform vulnerability for the party's benefit. Let it be what it is.</div>
-
-  <div class="dm-note"><strong>The Broken Wing emblem</strong>Do not mention it in narration unless a player specifically looks at Harwick. If they do notice and ask about it, Harwick does not explain it — it is personal, not something he discusses with people trying to hit him. The party carries the observation. It joins the pattern that will mean something in Act 2.</div>
-
-  <div class="dm-note"><strong>Oakstrong</strong>Play him with complete sincerity. He chose the name. He stands by it. The comedy is in how seriously he takes himself, not in the party laughing at him. He is useful and practical and his name is Oakstrong. These things coexist.</div>
-
-  <footer>Abelon Campaign — Mission Reference. The Starling / Anchor and Reed — Tallow and Grain — Coppergate Stables / Act 1 Courtesans Network Second Mission.</footer>
+  <footer>Abelon Campaign — Mission Reference. The Starling / Act 1 Courtesans Network Second Mission.</footer>
 </div>
 
 <script>
   function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
-  function toggleBeat(id){const b=document.getElementById('beat-body-'+id),t=document.getElementById('beat-toggle-'+id);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
   function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
   function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
-  function expandSection(type){collapseAll();if(type==='beat'){document.querySelectorAll('[id^="beat-body-i"]').forEach(el=>el.classList.add('open'));document.querySelectorAll('[id^="beat-toggle-i"]').forEach(el=>el.classList.add('open'));}else if(type==='combat'){document.querySelectorAll('[id^="beat-body-c"]').forEach(el=>el.classList.add('open'));document.querySelectorAll('[id^="beat-toggle-c"]').forEach(el=>el.classList.add('open'));}}
-  function expandNPCs(){collapseAll();document.querySelectorAll('.npc-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle').forEach(el=>el.classList.add('open'));}
-  function loadPortrait(id,input){if(!input.files||!input.files[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(id+'-img'),ph=document.getElementById(id+'-placeholder');if(img){img.src=e.target.result;img.style.display='block';}if(ph)ph.style.display='none';};r.readAsDataURL(input.files[0]);}
 </script>
 </body>
 </html>

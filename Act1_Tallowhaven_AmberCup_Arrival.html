@@ -6,47 +6,43 @@
 <title>Encounter — The Amber Cup</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
-  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(107,58,42,0.05);--beat-border:#c4a882;--success-bg:rgba(15,110,86,0.07);--success-border:#0F6E56;--success-text:#04342C;--warning-bg:rgba(133,79,11,0.08);--warning-border:#854F0B;--warning-text:#412402;--npc-bg:rgba(107,58,42,0.04);--npc-border:#c4a882;--thread-blue-bg:rgba(24,95,165,0.06);--thread-blue-border:#185FA5;--thread-teal-bg:rgba(15,110,86,0.06);--thread-teal-border:#0F6E56;--thread-pink-bg:rgba(153,53,86,0.05);--thread-pink-border:#993556;}
-  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(196,168,130,0.06);--beat-border:#5a4a38;--success-bg:rgba(93,202,165,0.07);--success-border:#5DCAA5;--success-text:#E1F5EE;--warning-bg:rgba(239,159,39,0.07);--warning-border:#EF9F27;--warning-text:#FAEEDA;--npc-bg:rgba(196,168,130,0.05);--npc-border:#5a4a38;--thread-blue-bg:rgba(133,183,235,0.07);--thread-blue-border:#85B7EB;--thread-teal-bg:rgba(93,202,165,0.07);--thread-teal-border:#5DCAA5;--thread-pink-bg:rgba(237,147,177,0.06);--thread-pink-border:#ED93B1;}}
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(15,110,86,0.05);--beat-border:#0F6E56;--glance-bg:rgba(107,58,42,0.06);--glance-border:#6b3a2a;--npc-bg:rgba(15,110,86,0.05);--npc-border:#0F6E56;--loc-bg:rgba(74,56,40,0.04);--warn-bg:rgba(133,79,11,0.08);--warn-border:#854F0B;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(93,202,165,0.06);--beat-border:#5DCAA5;--glance-bg:rgba(196,168,130,0.06);--glance-border:#c4a882;--npc-bg:rgba(93,202,165,0.06);--npc-border:#5DCAA5;--loc-bg:rgba(196,168,130,0.04);--warn-bg:rgba(239,159,39,0.07);--warn-border:#EF9F27;}}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
   .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
-  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:2rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:1.5rem;}
   .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
-  .encounter-title{font-family:'Cinzel',serif;font-size:32px;font-weight:600;color:var(--accent);letter-spacing:.05em;line-height:1.1;margin-bottom:6px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:30px;font-weight:600;color:var(--accent);letter-spacing:.03em;line-height:1.15;margin-bottom:6px;}
   .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
   .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
   .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .description{font-size:15px;font-style:italic;color:var(--ink-mid);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule-faint);}
+  .glance{background:var(--glance-bg);border:1px solid var(--glance-border);border-radius:6px;padding:14px 18px;margin-bottom:1.5rem;}
+  .glance-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;}
+  .glance-part{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);margin:12px 0 6px;}
+  .glance-part:first-of-type{margin-top:0;}
+  .glance-item{margin-bottom:8px;font-size:14.5px;}
+  .glance-item:last-child{margin-bottom:0;}
+  .glance-item strong{font-family:'Cinzel',serif;font-weight:600;font-size:12.5px;letter-spacing:.02em;color:var(--ink);}
   .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
-  .environment-block{background:var(--beat-bg);border-left:3px solid var(--beat-border);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
-  .environment-block p{margin-bottom:.6rem;}.environment-block p:last-child{margin-bottom:0;}
-  .env-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
-  @media(max-width:600px){.env-features,.npc-grid,.thread-grid{grid-template-columns:1fr;}}
-  .env-feature{display:flex;gap:8px;align-items:flex-start;}
-  .env-feature-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);min-width:80px;padding-top:3px;flex-shrink:0;}
-  .env-feature-desc{font-size:14px;color:var(--ink-mid);line-height:1.5;}
-  .npc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+  .location{background:var(--loc-bg);border-left:3px solid var(--rule);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .location-name{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mid);display:block;margin-bottom:6px;}
+  .location p{font-size:14.5px;color:var(--ink-mid);font-style:italic;}
   .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
-  .npc-card.grid-card{margin-bottom:0;}
   .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
   .npc-header:hover{opacity:.8;}
-  .npc-portrait{width:52px;height:52px;border-radius:50%;border:1px solid var(--rule);overflow:hidden;flex-shrink:0;background:var(--parchment-dark);display:flex;align-items:center;justify-content:center;position:relative;}
-  .npc-portrait.small{width:40px;height:40px;}
-  .npc-portrait img{width:100%;height:100%;object-fit:cover;}
-  .npc-portrait-placeholder{font-family:'Cinzel',serif;font-size:9px;color:var(--ink-faded);text-align:center;padding:3px;line-height:1.3;pointer-events:none;}
-  .npc-portrait input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
   .npc-info{flex:1;}
   .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
   .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
   .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
   .npc-toggle.open{transform:rotate(180deg);}
-  .npc-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body{display:none;padding:2px 14px 14px;border-top:.5px solid var(--rule-faint);}
   .npc-body.open{display:block;}
-  .npc-section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin:12px 0 5px;}
-  .npc-desc{font-size:15px;color:var(--ink-mid);margin-bottom:6px;}
-  .npc-trait{display:flex;gap:8px;margin-bottom:5px;font-size:14px;}
-  .npc-trait-key{color:var(--ink-faded);min-width:90px;flex-shrink:0;font-style:italic;}
-  .speech-block{background:var(--parchment-mid);border-left:2px solid var(--accent);padding:10px 14px;margin:8px 0;font-style:italic;font-size:15px;color:var(--ink-mid);border-radius:0 3px 3px 0;}
+  .npc-field{margin:10px 0;}
+  .npc-field-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:3px;}
+  .npc-field p{font-size:14.5px;color:var(--ink-mid);}
+  .npc-field.combat{background:var(--warn-bg);border-left:2px solid var(--warn-border);padding:8px 10px;border-radius:0 4px 4px 0;}
   .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
   .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
   .beat-header:hover{opacity:.8;}
@@ -57,13 +53,8 @@
   .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
   .beat-body.open{display:block;}
   .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
-  .thread-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1rem;}
-  .thread{border-radius:5px;padding:12px 14px;font-size:14px;}
-  .thread.blue{background:var(--thread-blue-bg);border:.5px solid var(--thread-blue-border);}
-  .thread.teal{background:var(--thread-teal-bg);border:.5px solid var(--thread-teal-border);}
-  .thread.pink{background:var(--thread-pink-bg);border:.5px solid var(--thread-pink-border);}
-  .thread-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:6px;opacity:.8;color:var(--ink-faded);}
-  .thread p{margin-bottom:0;color:var(--ink-mid);}
+  .beat-body .outcome{margin-bottom:10px;}
+  .beat-body .outcome strong{font-family:'Cinzel',serif;font-size:12px;color:var(--ink);display:block;margin-bottom:2px;}
   .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
   .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
   .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
@@ -75,23 +66,55 @@
 <body>
 <!-- ABELON-NAV-START -->
 <style>
-  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);}
-  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);}}
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);--n-teal:#0F6E56;--n-teal-bg:rgba(15,110,86,0.08);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);--n-teal:#5DCAA5;--n-teal-bg:rgba(93,202,165,0.08);}}
   #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
   #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
   #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
   #abelon-nav-root a:hover{color:var(--n-accent);}
   #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
   #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
-  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
   #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
   #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
   #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+  #an-pay-btn{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);border-radius:3px;padding:3px 8px;font:inherit;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+  #an-pay-btn:hover{border-color:var(--n-accent);color:var(--n-accent);}
+  #an-pay-btn.has-data{border-color:var(--n-teal);color:var(--n-teal);}
+  #an-pay-summary{font-family:'Crimson Pro',Georgia,serif;font-size:12px;text-transform:none;letter-spacing:0;color:var(--n-ink-faded);}
+  #an-pay-panel{display:none;max-width:900px;margin:10px auto 0;background:var(--n-teal-bg);border:1px solid var(--n-teal);border-radius:6px;padding:14px 16px;font-family:'Crimson Pro',Georgia,serif;}
+  #an-pay-panel.open{display:block;}
+  #an-pay-panel .an-pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:10px;}
+  #an-pay-panel label{display:block;font-family:'Cinzel',Georgia,serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--n-ink-faded);margin-bottom:3px;}
+  #an-pay-panel input[type=text],#an-pay-panel textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:13px;background:var(--n-parch);color:var(--n-ink);border:1px solid var(--n-rule);border-radius:4px;padding:6px 8px;}
+  #an-pay-panel textarea{min-height:44px;resize:vertical;}
+  #an-pay-actions{display:flex;gap:8px;}
+  #an-pay-actions button{font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:4px;cursor:pointer;}
+  #an-pay-save{background:var(--n-teal);border:1px solid var(--n-teal);color:var(--n-parch);}
+  #an-pay-clear{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-cancel{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-note{font-size:10px;color:var(--n-ink-faded);font-style:italic;margin-top:8px;}
 </style>
 <div id="abelon-nav-root"><div class="an-row">
   <div class="an-crumb" id="abelon-nav-crumb"></div>
   <div class="an-related" id="abelon-nav-related-top"></div>
-</div></div>
+</div>
+<div id="an-pay-panel">
+  <div class="an-pay-grid">
+    <div><label>Agreed total</label><input type="text" id="an-pay-total" placeholder="e.g. 60gp"></div>
+    <div><label>Paid so far</label><input type="text" id="an-pay-paid" placeholder="e.g. 30gp"></div>
+    <div><label>Not yet paid</label><input type="text" id="an-pay-owed" placeholder="e.g. 30gp on completion"></div>
+  </div>
+  <label>Notes</label>
+  <textarea id="an-pay-notes" placeholder="Terms, conditions, who's paying..."></textarea>
+  <div id="an-pay-actions" style="margin-top:10px;">
+    <button type="button" id="an-pay-save">Save</button>
+    <button type="button" id="an-pay-clear">Clear</button>
+    <button type="button" id="an-pay-cancel">Cancel</button>
+  </div>
+  <div id="an-pay-note">Saved to this browser only (localStorage) — won't sync to your phone or another computer.</div>
+</div>
+</div>
 <div id="abelon-nav-related-footer"></div>
 <script>
 (function(){
@@ -101,14 +124,15 @@
   if (root === '') root = './';
   fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
     var file = decodeURIComponent(location.pathname.split('/').pop());
-    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c.label;});
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c;});
     var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
     var crumb = document.getElementById('abelon-nav-crumb');
     var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
     crumb.appendChild(home);
     if (page) {
       var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
-      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = cats[page.category] || page.category; crumb.appendChild(catLink);
+      var catObj = cats[page.category] || {};
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = catObj.label || page.category; crumb.appendChild(catLink);
       var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
       var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
     }
@@ -128,301 +152,168 @@
     if (page && page.category === 'act1') {
       var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
       var idx = siblings.findIndex(function(p){return p.id===page.id;});
-      var nav = document.createElement('span');
-      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; nav.appendChild(prev); }
-      if (idx < siblings.length-1) { if(idx>0){nav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; nav.appendChild(next); }
-      relTop.appendChild(nav);
+      var pnav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; pnav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){pnav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; pnav.appendChild(next); }
+      relTop.appendChild(pnav);
+    }
+
+    // --- Payment widget: only on categories flagged paymentTracking in the manifest ---
+    var catObj2 = cats[page && page.category] || {};
+    if (page && catObj2.paymentTracking) {
+      var LS_KEY = 'abelonPayment:' + page.id;
+      function getPayment(){ try { var raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch(e){} return null; }
+      function setPayment(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
+      function clearPayment(){ localStorage.removeItem(LS_KEY); }
+
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.id = 'an-pay-btn';
+      var summary = document.createElement('span'); summary.id = 'an-pay-summary';
+      relTop.appendChild(btn); relTop.appendChild(summary);
+
+      var panel = document.getElementById('an-pay-panel');
+      var fTotal = document.getElementById('an-pay-total');
+      var fPaid = document.getElementById('an-pay-paid');
+      var fOwed = document.getElementById('an-pay-owed');
+      var fNotes = document.getElementById('an-pay-notes');
+
+      function refreshButton(){
+        var p = getPayment();
+        if (p && (p.total || p.paid || p.owed || p.notes)) {
+          btn.textContent = '\uD83D\uDCB0 Payment \u2713';
+          btn.classList.add('has-data');
+          var bits = [];
+          if (p.total) bits.push(p.total + ' agreed');
+          if (p.paid) bits.push(p.paid + ' paid');
+          summary.textContent = bits.join(' \u00b7 ');
+        } else {
+          btn.textContent = '\uD83D\uDCB0 Payment';
+          btn.classList.remove('has-data');
+          summary.textContent = '';
+        }
+      }
+      function openPanel(){
+        var p = getPayment() || {};
+        fTotal.value = p.total || ''; fPaid.value = p.paid || ''; fOwed.value = p.owed || ''; fNotes.value = p.notes || '';
+        panel.classList.add('open');
+      }
+      btn.addEventListener('click', openPanel);
+      document.getElementById('an-pay-cancel').addEventListener('click', function(){ panel.classList.remove('open'); });
+      document.getElementById('an-pay-clear').addEventListener('click', function(){ clearPayment(); panel.classList.remove('open'); refreshButton(); });
+      document.getElementById('an-pay-save').addEventListener('click', function(){
+        setPayment({ total: fTotal.value.trim(), paid: fPaid.value.trim(), owed: fOwed.value.trim(), notes: fNotes.value.trim(),
+                     pageId: page.id, pageTitle: page.title, pageFile: page.file });
+        panel.classList.remove('open');
+        refreshButton();
+      });
+      refreshButton();
     }
   }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
 })();
 </script>
 <!-- ABELON-NAV-END -->
 
+
 <div class="page">
 
   <div class="encounter-header">
     <span class="encounter-type">Encounter Reference — Act 1 / Tallowhaven</span>
     <div class="encounter-title">The Amber Cup</div>
-    <div class="encounter-subtitle">First evening in Tallowhaven — three threads available, none of them pressed</div>
-    <div class="encounter-meta">
-      <span class="meta-tag">Social scene</span>
-      <span class="meta-tag">No combat</span>
-      <span class="meta-tag">Threads: Merchants, Trademasters, Courtesans</span>
-      <span class="meta-tag">Let it breathe</span>
-    </div>
+    <div class="encounter-subtitle">First evening in Tallowhaven &mdash; three threads available, none of them pressed</div>
+    <div class="encounter-meta"><span class="meta-tag">Social scene</span><span class="meta-tag">No combat</span><span class="meta-tag">Threads: Merchants, Trademasters, Courtesans</span><span class="meta-tag">Let it breathe</span></div>
   </div>
+
+  <p class="description">The party settles into Tallowhaven's best working-quarter inn for the night. Morra gets them fed and housed; in the room around them, all three guild threads are quietly available &mdash; Dask and Tomas audibly frustrated at their table, Seva watching from near the card game, and Oskar's name ready to surface if anyone asks Morra about work. None of it needs to be activated tonight, and the scene works fine if nothing happens beyond rest.</p>
+
+  <div class="glance"><span class="glance-label">At a glance</span><div class="glance-item"><strong>Purpose:</strong> the party rests and the world opens around them. Nothing here should feel like a mission briefing &mdash; it's the end of a long day in a warm room.</div><div class="glance-item"><strong>Trademasters thread:</strong> Dask and Tomas are audible at their table before they're visible &mdash; workers with nowhere to go, a space suddenly needed. Morra can fill in context if asked, and will point to Oskar/Honeywell if asked about work.</div><div class="glance-item"><strong>Courtesans thread:</strong> Seva is present near the card table but will not approach first. If the party recognises her from the road and comes to her, she may offer the Crost Household favour tonight. If not, Mira delivers the invitation the next day instead.</div><div class="glance-item"><strong>Merchants thread:</strong> Already seeded from the Aldermen's Hall &mdash; nothing more needed tonight.</div></div>
 
   <div class="controls">
     <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
     <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
-    <button class="ctrl-btn" onclick="expandBeats()">Beats only</button>
-    <button class="ctrl-btn" onclick="expandNPCs()">NPCs only</button>
   </div>
 
-  <div class="section-heading">Environment</div>
-  <div class="environment-block">
-    <p>The Amber Cup is the best inn in Tallowhaven's working quarter — not the grandest in the city, but the one that has earned its reputation. Warmer and slightly more professional than the Star and Raven. The kind of place that knows how to end a working day well. It smells of good food and candle wax.</p>
-    <p>The room is active without being heaving. A harpist plays in the corner. A card game is running at a side table. A few couples are dancing near the back. The festival preparation has brought extra trade and the Amber Cup is making the most of it.</p>
-    <p>The party arrives tired at the end of a long day — an escort, an ambush, a magistrate, a city. They need food, drink, and a bed. Morra will see them settled before anything else happens.</p>
-  </div>
+  <div class="section-heading">Location Descriptions</div>
+  <div class="location"><span class="location-name">The Amber Cup</span><p>The best inn in Tallowhaven's working quarter -- warmer and slightly more professional than the Star and Raven, the kind of place that knows how to end a working day well. Smells of good food and candle wax. A harpist plays in the corner, a card game runs at a side table, a few couples dance near the back. Festival preparation has brought extra trade and the inn is making the most of it.</p></div>
 
-  <div class="env-features">
-    <div class="env-feature">
-      <span class="env-feature-label">The bar</span>
-      <span class="env-feature-desc">Where Morra operates. She has the room mapped before the party finishes their first sentence.</span>
-    </div>
-    <div class="env-feature">
-      <span class="env-feature-label">The card table</span>
-      <span class="env-feature-desc">Crowns and Crows. The same game Seren was playing in Brindle Hollow. Seva is nearby — not playing, watching. Players who recognise the game may drift toward it.</span>
-    </div>
-    <div class="env-feature">
-      <span class="env-feature-label">The harpist</span>
-      <span class="env-feature-desc">Background warmth. The Amber Cup curates its atmosphere deliberately. Morra did not let this happen by accident.</span>
-    </div>
-    <div class="env-feature">
-      <span class="env-feature-label">The dancing</span>
-      <span class="env-feature-desc">Near the back. Festival energy bleeding into the evening. Tallowhaven is gearing up for something.</span>
-    </div>
-    <div class="env-feature">
-      <span class="env-feature-label">Dask and Tomas</span>
-      <span class="env-feature-desc">At a table, having a drink. Louder than they should be. The Trademaster thread is audible before it is visible.</span>
-    </div>
-    <div class="env-feature">
-      <span class="env-feature-label">Seva</span>
-      <span class="env-feature-desc">Present. Near the card table. Not playing. She arrived here by the same road as the party and has been here long enough to have a drink in hand. She does not approach them. She is available if they come to her.</span>
-    </div>
-  </div>
-
-  <div class="section-heading">The Three Threads</div>
-  <div class="thread-grid">
-    <div class="thread blue">
-      <span class="thread-label">Merchants</span>
-      <p>Already seeded. Alric suggested breakfast at the Shallow Tuber tomorrow morning. The thread is open. Nothing more needed tonight.</p>
-    </div>
-    <div class="thread teal">
-      <span class="thread-label">Trademasters</span>
-      <p>Dask and Tomas are at a table. Their situation is audible if the party listens. Morra can fill in the picture if asked. Oskar's name and the Honeywell office can surface naturally here.</p>
-    </div>
-    <div class="thread pink">
-      <span class="thread-label">Courtesans</span>
-      <p>Seva is present but will not approach. If the party comes to her — recognising her from the road, or simply drawn to the card table — the conversation can begin. She may give them the Crost household job tonight or arrange to find them tomorrow.</p>
-    </div>
-  </div>
-
-  <div class="section-heading">Key NPCs</div>
-
+  <div class="section-heading">NPCs</div>
   <div class="npc-card">
     <div class="npc-header" onclick="toggleNPC('morra')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="morra-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="morra-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('morra',this)" onclick="event.stopPropagation()">
-      </div>
       <div class="npc-info">
         <span class="npc-name">Morra</span>
-        <span class="npc-role">Halfling innkeeper — runs this room with quiet authority</span>
+        <span class="npc-role">Halfling innkeeper &mdash; runs this room with quiet authority</span>
       </div>
       <span class="npc-toggle" id="morra-toggle">▼</span>
     </div>
-    <div class="npc-body" id="morra-body">
-      <span class="npc-section-label">Appearance</span>
-      <p class="npc-desc">A halfling woman, middle-aged, small but commanding. Warm round face with sharp observant eyes that miss nothing. Practical inn-keeper's clothing, hair pinned back efficiently. The expression of someone who is simultaneously welcoming every person in the room and keeping track of all of them. A slight smile that suggests she has seen everything this inn can produce and remains fond of it anyway.</p>
-      <span class="npc-section-label">Role in the scene</span>
-      <div class="npc-trait"><span class="npc-trait-key">First contact</span><span>She greets the party, gets them settled, reads them accurately in about thirty seconds. She knows they have had a long day without being told.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">On Dask and Tomas</span><span>If the party notices the disturbance at their table she will provide context — they have been here a few nights, they are not dangerous, they are frustrated and taking it out on the evening. She handles it with the calm efficiency of someone who has done this before.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">On Oskar</span><span>If the party asks about work she mentions that Oskar Sternov at the Honeywell office is usually looking for capable hands around festival time. Tell him Morra sent you. She does not explain the relationship further. It is simply how things work in Tallowhaven.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">On Seva</span><span>She knows Seva by face if not by name. She does not volunteer information about her guests. If asked she confirms the woman has been here a couple of evenings and keeps to herself.</span></div>
-    </div>
-  </div>
-
-  <div class="npc-card">
+    <div class="npc-body" id="morra-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>Middle-aged halfling, small but commanding. Warm round face, sharp observant eyes that miss nothing. Practical clothing, hair pinned back efficiently.</p></div><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Get the party settled -- rooms, food, drink -- and read them accurately in about thirty seconds without making a performance of it.</p></div><div class="npc-field"><span class="npc-field-label">What she knows</span><p>Context on Dask and Tomas if asked (frustrated, not dangerous); mentions Oskar Sternov at Honeywell if asked about work (“tell him Morra sent you”); knows Seva by face, confirms she's been around a couple of evenings and keeps to herself, but won't volunteer more about a guest.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Simultaneously welcoming everyone in the room and tracking all of them. A slight smile that suggests she's seen everything this inn can produce and remains fond of it anyway.</p></div></div>
+  </div><div class="npc-card">
     <div class="npc-header" onclick="toggleNPC('seva')">
-      <div class="npc-portrait" title="Click to load portrait">
-        <img id="seva-img" src="" alt="" style="display:none;">
-        <div class="npc-portrait-placeholder" id="seva-placeholder">Load<br>portrait</div>
-        <input type="file" accept="image/*" onchange="loadPortrait('seva',this)" onclick="event.stopPropagation()">
-      </div>
       <div class="npc-info">
         <span class="npc-name">Seva Sable</span>
-        <span class="npc-role">Present — will not approach, available if sought</span>
+        <span class="npc-role">Present &mdash; will not approach, available if sought</span>
       </div>
       <span class="npc-toggle" id="seva-toggle">▼</span>
     </div>
-    <div class="npc-body" id="seva-body">
-      <span class="npc-section-label">Her position</span>
-      <p class="npc-desc">Near the card table. A drink in hand. She arrived here before the party and has been present long enough to be part of the room rather than a new arrival. She does not look at the party when they enter, which is itself a kind of attention.</p>
-      <span class="npc-section-label">If the party approaches</span>
-      <div class="npc-trait"><span class="npc-trait-key">Recognition</span><span>If they recognise her from the road she receives it warmly and without defensiveness. Of course she remembers them. She was there.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">Conversation</span><span>She is good company. She asks questions that feel like interest and are also assessment. She does not explain who she is or what she does unless directly asked, and even then she is economical.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">The mission</span><span>If the conversation goes well and the party seem capable of discretion she may mention a small favour — a necklace left at a private engagement she would rather not revisit herself. She pays half upfront. She gives them the Crost address. She asks them to meet her back here when they are done.</span></div>
-      <div class="npc-trait"><span class="npc-trait-key">If not approached</span><span>She makes no move. She will find another way to reach them — through Mira the following day if needed. She is patient. She has already decided they are worth the effort.</span></div>
-      <span class="npc-section-label">Mira</span>
-      <div class="npc-trait"><span class="npc-trait-key">If Seva doesn't approach</span><span>The following day Mira finds whichever party member seems most receptive, makes the evening feel warmer than it was, and at the right moment delivers Seva's message: she sends her regards and asks that they bring their friends to the private table upstairs. This is the Courtesan Network announcing itself for the first time.</span></div>
+    <div class="npc-body" id="seva-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>A drink in hand near the card table, present long enough to be part of the room rather than a new arrival. Doesn't look at the party when they enter, which is itself a kind of attention.</p></div><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Has already decided the party is worth the effort -- patient either way. If approached and the conversation goes well, offers a small favour: retrieving a necklace from a private engagement she'd rather not revisit herself.</p></div><div class="npc-field"><span class="npc-field-label">What she keeps secret</span><p>Doesn't explain who she is or what she does unless directly asked, and is economical even then.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>If recognised from the road, receives it warmly and without defensiveness -- of course she remembers, she was there. Asks questions that feel like interest and are also assessment.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('tradesmen')">
+      <div class="npc-info">
+        <span class="npc-name">Dask and Tomas (Trademaster thread)</span>
+        <span class="npc-role">Workers at a table, louder than the room requires</span>
+      </div>
+      <span class="npc-toggle" id="tradesmen-toggle">▼</span>
     </div>
-  </div>
-
-  <div class="section-heading">Dask, Tomas and the Trademaster Thread</div>
-
-  <div class="npc-grid">
-    <div class="npc-card grid-card">
-      <div class="npc-header" onclick="toggleNPC('dask')">
-        <div class="npc-portrait small">
-          <img id="dask-img" src="" alt="" style="display:none;">
-          <div class="npc-portrait-placeholder" id="dask-placeholder">Load</div>
-          <input type="file" accept="image/*" onchange="loadPortrait('dask',this)" onclick="event.stopPropagation()">
-        </div>
-        <div class="npc-info">
-          <span class="npc-name">Dask</span>
-          <span class="npc-role">Older worker — weary, practical</span>
-        </div>
-        <span class="npc-toggle" id="dask-toggle">▼</span>
+    <div class="npc-body" id="tradesmen-body"><div class="npc-field"><span class="npc-field-label">Dask</span><p>Older, weary, practical -- nursing a drink, saying less than Tomas. Not hopeless, just tired in the specific way that comes from hoping and being wrong enough times. If engaged separately, more measured and honest: he's not looking for rescue, just somewhere dry to sleep that won't get them moved on in four days.</p></div><div class="npc-field"><span class="npc-field-label">Tomas</span><p>Younger, angry, audible -- the reason the table is noticeable. Angry about the warehouses, the guild system, festival season making rich people richer. Not wrong about any of it, and not making it easier for Dask. Has worked out the warehouse is suddenly valuable and wants to use that leverage.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('mira')">
+      <div class="npc-info">
+        <span class="npc-name">Mira</span>
+        <span class="npc-role">Courtesans Network &mdash; warm, present, watching</span>
       </div>
-      <div class="npc-body" id="dask-body">
-        <p class="npc-desc">Nursing a drink and saying less than Tomas. He has been here before in the sense that he has been in situations like this before. He is not hopeless. He is tired in a specific way that comes from hoping and being wrong enough times.</p>
-        <p class="npc-desc" style="margin-top:6px;font-size:13px;">If a player engages him separately from Tomas he is more measured and more honest about the situation. He is not looking for rescue. He is looking for somewhere dry to sleep that will not get them moved on in four days.</p>
-      </div>
+      <span class="npc-toggle" id="mira-toggle">▼</span>
     </div>
-
-    <div class="npc-card grid-card">
-      <div class="npc-header" onclick="toggleNPC('tomas')">
-        <div class="npc-portrait small">
-          <img id="tomas-img" src="" alt="" style="display:none;">
-          <div class="npc-portrait-placeholder" id="tomas-placeholder">Load</div>
-          <input type="file" accept="image/*" onchange="loadPortrait('tomas',this)" onclick="event.stopPropagation()">
-        </div>
-        <div class="npc-info">
-          <span class="npc-name">Tomas</span>
-          <span class="npc-role">Younger worker — angry, audible</span>
-        </div>
-        <span class="npc-toggle" id="tomas-toggle">▼</span>
-      </div>
-      <div class="npc-body" id="tomas-body">
-        <p class="npc-desc">He is the reason the table is noticeable. Louder than the room requires. Angry about the warehouses, about the guild system, about the fact that festival season makes rich people richer and does nothing for people like him. He is not wrong about any of this. He is also not making it easier for Dask.</p>
-        <p class="npc-desc" style="margin-top:6px;font-size:13px;">He has already worked out that the warehouses they are staying in are suddenly valuable. He wants to use that. He is telling anyone who will listen, which is nobody at this point except Dask who has heard it already.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-heading">Background Presence</div>
-  <div class="npc-grid">
-
-    <div class="npc-card grid-card">
-      <div class="npc-header" onclick="toggleNPC('mira')">
-        <div class="npc-portrait small">
-          <img id="mira-img" src="" alt="" style="display:none;">
-          <div class="npc-portrait-placeholder" id="mira-placeholder">Load</div>
-          <input type="file" accept="image/*" onchange="loadPortrait('mira',this)" onclick="event.stopPropagation()">
-        </div>
-        <div class="npc-info">
-          <span class="npc-name">Mira</span>
-          <span class="npc-role">Courtesans Network — warm, present, watching</span>
-        </div>
-        <span class="npc-toggle" id="mira-toggle">▼</span>
-      </div>
-      <div class="npc-body" id="mira-body">
-        <p class="npc-desc">In the room somewhere — at the bar, near the dancing, at a table with a couple of people she seems to have just met. She is good company in the way that makes people forget they only met her an hour ago. She is aware of the party. She is aware of Seva. She is paying attention to all of it.</p>
-        <p class="npc-desc" style="margin-top:6px;font-size:13px;">If Seva does not make contact with the party tonight, Mira finds whichever member seems most receptive the following day. The message she delivers is warm and slightly mysterious: Seva sends her regards and asks that they bring their friends to the private table upstairs.</p>
-      </div>
-    </div>
-
-    <div class="npc-card grid-card">
-      <div class="npc-header" onclick="toggleNPC('harpist')">
-        <div class="npc-portrait small">
-          <img id="harpist-img" src="" alt="" style="display:none;">
-          <div class="npc-portrait-placeholder" id="harpist-placeholder">Load</div>
-          <input type="file" accept="image/*" onchange="loadPortrait('harpist',this)" onclick="event.stopPropagation()">
-        </div>
-        <div class="npc-info">
-          <span class="npc-name">The harpist</span>
-          <span class="npc-role">Background — texture only</span>
-        </div>
-        <span class="npc-toggle" id="harpist-toggle">▼</span>
-      </div>
-      <div class="npc-body" id="harpist-body">
-        <p class="npc-desc">No name needed unless a player specifically engages. They play well. They have been playing here long enough that Morra trusts their judgement about the room's mood. They speed up slightly when the dancing picks up. They quiet down when conversations turn serious. They notice more than they let on.</p>
-      </div>
-    </div>
-
+    <div class="npc-body" id="mira-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>In the room somewhere -- at the bar, near the dancing, at a table with people she seems to have just met. Good company in the way that makes people forget they only met her an hour ago.</p></div><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Aware of both the party and Seva. If Seva doesn't make contact tonight, finds whichever party member seems most receptive the following day.</p></div><div class="npc-field"><span class="npc-field-label">What she keeps secret</span><p>Delivers Seva's message as a warm, slightly mysterious coincidence rather than a set-up: Seva sends her regards, and asks that they bring their friends to the private table upstairs.</p></div></div>
   </div>
 
   <div class="section-heading">Encounter Beats</div>
-
-  <div class="dm-note"><strong>Purpose of this scene</strong>The party rests. The world opens up around them. Three threads are available and none of them push. This scene should not feel like a mission briefing. It should feel like the end of a long day in a warm room where interesting things happen if you look for them.</div>
-
   <div class="beat">
-    <div class="beat-header" onclick="toggleBeat(1)">
-      <span class="beat-number">01</span>
+    <div class="beat-header" onclick="toggleBeat('1')">
+      <span class="beat-number">1</span>
       <span class="beat-title">Arrival and settling</span>
       <span class="beat-toggle" id="beat-toggle-1">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-1">
-      <p>The party arrives. The room is warm and active. Morra gets them settled — rooms, food, drink — with the efficient hospitality of someone who does this well. She reads them without making a performance of it.</p>
-      <p>Let the players take stock of the room. The harpist. The card table. The dancing near the back. Dask and Tomas audible at their table. A woman near the card game who was on the same road as them this afternoon.</p>
-    </div>
-  </div>
-
-  <div class="beat">
-    <div class="beat-header" onclick="toggleBeat(2)">
-      <span class="beat-number">02</span>
+    <div class="beat-body" id="beat-body-1"><p>Morra gets the party settled -- rooms, food, drink -- with the efficient hospitality of someone who does this well, reading them without a performance of it. Let players take stock of the room: the harpist, the card table, the dancing near the back, Dask and Tomas audible at their table, a woman near the card game who was on the same road as them this afternoon.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('2')">
+      <span class="beat-number">2</span>
       <span class="beat-title">The room finds its shape</span>
       <span class="beat-toggle" id="beat-toggle-2">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-2">
-      <p>Players who listen to Dask and Tomas pick up the shape of the situation — workers with nowhere to go, a space that is suddenly needed, festival season making everything harder. Morra can fill in the gaps if asked. She is not editorial about it. She just knows what she knows.</p>
-      <p>Players who drift toward the card table find Crowns and Crows in progress and Seva nearby. If they recognise her from the road the conversation begins naturally. If they simply sit down near the game she will make conversation at her own pace.</p>
-      <p>Players who talk to Morra about work get Oskar's name and the Honeywell office. Tell him I sent you.</p>
-    </div>
-  </div>
-
-  <div class="beat">
-    <div class="beat-header" onclick="toggleBeat(3)">
-      <span class="beat-number">03</span>
-      <span class="beat-title">Seva — if approached</span>
+    <div class="beat-body" id="beat-body-2"><p>Players who listen to Dask and Tomas pick up the shape of the situation -- workers with nowhere to go, a space suddenly needed. Morra fills gaps if asked, without editorialising. Players who drift toward the card table find Crowns and Crows in progress and Seva nearby; recognising her from the road starts the conversation naturally. Players who ask Morra about work get Oskar's name and the Honeywell office.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('3')">
+      <span class="beat-number">3</span>
+      <span class="beat-title">Seva -- if approached</span>
       <span class="beat-toggle" id="beat-toggle-3">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-3">
-      <p>She is warm and interested without being eager. She asks questions about the party's day, about how they found the road, about what they thought of Tallowhaven on arrival. These feel like interest. They are also assessment.</p>
-      <p>If the conversation goes well — if the party seem capable of discretion and handling a situation with some nuance — she mentions the favour. A necklace left at a private engagement. She would prefer not to revisit the household herself. She pays half upfront and gives them the Crost address.</p>
-      <p>She asks them to meet her back at the Amber Cup when they are done. She does not say what happens after that.</p>
-    </div>
-  </div>
-
-  <div class="beat">
-    <div class="beat-header" onclick="toggleBeat(4)">
-      <span class="beat-number">04</span>
-      <span class="beat-title">Seva — if not approached</span>
+    <div class="beat-body" id="beat-body-3"><p>Warm and interested without being eager. Her questions about the party's day and the road feel like interest and are also assessment. If the conversation goes well -- if the party seem capable of discretion -- she mentions the favour: a necklace left at a private engagement she'd rather not revisit herself. She pays half upfront, gives them the Crost address, and asks them to meet her back here when it's done. She doesn't say what happens after.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('4')">
+      <span class="beat-number">4</span>
+      <span class="beat-title">Seva -- if not approached</span>
       <span class="beat-toggle" id="beat-toggle-4">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-4">
-      <p>She makes no move tonight. She finishes her drink and leaves at some point, unremarked. The party may or may not notice her go.</p>
-      <p>The following day Mira finds whichever party member seems most receptive. She makes the encounter feel like a coincidence — a shared table, a good conversation, a natural moment. Then the message: Seva sends her regards and asks that you bring your friends to the private table upstairs.</p>
-      <p>Upstairs: a comfortable private room. Seva already there. Unhurried. Wine on the table. She lets them settle before saying anything of substance. Then she describes the favour.</p>
-    </div>
-  </div>
-
-  <div class="beat">
-    <div class="beat-header" onclick="toggleBeat(5)">
-      <span class="beat-number">05</span>
+    <div class="beat-body" id="beat-body-4"><p>She makes no move tonight, finishes her drink, and leaves at some point unremarked. The following day, Mira finds whichever party member seems most receptive and makes the encounter feel like a coincidence -- a shared table, a good conversation -- before delivering Seva's message. Upstairs: a comfortable private room, Seva already there, unhurried, wine on the table. She lets them settle before describing the favour.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('5')">
+      <span class="beat-number">5</span>
       <span class="beat-title">The evening ends</span>
       <span class="beat-toggle" id="beat-toggle-5">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-5">
-      <p>The party has what they came for — a bed, a meal, and the beginning of whatever comes next. Tomorrow: Alric at the Shallow Tuber if they accepted, Oskar at the Honeywell if Morra pointed them there, or Seva's favour if contact was made tonight.</p>
-      <p>The Amber Cup continues after they go upstairs. Morra is still at the bar. The harpist plays a little quieter. Dask and Tomas are still at their table. The room does not need the party to keep going.</p>
-    </div>
+    <div class="beat-body" id="beat-body-5"><p>The party has a bed, a meal, and the beginning of whatever comes next -- Alric at the Shallow Tuber if accepted, Oskar at Honeywell if pointed there, or Seva's favour if contact was made. The Amber Cup continues without them: Morra's still at the bar, the harpist plays a little quieter, Dask and Tomas are still at their table. The room doesn't need the party to keep going.</p></div>
   </div>
 
   <div class="section-heading">DM Notes</div>
-
-  <div class="dm-note"><strong>Do not push the threads</strong>All three are available. None of them need to be activated tonight. If the party sits quietly, eats their food, and goes to bed, the threads are still there in the morning. The scene is not a failure if nothing plot-relevant happens. A party that rests and recovers is a party that shows up tomorrow in better shape.</div>
-
-  <div class="dm-note"><strong>Crowns and Crows</strong>The same game from the Star and Raven. Players who notice this have found a piece of world consistency. Nobody comments on it. It simply exists. The game travels with the kind of people who move between towns.</div>
-
-  <div class="dm-note"><strong>Seva will not approach</strong>This is firm. She does not make the first move publicly. If a player is watching her carefully they may notice she is aware of them without looking at them. That awareness is its own signal for anyone paying attention.</div>
-
-  <div class="dm-note"><strong>Morra and Oskar</strong>Her recommendation of Oskar is casual and genuine. She is not his agent. She simply knows that he is usually hiring around festival time and that capable strangers passing through Tallowhaven sometimes want work. It is the kind of thing she knows because she runs a good inn and pays attention.</div>
-
-  <div class="dm-note"><strong>Dask and Tomas here vs at the warehouse</strong>The party meets them tonight as strangers with a problem. They meet them again at the warehouse as the subject of a job. Whether they connect the two depends entirely on how carefully they listened tonight. Do not prompt the connection. Let it land on its own.</div>
+  <div class="dm-note"><strong>Do not push the threads</strong>All three are available and none need activating tonight. If the party eats, drinks, and goes to bed, the threads are still there in the morning -- a party that rests and recovers shows up tomorrow in better shape.</div><div class="dm-note"><strong>Crowns and Crows</strong>The same game from the Star and Raven. Players who notice have found a piece of world consistency -- nobody comments on it, it simply exists. The game travels with the kind of people who move between towns.</div><div class="dm-note"><strong>Seva will not approach</strong>This is firm. She doesn't make the first move publicly. A careful player might notice she's aware of them without looking at them -- that's its own signal for anyone paying attention.</div><div class="dm-note"><strong>Morra and Oskar</strong>Her recommendation is casual and genuine -- she isn't his agent, she just knows he's usually hiring around festival time and that capable strangers passing through sometimes want work.</div><div class="dm-note"><strong>Dask and Tomas here vs. at the warehouse</strong>The party meets them tonight as strangers with a problem, and again at the warehouse as the subject of a job. Whether they connect the two depends entirely on how carefully they listened tonight -- don't prompt the connection, let it land on its own.</div>
 
   <footer>Abelon Campaign — Encounter Reference. The Amber Cup / Tallowhaven / Act 1.</footer>
 </div>
@@ -432,9 +323,6 @@
   function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
   function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
   function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
-  function expandBeats(){collapseAll();document.querySelectorAll('.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.beat-toggle').forEach(el=>el.classList.add('open'));}
-  function expandNPCs(){collapseAll();document.querySelectorAll('.npc-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle').forEach(el=>el.classList.add('open'));}
-  function loadPortrait(id,input){if(!input.files||!input.files[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(id+'-img'),ph=document.getElementById(id+'-placeholder');if(img){img.src=e.target.result;img.style.display='block';}if(ph)ph.style.display='none';};r.readAsDataURL(input.files[0]);}
 </script>
 </body>
 </html>

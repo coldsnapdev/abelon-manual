@@ -13,12 +13,13 @@
   .page{max-width:900px;margin:0 auto;}
   h1{font-family:'Cinzel',serif;font-size:26px;font-weight:600;color:var(--accent);letter-spacing:.04em;margin-bottom:14px;}
 
-  .shortcuts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.5rem;}
-  a.pin{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;background:var(--parchment-mid);border:1px solid var(--rule);border-radius:4px;padding:6px 10px;}
-  a.pin:hover{color:var(--accent);border-color:var(--accent);}
+  .shortcuts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.5rem;align-items:center;}
+  a.pin,button.pin{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;background:var(--parchment-mid);border:1px solid var(--rule);border-radius:4px;padding:6px 10px;cursor:pointer;}
+  a.pin:hover,button.pin:hover{color:var(--accent);border-color:var(--accent);}
 
   .now-panel{background:var(--teal-bg);border:1px solid var(--teal);border-radius:8px;padding:16px 20px;margin-bottom:2rem;}
-  .now-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;}
+  .now-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .now-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);}
   .now-main{font-size:17px;margin-bottom:6px;}
   .now-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faded);}
   .now-status{font-size:14px;color:var(--ink-mid);font-style:italic;margin-bottom:8px;}
@@ -28,14 +29,62 @@
   .now-motion li:last-child{border-bottom:none;}
   .im-link{font-size:13px;}
 
+  #edit-current-btn{background:none;border:1px solid var(--teal);color:var(--teal);border-radius:4px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;cursor:pointer;}
+  #edit-current-btn:hover{background:var(--teal);color:var(--parchment);}
+
+  #current-editor{display:none;background:var(--parchment-mid);border:1px solid var(--rule);border-radius:8px;padding:18px 20px;margin-bottom:2rem;}
+  #current-editor.open{display:block;}
+  #current-editor h3{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:12px;}
+  #current-editor label{display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faded);margin:12px 0 4px;}
+  #current-editor select,#current-editor textarea,#current-editor input[type=text]{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:14px;background:var(--parchment);color:var(--ink);border:1px solid var(--rule);border-radius:4px;padding:7px 9px;}
+  #current-editor textarea{resize:vertical;min-height:50px;}
+  .im-row{display:flex;gap:6px;margin-bottom:6px;align-items:center;}
+  .im-row input[type=text]{flex:1;}
+  .im-row select{flex:0 0 160px;}
+  .im-row button{flex:0 0 auto;background:none;border:1px solid var(--rule);border-radius:4px;color:var(--ink-faded);cursor:pointer;padding:6px 9px;font-size:13px;}
+  .im-row button:hover{color:#993C1D;border-color:#993C1D;}
+  #ce-add-motion{margin-top:2px;}
+  .ce-actions{display:flex;gap:10px;margin-top:16px;}
+  .ce-actions button{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border-radius:4px;cursor:pointer;}
+  #ce-save{background:var(--teal);border:1px solid var(--teal);color:var(--parchment);}
+  #ce-reset{background:none;border:1px solid var(--rule);color:var(--ink-faded);}
+  #ce-cancel{background:none;border:1px solid var(--rule);color:var(--ink-faded);}
+
+  .ledger-panel{background:var(--parchment-mid);border:1px solid var(--rule);border-radius:8px;padding:16px 20px;margin-bottom:2rem;}
+  .ledger-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .ledger-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid);}
+  #ledger-empty{font-size:13px;font-style:italic;color:var(--ink-faded);}
+  .ledger-row{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--rule-faint);font-size:14px;}
+  .ledger-row:last-of-type{border-bottom:none;}
+  .ledger-source{font-weight:600;flex:1 1 220px;}
+  .ledger-amt{font-size:12.5px;color:var(--ink-mid);}
+  .ledger-notes{font-size:12.5px;color:var(--ink-faded);font-style:italic;flex-basis:100%;}
+  .ledger-del{background:none;border:1px solid var(--rule);border-radius:3px;color:var(--ink-faded);cursor:pointer;font-size:11px;padding:2px 7px;}
+  .ledger-del:hover{color:#993C1D;border-color:#993C1D;}
+  #ledger-adhoc-form{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--rule-faint);}
+  #ledger-adhoc-form.open{display:block;}
+  #ledger-adhoc-form label{display:block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faded);margin:8px 0 3px;}
+  #ledger-adhoc-form input[type=text],#ledger-adhoc-form textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:13px;background:var(--parchment);color:var(--ink);border:1px solid var(--rule);border-radius:4px;padding:6px 8px;}
+  .ledger-adhoc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;}
+
   h2{font-family:'Cinzel',serif;font-size:17px;font-weight:600;color:var(--accent);letter-spacing:.07em;text-transform:uppercase;margin:0 0 .9rem;padding-bottom:8px;border-bottom:1px solid var(--rule);}
   section.major{margin-bottom:2.5rem;}
+  h3.chapter{font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mid);margin:1.6rem 0 .6rem;}
+  h3.chapter:first-of-type{margin-top:.4rem;}
+  ol.chapter-seq{margin-bottom:.5rem;}
+  .path-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem 2rem;}
+  .path-group h4{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faded);margin-bottom:6px;padding-bottom:6px;border-bottom:2px solid var(--rule-faint);}
   ol.sequence{list-style:none;counter-reset:none;}
-  ol.sequence li{padding:8px 0;border-bottom:1px solid var(--rule-faint);font-size:15px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  ol.sequence li{padding:6px 0;border-bottom:1px solid var(--rule-faint);font-size:14px;line-height:1.5;}
   ol.sequence li:last-child{border-bottom:none;}
-  ol.sequence li.current{background:var(--teal-bg);margin:0 -10px;padding:8px 10px;border-radius:6px;border-bottom:none;}
-  .num{font-family:'Cinzel',serif;font-size:11px;color:var(--ink-faded);min-width:20px;}
-  .here{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);}
+  ol.sequence li.current{background:var(--teal-bg);margin:0 -8px;padding:6px 8px;border-radius:6px;border-bottom:none;}
+  ol.sequence li.missing{background:rgba(153,60,29,0.06);}
+  .sublabel{font-size:12px;color:var(--ink-faded);}
+  .includes{font-size:12px;color:var(--ink-faded);}
+  .gap{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:#993C1D;}
+  @media(prefers-color-scheme:dark){.gap{color:#F0997B;}}
+  .here-marker:empty{display:none;}
+  .here-marker{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);margin-left:6px;}
   section.major ul{list-style:none;}
   section.major li{padding:7px 0;border-bottom:1px solid var(--rule-faint);font-size:15px;}
   section.major li:last-child{border-bottom:none;}
@@ -51,34 +100,84 @@
   .minor-col ul{list-style:none;}
   .minor-col li{padding:3px 0;font-size:13px;}
   section:not(.minor){scroll-margin-top:20px;}
+  .local-note{font-size:11px;color:var(--ink-faded);font-style:italic;margin-top:10px;}
 </style>
 </head>
 <body>
 <div class="page">
   <h1>Abelon DM Site</h1>
-  <div class="shortcuts"><a class="pin" href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a> <a class="pin" href="CombatGuide_TheStarling.html">The Starling</a> <a class="pin" href="DMCheatSheet_2024Rules.html">DM Cheat Sheet — D&D 2024</a></div>
-  
-    <section class="now-panel">
-      <h2 class="now-label">Where we are now</h2>
-      <div class="now-main">
-        <span class='now-tag'>Current scene</span> <a href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a>
-         &middot; <span class='now-tag'>Combat guide</span> <a href="CombatGuide_TheStarling.html">The Starling</a>
+  <div class="shortcuts" id="shortcuts"></div>
+
+  <section class="now-panel">
+    <div class="now-label-row">
+      <span class="now-label">Where we are now</span>
+      <button id="edit-current-btn" type="button">Update</button>
+    </div>
+    <div class="now-main" id="now-main"></div>
+    <p class="now-status" id="now-status"></p>
+    <details class="now-motion" id="now-motion-wrap">
+      <summary id="now-motion-summary">In motion</summary>
+      <ul id="now-motion-list"></ul>
+    </details>
+  </section>
+
+  <div id="current-editor">
+    <h3>Update where we are</h3>
+    <label for="ce-scene">Current scene</label>
+    <select id="ce-scene"></select>
+    <label for="ce-guide">Combat guide</label>
+    <select id="ce-guide"></select>
+    <label for="ce-status">Status</label>
+    <textarea id="ce-status"></textarea>
+    <label>In motion</label>
+    <div id="ce-motion-rows"></div>
+    <button type="button" id="ce-add-motion" class="pin">+ Add item</button>
+    <div class="ce-actions">
+      <button type="button" id="ce-save">Save</button>
+      <button type="button" id="ce-reset">Reset to default</button>
+      <button type="button" id="ce-cancel">Cancel</button>
+    </div>
+    <p class="local-note">Saved to this browser only (localStorage) &mdash; won't sync to your phone or another computer.</p>
+  </div>
+
+  <section class="ledger-panel">
+    <div class="ledger-label-row">
+      <span class="ledger-label">Payments ledger</span>
+      <button id="ledger-add-btn" type="button" class="pin">+ Add entry</button>
+    </div>
+    <div id="ledger-empty">Nothing recorded yet &mdash; use the Payment button on an encounter page, or add an entry here directly.</div>
+    <div id="ledger-rows"></div>
+    <div id="ledger-adhoc-form">
+      <label>Source / who's paying</label>
+      <input type="text" id="la-source" placeholder="e.g. side deal with Morra">
+      <div class="ledger-adhoc-grid">
+        <div><label>Agreed total</label><input type="text" id="la-total" placeholder="e.g. 20gp"></div>
+        <div><label>Paid so far</label><input type="text" id="la-paid" placeholder="e.g. 0gp"></div>
+        <div><label>Not yet paid</label><input type="text" id="la-owed" placeholder="e.g. 20gp"></div>
       </div>
-      <p class="now-status">Danzel is about to join via Mira in Tallowhaven, and the Starling questline is beginning.</p>
-      <details class="now-motion">
-        <summary>In motion (4)</summary>
-        <ul><li>Oskar's Warehouse quest — accepted, not yet executed <span class="im-link">&mdash; <a href="Act1_Tallowhaven_HoneywellOffice_OskarIntroduction.html">Honeywell Office</a></span></li><li>Otho's Zarethi box and ring — party holds both; Otho missing with the Shrinekeepers' Diary</li><li>Seva Sable relationship — deeply distrustful, rocky but reparable <span class="im-link">&mdash; <a href="Act1_Tallowhaven_Street_SevaIntroduction.html">Private Table, The Amber Cup</a></span></li><li>Devrin/Tobin manhunt — open, unpursued</li></ul>
-      </details>
-    </section>
+      <label>Notes</label>
+      <textarea id="la-notes" placeholder="Terms, conditions..."></textarea>
+      <div class="ce-actions" style="margin-top:10px;">
+        <button type="button" id="la-save">Save</button>
+        <button type="button" id="la-cancel">Cancel</button>
+      </div>
+    </div>
+  </section>
+
   
     <section id="act1" class="major">
-      <h2>Act 1 Encounters</h2>
-      <ol class="sequence"><li class=""><span class="num">01</span> <a href="Act1_BrindleHollow_Road_Ambush.html">Ambush on the Road</a> <span class="pair">&middot; <a href="CombatGuide_RoadAmbush.html">Road Ambush</a></span> </li><li class=""><span class="num">02</span> <a href="Act1_BrindleHollow_StarAndRaven_PartyMeeting.html">The Star and Raven</a> </li><li class=""><span class="num">03</span> <a href="Act1_BrindleHollow_StillwaterShrine_MarekArrest.html">The Stillwater Shrine</a> </li><li class=""><span class="num">04</span> <a href="Act1_Tallowhaven_AldermensHall_Arrival.html">The Aldermen's Hall</a> </li><li class=""><span class="num">05</span> <a href="Act1_Tallowhaven_AmberCup_Arrival.html">The Amber Cup</a> </li><li class=""><span class="num">06</span> <a href="Act1_Tallowhaven_HoneywellOffice_OskarIntroduction.html">Honeywell Office</a> </li><li class=""><span class="num">07</span> <a href="Act1_Tallowhaven_ShallowTuber_AlricIntroduction.html">The Shallow Tuber</a> </li><li class=""><span class="num">08</span> <a href="Act1_Tallowhaven_Street_SevaIntroduction.html">Private Table, The Amber Cup</a> </li><li class=""><span class="num">09</span> <a href="Act1_Tallowhaven_CopperVine_DebtCollection.html">The Copper Vine</a> </li><li class=""><span class="num">10</span> <a href="Act1_Tallowhaven_CrostHousehold_NecklaceRetrieval.html">The Crost Household</a> </li><li class=""><span class="num">11</span> <a href="Act1_Tallowhaven_Warehouses_WorkerEviction.html">The Basement Warehouse</a> <span class="pair">&middot; <a href="CombatGuide_BasementWarehouse.html">The Basement Warehouse</a></span> </li><li class=""><span class="num">12</span> <a href="Act1_Tallowhaven_CoopersSquare_BardicInterlude.html">Cooper's Square (Bardic Interlude)</a> </li><li class="current"><span class="num">13</span> <a href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a> <span class="pair">&middot; <a href="CombatGuide_TheStarling.html">The Starling</a></span> <span class="here">&#9679; you are here</span></li><li class=""><span class="num">14</span> <a href="Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html">The Trumpet</a> <span class="pair">&middot; <a href="CombatGuide_TheTrumpet.html">The Trumpet</a></span> </li><li class=""><span class="num">15</span> <a href="Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html">The Driftwood Point Supply Problem</a> <span class="pair">&middot; <a href="CombatGuide_DriftwoodRoad.html">The Driftwood Road</a></span> </li><li class=""><span class="num">16</span> <a href="Act1_Tallowhaven_EveningInvitations_ThirdMissions.html">The Evening Invitations</a> </li><li class=""><span class="num">17</span> <a href="Act1_Tallowhaven_AssassinationPaths.html">The Assassination Paths</a> <span class="pair">&middot; <a href="CombatGuide_AssassinationPaths.html">Assassination Paths</a></span> </li><li class=""><span class="num">18</span> <a href="Act1_Tallowhaven_CoopersSquare_ArrestAndGaol.html">The Arrest and The Gaol</a> </li><li class=""><span class="num">19</span> <a href="Act1_Tallowhaven_FestivalMeeting_Finale.html">The Festival Meeting & Finale</a> <span class="pair">&middot; <a href="CombatGuide_FestivalFinale.html">The Festival Finale</a></span> </li></ol>
+      <h2>Act 1</h2>
+      <h3 class="chapter">Brindle Hollow</h3>
+      <ol class="sequence chapter-seq"><li class="seqrow" data-id="act1-star-raven"><a href="Act1_BrindleHollow_StarAndRaven_PartyMeeting.html">The Star and Raven</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-stillwater"><a href="Act1_BrindleHollow_StillwaterShrine_MarekArrest.html">The Stillwater Shrine</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-road-ambush"><a href="Act1_BrindleHollow_Road_Ambush.html">Ambush on the Road</a> <span class="pair">&middot; <a href="CombatGuide_RoadAmbush.html">Road Ambush</a></span><span class="here-marker"></span></li></ol>
+      <h3 class="chapter">Tallowhaven</h3>
+      <div class="path-grid"><div class="path-group"><h4>Generic</h4><ol class="sequence"><li class="seqrow" data-id="act1-aldermens"><a href="Act1_Tallowhaven_AldermensHall_Arrival.html">The Aldermen's Hall</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-ambercup"><a href="Act1_Tallowhaven_AmberCup_Arrival.html">The Amber Cup</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-coopers-bardic"><a href="Act1_Tallowhaven_CoopersSquare_BardicInterlude.html">Cooper's Square (Bardic Interlude)</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-northern-ambush">Northern Ambush <span class="gap">&mdash; MISSING: No encounter write-up yet -- combat guide exists</span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-wolf-ambush">Wolf Ambush <span class="gap">&mdash; MISSING: No encounter write-up yet -- combat guide exists</span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-bear-ambush">Bear Ambush <span class="gap">&mdash; MISSING: No encounter write-up or combat guide yet</span><span class="here-marker"></span></li></ol></div><div class="path-group"><h4>Trademasters Path</h4><ol class="sequence"><li class="seqrow" data-id="act1-warehouses"><a href="Act1_Tallowhaven_Trademasters_HoneywellAndWarehouse.html">Honeywell Office & The Basement Warehouse</a> <span class="pair">&middot; <a href="CombatGuide_BasementWarehouse.html">The Basement Warehouse</a></span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-trumpet"><a href="Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html">The Trumpet</a> <span class="pair">&middot; <a href="CombatGuide_TheTrumpet.html">The Trumpet</a></span><span class="here-marker"></span></li></ol></div><div class="path-group"><h4>Merchants Path</h4><ol class="sequence"><li class="seqrow" data-id="act1-coppervine"><a href="Act1_Tallowhaven_Merchants_ShallowTuberAndCopperVine.html">The Shallow Tuber & The Copper Vine</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-driftwood-fake">Driftwood Checkpoint <span class="sublabel">(a) Fake Barricade</span> <span class="gap">&mdash; MISSING: No encounter write-up or combat guide yet</span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-driftwood"><a href="Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html">The Driftwood Point Supply Problem</a> <span class="sublabel">(b) Real Barricade</span> <span class="pair">&middot; <a href="CombatGuide_DriftwoodRoad.html">The Driftwood Road</a></span><span class="here-marker"></span></li></ol></div><div class="path-group"><h4>Courtesans Path</h4><ol class="sequence"><li class="seqrow" data-id="act1-crost"><a href="Act1_Tallowhaven_Courtesans_StreetAndCrostHousehold.html">A Street in Tallowhaven & The Crost Household</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-starling"><a href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a> <span class="pair">&middot; <a href="CombatGuide_TheStarling.html">The Starling</a></span><span class="here-marker"></span></li></ol></div></div>
+      <h3 class="chapter">Act 1 Conclusion</h3>
+      <ol class="sequence chapter-seq"><li class="seqrow" data-id="act1-evening"><a href="Act1_Tallowhaven_EveningInvitations_ThirdMissions.html">The Evening Invitations</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-assassination"><a href="Act1_Tallowhaven_AssassinationPaths.html">The Assassination Paths</a> <span class="pair">&middot; <a href="CombatGuide_AssassinationPaths.html">Assassination Paths</a></span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-finale"><a href="Act1_Tallowhaven_FestivalMeeting_Finale.html">The Festival Meeting</a> <span class="pair">&middot; <a href="CombatGuide_FestivalFinale.html">The Festival Finale</a></span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-arrest"><a href="Act1_Tallowhaven_CoopersSquare_ArrestAndGaol.html">The Arrest and The Gaol</a><span class="here-marker"></span></li></ol>
     </section>
   
     <section id="combat" class="major">
       <h2>Combat Guides</h2>
-      <ul><li><a href="CombatGuide_RoadAmbush.html">Road Ambush</a> <span class="pair">&middot; <a href="Act1_BrindleHollow_Road_Ambush.html">Ambush on the Road</a></span></li><li><a href="CombatGuide_BasementWarehouse.html">The Basement Warehouse</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_Warehouses_WorkerEviction.html">The Basement Warehouse</a></span></li><li><a href="CombatGuide_TheStarling.html">The Starling</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a></span></li><li><a href="CombatGuide_TheTrumpet.html">The Trumpet</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html">The Trumpet</a></span></li><li><a href="CombatGuide_DriftwoodRoad.html">The Driftwood Road</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html">The Driftwood Point Supply Problem</a></span></li><li><a href="CombatGuide_AssassinationPaths.html">Assassination Paths</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_AssassinationPaths.html">The Assassination Paths</a></span></li><li><a href="CombatGuide_FestivalFinale.html">The Festival Finale</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_FestivalMeeting_Finale.html">The Festival Meeting & Finale</a></span></li></ul>
+      <ul><li><a href="CombatGuide_RoadAmbush.html">Road Ambush</a> <span class="pair">&middot; <a href="Act1_BrindleHollow_Road_Ambush.html">Ambush on the Road</a></span></li><li><a href="CombatGuide_BasementWarehouse.html">The Basement Warehouse</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_Trademasters_HoneywellAndWarehouse.html">Honeywell Office & The Basement Warehouse</a></span></li><li><a href="CombatGuide_TheStarling.html">The Starling</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a></span></li><li><a href="CombatGuide_TheTrumpet.html">The Trumpet</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html">The Trumpet</a></span></li><li><a href="CombatGuide_DriftwoodRoad.html">The Driftwood Road</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html">The Driftwood Point Supply Problem</a></span></li><li><a href="CombatGuide_AssassinationPaths.html">Assassination Paths</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_AssassinationPaths.html">The Assassination Paths</a></span></li><li><a href="CombatGuide_FestivalFinale.html">The Festival Finale</a> <span class="pair">&middot; <a href="Act1_Tallowhaven_FestivalMeeting_Finale.html">The Festival Meeting</a></span></li></ul>
       <p class='subhead'>Played, off the original plan</p><ul><li><a href="CombatGuide_NorthernAmbush.html">Northern Ambush (session log)</a> <span class="note">(Played, not part of the original plan)</span></li><li><a href="CombatGuide_WolfAmbush.html">Wolf Ambush (session log)</a> <span class="note">(Played, not part of the original plan)</span></li></ul>
     </section>
   
@@ -86,5 +185,242 @@
       <div class="minor-col"><h3>Reference</h3><ul><li><a href="Abelon_MasterReference_Economy.html">Economy — Master Reference</a></li><li><a href="Abelon_RandomEncounters.html">Random Encounters</a></li><li><a href="PlayerHandout_Gods.html">The Gods of Abelon (player handout)</a></li><li><a href="DMCheatSheet_2024Rules.html">DM Cheat Sheet — D&D 2024</a></li></ul></div><div class="minor-col"><h3>Tools</h3><ul><li><a href="wayfinder.html">The Wayfinder</a></li><li><a href="region_editor.html">Terrain Region Editor</a></li><li><a href="map_coordinate_picker.html">Map Coordinate Picker</a></li><li><a href="abelon-dicecloud-setup.html">DiceCloud Setup Guide</a></li></ul></div><div class="minor-col"><h3>Session Zero</h3><ul><li><a href="SessionZero_TheTable.html">The Table</a></li></ul></div><div class="minor-col"><h3>Session Log</h3><ul><li><a href="Vaelseer_Encounter.html">Vaelseer NPC Reference</a></li><li><a href="Session 1/Intro dialogue.txt">Session 1 — Intro Dialogue</a></li></ul></div>
     </section>
 </div>
+
+<script>
+(function(){
+  var LS_KEY = 'abelonCurrentState';
+  var DEFAULT_CURRENT = {"scene": "act1-starling", "combatGuide": "cg-starling", "status": "Danzel is about to join via Mira in Tallowhaven, and the Starling questline is beginning.", "inMotion": [{"text": "Oskar's Warehouse quest \u2014 accepted, not yet executed", "link": "act1-honeywell"}, {"text": "Otho's Zarethi box and ring \u2014 party holds both; Otho missing with the Shrinekeepers' Diary"}, {"text": "Seva Sable relationship \u2014 deeply distrustful, rocky but reparable", "link": "act1-street-seva"}, {"text": "Devrin/Tobin manhunt \u2014 open, unpursued"}]};
+  var ALL_PAGES = {"act1-road-ambush": {"title": "Ambush on the Road", "file": "Act1_BrindleHollow_Road_Ambush.html"}, "act1-star-raven": {"title": "The Star and Raven", "file": "Act1_BrindleHollow_StarAndRaven_PartyMeeting.html"}, "act1-stillwater": {"title": "The Stillwater Shrine", "file": "Act1_BrindleHollow_StillwaterShrine_MarekArrest.html"}, "act1-aldermens": {"title": "The Aldermen's Hall", "file": "Act1_Tallowhaven_AldermensHall_Arrival.html"}, "act1-ambercup": {"title": "The Amber Cup", "file": "Act1_Tallowhaven_AmberCup_Arrival.html"}, "act1-coppervine": {"title": "The Shallow Tuber & The Copper Vine", "file": "Act1_Tallowhaven_Merchants_ShallowTuberAndCopperVine.html"}, "act1-crost": {"title": "A Street in Tallowhaven & The Crost Household", "file": "Act1_Tallowhaven_Courtesans_StreetAndCrostHousehold.html"}, "act1-warehouses": {"title": "Honeywell Office & The Basement Warehouse", "file": "Act1_Tallowhaven_Trademasters_HoneywellAndWarehouse.html"}, "act1-coopers-bardic": {"title": "Cooper's Square (Bardic Interlude)", "file": "Act1_Tallowhaven_CoopersSquare_BardicInterlude.html"}, "act1-starling": {"title": "The Starling", "file": "Act1_Tallowhaven_TheStarling_CourtseanMission2.html"}, "act1-trumpet": {"title": "The Trumpet", "file": "Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html"}, "act1-driftwood": {"title": "The Driftwood Point Supply Problem", "file": "Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html"}, "act1-evening": {"title": "The Evening Invitations", "file": "Act1_Tallowhaven_EveningInvitations_ThirdMissions.html"}, "act1-assassination": {"title": "The Assassination Paths", "file": "Act1_Tallowhaven_AssassinationPaths.html"}, "act1-arrest": {"title": "The Arrest and The Gaol", "file": "Act1_Tallowhaven_CoopersSquare_ArrestAndGaol.html"}, "act1-finale": {"title": "The Festival Meeting", "file": "Act1_Tallowhaven_FestivalMeeting_Finale.html"}, "cg-road-ambush": {"title": "Road Ambush", "file": "CombatGuide_RoadAmbush.html"}, "cg-basement-warehouse": {"title": "The Basement Warehouse", "file": "CombatGuide_BasementWarehouse.html"}, "cg-starling": {"title": "The Starling", "file": "CombatGuide_TheStarling.html"}, "cg-trumpet": {"title": "The Trumpet", "file": "CombatGuide_TheTrumpet.html"}, "cg-driftwood": {"title": "The Driftwood Road", "file": "CombatGuide_DriftwoodRoad.html"}, "cg-assassination": {"title": "Assassination Paths", "file": "CombatGuide_AssassinationPaths.html"}, "cg-finale": {"title": "The Festival Finale", "file": "CombatGuide_FestivalFinale.html"}, "cg-northern-ambush": {"title": "Northern Ambush (session log)", "file": "CombatGuide_NorthernAmbush.html"}, "cg-wolf-ambush": {"title": "Wolf Ambush (session log)", "file": "CombatGuide_WolfAmbush.html"}, "ref-economy": {"title": "Economy \u2014 Master Reference", "file": "Abelon_MasterReference_Economy.html"}, "ref-random": {"title": "Random Encounters", "file": "Abelon_RandomEncounters.html"}, "ref-gods": {"title": "The Gods of Abelon (player handout)", "file": "PlayerHandout_Gods.html"}, "ref-cheatsheet": {"title": "DM Cheat Sheet \u2014 D&D 2024", "file": "DMCheatSheet_2024Rules.html"}, "tool-wayfinder": {"title": "The Wayfinder", "file": "wayfinder.html"}, "tool-region-editor": {"title": "Terrain Region Editor", "file": "region_editor.html"}, "tool-coord-picker": {"title": "Map Coordinate Picker", "file": "map_coordinate_picker.html"}, "tool-dicecloud-setup": {"title": "DiceCloud Setup Guide", "file": "abelon-dicecloud-setup.html"}, "session-zero": {"title": "The Table", "file": "SessionZero_TheTable.html"}, "log-vaelseer": {"title": "Vaelseer NPC Reference", "file": "Vaelseer_Encounter.html"}, "log-session1-intro": {"title": "Session 1 \u2014 Intro Dialogue", "file": "Session 1/Intro dialogue.txt"}};
+  var SELECTABLE_GROUPS = [["Brindle Hollow", ["act1-star-raven", "act1-stillwater", "act1-road-ambush"]], ["Generic", ["act1-aldermens", "act1-ambercup", "act1-coopers-bardic", "act1-northern-ambush", "act1-wolf-ambush", "act1-bear-ambush"]], ["Trademasters Path", ["act1-warehouses", "act1-trumpet"]], ["Merchants Path", ["act1-coppervine", "act1-driftwood-fake", "act1-driftwood"]], ["Courtesans Path", ["act1-crost", "act1-starling"]], ["Act 1 Conclusion", ["act1-evening", "act1-assassination", "act1-finale", "act1-arrest"]]];
+  var COMBAT_IDS = ["cg-road-ambush", "cg-basement-warehouse", "cg-starling", "cg-trumpet", "cg-driftwood", "cg-assassination", "cg-finale", "cg-northern-ambush", "cg-wolf-ambush"];
+
+  function getCurrent(){
+    try {
+      var raw = localStorage.getItem(LS_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch(e){}
+    return DEFAULT_CURRENT;
+  }
+  function setCurrent(obj){
+    localStorage.setItem(LS_KEY, JSON.stringify(obj));
+  }
+  function pageLink(id){
+    var p = ALL_PAGES[id];
+    if (!p) return '';
+    return '<a href="'+p.file+'">'+p.title+'</a>';
+  }
+
+  function renderNow(){
+    var cur = getCurrent();
+    var main = document.getElementById('now-main');
+    var bits = [];
+    if (cur.scene && ALL_PAGES[cur.scene]) bits.push('<span class="now-tag">Current scene</span> ' + pageLink(cur.scene));
+    if (cur.combatGuide && ALL_PAGES[cur.combatGuide]) bits.push('<span class="now-tag">Combat guide</span> ' + pageLink(cur.combatGuide));
+    main.innerHTML = bits.join(' &middot; ');
+    document.getElementById('now-status').textContent = cur.status || '';
+    var list = document.getElementById('now-motion-list');
+    list.innerHTML = '';
+    (cur.inMotion || []).forEach(function(item){
+      var li = document.createElement('li');
+      li.innerHTML = item.text + (item.link && ALL_PAGES[item.link] ? ' <span class="im-link">&mdash; ' + pageLink(item.link) + '</span>' : '');
+      list.appendChild(li);
+    });
+    document.getElementById('now-motion-summary').textContent = 'In motion (' + (cur.inMotion||[]).length + ')';
+
+    // shortcuts row
+    var sc = document.getElementById('shortcuts');
+    sc.innerHTML = '';
+    [cur.scene, cur.combatGuide, 'ref-cheatsheet'].forEach(function(id){
+      var p = ALL_PAGES[id];
+      if (!p) return;
+      var a = document.createElement('a');
+      a.className = 'pin'; a.href = p.file; a.textContent = p.title;
+      sc.appendChild(a);
+    });
+
+    // highlight the current row in the Act 1 lists
+    document.querySelectorAll('.seqrow').forEach(function(li){
+      var isCurrent = li.getAttribute('data-id') === cur.scene;
+      li.classList.toggle('current', isCurrent);
+      li.querySelector('.here-marker').textContent = isCurrent ? '● you are here' : '';
+    });
+  }
+
+  function buildSceneOptions(select, selectedId){
+    select.innerHTML = '';
+    SELECTABLE_GROUPS.forEach(function(group){
+      var label = group[0], ids = group[1];
+      if (!ids.length) return;
+      var og = document.createElement('optgroup'); og.label = label;
+      ids.forEach(function(id){
+        var p = ALL_PAGES[id]; if (!p) return;
+        var opt = document.createElement('option'); opt.value = id; opt.textContent = p.title;
+        if (id === selectedId) opt.selected = true;
+        og.appendChild(opt);
+      });
+      select.appendChild(og);
+    });
+  }
+  function buildGuideOptions(select, selectedId){
+    select.innerHTML = '<option value="">(none)</option>';
+    COMBAT_IDS.forEach(function(id){
+      var p = ALL_PAGES[id]; if (!p) return;
+      var opt = document.createElement('option'); opt.value = id; opt.textContent = p.title;
+      if (id === selectedId) opt.selected = true;
+      select.appendChild(opt);
+    });
+  }
+  function addMotionRow(text, linkId){
+    var wrap = document.getElementById('ce-motion-rows');
+    var row = document.createElement('div'); row.className = 'im-row';
+    var input = document.createElement('input'); input.type = 'text'; input.value = text || ''; input.placeholder = 'e.g. Oskar\'s Warehouse quest — accepted, not yet executed';
+    var select = document.createElement('select');
+    select.innerHTML = '<option value="">(no link)</option>';
+    Object.keys(ALL_PAGES).forEach(function(id){
+      var opt = document.createElement('option'); opt.value = id; opt.textContent = ALL_PAGES[id].title;
+      if (id === linkId) opt.selected = true;
+      select.appendChild(opt);
+    });
+    var btn = document.createElement('button'); btn.type='button'; btn.textContent = '✕';
+    btn.onclick = function(){ row.remove(); };
+    row.appendChild(input); row.appendChild(select); row.appendChild(btn);
+    wrap.appendChild(row);
+  }
+
+  function openEditor(){
+    var cur = getCurrent();
+    buildSceneOptions(document.getElementById('ce-scene'), cur.scene);
+    buildGuideOptions(document.getElementById('ce-guide'), cur.combatGuide);
+    document.getElementById('ce-status').value = cur.status || '';
+    document.getElementById('ce-motion-rows').innerHTML = '';
+    (cur.inMotion || []).forEach(function(item){ addMotionRow(item.text, item.link); });
+    document.getElementById('current-editor').classList.add('open');
+  }
+
+  document.getElementById('edit-current-btn').addEventListener('click', openEditor);
+  document.getElementById('ce-cancel').addEventListener('click', function(){
+    document.getElementById('current-editor').classList.remove('open');
+  });
+  document.getElementById('ce-add-motion').addEventListener('click', function(){ addMotionRow('',''); });
+  document.getElementById('ce-reset').addEventListener('click', function(){
+    localStorage.removeItem(LS_KEY);
+    document.getElementById('current-editor').classList.remove('open');
+    renderNow();
+  });
+  document.getElementById('ce-scene').addEventListener('change', function(){
+    // auto-suggest the paired combat guide when scene changes, if the guide field is still unset
+    var sceneId = this.value;
+  });
+  document.getElementById('ce-save').addEventListener('click', function(){
+    var scene = document.getElementById('ce-scene').value;
+    var guide = document.getElementById('ce-guide').value;
+    var status = document.getElementById('ce-status').value;
+    var inMotion = [];
+    document.querySelectorAll('#ce-motion-rows .im-row').forEach(function(row){
+      var text = row.querySelector('input').value.trim();
+      var link = row.querySelector('select').value;
+      if (text) inMotion.push(link ? {text:text, link:link} : {text:text});
+    });
+    setCurrent({scene:scene, combatGuide:guide||undefined, status:status, inMotion:inMotion});
+    document.getElementById('current-editor').classList.remove('open');
+    renderNow();
+  });
+
+  renderNow();
+
+  // ---- Payments ledger ----
+  var PAYMENT_PAGES = [{"id": "act1-road-ambush", "title": "Ambush on the Road", "file": "Act1_BrindleHollow_Road_Ambush.html"}, {"id": "act1-star-raven", "title": "The Star and Raven", "file": "Act1_BrindleHollow_StarAndRaven_PartyMeeting.html"}, {"id": "act1-stillwater", "title": "The Stillwater Shrine", "file": "Act1_BrindleHollow_StillwaterShrine_MarekArrest.html"}, {"id": "act1-aldermens", "title": "The Aldermen's Hall", "file": "Act1_Tallowhaven_AldermensHall_Arrival.html"}, {"id": "act1-ambercup", "title": "The Amber Cup", "file": "Act1_Tallowhaven_AmberCup_Arrival.html"}, {"id": "act1-coppervine", "title": "The Shallow Tuber & The Copper Vine", "file": "Act1_Tallowhaven_Merchants_ShallowTuberAndCopperVine.html"}, {"id": "act1-crost", "title": "A Street in Tallowhaven & The Crost Household", "file": "Act1_Tallowhaven_Courtesans_StreetAndCrostHousehold.html"}, {"id": "act1-warehouses", "title": "Honeywell Office & The Basement Warehouse", "file": "Act1_Tallowhaven_Trademasters_HoneywellAndWarehouse.html"}, {"id": "act1-coopers-bardic", "title": "Cooper's Square (Bardic Interlude)", "file": "Act1_Tallowhaven_CoopersSquare_BardicInterlude.html"}, {"id": "act1-starling", "title": "The Starling", "file": "Act1_Tallowhaven_TheStarling_CourtseanMission2.html"}, {"id": "act1-trumpet", "title": "The Trumpet", "file": "Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html"}, {"id": "act1-driftwood", "title": "The Driftwood Point Supply Problem", "file": "Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html"}, {"id": "act1-evening", "title": "The Evening Invitations", "file": "Act1_Tallowhaven_EveningInvitations_ThirdMissions.html"}, {"id": "act1-assassination", "title": "The Assassination Paths", "file": "Act1_Tallowhaven_AssassinationPaths.html"}, {"id": "act1-arrest", "title": "The Arrest and The Gaol", "file": "Act1_Tallowhaven_CoopersSquare_ArrestAndGaol.html"}, {"id": "act1-finale", "title": "The Festival Meeting", "file": "Act1_Tallowhaven_FestivalMeeting_Finale.html"}];
+  var ADHOC_KEY = 'abelonPaymentAdhoc';
+
+  function getAdhoc(){
+    try { var raw = localStorage.getItem(ADHOC_KEY); if (raw) return JSON.parse(raw); } catch(e){}
+    return [];
+  }
+  function setAdhoc(list){ localStorage.setItem(ADHOC_KEY, JSON.stringify(list)); }
+
+  function amtLine(p){
+    var bits = [];
+    if (p.total) bits.push(p.total + ' agreed');
+    if (p.paid) bits.push(p.paid + ' paid');
+    if (p.owed) bits.push(p.owed + ' owed');
+    return bits.join(' · ');
+  }
+
+  function renderLedger(){
+    var rows = document.getElementById('ledger-rows');
+    rows.innerHTML = '';
+    var entries = [];
+
+    PAYMENT_PAGES.forEach(function(pg){
+      try {
+        var raw = localStorage.getItem('abelonPayment:' + pg.id);
+        if (!raw) return;
+        var p = JSON.parse(raw);
+        if (!(p.total || p.paid || p.owed || p.notes)) return;
+        entries.push({ source: pg.title, href: pg.file, data: p, kind: 'page', pageId: pg.id });
+      } catch(e){}
+    });
+
+    getAdhoc().forEach(function(a, i){
+      entries.push({ source: a.source, href: null, data: a, kind: 'adhoc', index: i });
+    });
+
+    if (!entries.length) {
+      document.getElementById('ledger-empty').style.display = 'block';
+      return;
+    }
+    document.getElementById('ledger-empty').style.display = 'none';
+
+    entries.forEach(function(e){
+      var row = document.createElement('div'); row.className = 'ledger-row';
+      var src = document.createElement('span'); src.className = 'ledger-source';
+      if (e.href) { var a = document.createElement('a'); a.href = e.href; a.textContent = e.source; src.appendChild(a); }
+      else { src.textContent = e.source; }
+      row.appendChild(src);
+      var amt = document.createElement('span'); amt.className = 'ledger-amt'; amt.textContent = amtLine(e.data);
+      row.appendChild(amt);
+      if (e.kind === 'adhoc') {
+        var del = document.createElement('button'); del.type = 'button'; del.className = 'ledger-del'; del.textContent = 'Remove';
+        del.addEventListener('click', function(){
+          var list = getAdhoc(); list.splice(e.index, 1); setAdhoc(list); renderLedger();
+        });
+        row.appendChild(del);
+      }
+      if (e.data.notes) {
+        var notes = document.createElement('span'); notes.className = 'ledger-notes'; notes.textContent = e.data.notes;
+        row.appendChild(notes);
+      }
+      rows.appendChild(row);
+    });
+  }
+
+  var adhocForm = document.getElementById('ledger-adhoc-form');
+  document.getElementById('ledger-add-btn').addEventListener('click', function(){
+    document.getElementById('la-source').value = '';
+    document.getElementById('la-total').value = '';
+    document.getElementById('la-paid').value = '';
+    document.getElementById('la-owed').value = '';
+    document.getElementById('la-notes').value = '';
+    adhocForm.classList.add('open');
+  });
+  document.getElementById('la-cancel').addEventListener('click', function(){ adhocForm.classList.remove('open'); });
+  document.getElementById('la-save').addEventListener('click', function(){
+    var source = document.getElementById('la-source').value.trim();
+    if (!source) { document.getElementById('la-source').focus(); return; }
+    var entry = {
+      source: source,
+      total: document.getElementById('la-total').value.trim(),
+      paid: document.getElementById('la-paid').value.trim(),
+      owed: document.getElementById('la-owed').value.trim(),
+      notes: document.getElementById('la-notes').value.trim()
+    };
+    var list = getAdhoc(); list.push(entry); setAdhoc(list);
+    adhocForm.classList.remove('open');
+    renderLedger();
+  });
+
+  renderLedger();
+})();
+</script>
 </body>
 </html>
