@@ -314,34 +314,28 @@
     {
       "id": "act1-northern-ambush",
       "title": "Northern Ambush",
-      "category": "act1",
-      "chapter": "tallowhaven",
-      "path": "generic",
-      "pathOrder": 4,
+      "category": "random",
       "missing": true,
       "missingNote": "No encounter write-up yet -- combat guide exists",
-      "pair": "cg-northern-ambush"
+      "pair": "cg-northern-ambush",
+      "order": 1
     },
     {
       "id": "act1-wolf-ambush",
       "title": "Wolf Ambush",
-      "category": "act1",
-      "chapter": "tallowhaven",
-      "path": "generic",
-      "pathOrder": 5,
+      "category": "random",
       "missing": true,
       "missingNote": "No encounter write-up yet -- combat guide exists",
-      "pair": "cg-wolf-ambush"
+      "pair": "cg-wolf-ambush",
+      "order": 2
     },
     {
       "id": "act1-bear-ambush",
       "title": "Bear Ambush",
-      "category": "act1",
-      "chapter": "tallowhaven",
-      "path": "generic",
-      "pathOrder": 6,
+      "category": "random",
       "missing": true,
-      "missingNote": "No encounter write-up or combat guide yet"
+      "missingNote": "No encounter write-up or combat guide yet",
+      "order": 3
     },
     {
       "id": "act1-driftwood-fake",
@@ -364,6 +358,10 @@
     {
       "id": "combat",
       "label": "Combat Guides"
+    },
+    {
+      "id": "random",
+      "label": "Random Encounters"
     },
     {
       "id": "reference",

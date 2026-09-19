@@ -5,107 +5,150 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Abelon DM Site</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
-  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--teal:#0F6E56;--teal-bg:rgba(15,110,86,0.08);}
-  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--teal:#5DCAA5;--teal-bg:rgba(93,202,165,0.08);}}
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--teal:#0F6E56;--teal-bg:rgba(15,110,86,0.08);
+    --path-generic:#6b3a2a;--path-trademasters:#a6541f;--path-merchants:#8a6d1e;--path-courtesans:#8b3a5e;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--teal:#5DCAA5;--teal-bg:rgba(93,202,165,0.08);
+    --path-generic:#c4a882;--path-trademasters:#e0965a;--path-merchants:#d4b23a;--path-courtesans:#d488ac;}}
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.6;padding:1.5rem 1.25rem 4rem;}
-  .page{max-width:900px;margin:0 auto;}
-  h1{font-family:'Cinzel',serif;font-size:26px;font-weight:600;color:var(--accent);letter-spacing:.04em;margin-bottom:14px;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:17px;line-height:1.65;padding:2.5rem 1.5rem 5rem;}
+  .page{max-width:960px;margin:0 auto;}
 
-  .shortcuts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.5rem;align-items:center;}
-  a.pin,button.pin{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;background:var(--parchment-mid);border:1px solid var(--rule);border-radius:4px;padding:6px 10px;cursor:pointer;}
+  .hero{padding-bottom:1.6rem;margin-bottom:2.2rem;}
+  h1{font-family:'Cinzel',serif;font-size:46px;font-weight:700;color:var(--accent);letter-spacing:.045em;line-height:1.1;text-shadow:0 1px 0 rgba(0,0,0,.08);}
+  .hero-sub{font-size:15.5px;font-style:italic;color:var(--ink-faded);margin-top:8px;letter-spacing:.01em;}
+  .hero-divider{display:flex;align-items:center;gap:14px;margin-top:20px;}
+  .hero-divider .hd-line{flex:1;height:1px;background:linear-gradient(90deg,var(--rule),transparent);}
+  .hero-divider .hd-line.rev{background:linear-gradient(90deg,transparent,var(--rule));}
+  .hero-divider .hd-mark{color:var(--accent);font-size:13px;}
+
+  .shortcuts{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.8rem;align-items:center;}
+  a.pin,button.pin{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;background:var(--parchment-mid);border:1px solid var(--rule);border-radius:5px;padding:7px 13px;cursor:pointer;}
   a.pin:hover,button.pin:hover{color:var(--accent);border-color:var(--accent);}
 
-  .now-panel{background:var(--teal-bg);border:1px solid var(--teal);border-radius:8px;padding:16px 20px;margin-bottom:2rem;}
-  .now-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-  .now-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);}
-  .now-main{font-size:17px;margin-bottom:6px;}
-  .now-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faded);}
-  .now-status{font-size:14px;color:var(--ink-mid);font-style:italic;margin-bottom:8px;}
-  .now-motion summary{cursor:pointer;font-size:13px;color:var(--ink-faded);font-family:'Cinzel',serif;letter-spacing:.04em;text-transform:uppercase;}
+  .now-panel{background:var(--teal-bg);border:1px solid var(--teal);border-radius:9px;padding:20px 26px;margin-bottom:2.2rem;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+  .now-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .now-label{font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);}
+  .now-main{font-size:19px;margin-bottom:7px;}
+  .now-tag{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faded);}
+  .now-status{font-size:15px;color:var(--ink-mid);font-style:italic;margin-bottom:8px;}
+  .now-motion summary{cursor:pointer;font-size:14px;color:var(--ink-faded);font-family:'Cinzel',serif;letter-spacing:.04em;text-transform:uppercase;}
   .now-motion ul{list-style:none;margin-top:8px;}
-  .now-motion li{padding:4px 0;font-size:14px;border-bottom:1px solid var(--rule-faint);}
+  .now-motion li{padding:5px 0;font-size:15px;border-bottom:1px solid var(--rule-faint);}
   .now-motion li:last-child{border-bottom:none;}
-  .im-link{font-size:13px;}
+  .im-link{font-size:14px;}
 
-  #edit-current-btn{background:none;border:1px solid var(--teal);color:var(--teal);border-radius:4px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;cursor:pointer;}
+  #edit-current-btn{background:none;border:1px solid var(--teal);color:var(--teal);border-radius:5px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;cursor:pointer;}
   #edit-current-btn:hover{background:var(--teal);color:var(--parchment);}
 
-  #current-editor{display:none;background:var(--parchment-mid);border:1px solid var(--rule);border-radius:8px;padding:18px 20px;margin-bottom:2rem;}
+  #current-editor{display:none;background:var(--parchment-mid);border:1px solid var(--rule);border-radius:9px;padding:22px 26px;margin-bottom:2.2rem;box-shadow:0 2px 12px rgba(0,0,0,.05);}
   #current-editor.open{display:block;}
-  #current-editor h3{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:12px;}
-  #current-editor label{display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faded);margin:12px 0 4px;}
-  #current-editor select,#current-editor textarea,#current-editor input[type=text]{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:14px;background:var(--parchment);color:var(--ink);border:1px solid var(--rule);border-radius:4px;padding:7px 9px;}
+  #current-editor h3{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:12px;}
+  #current-editor label{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faded);margin:12px 0 4px;}
+  #current-editor select,#current-editor textarea,#current-editor input[type=text]{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:15px;background:var(--parchment);color:var(--ink);border:1px solid var(--rule);border-radius:5px;padding:8px 10px;}
   #current-editor textarea{resize:vertical;min-height:50px;}
   .im-row{display:flex;gap:6px;margin-bottom:6px;align-items:center;}
   .im-row input[type=text]{flex:1;}
   .im-row select{flex:0 0 160px;}
-  .im-row button{flex:0 0 auto;background:none;border:1px solid var(--rule);border-radius:4px;color:var(--ink-faded);cursor:pointer;padding:6px 9px;font-size:13px;}
+  .im-row button{flex:0 0 auto;background:none;border:1px solid var(--rule);border-radius:5px;color:var(--ink-faded);cursor:pointer;padding:7px 10px;font-size:14px;}
   .im-row button:hover{color:#993C1D;border-color:#993C1D;}
   #ce-add-motion{margin-top:2px;}
   .ce-actions{display:flex;gap:10px;margin-top:16px;}
-  .ce-actions button{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border-radius:4px;cursor:pointer;}
+  .ce-actions button{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:9px 16px;border-radius:5px;cursor:pointer;}
   #ce-save{background:var(--teal);border:1px solid var(--teal);color:var(--parchment);}
   #ce-reset{background:none;border:1px solid var(--rule);color:var(--ink-faded);}
   #ce-cancel{background:none;border:1px solid var(--rule);color:var(--ink-faded);}
 
-  .ledger-panel{background:var(--parchment-mid);border:1px solid var(--rule);border-radius:8px;padding:16px 20px;margin-bottom:2rem;}
-  .ledger-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-  .ledger-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid);}
-  #ledger-empty{font-size:13px;font-style:italic;color:var(--ink-faded);}
-  .ledger-row{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--rule-faint);font-size:14px;}
+  .ledger-panel{background:var(--parchment-mid);border:1px solid var(--rule);border-radius:9px;padding:20px 26px;margin-bottom:2.2rem;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+  .ledger-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+  .ledger-label{font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mid);}
+  #ledger-empty{font-size:14px;font-style:italic;color:var(--ink-faded);}
+  .ledger-row{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--rule-faint);font-size:15px;}
   .ledger-row:last-of-type{border-bottom:none;}
   .ledger-source{font-weight:600;flex:1 1 220px;}
-  .ledger-amt{font-size:12.5px;color:var(--ink-mid);}
-  .ledger-notes{font-size:12.5px;color:var(--ink-faded);font-style:italic;flex-basis:100%;}
-  .ledger-del{background:none;border:1px solid var(--rule);border-radius:3px;color:var(--ink-faded);cursor:pointer;font-size:11px;padding:2px 7px;}
+  .ledger-amt{font-size:13.5px;color:var(--ink-mid);}
+  .ledger-notes{font-size:13.5px;color:var(--ink-faded);font-style:italic;flex-basis:100%;}
+  .ledger-del{background:none;border:1px solid var(--rule);border-radius:4px;color:var(--ink-faded);cursor:pointer;font-size:12px;padding:3px 8px;}
   .ledger-del:hover{color:#993C1D;border-color:#993C1D;}
   #ledger-adhoc-form{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--rule-faint);}
   #ledger-adhoc-form.open{display:block;}
-  #ledger-adhoc-form label{display:block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faded);margin:8px 0 3px;}
-  #ledger-adhoc-form input[type=text],#ledger-adhoc-form textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:13px;background:var(--parchment);color:var(--ink);border:1px solid var(--rule);border-radius:4px;padding:6px 8px;}
+  #ledger-adhoc-form label{display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faded);margin:8px 0 3px;}
+  #ledger-adhoc-form input[type=text],#ledger-adhoc-form textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:14px;background:var(--parchment);color:var(--ink);border:1px solid var(--rule);border-radius:5px;padding:7px 9px;}
   .ledger-adhoc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;}
 
-  h2{font-family:'Cinzel',serif;font-size:17px;font-weight:600;color:var(--accent);letter-spacing:.07em;text-transform:uppercase;margin:0 0 .9rem;padding-bottom:8px;border-bottom:1px solid var(--rule);}
-  section.major{margin-bottom:2.5rem;}
-  h3.chapter{font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mid);margin:1.6rem 0 .6rem;}
-  h3.chapter:first-of-type{margin-top:.4rem;}
+  select.status-pick{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--rule);border-radius:4px;background:var(--parchment-mid);color:var(--ink-faded);padding:3px 4px;margin-right:9px;cursor:pointer;vertical-align:middle;}
+  select.status-pick.st-active{border-color:var(--teal);color:var(--teal);}
+  select.status-pick.st-complete{border-color:#3F7D42;color:#3F7D42;}
+  select.status-pick.st-partial{border-color:#B8860B;color:#B8860B;}
+  select.status-pick.st-failed{border-color:#993C1D;color:#993C1D;}
+  select.status-pick.st-declined{border-color:var(--ink-faded);color:var(--ink-faded);}
+  select.status-pick.st-skipped{border-color:var(--ink-faded);color:var(--ink-faded);border-style:dashed;}
+  @media(prefers-color-scheme:dark){
+    select.status-pick.st-complete{border-color:#7FC488;color:#7FC488;}
+    select.status-pick.st-partial{border-color:#D9A94D;color:#D9A94D;}
+    select.status-pick.st-failed{border-color:#F0997B;color:#F0997B;}
+  }
+
+  .active-panel{background:var(--teal-bg);border:1px solid var(--teal);border-radius:9px;padding:18px 26px;margin-bottom:2.2rem;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+  .active-label{font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:10px;}
+  #active-empty{font-size:14px;font-style:italic;color:var(--ink-faded);}
+  #active-list{list-style:none;}
+  #active-list li{padding:5px 0;font-size:15px;border-bottom:1px solid var(--rule-faint);}
+  #active-list li:last-child{border-bottom:none;}
+
+  h2{position:relative;font-family:'Cinzel',serif;font-size:23px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 1.3rem;padding:2px 0 14px 20px;border-bottom:1px solid var(--rule);}
+  h2::before{content:'';position:absolute;left:0;top:1px;bottom:16px;width:4px;background:var(--accent);border-radius:2px;}
+  section.major{margin-bottom:3rem;}
+  h3.chapter{font-family:'Cinzel',serif;font-size:16px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);opacity:.85;margin:2.2rem 0 .9rem;}
+  h3.chapter:first-of-type{margin-top:.5rem;}
   ol.chapter-seq{margin-bottom:.5rem;}
-  .path-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem 2rem;}
-  .path-group h4{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faded);margin-bottom:6px;padding-bottom:6px;border-bottom:2px solid var(--rule-faint);}
+  .path-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.6rem 2.2rem;}
+  .path-group{border-top:3px solid var(--path-generic);padding-top:14px;}
+  .path-group.path-trademasters{border-top-color:var(--path-trademasters);}
+  .path-group.path-merchants{border-top-color:var(--path-merchants);}
+  .path-group.path-courtesans{border-top-color:var(--path-courtesans);}
+  .path-group h4{font-family:'Cinzel',serif;font-size:14px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:8px;padding-bottom:8px;border-bottom:2px solid var(--rule-faint);}
+  .path-group.path-trademasters h4{color:var(--path-trademasters);}
+  .path-group.path-merchants h4{color:var(--path-merchants);}
+  .path-group.path-courtesans h4{color:var(--path-courtesans);}
   ol.sequence{list-style:none;counter-reset:none;}
-  ol.sequence li{padding:6px 0;border-bottom:1px solid var(--rule-faint);font-size:14px;line-height:1.5;}
+  ol.sequence li{padding:11px 6px;margin:0 -6px;border-radius:5px;border-bottom:1px solid var(--rule-faint);font-size:16px;line-height:1.5;transition:background .12s;}
+  ol.sequence li:hover{background:rgba(107,58,42,0.045);}
+  @media(prefers-color-scheme:dark){ol.sequence li:hover{background:rgba(196,168,130,0.06);}}
   ol.sequence li:last-child{border-bottom:none;}
-  ol.sequence li.current{background:var(--teal-bg);margin:0 -8px;padding:6px 8px;border-radius:6px;border-bottom:none;}
+  ol.sequence li.current{background:var(--teal-bg);border-bottom:none;}
   ol.sequence li.missing{background:rgba(153,60,29,0.06);}
-  .sublabel{font-size:12px;color:var(--ink-faded);}
-  .includes{font-size:12px;color:var(--ink-faded);}
-  .gap{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:#993C1D;}
+  .sublabel{font-size:13px;color:var(--ink-faded);}
+  .includes{font-size:13px;color:var(--ink-faded);}
+  .gap{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#993C1D;}
   @media(prefers-color-scheme:dark){.gap{color:#F0997B;}}
   .here-marker:empty{display:none;}
-  .here-marker{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);margin-left:6px;}
+  .here-marker{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);margin-left:6px;}
   section.major ul{list-style:none;}
-  section.major li{padding:7px 0;border-bottom:1px solid var(--rule-faint);font-size:15px;}
+  section.major li{padding:9px 0;border-bottom:1px solid var(--rule-faint);font-size:16px;}
   section.major li:last-child{border-bottom:none;}
-  .subhead{font-size:12px;color:var(--ink-faded);text-transform:uppercase;letter-spacing:.08em;font-family:'Cinzel',serif;margin:14px 0 6px;}
+  .subhead{font-size:13px;color:var(--ink-faded);text-transform:uppercase;letter-spacing:.08em;font-family:'Cinzel',serif;margin:16px 0 8px;}
 
   a{color:var(--ink-mid);text-decoration:none;border-bottom:1px dotted var(--rule);}
   a:hover{color:var(--accent);}
-  .pair{font-size:13px;color:var(--ink-faded);}
-  .note{font-size:12px;color:var(--ink-faded);font-style:italic;}
+  .pair{font-size:14px;color:var(--ink-faded);}
+  .note{font-size:13px;color:var(--ink-faded);font-style:italic;}
 
-  section.minor{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;padding-top:1.5rem;border-top:2px solid var(--rule-faint);opacity:.85;}
-  .minor-col h3{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faded);margin-bottom:6px;}
+  section.minor{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.8rem;padding-top:1.8rem;margin-top:.5rem;border-top:2px solid var(--rule-faint);opacity:.85;}
+  .minor-col h3{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faded);margin-bottom:7px;}
   .minor-col ul{list-style:none;}
-  .minor-col li{padding:3px 0;font-size:13px;}
+  .minor-col li{padding:4px 0;font-size:14px;}
   section:not(.minor){scroll-margin-top:20px;}
-  .local-note{font-size:11px;color:var(--ink-faded);font-style:italic;margin-top:10px;}
+  .local-note{font-size:12px;color:var(--ink-faded);font-style:italic;margin-top:10px;}
 </style>
 </head>
 <body>
 <div class="page">
-  <h1>Abelon DM Site</h1>
+  <div class="hero">
+    <h1>Abelon DM Site</h1>
+    <div class="hero-sub">Encounters, combat guides, and reference for Abelon: The Weight of the World</div>
+    <div class="hero-divider"><span class="hd-line"></span><span class="hd-mark">&#10086;</span><span class="hd-line rev"></span></div>
+  </div>
   <div class="shortcuts" id="shortcuts"></div>
 
   <section class="now-panel">
@@ -140,6 +183,12 @@
     <p class="local-note">Saved to this browser only (localStorage) &mdash; won't sync to your phone or another computer.</p>
   </div>
 
+  <section class="active-panel">
+    <span class="active-label">Active Missions</span>
+    <div id="active-empty">Nothing marked active yet.</div>
+    <ul id="active-list"></ul>
+  </section>
+
   <section class="ledger-panel">
     <div class="ledger-label-row">
       <span class="ledger-label">Payments ledger</span>
@@ -168,11 +217,16 @@
     <section id="act1" class="major">
       <h2>Act 1</h2>
       <h3 class="chapter">Brindle Hollow</h3>
-      <ol class="sequence chapter-seq"><li class="seqrow" data-id="act1-star-raven"><a href="Act1_BrindleHollow_StarAndRaven_PartyMeeting.html">The Star and Raven</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-stillwater"><a href="Act1_BrindleHollow_StillwaterShrine_MarekArrest.html">The Stillwater Shrine</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-road-ambush"><a href="Act1_BrindleHollow_Road_Ambush.html">Ambush on the Road</a> <span class="pair">&middot; <a href="CombatGuide_RoadAmbush.html">Road Ambush</a></span><span class="here-marker"></span></li></ol>
+      <ol class="sequence chapter-seq"><li class="seqrow" data-id="act1-star-raven"><select class="status-pick" data-id="act1-star-raven"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_BrindleHollow_StarAndRaven_PartyMeeting.html">The Star and Raven</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-stillwater"><select class="status-pick" data-id="act1-stillwater"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_BrindleHollow_StillwaterShrine_MarekArrest.html">The Stillwater Shrine</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-road-ambush"><select class="status-pick" data-id="act1-road-ambush"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_BrindleHollow_Road_Ambush.html">Ambush on the Road</a> <span class="pair">&middot; <a href="CombatGuide_RoadAmbush.html">Road Ambush</a></span><span class="here-marker"></span></li></ol>
       <h3 class="chapter">Tallowhaven</h3>
-      <div class="path-grid"><div class="path-group"><h4>Generic</h4><ol class="sequence"><li class="seqrow" data-id="act1-aldermens"><a href="Act1_Tallowhaven_AldermensHall_Arrival.html">The Aldermen's Hall</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-ambercup"><a href="Act1_Tallowhaven_AmberCup_Arrival.html">The Amber Cup</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-coopers-bardic"><a href="Act1_Tallowhaven_CoopersSquare_BardicInterlude.html">Cooper's Square (Bardic Interlude)</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-northern-ambush">Northern Ambush <span class="gap">&mdash; MISSING: No encounter write-up yet -- combat guide exists</span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-wolf-ambush">Wolf Ambush <span class="gap">&mdash; MISSING: No encounter write-up yet -- combat guide exists</span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-bear-ambush">Bear Ambush <span class="gap">&mdash; MISSING: No encounter write-up or combat guide yet</span><span class="here-marker"></span></li></ol></div><div class="path-group"><h4>Trademasters Path</h4><ol class="sequence"><li class="seqrow" data-id="act1-warehouses"><a href="Act1_Tallowhaven_Trademasters_HoneywellAndWarehouse.html">Honeywell Office & The Basement Warehouse</a> <span class="pair">&middot; <a href="CombatGuide_BasementWarehouse.html">The Basement Warehouse</a></span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-trumpet"><a href="Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html">The Trumpet</a> <span class="pair">&middot; <a href="CombatGuide_TheTrumpet.html">The Trumpet</a></span><span class="here-marker"></span></li></ol></div><div class="path-group"><h4>Merchants Path</h4><ol class="sequence"><li class="seqrow" data-id="act1-coppervine"><a href="Act1_Tallowhaven_Merchants_ShallowTuberAndCopperVine.html">The Shallow Tuber & The Copper Vine</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-driftwood-fake">Driftwood Checkpoint <span class="sublabel">(a) Fake Barricade</span> <span class="gap">&mdash; MISSING: No encounter write-up or combat guide yet</span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-driftwood"><a href="Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html">The Driftwood Point Supply Problem</a> <span class="sublabel">(b) Real Barricade</span> <span class="pair">&middot; <a href="CombatGuide_DriftwoodRoad.html">The Driftwood Road</a></span><span class="here-marker"></span></li></ol></div><div class="path-group"><h4>Courtesans Path</h4><ol class="sequence"><li class="seqrow" data-id="act1-crost"><a href="Act1_Tallowhaven_Courtesans_StreetAndCrostHousehold.html">A Street in Tallowhaven & The Crost Household</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-starling"><a href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a> <span class="pair">&middot; <a href="CombatGuide_TheStarling.html">The Starling</a></span><span class="here-marker"></span></li></ol></div></div>
+      <div class="path-grid"><div class="path-group path-generic"><h4>Generic</h4><ol class="sequence"><li class="seqrow" data-id="act1-aldermens"><select class="status-pick" data-id="act1-aldermens"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_AldermensHall_Arrival.html">The Aldermen's Hall</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-ambercup"><select class="status-pick" data-id="act1-ambercup"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_AmberCup_Arrival.html">The Amber Cup</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-coopers-bardic"><select class="status-pick" data-id="act1-coopers-bardic"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_CoopersSquare_BardicInterlude.html">Cooper's Square (Bardic Interlude)</a><span class="here-marker"></span></li></ol></div><div class="path-group path-trademasters"><h4>Trademasters Path</h4><ol class="sequence"><li class="seqrow" data-id="act1-warehouses"><select class="status-pick" data-id="act1-warehouses"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_Trademasters_HoneywellAndWarehouse.html">Honeywell Office & The Basement Warehouse</a> <span class="pair">&middot; <a href="CombatGuide_BasementWarehouse.html">The Basement Warehouse</a></span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-trumpet"><select class="status-pick" data-id="act1-trumpet"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html">The Trumpet</a> <span class="pair">&middot; <a href="CombatGuide_TheTrumpet.html">The Trumpet</a></span><span class="here-marker"></span></li></ol></div><div class="path-group path-merchants"><h4>Merchants Path</h4><ol class="sequence"><li class="seqrow" data-id="act1-coppervine"><select class="status-pick" data-id="act1-coppervine"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_Merchants_ShallowTuberAndCopperVine.html">The Shallow Tuber & The Copper Vine</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-driftwood-fake">Driftwood Checkpoint <span class="sublabel">(a) Fake Barricade</span> <span class="gap">&mdash; MISSING: No encounter write-up or combat guide yet</span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-driftwood"><select class="status-pick" data-id="act1-driftwood"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html">The Driftwood Point Supply Problem</a> <span class="sublabel">(b) Real Barricade</span> <span class="pair">&middot; <a href="CombatGuide_DriftwoodRoad.html">The Driftwood Road</a></span><span class="here-marker"></span></li></ol></div><div class="path-group path-courtesans"><h4>Courtesans Path</h4><ol class="sequence"><li class="seqrow" data-id="act1-crost"><select class="status-pick" data-id="act1-crost"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_Courtesans_StreetAndCrostHousehold.html">A Street in Tallowhaven & The Crost Household</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-starling"><select class="status-pick" data-id="act1-starling"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_TheStarling_CourtseanMission2.html">The Starling</a> <span class="pair">&middot; <a href="CombatGuide_TheStarling.html">The Starling</a></span><span class="here-marker"></span></li></ol></div></div>
       <h3 class="chapter">Act 1 Conclusion</h3>
-      <ol class="sequence chapter-seq"><li class="seqrow" data-id="act1-evening"><a href="Act1_Tallowhaven_EveningInvitations_ThirdMissions.html">The Evening Invitations</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-assassination"><a href="Act1_Tallowhaven_AssassinationPaths.html">The Assassination Paths</a> <span class="pair">&middot; <a href="CombatGuide_AssassinationPaths.html">Assassination Paths</a></span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-finale"><a href="Act1_Tallowhaven_FestivalMeeting_Finale.html">The Festival Meeting</a> <span class="pair">&middot; <a href="CombatGuide_FestivalFinale.html">The Festival Finale</a></span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-arrest"><a href="Act1_Tallowhaven_CoopersSquare_ArrestAndGaol.html">The Arrest and The Gaol</a><span class="here-marker"></span></li></ol>
+      <ol class="sequence chapter-seq"><li class="seqrow" data-id="act1-evening"><select class="status-pick" data-id="act1-evening"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_EveningInvitations_ThirdMissions.html">The Evening Invitations</a><span class="here-marker"></span></li><li class="seqrow" data-id="act1-assassination"><select class="status-pick" data-id="act1-assassination"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_AssassinationPaths.html">The Assassination Paths</a> <span class="pair">&middot; <a href="CombatGuide_AssassinationPaths.html">Assassination Paths</a></span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-finale"><select class="status-pick" data-id="act1-finale"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_FestivalMeeting_Finale.html">The Festival Meeting</a> <span class="pair">&middot; <a href="CombatGuide_FestivalFinale.html">The Festival Finale</a></span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-arrest"><select class="status-pick" data-id="act1-arrest"><option value="">—</option><option value="active">Active</option><option value="complete">Complete</option><option value="partial">Partial</option><option value="failed">Failed</option><option value="declined">Declined</option><option value="skipped">Skipped</option></select><a href="Act1_Tallowhaven_CoopersSquare_ArrestAndGaol.html">The Arrest and The Gaol</a><span class="here-marker"></span></li></ol>
+    </section>
+  
+    <section id="random" class="major">
+      <h2>Random Encounters</h2>
+      <ol class="sequence"><li class="seqrow" data-id="act1-northern-ambush">Northern Ambush <span class="gap">&mdash; MISSING: No encounter write-up yet -- combat guide exists</span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-wolf-ambush">Wolf Ambush <span class="gap">&mdash; MISSING: No encounter write-up yet -- combat guide exists</span><span class="here-marker"></span></li><li class="seqrow" data-id="act1-bear-ambush">Bear Ambush <span class="gap">&mdash; MISSING: No encounter write-up or combat guide yet</span><span class="here-marker"></span></li></ol>
     </section>
   
     <section id="combat" class="major">
@@ -191,7 +245,7 @@
   var LS_KEY = 'abelonCurrentState';
   var DEFAULT_CURRENT = {"scene": "act1-starling", "combatGuide": "cg-starling", "status": "Danzel is about to join via Mira in Tallowhaven, and the Starling questline is beginning.", "inMotion": [{"text": "Oskar's Warehouse quest \u2014 accepted, not yet executed", "link": "act1-honeywell"}, {"text": "Otho's Zarethi box and ring \u2014 party holds both; Otho missing with the Shrinekeepers' Diary"}, {"text": "Seva Sable relationship \u2014 deeply distrustful, rocky but reparable", "link": "act1-street-seva"}, {"text": "Devrin/Tobin manhunt \u2014 open, unpursued"}]};
   var ALL_PAGES = {"act1-road-ambush": {"title": "Ambush on the Road", "file": "Act1_BrindleHollow_Road_Ambush.html"}, "act1-star-raven": {"title": "The Star and Raven", "file": "Act1_BrindleHollow_StarAndRaven_PartyMeeting.html"}, "act1-stillwater": {"title": "The Stillwater Shrine", "file": "Act1_BrindleHollow_StillwaterShrine_MarekArrest.html"}, "act1-aldermens": {"title": "The Aldermen's Hall", "file": "Act1_Tallowhaven_AldermensHall_Arrival.html"}, "act1-ambercup": {"title": "The Amber Cup", "file": "Act1_Tallowhaven_AmberCup_Arrival.html"}, "act1-coppervine": {"title": "The Shallow Tuber & The Copper Vine", "file": "Act1_Tallowhaven_Merchants_ShallowTuberAndCopperVine.html"}, "act1-crost": {"title": "A Street in Tallowhaven & The Crost Household", "file": "Act1_Tallowhaven_Courtesans_StreetAndCrostHousehold.html"}, "act1-warehouses": {"title": "Honeywell Office & The Basement Warehouse", "file": "Act1_Tallowhaven_Trademasters_HoneywellAndWarehouse.html"}, "act1-coopers-bardic": {"title": "Cooper's Square (Bardic Interlude)", "file": "Act1_Tallowhaven_CoopersSquare_BardicInterlude.html"}, "act1-starling": {"title": "The Starling", "file": "Act1_Tallowhaven_TheStarling_CourtseanMission2.html"}, "act1-trumpet": {"title": "The Trumpet", "file": "Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html"}, "act1-driftwood": {"title": "The Driftwood Point Supply Problem", "file": "Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html"}, "act1-evening": {"title": "The Evening Invitations", "file": "Act1_Tallowhaven_EveningInvitations_ThirdMissions.html"}, "act1-assassination": {"title": "The Assassination Paths", "file": "Act1_Tallowhaven_AssassinationPaths.html"}, "act1-arrest": {"title": "The Arrest and The Gaol", "file": "Act1_Tallowhaven_CoopersSquare_ArrestAndGaol.html"}, "act1-finale": {"title": "The Festival Meeting", "file": "Act1_Tallowhaven_FestivalMeeting_Finale.html"}, "cg-road-ambush": {"title": "Road Ambush", "file": "CombatGuide_RoadAmbush.html"}, "cg-basement-warehouse": {"title": "The Basement Warehouse", "file": "CombatGuide_BasementWarehouse.html"}, "cg-starling": {"title": "The Starling", "file": "CombatGuide_TheStarling.html"}, "cg-trumpet": {"title": "The Trumpet", "file": "CombatGuide_TheTrumpet.html"}, "cg-driftwood": {"title": "The Driftwood Road", "file": "CombatGuide_DriftwoodRoad.html"}, "cg-assassination": {"title": "Assassination Paths", "file": "CombatGuide_AssassinationPaths.html"}, "cg-finale": {"title": "The Festival Finale", "file": "CombatGuide_FestivalFinale.html"}, "cg-northern-ambush": {"title": "Northern Ambush (session log)", "file": "CombatGuide_NorthernAmbush.html"}, "cg-wolf-ambush": {"title": "Wolf Ambush (session log)", "file": "CombatGuide_WolfAmbush.html"}, "ref-economy": {"title": "Economy \u2014 Master Reference", "file": "Abelon_MasterReference_Economy.html"}, "ref-random": {"title": "Random Encounters", "file": "Abelon_RandomEncounters.html"}, "ref-gods": {"title": "The Gods of Abelon (player handout)", "file": "PlayerHandout_Gods.html"}, "ref-cheatsheet": {"title": "DM Cheat Sheet \u2014 D&D 2024", "file": "DMCheatSheet_2024Rules.html"}, "tool-wayfinder": {"title": "The Wayfinder", "file": "wayfinder.html"}, "tool-region-editor": {"title": "Terrain Region Editor", "file": "region_editor.html"}, "tool-coord-picker": {"title": "Map Coordinate Picker", "file": "map_coordinate_picker.html"}, "tool-dicecloud-setup": {"title": "DiceCloud Setup Guide", "file": "abelon-dicecloud-setup.html"}, "session-zero": {"title": "The Table", "file": "SessionZero_TheTable.html"}, "log-vaelseer": {"title": "Vaelseer NPC Reference", "file": "Vaelseer_Encounter.html"}, "log-session1-intro": {"title": "Session 1 \u2014 Intro Dialogue", "file": "Session 1/Intro dialogue.txt"}};
-  var SELECTABLE_GROUPS = [["Brindle Hollow", ["act1-star-raven", "act1-stillwater", "act1-road-ambush"]], ["Generic", ["act1-aldermens", "act1-ambercup", "act1-coopers-bardic", "act1-northern-ambush", "act1-wolf-ambush", "act1-bear-ambush"]], ["Trademasters Path", ["act1-warehouses", "act1-trumpet"]], ["Merchants Path", ["act1-coppervine", "act1-driftwood-fake", "act1-driftwood"]], ["Courtesans Path", ["act1-crost", "act1-starling"]], ["Act 1 Conclusion", ["act1-evening", "act1-assassination", "act1-finale", "act1-arrest"]]];
+  var SELECTABLE_GROUPS = [["Brindle Hollow", ["act1-star-raven", "act1-stillwater", "act1-road-ambush"]], ["Generic", ["act1-aldermens", "act1-ambercup", "act1-coopers-bardic"]], ["Trademasters Path", ["act1-warehouses", "act1-trumpet"]], ["Merchants Path", ["act1-coppervine", "act1-driftwood-fake", "act1-driftwood"]], ["Courtesans Path", ["act1-crost", "act1-starling"]], ["Act 1 Conclusion", ["act1-evening", "act1-assassination", "act1-finale", "act1-arrest"]]];
   var COMBAT_IDS = ["cg-road-ambush", "cg-basement-warehouse", "cg-starling", "cg-trumpet", "cg-driftwood", "cg-assassination", "cg-finale", "cg-northern-ambush", "cg-wolf-ambush"];
 
   function getCurrent(){
@@ -420,6 +474,44 @@
   });
 
   renderLedger();
+
+  // ---- Encounter status tags + Active Missions rollup ----
+  var STATUS_PREFIX = 'abelonStatus:';
+  function getRowStatus(id){ try { return localStorage.getItem(STATUS_PREFIX + id) || ''; } catch(e){ return ''; } }
+  function setRowStatus(id, val){ if (val) localStorage.setItem(STATUS_PREFIX + id, val); else localStorage.removeItem(STATUS_PREFIX + id); }
+  function applyStatusStyle(sel){
+    sel.className = 'status-pick';
+    if (sel.value) sel.classList.add('st-' + sel.value);
+  }
+  function renderActiveMissions(){
+    var list = document.getElementById('active-list');
+    list.innerHTML = '';
+    var any = false;
+    document.querySelectorAll('.status-pick').forEach(function(sel){
+      if (sel.value === 'active') {
+        any = true;
+        var id = sel.getAttribute('data-id');
+        var p = ALL_PAGES[id];
+        if (!p) return;
+        var li = document.createElement('li');
+        var a = document.createElement('a'); a.href = p.file; a.textContent = p.title;
+        li.appendChild(a);
+        list.appendChild(li);
+      }
+    });
+    document.getElementById('active-empty').style.display = any ? 'none' : 'block';
+  }
+  document.querySelectorAll('.status-pick').forEach(function(sel){
+    var id = sel.getAttribute('data-id');
+    sel.value = getRowStatus(id);
+    applyStatusStyle(sel);
+    sel.addEventListener('change', function(){
+      setRowStatus(id, sel.value);
+      applyStatusStyle(sel);
+      renderActiveMissions();
+    });
+  });
+  renderActiveMissions();
 })();
 </script>
 </body>
