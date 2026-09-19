@@ -239,10 +239,7 @@
 <div id="abelon-nav-related-footer"></div>
 <script>
 (function(){
-  function depth(){ var p = location.pathname.split('/').filter(Boolean); return p[p.length-1] && p[p.length-1].indexOf('.') > -1 ? p.length - 1 : p.length; }
   var root = '';
-  for (var i=0;i<depth();i++) root += '../';
-  if (root === '') root = './';
   fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
     var file = decodeURIComponent(location.pathname.split('/').pop());
     var cats = {}; m.categories.forEach(function(c){cats[c.id]=c;});
@@ -333,6 +330,7 @@
 })();
 </script>
 <!-- ABELON-NAV-END -->
+
 
 
 <div class="page">
