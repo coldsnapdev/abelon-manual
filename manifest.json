@@ -120,8 +120,7 @@
       "pair": "cg-driftwood",
       "chapter": "tallowhaven",
       "path": "merchants",
-      "pathOrder": 3,
-      "subLabel": "(b) Real Barricade"
+      "pathOrder": 3
     },
     {
       "id": "act1-evening",
@@ -336,17 +335,6 @@
       "missing": true,
       "missingNote": "No encounter write-up or combat guide yet",
       "order": 3
-    },
-    {
-      "id": "act1-driftwood-fake",
-      "title": "Driftwood Checkpoint",
-      "category": "act1",
-      "chapter": "tallowhaven",
-      "path": "merchants",
-      "pathOrder": 2,
-      "subLabel": "(a) Fake Barricade",
-      "missing": true,
-      "missingNote": "No encounter write-up or combat guide yet"
     }
   ],
   "categories": [
