@@ -335,6 +335,23 @@
       "missing": true,
       "missingNote": "No encounter write-up or combat guide yet",
       "order": 3
+    },
+    {
+      "id": "act1-devrin-pursuit",
+      "file": "AdHoc_DevrinPursuit.html",
+      "title": "The Devrin Pursuit",
+      "category": "adhoc",
+      "order": 1,
+      "pair": "cg-devrin-pursuit"
+    },
+    {
+      "id": "cg-devrin-pursuit",
+      "file": "CombatGuide_DevrinPursuit.html",
+      "title": "The Devrin Pursuit",
+      "category": "combat",
+      "order": 10,
+      "pair": "act1-devrin-pursuit",
+      "note": "Ad-hoc \u2014 not part of the original plan"
     }
   ],
   "categories": [
@@ -350,6 +367,10 @@
     {
       "id": "random",
       "label": "Random Encounters"
+    },
+    {
+      "id": "adhoc",
+      "label": "Ad-Hoc Encounters"
     },
     {
       "id": "reference",

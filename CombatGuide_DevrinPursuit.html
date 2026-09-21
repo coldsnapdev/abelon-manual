@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Combat Reference — The Devrin Pursuit</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{
+    --bg:#1a1410;--bg2:#241f16;--bg3:#2a2318;
+    --ink:#e8d9bc;--ink2:#c4a882;--ink3:#8a7a65;
+    --accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.3);
+    --red-bg:rgba(153,60,29,0.2);--red-border:#993C1D;--red-text:#F0997B;
+    --gold-bg:rgba(133,79,11,0.2);--gold-border:#EF9F27;--gold-text:#EF9F27;
+    --teal-bg:rgba(15,110,86,0.2);--teal-border:#5DCAA5;--teal-text:#5DCAA5;
+    --pink-bg:rgba(153,53,86,0.2);--pink-border:#ED93B1;--pink-text:#ED93B1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.5;padding:1.25rem;}
+  h1{font-family:'Cinzel',serif;font-size:18px;font-weight:600;color:var(--accent);letter-spacing:.05em;margin-bottom:3px;}
+  .subtitle{font-size:13px;font-style:italic;color:var(--ink3);margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--rule);}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:1rem;}
+
+  .card{background:var(--bg2);border-radius:7px;overflow:hidden;}
+  .card.hostile{border:.5px solid var(--red-border);}
+  .card.objective{border:.5px solid var(--gold-border);}
+
+  .card-header{padding:8px 12px;display:flex;align-items:center;gap:10px;}
+  .hostile .card-header{background:var(--red-bg);}
+  .objective .card-header{background:var(--gold-bg);}
+
+  .card-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);flex:1;}
+  .card-tag{font-size:11px;font-style:italic;color:var(--ink3);}
+
+  .copy-btn{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:var(--bg3);cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+  .copy-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .copy-btn.copied{border-color:var(--teal-border);color:var(--teal-text);}
+
+  .cr-badge{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink3);background:var(--bg3);flex-shrink:0;}
+
+  .card-body{padding:10px 12px;display:flex;flex-direction:column;gap:8px;}
+
+  .quick-stats{display:flex;gap:6px;flex-wrap:wrap;}
+  .qs{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:2px 8px;border-radius:3px;border:.5px solid var(--rule);color:var(--ink2);background:var(--bg3);}
+  .qs span{color:var(--ink3);margin-right:2px;}
+
+  .section{display:flex;flex-direction:column;gap:4px;}
+  .section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);padding-bottom:3px;border-bottom:.5px solid var(--rule-faint);}
+
+  .atk{font-size:13px;color:var(--ink2);}
+  .atk-name{font-weight:600;color:var(--ink);}
+  .atk-hit{color:var(--red-text);}
+  .atk-dmg{color:var(--gold-text);}
+  .atk-note{color:var(--ink3);font-style:italic;font-size:12px;}
+
+  .abl{font-size:13px;color:var(--ink2);}
+  .abl-name{font-weight:600;color:var(--teal-text);}
+
+  .tactics{font-size:14px;color:var(--ink);font-style:italic;padding:8px 10px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--accent);line-height:1.55;}
+
+  .priority{font-size:13px;padding:6px 10px;border-radius:4px;background:var(--red-bg);border:.5px solid var(--red-border);color:var(--red-text);}
+  .priority.gold{background:var(--gold-bg);border-color:var(--gold-border);color:var(--gold-text);}
+  .priority.pink{background:var(--pink-bg);border-color:var(--pink-border);color:var(--pink-text);}
+
+  .context-bar{background:var(--bg2);border:.5px solid var(--rule);border-radius:6px;padding:10px 14px;margin-bottom:1rem;}
+  .context-bar .section-label{margin-bottom:6px;}
+  .context-bar p{font-size:13px;color:var(--ink2);}
+  .context-bar p+p{margin-top:4px;}
+
+  .terrain-bar{background:var(--bg2);border:.5px solid var(--rule);border-radius:6px;padding:10px 14px;margin-bottom:1rem;}
+  .terrain-bar .section-label{margin-bottom:6px;}
+  .terrain-row{font-size:13px;color:var(--ink2);padding:4px 0;border-bottom:.5px solid var(--rule-faint);}
+  .terrain-row:last-child{border-bottom:none;}
+  .terrain-name{font-family:'Cinzel',serif;font-size:12px;color:var(--ink);margin-right:6px;}
+
+  footer{margin-top:1.5rem;padding-top:.75rem;border-top:.5px solid var(--rule-faint);font-size:11px;font-style:italic;color:var(--ink3);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);--n-teal:#0F6E56;--n-teal-bg:rgba(15,110,86,0.08);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);--n-teal:#5DCAA5;--n-teal-bg:rgba(93,202,165,0.08);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+  #an-pay-btn{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);border-radius:3px;padding:3px 8px;font:inherit;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+  #an-pay-btn:hover{border-color:var(--n-accent);color:var(--n-accent);}
+  #an-pay-btn.has-data{border-color:var(--n-teal);color:var(--n-teal);}
+  #an-pay-summary{font-family:'Crimson Pro',Georgia,serif;font-size:12px;text-transform:none;letter-spacing:0;color:var(--n-ink-faded);}
+  #an-pay-panel{display:none;max-width:900px;margin:10px auto 0;background:var(--n-teal-bg);border:1px solid var(--n-teal);border-radius:6px;padding:14px 16px;font-family:'Crimson Pro',Georgia,serif;}
+  #an-pay-panel.open{display:block;}
+  #an-pay-panel .an-pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:10px;}
+  #an-pay-panel label{display:block;font-family:'Cinzel',Georgia,serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--n-ink-faded);margin-bottom:3px;}
+  #an-pay-panel input[type=text],#an-pay-panel textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:13px;background:var(--n-parch);color:var(--n-ink);border:1px solid var(--n-rule);border-radius:4px;padding:6px 8px;}
+  #an-pay-panel textarea{min-height:44px;resize:vertical;}
+  #an-pay-actions{display:flex;gap:8px;}
+  #an-pay-actions button{font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:4px;cursor:pointer;}
+  #an-pay-save{background:var(--n-teal);border:1px solid var(--n-teal);color:var(--n-parch);}
+  #an-pay-clear{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-cancel{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-note{font-size:10px;color:var(--n-ink-faded);font-style:italic;margin-top:8px;}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div>
+<div id="an-pay-panel">
+  <div class="an-pay-grid">
+    <div><label>Agreed total</label><input type="text" id="an-pay-total" placeholder="e.g. 60gp"></div>
+    <div><label>Paid so far</label><input type="text" id="an-pay-paid" placeholder="e.g. 30gp"></div>
+    <div><label>Not yet paid</label><input type="text" id="an-pay-owed" placeholder="e.g. 30gp on completion"></div>
+  </div>
+  <label>Notes</label>
+  <textarea id="an-pay-notes" placeholder="Terms, conditions, who's paying..."></textarea>
+  <div id="an-pay-actions" style="margin-top:10px;">
+    <button type="button" id="an-pay-save">Save</button>
+    <button type="button" id="an-pay-clear">Clear</button>
+    <button type="button" id="an-pay-cancel">Cancel</button>
+  </div>
+  <div id="an-pay-note">Saved to this browser only (localStorage) — won't sync to your phone or another computer.</div>
+</div>
+</div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  var root = '';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catObj = cats[page.category] || {};
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = catObj.label || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var pnav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; pnav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){pnav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; pnav.appendChild(next); }
+      relTop.appendChild(pnav);
+    }
+
+    // --- Payment widget: only on categories flagged paymentTracking in the manifest ---
+    var catObj2 = cats[page && page.category] || {};
+    if (page && catObj2.paymentTracking) {
+      var LS_KEY = 'abelonPayment:' + page.id;
+      function getPayment(){ try { var raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch(e){} return null; }
+      function setPayment(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
+      function clearPayment(){ localStorage.removeItem(LS_KEY); }
+
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.id = 'an-pay-btn';
+      var summary = document.createElement('span'); summary.id = 'an-pay-summary';
+      relTop.appendChild(btn); relTop.appendChild(summary);
+
+      var panel = document.getElementById('an-pay-panel');
+      var fTotal = document.getElementById('an-pay-total');
+      var fPaid = document.getElementById('an-pay-paid');
+      var fOwed = document.getElementById('an-pay-owed');
+      var fNotes = document.getElementById('an-pay-notes');
+
+      function refreshButton(){
+        var p = getPayment();
+        if (p && (p.total || p.paid || p.owed || p.notes)) {
+          btn.textContent = '\uD83D\uDCB0 Payment \u2713';
+          btn.classList.add('has-data');
+          var bits = [];
+          if (p.total) bits.push(p.total + ' agreed');
+          if (p.paid) bits.push(p.paid + ' paid');
+          summary.textContent = bits.join(' \u00b7 ');
+        } else {
+          btn.textContent = '\uD83D\uDCB0 Payment';
+          btn.classList.remove('has-data');
+          summary.textContent = '';
+        }
+      }
+      function openPanel(){
+        var p = getPayment() || {};
+        fTotal.value = p.total || ''; fPaid.value = p.paid || ''; fOwed.value = p.owed || ''; fNotes.value = p.notes || '';
+        panel.classList.add('open');
+      }
+      btn.addEventListener('click', openPanel);
+      document.getElementById('an-pay-cancel').addEventListener('click', function(){ panel.classList.remove('open'); });
+      document.getElementById('an-pay-clear').addEventListener('click', function(){ clearPayment(); panel.classList.remove('open'); refreshButton(); });
+      document.getElementById('an-pay-save').addEventListener('click', function(){
+        setPayment({ total: fTotal.value.trim(), paid: fPaid.value.trim(), owed: fOwed.value.trim(), notes: fNotes.value.trim(),
+                     pageId: page.id, pageTitle: page.title, pageFile: page.file });
+        panel.classList.remove('open');
+        refreshButton();
+      });
+      refreshButton();
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+
+<h1>Combat Reference — The Devrin Pursuit</h1>
+<div class="subtitle">Devrin and Tobin, cornered at the Halloway checkpoint — ad-hoc, not part of the original plan — Level 3&ndash;4 party — Deadly</div>
+
+<div class="context-bar">
+  <span class="section-label">Encounter behaviour</span>
+  <p>Devrin is retconned as a genuine spellcaster — Command and Silence, spell save DC 16 — not the purely martial Ops lead the checkpoint scene implied. This is the first time it's shown.</p>
+  <p>She opens with Silence the moment she's confronted, catching herself, Yselle, and any party spellcaster within 20 ft. Then Command on Yselle specifically, to clear a path — not to fight her.</p>
+  <p>Against the party, she is not trying to win. Every choice is about buying distance: Hold Person on whoever's fastest, Inflict Wounds if cornered, retreat toward anything that breaks line of sight. She disengages the instant a route opens.</p>
+  <p><strong>Yselle is not hostile to the party.</strong> She's trying to stop Devrin, not fight anyone. Play her Command failure as uncomfortable, not comedic.</p>
+  <p><strong>Tobin fights for real.</strong> A tough, bruising fighter — not the bystander the checkpoint scene suggested. He's protecting Devrin's escape, not trying to win outright, but he will hurt the party if they let him.</p>
+</div>
+
+<div class="terrain-bar">
+  <span class="section-label">Terrain — Halloway checkpoint, before dawn</span>
+  <div class="terrain-row"><span class="terrain-name">The camp</span>Thin-staffed at this hour, most of the crew asleep or on the far side of the bridge. Lamplight, scattered supplies, little cover.</div>
+  <div class="terrain-row"><span class="terrain-name">The bridge</span>Same span from the checkpoint encounter. If Devrin reaches it, she has a clear route across and away — the fight should not drag once she's on it.</div>
+  <div class="terrain-row"><span class="terrain-name">Yselle's position</span>Physically blocking the doorway or path Devrin needs, until Command clears her or she's otherwise removed from it.</div>
+  <div class="terrain-row"><span class="terrain-name">Silence radius</span>20 ft., centred where Devrin chooses on arrival. Mark it clearly on the map the moment it's cast — it will catch a party spellcaster who's closed distance too fast.</div>
+  <div class="terrain-row"><span class="terrain-name">Tobin's position</span>Plants himself between the party and Devrin's escape route. Doesn't chase — holds ground and makes the party come through him.</div>
+</div>
+
+<div class="grid">
+
+  <!-- DEVRIN -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Devrin Kass</span>
+      <span class="cr-badge">CR 5</span>
+      <button class="copy-btn" onclick="copyJSON('devrin', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Halloway Ops lead — secretly Broken Wing, revealed as a real spellcaster</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>15</div>
+        <div class="qs"><span>HP</span>68</div>
+        <div class="qs"><span>Spell DC</span>16</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="priority red">Retconned this scene: Devrin has been a genuine spellcaster the entire campaign, simply never in a position for it to show. Don't foreshadow before this fight — let it land as a real reveal.</div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Dagger — </span><span class="atk-hit">+6</span> / <span class="atk-dmg">(1d4+4) piercing</span> <span class="atk-note">backup strike only</span></div>
+        <div class="atk"><span class="atk-name">Inflict Wounds — </span><span class="atk-hit">+8</span> / <span class="atk-dmg">(3d10) necrotic</span> <span class="atk-note">touch, if cornered</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Silence (opens with this) — </span>20 ft. radius centred on a point she can see. No save. Suppresses verbal spell components for everyone inside it, herself included.</div>
+        <div class="abl"><span class="abl-name">Command (DC 16 Wis save) — </span>One word: "Flee," "Drop," or "Grovel." Used on Yselle first to clear a path, not on the party unless cornered.</div>
+        <div class="abl"><span class="abl-name">Hold Person (DC 16 Wis save) — </span>Used on whoever's fastest, to buy an escape window.</div>
+        <div class="abl"><span class="abl-name">Disengages on opening — </span>The instant a clear route exists, she takes it rather than pressing any advantage. She is not trying to win this fight.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Silence first, always — cast it the moment she's confronted, before anything else. Command on Yselle to clear the doorway or path. Against the party: Hold Person on the fastest threat, Inflict Wounds only if physically cornered, retreat toward the bridge or anything breaking line of sight at every opportunity. Calm throughout — she does not raise her voice, does not gloat, does not explain unless directly asked and even then gives little away.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- YSELLE -->
+  <div class="card objective">
+    <div class="card-header">
+      <span class="card-name">Yselle Corrin</span>
+      <span class="cr-badge">Not hostile</span>
+      <button class="copy-btn" onclick="copyJSON('yselle', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Halloway site manager — intercepts Devrin, knows nothing of the murder</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>11</div>
+        <div class="qs"><span>HP</span>15</div>
+        <div class="qs"><span>Wis Save</span>+4</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="priority gold">Not a combatant and not hostile to the party. She is trying to stop a colleague from bolting in the night, and has no idea why. Her Wisdom save is proficient (+4 total) — deliberately built so Devrin's DC 16 Command succeeds roughly two times in three, not automatically. Let the roll happen.</div>
+      <div class="section">
+        <span class="section-label">If physically engaged</span>
+        <div class="atk"><span class="atk-name">Block / Grapple attempt — </span><span class="atk-hit">+1</span> <span class="atk-note">Athletics, not a real combatant — do not play her as a fighter</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Resists Command — </span>DC 16 Wisdom save, +4 total. On a fail, complies against everything she'd choose for herself — play the moment as uncomfortable, not comedic.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Stands her ground in the doorway or path, demands an explanation, genuinely doesn't back down until Command or physical force removes her. Afterward, if she survived and remembers it, she knows exactly what Devrin made her do — that's a live thread, not a closed one.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOBIN -->
+  <div class="card hostile">
+    <div class="card-header">
+      <span class="card-name">Tobin</span>
+      <span class="cr-badge">CR 4</span>
+      <button class="copy-btn" onclick="copyJSON('tobin', this)">Copy Forge JSON</button>
+    </div>
+    <div class="card-body">
+      <div class="card-tag">Fled with Devrin — a tough, bruising fighter nobody expected</div>
+      <div class="quick-stats">
+        <div class="qs"><span>AC</span>15</div>
+        <div class="qs"><span>HP</span>75</div>
+        <div class="qs"><span>Atk</span>+7</div>
+        <div class="qs"><span>Spd</span>30</div>
+      </div>
+      <div class="priority red">Retconned alongside Devrin: the proud craftsman from the checkpoint fights like someone who's done this before, in a life his day job never mentioned. Don't soften him to make room for Devrin's spotlight — he's a real second threat.</div>
+      <div class="section">
+        <span class="section-label">Each turn</span>
+        <div class="atk"><span class="atk-name">Smith's Maul (two-handed) — </span><span class="atk-hit">+7</span> / <span class="atk-dmg">(2d6+4) bludgeoning</span></div>
+      </div>
+      <div class="section">
+        <span class="section-label">Abilities</span>
+        <div class="abl"><span class="abl-name">Rage-Forged — </span>While below half HP, resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks.</div>
+        <div class="abl"><span class="abl-name">Relentless (1/fight) — </span>If reduced to 0 HP, drops to 1 HP instead.</div>
+        <div class="abl"><span class="abl-name">Protects the escape — </span>Fights to buy Devrin time, not to win outright. Doesn't chase or press an advantage; holds his ground between the party and her.</div>
+      </div>
+      <div class="section">
+        <span class="section-label">Tactics</span>
+        <div class="tactics">Plants himself in front of whoever's closing fastest on Devrin and swings hard — doesn't talk while fighting, doesn't posture. Stays engaged even while Devrin retreats; only breaks off once she's genuinely clear of the fight. Still visibly torn about what she did to Arjay — that conflict is real, it's just not what's driving his hands right now.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Abelon Campaign — Combat Reference. The Devrin Pursuit / Halloway Checkpoint / Ad-Hoc Encounter.</footer>
+
+<script>
+const forgeJSON = {
+  devrin: {"com.battle-system.forge/name":"Devrin Kass","com.battle-system.forge/Z034":[],"com.battle-system.forge/Z035":[{"id":"devrin-001","name":"Dagger","description":"Melee Weapon Attack [1d20+6] to hit, reach 5 ft., one target. [1d4+4] piercing damage. Backup strike only."},{"id":"devrin-002","name":"Inflict Wounds","description":"Melee Spell Attack [1d20+8] to hit, reach 5 ft. (touch), one target. [3d10] necrotic damage. Used only if cornered."},{"id":"devrin-003","name":"Silence (opens with this)","description":"20 ft. radius centred on a point Devrin can see. No save. Suppresses verbal spell components for everyone inside it, Devrin included."},{"id":"devrin-004","name":"Command (DC 16 Wisdom save)","description":"One word: Flee, Drop, or Grovel. Used on Yselle first to clear a path, not on the party unless cornered."},{"id":"devrin-005","name":"Hold Person (DC 16 Wisdom save)","description":"Used on whoever is fastest, to buy an escape window."},{"id":"devrin-006","name":"Disengages on opening (Trait)","description":"The instant a clear route exists, Devrin takes it rather than pressing any advantage. She is not trying to win this fight."}],"com.battle-system.forge/Z003":"Lawful Neutral","com.battle-system.forge/Z007":15,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":1,"com.battle-system.forge/Z025":2,"com.battle-system.forge/Z016":5,"com.battle-system.forge/Z022":12,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":14,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":14,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":68,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":12,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":68,"com.battle-system.forge/Z029":3,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":2,"com.battle-system.forge/Z041":"Wisdom +8 (proficient)","com.battle-system.forge/Z013":"Passive Perception 15","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Insight +8, Religion +4","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":14,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":8,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":20},
+  yselle: {"com.battle-system.forge/name":"Yselle Corrin","com.battle-system.forge/Z034":[],"com.battle-system.forge/Z035":[{"id":"yselle-001","name":"Block / Grapple attempt","description":"Melee Weapon Attack [1d20+1] to hit, reach 5 ft., one target. Not a real combatant -- represents physically trying to stop Devrin, not fighting the party."},{"id":"yselle-002","name":"Resists Command (Trait)","description":"DC 16 Wisdom saving throw, +4 total (proficient). On a fail, complies against everything she would choose for herself. On a success, remains free to act."}],"com.battle-system.forge/Z003":"Neutral Good","com.battle-system.forge/Z007":11,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":10,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":15,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":13,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":15,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":0,"com.battle-system.forge/Z041":"Wisdom +4 (proficient)","com.battle-system.forge/Z013":"Passive Perception 12","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Insight +4, Persuasion +2","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":10,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":4,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":14},
+  tobin: {"com.battle-system.forge/name":"Tobin","com.battle-system.forge/Z034":[],"com.battle-system.forge/Z035":[{"id":"tobin-002","name":"Smith's Maul (two-handed)","description":"Melee Weapon Attack [1d20+7] to hit, reach 5 ft., one target. [2d6+4] bludgeoning damage."},{"id":"tobin-003","name":"Rage-Forged (Trait)","description":"While below half HP, resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks."},{"id":"tobin-004","name":"Relentless (Trait, 1/fight)","description":"If reduced to 0 HP, drops to 1 HP instead."},{"id":"tobin-005","name":"Protects the escape (Trait)","description":"Fights to buy Devrin time, not to win outright. Doesn't chase or press an advantage -- holds ground between the party and her, and breaks off only once she is genuinely clear."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":15,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":3,"com.battle-system.forge/Z016":4,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":16,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":14,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":75,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":75,"com.battle-system.forge/Z029":3,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"Bludgeoning, Piercing, and Slashing from nonmagical attacks (while below half HP)","com.battle-system.forge/Z023":4,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Athletics +7","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":18,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":11}
+};
+
+function copyJSON(id, btn){
+  const json = JSON.stringify(forgeJSON[id]);
+  navigator.clipboard.writeText(json).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy Forge JSON';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
