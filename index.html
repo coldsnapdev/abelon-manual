@@ -204,6 +204,7 @@
     <div id="ledger-empty">Nothing recorded yet &mdash; use the Payment button on an encounter page, or add an entry here directly.</div>
     <div id="ledger-rows"></div>
     <div id="ledger-adhoc-form">
+      <span class="ledger-label" id="la-form-title" style="display:block;margin-bottom:8px;">Add entry</span>
       <label>Source / who's paying</label>
       <input type="text" id="la-source" placeholder="e.g. side deal with Morra">
       <div class="ledger-adhoc-grid">
@@ -446,6 +447,9 @@
       var amt = document.createElement('span'); amt.className = 'ledger-amt'; amt.textContent = amtLine(e.data);
       row.appendChild(amt);
       if (e.kind === 'adhoc') {
+        var edit = document.createElement('button'); edit.type = 'button'; edit.className = 'ledger-del'; edit.textContent = 'Edit';
+        edit.addEventListener('click', function(){ openAdhocForm(e.index, e.data); });
+        row.appendChild(edit);
         var del = document.createElement('button'); del.type = 'button'; del.className = 'ledger-del'; del.textContent = 'Remove';
         del.addEventListener('click', function(){
           var list = getAdhoc(); list.splice(e.index, 1); setAdhoc(list); renderLedger();
@@ -461,15 +465,22 @@
   }
 
   var adhocForm = document.getElementById('ledger-adhoc-form');
-  document.getElementById('ledger-add-btn').addEventListener('click', function(){
-    document.getElementById('la-source').value = '';
-    document.getElementById('la-total').value = '';
-    document.getElementById('la-paid').value = '';
-    document.getElementById('la-owed').value = '';
-    document.getElementById('la-notes').value = '';
+  var laFormTitle = document.getElementById('la-form-title');
+  var editingIndex = null;
+
+  function openAdhocForm(index, data){
+    editingIndex = (typeof index === 'number') ? index : null;
+    laFormTitle.textContent = editingIndex === null ? 'Add entry' : 'Edit entry';
+    document.getElementById('la-source').value = (data && data.source) || '';
+    document.getElementById('la-total').value = (data && data.total) || '';
+    document.getElementById('la-paid').value = (data && data.paid) || '';
+    document.getElementById('la-owed').value = (data && data.owed) || '';
+    document.getElementById('la-notes').value = (data && data.notes) || '';
     adhocForm.classList.add('open');
-  });
-  document.getElementById('la-cancel').addEventListener('click', function(){ adhocForm.classList.remove('open'); });
+  }
+
+  document.getElementById('ledger-add-btn').addEventListener('click', function(){ openAdhocForm(null, null); });
+  document.getElementById('la-cancel').addEventListener('click', function(){ editingIndex = null; adhocForm.classList.remove('open'); });
   document.getElementById('la-save').addEventListener('click', function(){
     var source = document.getElementById('la-source').value.trim();
     if (!source) { document.getElementById('la-source').focus(); return; }
@@ -480,7 +491,14 @@
       owed: document.getElementById('la-owed').value.trim(),
       notes: document.getElementById('la-notes').value.trim()
     };
-    var list = getAdhoc(); list.push(entry); setAdhoc(list);
+    var list = getAdhoc();
+    if (editingIndex !== null && list[editingIndex]) {
+      list[editingIndex] = entry;
+    } else {
+      list.push(entry);
+    }
+    setAdhoc(list);
+    editingIndex = null;
     adhocForm.classList.remove('open');
     renderLedger();
   });
