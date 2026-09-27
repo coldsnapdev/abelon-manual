@@ -352,6 +352,42 @@
       "order": 10,
       "pair": "act1-devrin-pursuit",
       "note": "Ad-hoc \u2014 not part of the original plan"
+    },
+    {
+      "id": "ref-rot",
+      "file": "CombatGuide_TheRot.html",
+      "title": "The Rot \u2014 Combat Reference",
+      "category": "reference",
+      "order": 5
+    },
+    {
+      "id": "act1-otho-box",
+      "title": "Meeting Otho \u2014 The Box",
+      "category": "act1",
+      "chapter": "tallowhaven",
+      "path": "everbloom",
+      "pathOrder": 1,
+      "missing": true,
+      "missingNote": "not yet written -- meeting Otho, receiving the Zarethi box, learning its provenance"
+    },
+    {
+      "id": "act1-everbloom-shrine",
+      "file": "Act1_Tallowhaven_Everbloom_Shrine.html",
+      "title": "The Everbloom Shrine",
+      "category": "act1",
+      "chapter": "tallowhaven",
+      "path": "everbloom",
+      "pathOrder": 2
+    },
+    {
+      "id": "act1-otho-dungeon",
+      "title": "The True Basement",
+      "category": "act1",
+      "chapter": "tallowhaven",
+      "path": "everbloom",
+      "pathOrder": 3,
+      "missing": true,
+      "missingNote": "not yet designed -- the true basement beneath the shrine"
     }
   ],
   "categories": [
@@ -414,7 +450,8 @@
     "generic": "Generic",
     "merchants": "Merchants Path",
     "trademasters": "Trademasters Path",
-    "courtesans": "Courtesans Path"
+    "courtesans": "Courtesans Path",
+    "everbloom": "Everbloom Path"
   },
   "chapterLabels": {
     "brindle-hollow": "Brindle Hollow",

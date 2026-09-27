@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — The Everbloom Shrine</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(15,110,86,0.05);--beat-border:#0F6E56;--glance-bg:rgba(107,58,42,0.06);--glance-border:#6b3a2a;--npc-bg:rgba(15,110,86,0.05);--npc-border:#0F6E56;--loc-bg:rgba(74,56,40,0.04);--warn-bg:rgba(133,79,11,0.08);--warn-border:#854F0B;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(93,202,165,0.06);--beat-border:#5DCAA5;--glance-bg:rgba(196,168,130,0.06);--glance-border:#c4a882;--npc-bg:rgba(93,202,165,0.06);--npc-border:#5DCAA5;--loc-bg:rgba(196,168,130,0.04);--warn-bg:rgba(239,159,39,0.07);--warn-border:#EF9F27;}}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:1.5rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:30px;font-weight:600;color:var(--accent);letter-spacing:.03em;line-height:1.15;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .description{font-size:15px;font-style:italic;color:var(--ink-mid);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule-faint);}
+  .glance{background:var(--glance-bg);border:1px solid var(--glance-border);border-radius:6px;padding:14px 18px;margin-bottom:1.5rem;}
+  .glance-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;}
+  .glance-part{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);margin:12px 0 6px;}
+  .glance-part:first-of-type{margin-top:0;}
+  .glance-item{margin-bottom:8px;font-size:14.5px;}
+  .glance-item:last-child{margin-bottom:0;}
+  .glance-item strong{font-family:'Cinzel',serif;font-weight:600;font-size:12.5px;letter-spacing:.02em;color:var(--ink);}
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .location{background:var(--loc-bg);border-left:3px solid var(--rule);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .location-name{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mid);display:block;margin-bottom:6px;}
+  .location p{font-size:14.5px;color:var(--ink-mid);font-style:italic;}
+  .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:2px 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-field{margin:10px 0;}
+  .npc-field-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:3px;}
+  .npc-field p{font-size:14.5px;color:var(--ink-mid);}
+  .npc-field.combat{background:var(--warn-bg);border-left:2px solid var(--warn-border);padding:8px 10px;border-radius:0 4px 4px 0;}
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header:hover{opacity:.8;}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+  .beat-body .outcome{margin-bottom:10px;}
+  .beat-body .outcome strong{font-family:'Cinzel',serif;font-size:12px;color:var(--ink);display:block;margin-bottom:2px;}
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+  .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);--n-teal:#0F6E56;--n-teal-bg:rgba(15,110,86,0.08);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);--n-teal:#5DCAA5;--n-teal-bg:rgba(93,202,165,0.08);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+  #an-pay-btn{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);border-radius:3px;padding:3px 8px;font:inherit;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+  #an-pay-btn:hover{border-color:var(--n-accent);color:var(--n-accent);}
+  #an-pay-btn.has-data{border-color:var(--n-teal);color:var(--n-teal);}
+  #an-pay-summary{font-family:'Crimson Pro',Georgia,serif;font-size:12px;text-transform:none;letter-spacing:0;color:var(--n-ink-faded);}
+  #an-pay-panel{display:none;max-width:900px;margin:10px auto 0;background:var(--n-teal-bg);border:1px solid var(--n-teal);border-radius:6px;padding:14px 16px;font-family:'Crimson Pro',Georgia,serif;}
+  #an-pay-panel.open{display:block;}
+  #an-pay-panel .an-pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:10px;}
+  #an-pay-panel label{display:block;font-family:'Cinzel',Georgia,serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--n-ink-faded);margin-bottom:3px;}
+  #an-pay-panel input[type=text],#an-pay-panel textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:13px;background:var(--n-parch);color:var(--n-ink);border:1px solid var(--n-rule);border-radius:4px;padding:6px 8px;}
+  #an-pay-panel textarea{min-height:44px;resize:vertical;}
+  #an-pay-actions{display:flex;gap:8px;}
+  #an-pay-actions button{font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:4px;cursor:pointer;}
+  #an-pay-save{background:var(--n-teal);border:1px solid var(--n-teal);color:var(--n-parch);}
+  #an-pay-clear{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-cancel{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-note{font-size:10px;color:var(--n-ink-faded);font-style:italic;margin-top:8px;}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div>
+<div id="an-pay-panel">
+  <div class="an-pay-grid">
+    <div><label>Agreed total</label><input type="text" id="an-pay-total" placeholder="e.g. 60gp"></div>
+    <div><label>Paid so far</label><input type="text" id="an-pay-paid" placeholder="e.g. 30gp"></div>
+    <div><label>Not yet paid</label><input type="text" id="an-pay-owed" placeholder="e.g. 30gp on completion"></div>
+  </div>
+  <label>Notes</label>
+  <textarea id="an-pay-notes" placeholder="Terms, conditions, who's paying..."></textarea>
+  <div id="an-pay-actions" style="margin-top:10px;">
+    <button type="button" id="an-pay-save">Save</button>
+    <button type="button" id="an-pay-clear">Clear</button>
+    <button type="button" id="an-pay-cancel">Cancel</button>
+  </div>
+  <div id="an-pay-note">Saved to this browser only (localStorage) — won't sync to your phone or another computer.</div>
+</div>
+</div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  var root = '';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catObj = cats[page.category] || {};
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = catObj.label || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var pnav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; pnav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){pnav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; pnav.appendChild(next); }
+      relTop.appendChild(pnav);
+    }
+
+    // --- Payment widget: only on categories flagged paymentTracking in the manifest ---
+    var catObj2 = cats[page && page.category] || {};
+    if (page && catObj2.paymentTracking) {
+      var LS_KEY = 'abelonPayment:' + page.id;
+      function getPayment(){ try { var raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch(e){} return null; }
+      function setPayment(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
+      function clearPayment(){ localStorage.removeItem(LS_KEY); }
+
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.id = 'an-pay-btn';
+      var summary = document.createElement('span'); summary.id = 'an-pay-summary';
+      relTop.appendChild(btn); relTop.appendChild(summary);
+
+      var panel = document.getElementById('an-pay-panel');
+      var fTotal = document.getElementById('an-pay-total');
+      var fPaid = document.getElementById('an-pay-paid');
+      var fOwed = document.getElementById('an-pay-owed');
+      var fNotes = document.getElementById('an-pay-notes');
+
+      function refreshButton(){
+        var p = getPayment();
+        if (p && (p.total || p.paid || p.owed || p.notes)) {
+          btn.textContent = '\uD83D\uDCB0 Payment \u2713';
+          btn.classList.add('has-data');
+          var bits = [];
+          if (p.total) bits.push(p.total + ' agreed');
+          if (p.paid) bits.push(p.paid + ' paid');
+          summary.textContent = bits.join(' \u00b7 ');
+        } else {
+          btn.textContent = '\uD83D\uDCB0 Payment';
+          btn.classList.remove('has-data');
+          summary.textContent = '';
+        }
+      }
+      function openPanel(){
+        var p = getPayment() || {};
+        fTotal.value = p.total || ''; fPaid.value = p.paid || ''; fOwed.value = p.owed || ''; fNotes.value = p.notes || '';
+        panel.classList.add('open');
+      }
+      btn.addEventListener('click', openPanel);
+      document.getElementById('an-pay-cancel').addEventListener('click', function(){ panel.classList.remove('open'); });
+      document.getElementById('an-pay-clear').addEventListener('click', function(){ clearPayment(); panel.classList.remove('open'); refreshButton(); });
+      document.getElementById('an-pay-save').addEventListener('click', function(){
+        setPayment({ total: fTotal.value.trim(), paid: fPaid.value.trim(), owed: fOwed.value.trim(), notes: fNotes.value.trim(),
+                     pageId: page.id, pageTitle: page.title, pageFile: page.file });
+        panel.classList.remove('open');
+        refreshButton();
+      });
+      refreshButton();
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+
+  <div class="encounter-header">
+    <span class="encounter-type">Mission Reference — Act 1 / Everbloom Path / Second Mission</span>
+    <div class="encounter-title">The Everbloom Shrine</div>
+    <div class="encounter-subtitle">Where the ring and the box came from — and where the party first learns the basement is real</div>
+    <div class="encounter-meta"><span class="meta-tag">Social encounter, light exploration</span><span class="meta-tag">No required combat</span><span class="meta-tag">Level 3 party</span><span class="meta-tag">Hands off into the Otho disappearance</span></div>
+  </div>
+
+  <p class="description">Otho has told the party where the ring and the box came from: a modest, still-active shrine called Everbloom, which reveres the full lifecycle rather than either Aeron or Zareth alone. Arriving, the party finds a community quietly falling apart -- not through drama, but through a council too fractured by its own grief, denial, and fear to act on what it already half-understands. If they show either relic, they'll learn there are more like it below, and that the basement holds more than items -- it holds power. Getting past that requires the Shrinekeepers' Diary, which the party doesn't have yet, and doesn't know is already gone. Returning to Otho to press the point, they find his shop ransacked and no sign of him -- and, if they ask around, a second casualty of that same night.</p>
+
+  <div class="glance"><span class="glance-label">At a glance</span><div class="glance-part">Part 1 — The Shrine</div><div class="glance-item"><strong>Arrival:</strong> Tamsin is first to see the party approaching and makes contact -- welcoming, not gatekeeping.</div><div class="glance-item"><strong>First point of contact:</strong> Dagny is the natural first point of real conversation. Honest but not open -- “it's not a museum” closes the relics line without her needing to lie.</div><div class="glance-item"><strong>Costin, on the way out:</strong> Costin repositions so the party has to pass him on the way out. He's overheard everything and offers a path forward -- at a price -- if Dagny's said no.</div><div class="glance-item"><strong>Rue's prayer offer:</strong> Rue invites the party to a short prayer ceremony on Aeron and Zareth's dual harmony. They'll likely decline; that's the correct outcome, not a failure state.</div><div class="glance-item"><strong>Aldous, in the background:</strong> seen early, entering the outhouse (stowing something in his own small hatch -- unrelated to the true basement). Unlikely to engage unprompted.</div><div class="glance-item"><strong>What they actually need:</strong> entry to the true basement (not Aldous's mundane hatch) requires the Shrinekeepers' Diary. Otho has it, and Otho is missing -- this thread doesn't resolve here.</div><div class="glance-part">Part 2 — Return to the Threadbare Spine</div><div class="glance-item"><strong>The shop, ransacked:</strong> no sign of a break-in from outside -- whatever happened, happened to someone already inside. Blood on the floor, no Otho.</div><div class="glance-item"><strong>Searching the wreckage:</strong> a DC 12 Investigation check (or simply looking with any care) turns up the Shrinekeepers' Diary itself, apparently untouched by whoever did this -- they weren't looking for it, or didn't know what it was.</div><div class="glance-item"><strong>Asking around:</strong> leads to the infirmary and Huw -- Alric's valet, hurt, and not eager to explain how.</div></div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+  </div>
+
+  <div class="section-heading">Location Descriptions</div>
+  <div class="location"><span class="location-name">Everbloom Shrine</span><p>An open-air sanctuary rather than a grand temple -- worn stone columns wrapped in withered vines support a modest wooden roof over a stone altar lit with candles. A carved statue bears Aeron's Spark: a diamond offset within concentric circles. The ring set into the statue's hand is plain stone -- the real one is missing, and the party is carrying it. The clearing feels tended but tired; the lush countryside visible at the horizon only sharpens how faded things are up close.</p></div><div class="location"><span class="location-name">Tamsin's outhouse</span><p>Part caretaking shed, part personal space, attached to the shrine itself. This is where Aldous keeps his own small hatch of personal trinkets -- mundane, harmless, and entirely separate from the true basement beneath the shrine.</p></div><div class="location"><span class="location-name">The Threadbare Spine, ransacked</span><p>Otho's shop, overturned -- shelves cleared onto the floor, a chair broken rather than knocked, blood on the boards near the counter that no one has cleaned up yet. Quiet in the specific way a place is quiet right after something happens in it, not the quiet of long abandonment.</p></div><div class="location"><span class="location-name">The infirmary</span><p>Small, plain, a handful of beds behind curtains. Huw is in one of them, shoulder heavily bandaged, giving short answers to anyone who asks.</p></div>
+
+  <div class="section-heading">NPCs</div>
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('rue')">
+      <div class="npc-info">
+        <span class="npc-name">Rue Ashdown</span>
+        <span class="npc-role">Eldest of the council &mdash; denial as devotion</span>
+      </div>
+      <span class="npc-toggle" id="rue-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="rue-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>Elderly human woman, silver hair pulled back tightly, worn ceremonial robes in faded earth tones. Stern, composed, upright despite frailty.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Speaks first out of habit rather than consensus. Doubt reads as betrayal to her -- conversations that edge toward questioning the gods get shut down before they go anywhere.</p></div><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Convinced the answer is more devotion, not different devotion. Will invite the party to a short prayer ceremony on Aeron and Zareth's dual harmony.</p></div><div class="npc-field"><span class="npc-field-label">What she knows</span><p>Knows the ritual to enter the true basement (via the Shrinekeepers' Diary) but will never act on it or reveal it -- facing the basement risks confirming prayer alone hasn't been enough.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('dagny')">
+      <div class="npc-info">
+        <span class="npc-name">Dagny Holt</span>
+        <span class="npc-role">Council elder &mdash; quiet practical grief</span>
+      </div>
+      <span class="npc-toggle" id="dagny-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="dagny-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>Bronze dragonborn, scales dulled and slightly tarnished rather than gleaming. Still carries herself with dignity, worn down underneath it.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Talks about the decline the way you'd talk about weather -- matter of fact, no anger left in it. The easiest elder for the party to get real information from, since she isn't defending anything.</p></div><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Assumes the party are there to worship and greets them as such. If they're frank about carrying relics from the shrine, her tone cools quickly -- not hostile, just closing the door gently: “it's not a museum, they're not on display.”</p></div><div class="npc-field"><span class="npc-field-label">What she knows</span><p>Knows the shrine has been, and continues to be, home to a wide array of relics -- donations and curated pieces both. Knows the ritual for the true basement but won't act on it; she's stopped believing action changes anything.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('costin')">
+      <div class="npc-info">
+        <span class="npc-name">Costin Marrow</span>
+        <span class="npc-role">Council elder &mdash; wary of outsiders, closest to the truth</span>
+      </div>
+      <span class="npc-toggle" id="costin-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="costin-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>Half-elf, appears middle-aged but subtly ageless. Close-cropped greying hair, watchful and guarded expression.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Not hostile, just worn down by watching things leave with strangers over the years. Assumes the party's here to take something too, until they prove otherwise -- a learned pattern, not cruelty. Repositions himself during the visit so the party has to pass him on the way out.</p></div><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Gathers as much information as he can about what the party knows and carries. Unimpressed by how little they understand, but encouraging rather than dismissive -- he's quietly testing whether they're worth his time.</p></div><div class="npc-field"><span class="npc-field-label">What he knows</span><p>Understands intellectually what's wrong -- “you cannot remove, you must replace” -- and fears what's in the basement, but is too politically powerless and personally afraid to act alone. Reveals the basement holds more than items, it holds power. If the party hasn't succeeded with Dagny, he offers a path forward: securing the Shrinekeepers' Diary from Otho, currently undecided whether he wants it returned to the shrine properly or kept for himself, outside the council's sanction.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('tamsin')">
+      <div class="npc-info">
+        <span class="npc-name">Tamsin Rook</span>
+        <span class="npc-role">The caretaker</span>
+      </div>
+      <span class="npc-toggle" id="tamsin-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="tamsin-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>Dwarf, stocky and practical build, sleeves rolled up, hands roughened from physical work.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Spends more time physically tending the shrine than sitting in council. Answers come through what she's doing rather than what she believes -- good texture, not exposition.</p></div><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>First to see the party approaching. Welcoming, not gatekeeping -- mentions the elders are nearby without it feeling like a summons.</p></div><div class="npc-field"><span class="npc-field-label">What she knows</span><p>Practical knowledge of the shrine's upkeep. No deep theological insight, and no reason to volunteer any if she had it.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('aldous')">
+      <div class="npc-info">
+        <span class="npc-name">Aldous Vey</span>
+        <span class="npc-role">Youngest council elder &mdash; background presence</span>
+      </div>
+      <span class="npc-toggle" id="aldous-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="aldous-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>Young human man, thoughtful and uncertain expression, plain robes marking him as junior among his peers.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Suspects something close to the real truth but lacks the standing or nerve to act on it. Seen early entering the outhouse (stowing something in his own small hatch of personal trinkets -- unrelated to the true basement). Unlikely to be proactive in engaging the party.</p></div><div class="npc-field"><span class="npc-field-label">Goals for this encounter</span><p>Stays largely passive. May emerge from the outhouse at some point but won't approach unprompted.</p></div><div class="npc-field"><span class="npc-field-label">What he knows</span><p>Knows the ritual for the true basement but, like Rue and Dagny, won't reveal it. His silence reads as uncertainty rather than denial or fear specifically.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('huw')">
+      <div class="npc-info">
+        <span class="npc-name">Huw</span>
+        <span class="npc-role">Alric's valet &mdash; found in the infirmary, hurt</span>
+      </div>
+      <span class="npc-toggle" id="huw-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="huw-body"><div class="npc-field"><span class="npc-field-label">Visual description</span><p>Same young, earnest bearing as ever, undercut now by a heavily bandaged shoulder and the particular stillness of someone trying not to move it.</p></div><div class="npc-field"><span class="npc-field-label">What he knows</span><p>Was present for whatever happened at the Threadbare Spine, or close enough to it -- how close is deliberately open for now. Doesn't explain the shoulder cleanly if asked, and shouldn't. This is a thread to leave dangling into the next encounter, not resolve here.</p></div><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Guarded in a new way that doesn't match his usual earnestness. Whatever he saw, he hasn't decided what to do with it yet.</p></div></div>
+  </div>
+
+  <div class="section-heading">Encounter Beats</div>
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('1')">
+      <span class="beat-number">1</span>
+      <span class="beat-title">Arrival & Tamsin</span>
+      <span class="beat-toggle" id="beat-toggle-1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-1"><p>Let the environment do the initial work -- muted colour, a quiet that's noticeable rather than peaceful, the boundary trees looking almost too vivid in the distance behind the party as they arrive. No dialogue needed yet.</p><p>Tamsin is the natural point of entry, since she's the one actually out and working rather than in council. Practical, a little guarded but not hostile, more curious about strangers than suspicious of them specifically. She can mention the elders are nearby without making it feel like a summons.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('2')">
+      <span class="beat-number">2</span>
+      <span class="beat-title">Dagny at the altar</span>
+      <span class="beat-toggle" id="beat-toggle-2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-2"><p>Dagny assumes the party are there to worship and greets them warmly as such. If the party is frank about having relics that came from this shrine, her tone becomes weary quickly -- realising they aren't worshippers, she closes up a little, but not so much that she misses the opportunity to have capable people onside in a trying time. She'll readily reveal that things aren't going well in the area, that the once lush, vibrant land nearby is fading.</p><p>On relics specifically, she's honest without being open: the shrine has been, and continues to be, home to a wide array of relics, donations from those who wish to worship in their own way, others curated from various sources. But it's not a museum, and they're not on display.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('3')">
+      <span class="beat-number">3</span>
+      <span class="beat-title">Costin's approach</span>
+      <span class="beat-toggle" id="beat-toggle-3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-3"><p>If the party looks around, Costin tries to speak with them quietly about what relics they have and what they know about them. He doesn't reveal much at first, but gathers information -- unimpressed by how little they understand, but encouraging them to learn more rather than dismissing them outright.</p><p>He repositions during the visit so the party needs to pass him on their way out, having overheard what they've discussed with the others. This is where he offers a path forward if Dagny's given them nothing: retrieving or securing the Shrinekeepers' Diary from Otho -- the only known route to unlocking the true basement.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('4')">
+      <span class="beat-number">4</span>
+      <span class="beat-title">Rue's prayer offer</span>
+      <span class="beat-toggle" id="beat-toggle-4">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-4"><p>Rue tries to preach the dual harmony of Aeron and Zareth -- that a lack of balance calls for more worship, not less. She invites the party to join her in a short prayer ceremony. Expect the party to decline; that's the intended, correct outcome, not a missed opportunity.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('5')">
+      <span class="beat-number">5</span>
+      <span class="beat-title">Aldous, glimpsed</span>
+      <span class="beat-toggle" id="beat-toggle-5">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-5"><p>Aldous is seen early entering the outhouse -- he's taking something into his own small hatch of personal trinkets, unrelated to the true basement. He may emerge at some point but is unlikely to proactively engage. If a sharp-eyed player clocks which door he actually goes through and asks about it later, that's an available thread, not something to force.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('6')">
+      <span class="beat-number">6</span>
+      <span class="beat-title">The real basement, and what's actually needed</span>
+      <span class="beat-toggle" id="beat-toggle-6">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-6"><p>Between Dagny and Costin, the party should come away knowing the basement is real, holds more than relics, and is not accessible through anything they currently have. The true entry (not Aldous's mundane hatch) requires the Shrinekeepers' Diary -- a huge log kept by successive shrine keepers across hundreds of years, containing the secret method of entry.</p><p>Otho already has this -- he took it when he went to retrieve his “records,” the same trip that revealed Everbloom's existence to the party in the first place. When the party returns to see him, he's missing. This thread does not resolve at Everbloom; it hands off cleanly into what they find back at his shop.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('7')">
+      <span class="beat-number">7</span>
+      <span class="beat-title">Return to the Threadbare Spine</span>
+      <span class="beat-toggle" id="beat-toggle-7">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-7"><p>The party goes back to press Otho on the Diary and finds the shop ransacked -- shelves cleared, a chair broken, blood on the floor. No Otho, and nothing about the scene suggests he left willingly. Let this land without over-narrating it; the party should feel the wrongness before anyone starts theorising about what happened.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('8')">
+      <span class="beat-number">8</span>
+      <span class="beat-title">Searching the wreckage</span>
+      <span class="beat-toggle" id="beat-toggle-8">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-8"><p>A careful look through the mess (DC 12 Investigation, or simply the players saying they search properly) turns up the Shrinekeepers' Diary itself -- whoever did this either didn't know what it was or wasn't looking for it. The party now has the one object that unlocks the true basement, recovered from the middle of the very disappearance that made them need it.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('9')">
+      <span class="beat-number">9</span>
+      <span class="beat-title">Asking around — Huw in the infirmary</span>
+      <span class="beat-toggle" id="beat-toggle-9">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-9"><div class="outcome"><strong>What the party leaves with</strong>the Shrinekeepers' Diary, confirmation the basement is real and dangerous, an unresolved disappearance, and a second person -- Huw -- now visibly connected to whatever happened that night.</div><p>If the party asks around Tallowhaven about what happened at the Threadbare Spine, word eventually leads to the infirmary: someone was brought in hurt that same night. It's Huw, Alric's valet, his shoulder heavily bandaged. He's guarded in a way that doesn't match his usual manner and doesn't explain cleanly how he was hurt or what he saw. Leave it there -- this is a thread the party picks up, not one that resolves in this scene.</p></div>
+  </div>
+
+  <div class="section-heading">DM Notes</div>
+  <div class="dm-note"><strong>Don't run all five elders at equal weight.</strong>Dagny should get the most airtime; Tamsin and Costin are the two who actually move and act; Rue and Aldous can exist more as background presence the party seeks out if they choose to.</div><div class="dm-note"><strong>Restraint over exposition.</strong>None of the elders should ever say the words “removal without replacement” or explain the theology directly -- let the party infer it from Dagny's grief, Costin's fear, and Rue's devotion. The same restraint applies to the ending: don't explain what happened to Otho or Huw's shoulder. Both are open threads, not puzzles with a hidden answer to reveal on request.</div><div class="dm-note"><strong>Costin's motive stays undecided</strong>until it's actually needed at the table: whether he wants the Diary returned to the shrine properly (working within the council) or kept for himself, acting around Rue and Dagny rather than through them.</div><div class="dm-note"><strong>Otho's motive, and Huw's shoulder, are also undecided</strong>guilt catching up with Otho, curiosity outrunning his judgment one more time, or something less voluntary -- and whatever put Huw in that infirmary bed. Neither needs answering until the dungeon (the third Everbloom encounter, not yet designed) actually requires it.</div><div class="dm-note"><strong>Keep the shrine human, not gothic.</strong>Washing lines and woodpiles crowd right up to the stone ring; this is a lived-in community in slow decline, not a haunted ruin. The Threadbare Spine should read the same way in miniature -- a ransacked shop, not a horror set piece.</div>
+
+  <footer>Abelon Campaign — Mission Reference. The Everbloom Shrine / Everbloom Path / Act 1.</footer>
+</div>
+
+<script>
+  function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
+</script>
+</body>
+</html>
