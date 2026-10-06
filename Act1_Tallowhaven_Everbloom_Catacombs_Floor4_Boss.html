@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — Everbloom Catacombs, Floor 4</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(15,110,86,0.05);--beat-border:#0F6E56;--glance-bg:rgba(107,58,42,0.06);--glance-border:#6b3a2a;--npc-bg:rgba(15,110,86,0.05);--npc-border:#0F6E56;--loc-bg:rgba(74,56,40,0.04);--warn-bg:rgba(133,79,11,0.08);--warn-border:#854F0B;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(93,202,165,0.06);--beat-border:#5DCAA5;--glance-bg:rgba(196,168,130,0.06);--glance-border:#c4a882;--npc-bg:rgba(93,202,165,0.06);--npc-border:#5DCAA5;--loc-bg:rgba(196,168,130,0.04);--warn-bg:rgba(239,159,39,0.07);--warn-border:#EF9F27;}}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:1.5rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:30px;font-weight:600;color:var(--accent);letter-spacing:.03em;line-height:1.15;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .description{font-size:15px;font-style:italic;color:var(--ink-mid);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule-faint);}
+  .glance{background:var(--glance-bg);border:1px solid var(--glance-border);border-radius:6px;padding:14px 18px;margin-bottom:1.5rem;}
+  .glance-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;}
+  .glance-part{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);margin:12px 0 6px;}
+  .glance-part:first-of-type{margin-top:0;}
+  .glance-item{margin-bottom:8px;font-size:14.5px;}
+  .glance-item:last-child{margin-bottom:0;}
+  .glance-item strong{font-family:'Cinzel',serif;font-weight:600;font-size:12.5px;letter-spacing:.02em;color:var(--ink);}
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .location{background:var(--loc-bg);border-left:3px solid var(--rule);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .location-name{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mid);display:block;margin-bottom:6px;}
+  .location-loot{margin-top:8px;padding-top:8px;border-top:.5px solid var(--rule-faint);}
+  .location-loot-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--warn-border);display:block;margin-bottom:3px;}
+  .location p{font-size:14.5px;color:var(--ink-mid);font-style:italic;}
+  .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:2px 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-field{margin:10px 0;}
+  .npc-field-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:3px;}
+  .npc-field p{font-size:14.5px;color:var(--ink-mid);}
+  .npc-field.combat{background:var(--warn-bg);border-left:2px solid var(--warn-border);padding:8px 10px;border-radius:0 4px 4px 0;}
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header:hover{opacity:.8;}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+  .beat-body .outcome{margin-bottom:10px;}
+  .beat-body .outcome strong{font-family:'Cinzel',serif;font-size:12px;color:var(--ink);display:block;margin-bottom:2px;}
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+  .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+
+  .dc-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:1rem;}
+  .dc-table th{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);text-align:left;padding:6px 8px;border-bottom:1px solid var(--rule);}
+  .dc-table td{padding:6px 8px;border-bottom:.5px solid var(--rule-faint);color:var(--ink-mid);vertical-align:top;}
+  .dc-table td:first-child{color:var(--ink);font-weight:600;white-space:nowrap;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);--n-teal:#0F6E56;--n-teal-bg:rgba(15,110,86,0.08);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);--n-teal:#5DCAA5;--n-teal-bg:rgba(93,202,165,0.08);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+  #an-pay-btn{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);border-radius:3px;padding:3px 8px;font:inherit;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+  #an-pay-btn:hover{border-color:var(--n-accent);color:var(--n-accent);}
+  #an-pay-btn.has-data{border-color:var(--n-teal);color:var(--n-teal);}
+  #an-pay-summary{font-family:'Crimson Pro',Georgia,serif;font-size:12px;text-transform:none;letter-spacing:0;color:var(--n-ink-faded);}
+  #an-pay-panel{display:none;max-width:900px;margin:10px auto 0;background:var(--n-teal-bg);border:1px solid var(--n-teal);border-radius:6px;padding:14px 16px;font-family:'Crimson Pro',Georgia,serif;}
+  #an-pay-panel.open{display:block;}
+  #an-pay-panel .an-pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:10px;}
+  #an-pay-panel label{display:block;font-family:'Cinzel',Georgia,serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--n-ink-faded);margin-bottom:3px;}
+  #an-pay-panel input[type=text],#an-pay-panel textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:13px;background:var(--n-parch);color:var(--n-ink);border:1px solid var(--n-rule);border-radius:4px;padding:6px 8px;}
+  #an-pay-panel textarea{min-height:44px;resize:vertical;}
+  #an-pay-actions{display:flex;gap:8px;}
+  #an-pay-actions button{font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:4px;cursor:pointer;}
+  #an-pay-save{background:var(--n-teal);border:1px solid var(--n-teal);color:var(--n-parch);}
+  #an-pay-clear{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-cancel{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-note{font-size:10px;color:var(--n-ink-faded);font-style:italic;margin-top:8px;}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div>
+<div id="an-pay-panel">
+  <div class="an-pay-grid">
+    <div><label>Agreed total</label><input type="text" id="an-pay-total" placeholder="e.g. 60gp"></div>
+    <div><label>Paid so far</label><input type="text" id="an-pay-paid" placeholder="e.g. 30gp"></div>
+    <div><label>Not yet paid</label><input type="text" id="an-pay-owed" placeholder="e.g. 30gp on completion"></div>
+  </div>
+  <label>Notes</label>
+  <textarea id="an-pay-notes" placeholder="Terms, conditions, who's paying..."></textarea>
+  <div id="an-pay-actions" style="margin-top:10px;">
+    <button type="button" id="an-pay-save">Save</button>
+    <button type="button" id="an-pay-clear">Clear</button>
+    <button type="button" id="an-pay-cancel">Cancel</button>
+  </div>
+  <div id="an-pay-note">Saved to this browser only (localStorage) — won't sync to your phone or another computer.</div>
+</div>
+</div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  var root = '';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catObj = cats[page.category] || {};
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = catObj.label || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var pnav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; pnav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){pnav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; pnav.appendChild(next); }
+      relTop.appendChild(pnav);
+    }
+
+    // --- Payment widget: only on categories flagged paymentTracking in the manifest ---
+    var catObj2 = cats[page && page.category] || {};
+    if (page && catObj2.paymentTracking) {
+      var LS_KEY = 'abelonPayment:' + page.id;
+      function getPayment(){ try { var raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch(e){} return null; }
+      function setPayment(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
+      function clearPayment(){ localStorage.removeItem(LS_KEY); }
+
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.id = 'an-pay-btn';
+      var summary = document.createElement('span'); summary.id = 'an-pay-summary';
+      relTop.appendChild(btn); relTop.appendChild(summary);
+
+      var panel = document.getElementById('an-pay-panel');
+      var fTotal = document.getElementById('an-pay-total');
+      var fPaid = document.getElementById('an-pay-paid');
+      var fOwed = document.getElementById('an-pay-owed');
+      var fNotes = document.getElementById('an-pay-notes');
+
+      function refreshButton(){
+        var p = getPayment();
+        if (p && (p.total || p.paid || p.owed || p.notes)) {
+          btn.textContent = '\uD83D\uDCB0 Payment \u2713';
+          btn.classList.add('has-data');
+          var bits = [];
+          if (p.total) bits.push(p.total + ' agreed');
+          if (p.paid) bits.push(p.paid + ' paid');
+          summary.textContent = bits.join(' \u00b7 ');
+        } else {
+          btn.textContent = '\uD83D\uDCB0 Payment';
+          btn.classList.remove('has-data');
+          summary.textContent = '';
+        }
+      }
+      function openPanel(){
+        var p = getPayment() || {};
+        fTotal.value = p.total || ''; fPaid.value = p.paid || ''; fOwed.value = p.owed || ''; fNotes.value = p.notes || '';
+        panel.classList.add('open');
+      }
+      btn.addEventListener('click', openPanel);
+      document.getElementById('an-pay-cancel').addEventListener('click', function(){ panel.classList.remove('open'); });
+      document.getElementById('an-pay-clear').addEventListener('click', function(){ clearPayment(); panel.classList.remove('open'); refreshButton(); });
+      document.getElementById('an-pay-save').addEventListener('click', function(){
+        setPayment({ total: fTotal.value.trim(), paid: fPaid.value.trim(), owed: fOwed.value.trim(), notes: fNotes.value.trim(),
+                     pageId: page.id, pageTitle: page.title, pageFile: page.file });
+        panel.classList.remove('open');
+        refreshButton();
+      });
+      refreshButton();
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+  <div class="encounter-header">
+    <span class="encounter-type">Mission Reference — Act 1 / Everbloom Path / Catacombs, Floor 4</span>
+    <div class="encounter-title">Catacombs, Floor 4: The Lake</div>
+    <div class="encounter-subtitle">A sealed door, the Officiant's Stole, and a Rot Monstrosity held in its lake by fire</div>
+    <div class="encounter-meta"><span class="meta-tag">Exploration</span><span class="meta-tag">Boss encounter</span><span class="meta-tag">Rest and attune</span><span class="meta-tag">Level 3–4 party</span></div>
+  </div>
+
+  <p class="description">Floor 4 is where the theme becomes something the party has to act on. The stairs down arrive at the lower hall, where the dead adventurer who came this way before sits slumped against a heavy door. The door is fused shut by hardened Rot, and the way through is salt or fire. Behind it is the altar chamber, which holds the Officiant's Stole and the one place in the campaign where the ring and the stole can first be attuned. A party that stops to rest and attune, if it occurs to them and they are brave enough, walks into the fight stronger. The arena below is a lake of Rot with a circular platform and a Rot Monstrosity that the keepers' torches keep in the water. Flanking the hall are narrow maze wings with spike traps, trap doors and hidden doors that open onto dead ends.</p>
+
+  <div class="glance"><span class="glance-label">At a glance</span><div class="glance-part">Arrival and the Door</div><div class="glance-item"><strong>Arrival:</strong> The stairs from floor 3 land near the lower hall. The dead adventurer is the first thing the party sees, slumped against the sealed door with a page clutched to his chest.</div><div class="glance-item"><strong>The adventurer:</strong> Medicine DC 12: no killing wound, the body simply gave out. He carries the salt crock from floor 3's cache, though he had no idea what it was for. His page is fixed to the body and sits outside the handout order.</div><div class="glance-item"><strong>The heavy door:</strong> Rot has fused the frame. The seal has 20 HP. Physical damage counts in full, fire counts double and salt clears it instantly. Torches in brackets beside the door are fire.</div><div class="glance-item"><strong>Touching it:</strong> Striking the seal barehanded, including unarmed strikes, means a Constitution save at DC 10 (+1 per stack). Weapons do not count.</div><div class="glance-part">Beyond the Door</div><div class="glance-item"><strong>The altar:</strong> The Officiant's Stole lies on the altar. Aeron's half is embroidered in gold, Zareth's in shadowed grey-black. It is attunable only here, and the party has time to rest and attune before the fight.</div><div class="glance-item"><strong>Reactions:</strong> The ring warms faintly in the wearer's hand, the first reaction it has ever shown. The box's hum is louder here than on floor 3.</div><div class="glance-item"><strong>The arena:</strong> A semicircular platform lined with torches, a narrow stair, a circular platform in a lake of Rot on every side. The Rot Monstrosity waits in the lake.</div><div class="glance-part">The Maze Wings</div><div class="glance-item"><strong>Shape:</strong> Narrow corridors that feel like a maze but reward attention. Warm air drifts toward the lake and dead ends are still and cold.</div><div class="glance-item"><strong>Hazards:</strong> Rot-soaked spike traps and trap doors into Rot sludge. Hidden doors lead through the maze or to dead ends. Corner bone piles are older, nameless dead.</div></div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+  </div>
+
+  <div class="section-heading">Location Descriptions</div>
+  <div class="location"><span class="location-name">The lower hall</span><p>The first place the party sees on arrival: a wide, low hall with torches in brackets either side of a broad, iron-banded wooden door at the far end. Hardened black matter fills the gap around the frame, and faint steam seeps from the seams. Two grates sit in the floor.</p><div class="location-loot"><span class="location-loot-label">Loot</span><p>The adventurer: a skeleton in rotted leather armour, slumped against the door with a travel-worn pack and one bony hand still clutching a torn yellowed page against its chest. The page is the adventurer's own note, in a different hand from Adelina's. It opens with "Her notes stop at six..." and covers what happens past stage 6. It stays on the body and is not part of the handout order.</p><p>The pack holds the salt crock. Salt destroys frozen Rot, cleans contaminated objects and breaks Rot seals such as this door. The crock is the answer to the door that the adventurer never reached.</p><p>Optional belongings, not confirmed: empty healing potion vials, a light purse of 20 to 30gp, a dagger, a coil of rope and a set of thieves' tools. Everything ordinary, and none of it enough.</p></div></div><div class="location"><span class="location-name">The heavy door</span><p>Broad and low, iron-banded, and fused shut by the Rot. Black matter fills the gap around the frame. Brute force works only slowly. The torches either side of the door are in reach of anyone standing at it.</p></div><div class="location"><span class="location-name">The maze wings</span><p>Two narrow wings flank the hall. Corridors turn sharply, the walls are close enough to touch and dead roots creep along the upper stonework. Warm air drifts along the true route toward the lake with a faint haze of steam. Dead ends are still and cold. Bone piles sit in the corners and hold nothing of value.</p></div><div class="location"><span class="location-name">The spike traps</span><p>The same keepers' mechanism as on floors 2 and 3, rotted further. The spikes have been sitting in Rot, so the trap is the same one the party already understands, but deadlier.</p></div><div class="location"><span class="location-name">The trap-door corridor</span><p>One corridor has trap doors in its floor. A seam in the flagstones or a slab that rings hollow underfoot gives them away. Beneath each is a ten-foot drop into a pit of Rot sludge.</p></div><div class="location"><span class="location-name">The altar chamber</span><p>A lit chamber at the back of the central structure, behind the heavy door. Quiet and reverent, with an altar at its centre. It is the one place both gods are still present, and it is the only place the ring and the stole can attune.</p><div class="location-loot"><span class="location-loot-label">Loot</span><p>The Officiant's Stole lies flat on top of the altar: a sash-thick ribbon of aged fabric, folded once at the centre, with Aeron's half embroidered in warm gold thread with growing leaves and budding vines, and Zareth's half in deep grey-black thread with withering leaves and bare roots. Religion DC 13: the two halves are Aeron and Zareth, a vestment for a rite.</p><p>While attuned: advantage on saves against the Rot, and +1d4 to every instance of magical healing the wearer receives. Examination shows it needs attunement and is dormant until then.</p></div></div><div class="location"><span class="location-name">The arena</span><p>A vast chamber below the altar, reached by a narrow stair. A semicircular platform lined with torches sits before a circular platform with one narrow stair on and off. The lake is thick, glossy and black and moves in slow swirls under steam. Beyond the circle, darkness swallows the far walls. The torches are why the Monstrosity stays put in the lake. They do not stop it once the fight has started.</p></div>
+
+  <div class="section-heading">Checks and DCs</div>
+  <table class="dc-table"><tr><th>Where</th><th>Check</th><th>Result</th></tr><tr><td>Adventurer</td><td>Examine the body</td><td>Medicine DC 12: no killing wound, the body gave out.</td></tr><tr><td>Heavy door</td><td>Salt</td><td>Clears the seal instantly.</td></tr><tr><td>Heavy door</td><td>Fire</td><td>Counts double against the seal: 10 fire damage clears it. A torch pulled from its bracket is an improvised weapon dealing fire damage.</td></tr><tr><td>Heavy door</td><td>Physical damage</td><td>Counts in full against the seal. The seal has 20 HP.</td></tr><tr><td>Heavy door</td><td>Touching the seal barehanded</td><td>Constitution save DC 10 (+1 per stack) against the Rot. Weapons do not count as touching it.</td></tr><tr><td>Maze</td><td>Noticing the draught</td><td>Passive Perception 12 notices warm air moving toward the lake.</td></tr><tr><td>Hidden doors</td><td>Spot</td><td>Passive Perception 15, no roll called. Tell: a thread of steam drawn into a hairline seam, or a torch flame leaning toward the wall.</td></tr><tr><td>Hidden doors</td><td>Active search</td><td>Wisdom (Perception) DC 12, with advantage once they have found one. A failed search can be retried after another 10 minutes.</td></tr><tr><td>Hidden doors</td><td>Opening</td><td>Investigation DC 12 finds the catch. Or force it: Athletics DC 15, loud.</td></tr><tr><td>Spike trap</td><td>Spot / Understand</td><td>Passive Perception 13 (no roll). Investigation DC 13 to understand it.</td></tr><tr><td>Spike trap</td><td>Jam it</td><td>Dexterity with thieves' tools DC 13. Failing by 5 or more triggers it.</td></tr><tr><td>Spike trap</td><td>Triggered</td><td>Dexterity save DC 13. Failure: 2d10 piercing, then a Constitution save DC 10 (+1 per stack) against the Rot.</td></tr><tr><td>Trap door</td><td>Spot</td><td>Passive Perception 13. Tell: a seam in the flagstones or a hollow ring.</td></tr><tr><td>Trap door</td><td>Triggered</td><td>Dexterity save DC 13 to catch the edge. Failure: fall 10 ft (1d6) into Rot sludge, then a Constitution save DC 14 (+1 per stack) on landing and each round in it.</td></tr><tr><td>Trap door</td><td>Climbing out</td><td>Athletics DC 12, or a rope from above.</td></tr><tr><td>Stole</td><td>Religion</td><td>DC 13: the two halves are Aeron and Zareth, a vestment for a rite.</td></tr><tr><td>Rot lake</td><td>Entering or shoved in</td><td>Constitution save on entry and at the start of each turn in it. Edge (below waist) DC 12. Waist to head DC 14. Fully under DC 17. Each +1 per stack.</td></tr><tr><td>Rot lake</td><td>Climbing out</td><td>Athletics DC 12.</td></tr></table>
+
+  <div class="section-heading">NPCs and Creatures</div>
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('monstrosity')">
+      <div class="npc-info">
+        <span class="npc-name">The Rot Monstrosity</span>
+        <span class="npc-role">Large ooze. A literal chunk of Zareth given form. See the combat guide.</span>
+      </div>
+      <span class="npc-toggle" id="monstrosity-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="monstrosity-body"><div class="npc-field"><span class="npc-field-label">Role</span><p>The dungeon's final encounter. It guards nothing in the way a locked door guards something. It is the Rot that pooled at the bottom of the temple and it lives in the lake the keepers' torches enclose.</p></div><div class="npc-field combat"><span class="npc-field-label">Combat</span><p>AC 14, 136 HP, speed 50 ft, CR 5, Rot DC 17, three legendary actions. Vulnerable to radiant and fire. Resistant to bludgeoning (also Slowed), slashing, piercing and psychic. Immune to necrotic (heals it). Two Surge attacks a turn at +7, reach 10 ft, 14 (3d6+4) necrotic and a DC 17 Constitution save or a stack of Rotten. Corroding Presence 5 ft, Harden recharge 5 to 6.</p></div><div class="npc-field"><span class="npc-field-label">Full stats and tactics</span><p>See the Rot Monstrosity combat guide for the stat block, legendary actions, Effluent triggers and the Forge JSON.</p></div></div>
+  </div>
+
+  <div class="section-heading">Encounter Beats</div>
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('1')">
+      <span class="beat-number">1</span>
+      <span class="beat-title">Arrival and the adventurer</span>
+      <span class="beat-toggle" id="beat-toggle-1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-1"><p>Open the scene at the arrival point that matches the staircase the party took. The adventurer is the first thing they see. Let the party take in the posture: a body slumped against a sealed door with a page held to the chest. Do not explain how he died. A Medicine check at DC 12 shows no killing wound, only a body that gave out.</p><p>Searching the body is the most searched spot on the floor. The pack holds the salt crock. The page is the adventurer's own note. Let the player who finds the salt remember the empty ring in the dust on floor 3, if they searched the cache.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('2')">
+      <span class="beat-number">2</span>
+      <span class="beat-title">The heavy door</span>
+      <span class="beat-toggle" id="beat-toggle-2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-2"><p>The door is sealed by Rot, not by a lock. Brute force works slowly, and anyone who strikes the seal barehanded must save against the Rot. Salt clears the seal at once. Fire counts double, so 10 fire damage clears it, and the torches in the brackets are right there. A party that has not found the salt can still get through with the torches, fire spells or a long time hacking.</p><p>The door's job is to teach the Rot's vulnerabilities one door before the boss. The salt from floor 3 pays that off. A party that read Adelina's pages will connect it to the door without being told.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('3')">
+      <span class="beat-number">3</span>
+      <span class="beat-title">The maze wings</span>
+      <span class="beat-toggle" id="beat-toggle-3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-3"><p>The wings are optional exploration. Use them to spend resources and to reward attention, not to block progress. Warm air drifts along the true route toward the lake. A party that notices the draught with passive Perception 12 finds its way. A party that does not wanders, triggers more traps and arrives worn down.</p><p>If a hidden door is the only way forward, make the dead end in front of it obviously wrong: a corridor that runs into a blank wall with the warm air flowing into it. Hidden doors that open optional rooms can be as hard to find as you like. After a failed active search, tell them they cannot shake the feeling they missed something.</p><p>The trap doors teach the Rot track the hard way. Landing in the sludge means a Constitution save at DC 14 on landing and each round spent in it.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('4')">
+      <span class="beat-number">4</span>
+      <span class="beat-title">The altar chamber</span>
+      <span class="beat-toggle" id="beat-toggle-4">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-4"><p>Behind the opened door, the chamber is quiet and lit. The ring warms faintly in the wearer's hand, the first reaction it has ever shown, and the box hums louder than it did on floor 3. Nobody tells the party what to do with that. A player who has read Dohyuk's letter can put it together: a relic needs a source of its own god, and this is where both gods are still present.</p><p>Attuning the ring or the stole takes a short rest. The Monstrosity stays in the lake while the torches burn. The party can rest here and walk into the fight with Healing Word working and the stole on, if it occurs to them and they are brave enough. Do not prompt them.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('5')">
+      <span class="beat-number">5</span>
+      <span class="beat-title">The arena</span>
+      <span class="beat-toggle" id="beat-toggle-5">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-5"><p>Describe the semicircular platform and the torches first, then the circle in the lake, then the dark that swallows the far walls. The black surface moves slowly in swirls with steam rising from it. The Monstrosity is not visible until it chooses to rise.</p><p>Use the combat guide for the fight. The lake is the other hazard: anyone knocked or shoved in makes a Constitution save on entry and at the start of each turn in it.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('6')">
+      <span class="beat-number">6</span>
+      <span class="beat-title">After the fight</span>
+      <span class="beat-toggle" id="beat-toggle-6">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-6"><p>Defeating the Monstrosity gives access to the small sliver of remaining Aeronic power embedded in the walls and soil beneath the temple, alongside the abundant Zarethi power that remains. This is the location where the ring can attune, and it is open to a party that skipped the altar.</p><p>What happens after the party leaves is still open.</p></div>
+  </div>
+
+  <div class="section-heading">DM Notes</div>
+  <div class="dm-note"><strong>No replacement trigger.</strong>The altar does not require leaving something in return for the stole. "You cannot remove, you must replace" is Marek's interpretation of how the world responded to the Shattering, and the dungeon should never confirm it. Taking the stole carries no consequence.</div><div class="dm-note"><strong>What is on floor 4.</strong>Very few made it this far, so there is almost nothing here besides the stole. Do not add loot. The bone piles stay empty because it is better that not every corpse pays out.</div><div class="dm-note"><strong>Ring and box.</strong>The ring has 3 charges in a single shared pool. One charge is a free Healing Word with no slot. All three is a free Revivify with no slot and no material component. Charges return after a long rest once attuned. Using Revivify cracks the ring and breaks attunement. The box attunes with Rot, at the surface shrine, on floor 3 or at the base.</div><div class="dm-note"><strong>The stole.</strong>The +1d4 applies to healing the wearer receives. It is attunable only here, where both gods are present, and it may never be possible to attune again elsewhere. That gives the party a reason to attune it on the spot.</div><div class="dm-note"><strong>Where the stairs arrive.</strong>The adventurer sits in front of the sealed door and the stairs from floor 3 arrive close to him. If your map has the staircases landing in side rooms, adjust so the adventurer is still the first thing the party sees.</div><div class="dm-note"><strong>The two grates.</strong>Optional: the two grates in the lower hall could be drains down to the lake, letting the Rot seep up through them mid-fight so the room the party thought was safe stops being safe. Not locked.</div><div class="dm-note"><strong>Rot rules.</strong>Use the Rot DC by source (Dreg 10, Skulker 12, Beast 14, Monstrosity 17, non-creature 10, submerged 12, 14 or 17), with +1 per existing stack. Six stacks is the cap, and any further infestation drops the character to 0 HP. Magical healing clears every stack. Rest clears none.</div>
+
+  <footer>Abelon Campaign — Mission Reference. Everbloom Catacombs, Floor 4 / Everbloom Path / Act 1.</footer>
+</div>
+
+<script>
+  function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
+</script>
+</body>
+</html>

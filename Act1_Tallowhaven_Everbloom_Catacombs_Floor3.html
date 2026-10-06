@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encounter — Everbloom Catacombs, Floor 3</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{--parchment:#f2e8d5;--parchment-mid:#ecdfc8;--parchment-dark:#e0d0b0;--ink:#1a1410;--ink-mid:#4a3828;--ink-faded:#7a6a55;--accent:#6b3a2a;--rule:#c4a882;--rule-faint:rgba(196,168,130,0.3);--beat-bg:rgba(15,110,86,0.05);--beat-border:#0F6E56;--glance-bg:rgba(107,58,42,0.06);--glance-border:#6b3a2a;--npc-bg:rgba(15,110,86,0.05);--npc-border:#0F6E56;--loc-bg:rgba(74,56,40,0.04);--warn-bg:rgba(133,79,11,0.08);--warn-border:#854F0B;}
+  @media(prefers-color-scheme:dark){:root{--parchment:#1e1a14;--parchment-mid:#241f16;--parchment-dark:#2a2318;--ink:#e8d9bc;--ink-mid:#c4a882;--ink-faded:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.4);--beat-bg:rgba(93,202,165,0.06);--beat-border:#5DCAA5;--glance-bg:rgba(196,168,130,0.06);--glance-border:#c4a882;--npc-bg:rgba(93,202,165,0.06);--npc-border:#5DCAA5;--loc-bg:rgba(196,168,130,0.04);--warn-bg:rgba(239,159,39,0.07);--warn-border:#EF9F27;}}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--parchment);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:16px;line-height:1.7;}
+  .page{max-width:860px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .encounter-header{border-bottom:1px solid var(--rule);padding-bottom:1.5rem;margin-bottom:1.5rem;}
+  .encounter-type{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-faded);display:block;margin-bottom:8px;}
+  .encounter-title{font-family:'Cinzel',serif;font-size:30px;font-weight:600;color:var(--accent);letter-spacing:.03em;line-height:1.15;margin-bottom:6px;}
+  .encounter-subtitle{font-size:15px;font-style:italic;color:var(--ink-faded);}
+  .encounter-meta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .meta-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);padding:3px 10px;border-radius:3px;}
+  .description{font-size:15px;font-style:italic;color:var(--ink-mid);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule-faint);}
+  .glance{background:var(--glance-bg);border:1px solid var(--glance-border);border-radius:6px;padding:14px 18px;margin-bottom:1.5rem;}
+  .glance-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px;}
+  .glance-part{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faded);margin:12px 0 6px;}
+  .glance-part:first-of-type{margin-top:0;}
+  .glance-item{margin-bottom:8px;font-size:14.5px;}
+  .glance-item:last-child{margin-bottom:0;}
+  .glance-item strong{font-family:'Cinzel',serif;font-weight:600;font-size:12.5px;letter-spacing:.02em;color:var(--ink);}
+  .section-heading{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule-faint);padding-bottom:6px;margin-bottom:1rem;margin-top:2rem;}
+  .location{background:var(--loc-bg);border-left:3px solid var(--rule);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-bottom:1rem;}
+  .location-name{font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mid);display:block;margin-bottom:6px;}
+  .location-loot{margin-top:8px;padding-top:8px;border-top:.5px solid var(--rule-faint);}
+  .location-loot-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--warn-border);display:block;margin-bottom:3px;}
+  .location p{font-size:14.5px;color:var(--ink-mid);font-style:italic;}
+  .npc-card{border:.5px solid var(--npc-border);border-radius:6px;overflow:hidden;margin-bottom:1rem;background:var(--npc-bg);}
+  .npc-header{display:flex;align-items:center;gap:14px;padding:12px 14px;cursor:pointer;user-select:none;transition:opacity .15s;}
+  .npc-header:hover{opacity:.8;}
+  .npc-info{flex:1;}
+  .npc-name{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--ink);display:block;}
+  .npc-role{font-size:12px;font-style:italic;color:var(--ink-faded);}
+  .npc-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .npc-toggle.open{transform:rotate(180deg);}
+  .npc-body{display:none;padding:2px 14px 14px;border-top:.5px solid var(--rule-faint);}
+  .npc-body.open{display:block;}
+  .npc-field{margin:10px 0;}
+  .npc-field-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:3px;}
+  .npc-field p{font-size:14.5px;color:var(--ink-mid);}
+  .npc-field.combat{background:var(--warn-bg);border-left:2px solid var(--warn-border);padding:8px 10px;border-radius:0 4px 4px 0;}
+  .beat{border:.5px solid var(--beat-border);border-radius:6px;overflow:hidden;margin-bottom:10px;}
+  .beat-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;user-select:none;background:var(--beat-bg);transition:opacity .15s;}
+  .beat-header:hover{opacity:.8;}
+  .beat-number{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:var(--accent);min-width:24px;}
+  .beat-title{font-family:'Cinzel',serif;font-size:13px;font-weight:400;letter-spacing:.05em;color:var(--ink);flex:1;}
+  .beat-toggle{font-size:16px;color:var(--ink-faded);transition:transform .2s;}
+  .beat-toggle.open{transform:rotate(180deg);}
+  .beat-body{display:none;padding:12px 14px 14px;border-top:.5px solid var(--rule-faint);font-size:15px;color:var(--ink-mid);}
+  .beat-body.open{display:block;}
+  .beat-body p{margin-bottom:8px;}.beat-body p:last-child{margin-bottom:0;}
+  .beat-body .outcome{margin-bottom:10px;}
+  .beat-body .outcome strong{font-family:'Cinzel',serif;font-size:12px;color:var(--ink);display:block;margin-bottom:2px;}
+  .dm-note{background:var(--parchment-mid);border:.5px dashed var(--rule);border-radius:5px;padding:12px 16px;margin-bottom:10px;font-size:14px;color:var(--ink-faded);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+  .controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;}
+  .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
+  .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
+  footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+
+  .dc-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:1rem;}
+  .dc-table th{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);text-align:left;padding:6px 8px;border-bottom:1px solid var(--rule);}
+  .dc-table td{padding:6px 8px;border-bottom:.5px solid var(--rule-faint);color:var(--ink-mid);vertical-align:top;}
+  .dc-table td:first-child{color:var(--ink);font-weight:600;white-space:nowrap;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);--n-teal:#0F6E56;--n-teal-bg:rgba(15,110,86,0.08);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);--n-teal:#5DCAA5;--n-teal-bg:rgba(93,202,165,0.08);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+  #an-pay-btn{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);border-radius:3px;padding:3px 8px;font:inherit;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+  #an-pay-btn:hover{border-color:var(--n-accent);color:var(--n-accent);}
+  #an-pay-btn.has-data{border-color:var(--n-teal);color:var(--n-teal);}
+  #an-pay-summary{font-family:'Crimson Pro',Georgia,serif;font-size:12px;text-transform:none;letter-spacing:0;color:var(--n-ink-faded);}
+  #an-pay-panel{display:none;max-width:900px;margin:10px auto 0;background:var(--n-teal-bg);border:1px solid var(--n-teal);border-radius:6px;padding:14px 16px;font-family:'Crimson Pro',Georgia,serif;}
+  #an-pay-panel.open{display:block;}
+  #an-pay-panel .an-pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:10px;}
+  #an-pay-panel label{display:block;font-family:'Cinzel',Georgia,serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--n-ink-faded);margin-bottom:3px;}
+  #an-pay-panel input[type=text],#an-pay-panel textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:13px;background:var(--n-parch);color:var(--n-ink);border:1px solid var(--n-rule);border-radius:4px;padding:6px 8px;}
+  #an-pay-panel textarea{min-height:44px;resize:vertical;}
+  #an-pay-actions{display:flex;gap:8px;}
+  #an-pay-actions button{font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:4px;cursor:pointer;}
+  #an-pay-save{background:var(--n-teal);border:1px solid var(--n-teal);color:var(--n-parch);}
+  #an-pay-clear{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-cancel{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-note{font-size:10px;color:var(--n-ink-faded);font-style:italic;margin-top:8px;}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div>
+<div id="an-pay-panel">
+  <div class="an-pay-grid">
+    <div><label>Agreed total</label><input type="text" id="an-pay-total" placeholder="e.g. 60gp"></div>
+    <div><label>Paid so far</label><input type="text" id="an-pay-paid" placeholder="e.g. 30gp"></div>
+    <div><label>Not yet paid</label><input type="text" id="an-pay-owed" placeholder="e.g. 30gp on completion"></div>
+  </div>
+  <label>Notes</label>
+  <textarea id="an-pay-notes" placeholder="Terms, conditions, who's paying..."></textarea>
+  <div id="an-pay-actions" style="margin-top:10px;">
+    <button type="button" id="an-pay-save">Save</button>
+    <button type="button" id="an-pay-clear">Clear</button>
+    <button type="button" id="an-pay-cancel">Cancel</button>
+  </div>
+  <div id="an-pay-note">Saved to this browser only (localStorage) — won't sync to your phone or another computer.</div>
+</div>
+</div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  var root = '';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catObj = cats[page.category] || {};
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = catObj.label || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var pnav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; pnav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){pnav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; pnav.appendChild(next); }
+      relTop.appendChild(pnav);
+    }
+
+    // --- Payment widget: only on categories flagged paymentTracking in the manifest ---
+    var catObj2 = cats[page && page.category] || {};
+    if (page && catObj2.paymentTracking) {
+      var LS_KEY = 'abelonPayment:' + page.id;
+      function getPayment(){ try { var raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch(e){} return null; }
+      function setPayment(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
+      function clearPayment(){ localStorage.removeItem(LS_KEY); }
+
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.id = 'an-pay-btn';
+      var summary = document.createElement('span'); summary.id = 'an-pay-summary';
+      relTop.appendChild(btn); relTop.appendChild(summary);
+
+      var panel = document.getElementById('an-pay-panel');
+      var fTotal = document.getElementById('an-pay-total');
+      var fPaid = document.getElementById('an-pay-paid');
+      var fOwed = document.getElementById('an-pay-owed');
+      var fNotes = document.getElementById('an-pay-notes');
+
+      function refreshButton(){
+        var p = getPayment();
+        if (p && (p.total || p.paid || p.owed || p.notes)) {
+          btn.textContent = '\uD83D\uDCB0 Payment \u2713';
+          btn.classList.add('has-data');
+          var bits = [];
+          if (p.total) bits.push(p.total + ' agreed');
+          if (p.paid) bits.push(p.paid + ' paid');
+          summary.textContent = bits.join(' \u00b7 ');
+        } else {
+          btn.textContent = '\uD83D\uDCB0 Payment';
+          btn.classList.remove('has-data');
+          summary.textContent = '';
+        }
+      }
+      function openPanel(){
+        var p = getPayment() || {};
+        fTotal.value = p.total || ''; fPaid.value = p.paid || ''; fOwed.value = p.owed || ''; fNotes.value = p.notes || '';
+        panel.classList.add('open');
+      }
+      btn.addEventListener('click', openPanel);
+      document.getElementById('an-pay-cancel').addEventListener('click', function(){ panel.classList.remove('open'); });
+      document.getElementById('an-pay-clear').addEventListener('click', function(){ clearPayment(); panel.classList.remove('open'); refreshButton(); });
+      document.getElementById('an-pay-save').addEventListener('click', function(){
+        setPayment({ total: fTotal.value.trim(), paid: fPaid.value.trim(), owed: fOwed.value.trim(), notes: fNotes.value.trim(),
+                     pageId: page.id, pageTitle: page.title, pageFile: page.file });
+        panel.classList.remove('open');
+        refreshButton();
+      });
+      refreshButton();
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+
+<div class="page">
+  <div class="encounter-header">
+    <span class="encounter-type">Mission Reference — Act 1 / Everbloom Path / Catacombs, Floor 3</span>
+    <div class="encounter-title">Catacombs, Floor 3: The Corrupted Twins</div>
+    <div class="encounter-subtitle">Dead roots, the first real fight, and everything from floor 2 gone wrong</div>
+    <div class="encounter-meta"><span class="meta-tag">Exploration</span><span class="meta-tag">First combat with the Rot</span><span class="meta-tag">Rotted traps</span><span class="meta-tag">Level 3–4 party</span></div>
+  </div>
+
+  <p class="description">Floor 3 is the last floor with sarcophagi, so it carries the corrupted version of everything floor 2 offered. The slate has been recut, the jar of leaves does the opposite, and the treasure sits behind a trap. Dead roots have forced their way through the stonework in two rooms, grey and withered, and a larger pool of Rot sits at the top right. Two Rot Skulkers nest in the roots, which makes this the first fight the party has against the Rot. Two Rot Dregs wait shut in behind a door. A bright room at the bottom right is the keepers' maintenance cache, and it holds the tools that matter most on floor 4. Two more of Adelina's pages are lying where they will be found.</p>
+
+  <div class="glance"><span class="glance-label">At a glance</span><div class="glance-part">Arrivals and Departures</div><div class="glance-item"><strong>Arrivals:</strong> Two arrival points, one for each staircase on floor 2.</div><div class="glance-item"><strong>Departures:</strong> Two staircases down to floor 4, in different parts of the floor. The Skulkers are not on either route, so the fight is something the party walks into.</div><div class="glance-item"><strong>Box hum:</strong> Someone who listens carefully hears Otho's box humming faintly. It is louder on floor 4.</div><div class="glance-part">The Floor</div><div class="glance-item"><strong>Dead roots:</strong> Thick grey roots over the walls and ceiling in two rooms, and sarcophagi half-swallowed by them. The roots are the cycle's own growth, starved once what fed them stopped being balanced.</div><div class="glance-item"><strong>Rot Skulkers (2):</strong> Nest in the dead roots near the sarcophagi. First real fight. AC 10, 18 HP, Lunge +1 for 1d6+1 necrotic and a DC 12 Constitution save or a Rotten stack.</div><div class="glance-item"><strong>Rot Dregs (2):</strong> Shut in behind a door in a dead end. A hazard for anyone who goes poking about. No actions, harm by contact only.</div><div class="glance-item"><strong>Sarcophagi:</strong> Three. A recut slate, a jar of black leaves that shrink the eater, and 150gp of treasure behind a spike trap.</div><div class="glance-item"><strong>Pages:</strong> Two of Adelina's pages across six marked spots. Once both are found, the remaining spots hold nothing.</div><div class="glance-item"><strong>The cache:</strong> A bright room at the bottom right lit by a continual-flame sconce. Lamp oil and lantern fittings, and a ring in the dust on a shelf.</div><div class="glance-item"><strong>Rotted traps:</strong> The keepers' floor 2 traps again, with the plate sticking and the spikes slick with Rot.</div></div>
+
+  <div class="controls">
+    <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
+    <button class="ctrl-btn" onclick="collapseAll()">Collapse all</button>
+  </div>
+
+  <div class="section-heading">Location Descriptions</div>
+  <div class="location"><span class="location-name">The arrival stairs</span><p>Two stairways emerge into different parts of the floor. The air is colder than on floor 2 and has a flat, stale smell. There is no carved vine work here, only bare stone, and the first dead roots appear within a few steps.</p></div><div class="location"><span class="location-name">The dead-root rooms</span><p>Two rooms where roots as thick as a forearm have split the masonry and spread across the walls and ceiling. They are grey and dry like the veins of something long dead. Several sarcophagi are half-swallowed. Light is low and cold, and the shadows between roots are deep enough to hide something small.</p><div class="location-loot"><span class="location-loot-label">Loot</span><p>The floor has six marked page spots across its rooms. Five need no check and one needs a DC 12 search. The spots vanish once the party has both of the floor's pages. A character who fails the DC 12 search finds nothing and should be told they cannot shake the feeling they missed something.</p></div></div><div class="location"><span class="location-name">The three sarcophagi</span><p>The keepers' last burial rooms. The sarcophagi sit among the roots and are older looking than the ones above, though they are the same craft. Place the three finds below in whichever three tombs the map shows.</p><div class="location-loot"><span class="location-loot-label">Loot</span><p>Lore: a slate tablet in the same format as floor 2's. The standard prayer is carved first: "May the gods build with me as I have built for others." The second line has been struck through and recut below in a shakier hand: "By their absence, I am undone." The tablet does not explain itself.</p><p>Useful item: the same sealed clay jar as on floor 2, with the same seal. The leaves inside have gone black. Eating them shrinks the eater for 1 hour, as the Reduce effect without concentration. Medicine DC 15 lets a character tell what they do before eating. The DC is higher than on floor 2, so a party that trusted floor 2's leaves is more likely to eat first.</p><p>Treasure: 150gp in coins and gems, kept behind the spike trap. Lifting it without triggering the plate is a Sleight of Hand check at DC 14.</p></div></div><div class="location"><span class="location-name">The spike trap by the treasure</span><p>The keepers' carpentry again, rotted. The plate sticks, and the spikes carry a black residue. The trap and the treasure explain each other: this is exactly what the keepers' later anti-looting measure was for.</p></div><div class="location"><span class="location-name">The door at the dead end</span><p>A plain wooden door at the end of a short corridor. Behind it, in a small room, two Rot Dregs sit in a pool of their own black seep. They have no actions and do not leave the room. They are a hazard to anyone who goes poking about.</p></div><div class="location"><span class="location-name">The Rot pool</span><p>A larger pool at the top right of the floor, glossy and black, steaming faintly. It holds no creature. Treat it as a hazard with the submersion DCs on this page.</p></div><div class="location"><span class="location-name">The keepers' cache</span><p>A bright room at the bottom right with a proper staircase. A single continual-flame sconce lights it, probably the only magic the shrine ever paid for. It was the keepers' working room and the furthest point they still maintained. A chest stands against the wall.</p><div class="location-loot"><span class="location-loot-label">Loot</span><p>The chest holds several flasks of lamp oil and spare lantern fittings. The keepers' own kit for fighting back.</p><p>A shelf in the room has a clean ring in the dust where a crock once stood. The salt that belonged there was taken. The party will recognise the missing crock when they find it on floor 4.</p></div></div>
+
+  <div class="section-heading">Checks and DCs</div>
+  <table class="dc-table"><tr><th>Where</th><th>Check</th><th>Result</th></tr><tr><td>Hidden page spots</td><td>Common spots</td><td>No check. A look around finds the page.</td></tr><tr><td>Hidden page spots</td><td>The one bait spot</td><td>DC 12 search. Failing it finds nothing. Tell the player they cannot shake the feeling they missed something.</td></tr><tr><td>Spike trap</td><td>Spot</td><td>Passive Perception 13, no roll called. Active search: Perception DC 13.</td></tr><tr><td>Spike trap</td><td>Understand</td><td>Investigation DC 13.</td></tr><tr><td>Spike trap</td><td>Triggered</td><td>Dexterity save DC 13. Failure: 2d10 piercing and a Constitution save DC 10 (+1 per stack) against the Rot.</td></tr><tr><td>Treasure</td><td>Lifting it safely</td><td>Sleight of Hand DC 14.</td></tr><tr><td>Black leaves</td><td>Identify</td><td>Medicine DC 15 before eating.</td></tr><tr><td>Rot pool</td><td>Edge</td><td>Constitution save DC 10 (+1 per stack).</td></tr><tr><td>Rot pool</td><td>Submerged</td><td>Below the waist DC 12. Waist to head DC 14. Fully under DC 17. Each +1 per stack.</td></tr><tr><td>Rot Skulker</td><td>Each hit</td><td>Constitution save DC 12 (+1 per stack) or gain a stack of Rotten.</td></tr><tr><td>Rot Dreg</td><td>Ending a turn in contact</td><td>Constitution save DC 10 (+1 per stack) or gain a stack of Rotten.</td></tr></table>
+
+  <div class="section-heading">NPCs and Creatures</div>
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('skulkers')">
+      <div class="npc-info">
+        <span class="npc-name">Rot Skulkers (2)</span>
+        <span class="npc-role">Small ooze. The first real fight. Nest in the dead roots.</span>
+      </div>
+      <span class="npc-toggle" id="skulkers-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="skulkers-body"><div class="npc-field"><span class="npc-field-label">Placement</span><p>In the dead roots among the sarcophagi, where a Seep ambush makes sense. They are not on either staircase route.</p></div><div class="npc-field combat"><span class="npc-field-label">Combat</span><p>AC 10, 18 HP each, speed 25 ft, blindsight 30 ft, CR 1/4, Rot DC 12. Vulnerable to radiant and fire. Resistant to bludgeoning (also Slowed), slashing and piercing. Immune to necrotic (heals them) and psychic.</p></div><div class="npc-field combat"><span class="npc-field-label">Actions</span><p>Lunge: +1 to hit, reach 5 ft, 4 (1d6+1) necrotic damage, and the target makes a DC 12 Constitution save or gains a stack of Rotten. Corroding Presence: any creature ending its turn within 5 ft takes 1d4 necrotic damage and makes a DC 12 Constitution save or gains a stack. Seep: moves through gaps as small as one inch.</p></div><div class="npc-field combat"><span class="npc-field-label">Reactions to damage</span><p>Acid: each creature within 5 ft makes a DC 12 Dexterity save or takes 1d6 necrotic damage and makes a DC 12 Constitution save against the Rot. Lightning: the same, within 10 ft and DC 14 Dexterity. Thunder: a fragment splits off, with HP equal to half the thunder damage.</p></div><div class="npc-field"><span class="npc-field-label">Behaviour</span><p>Strike from the roots when someone passes within reach. They have no fear and do not retreat. The weight of the fight is the Constitution save on every hit. At +1 to hit and 18 HP each, a level 3 party will finish both in a round or two. Use it as a lesson in how the Rot builds: the first stacks, the first narrated stage and the first chance to use what Adelina's pages say.</p></div></div>
+  </div><div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('dregs')">
+      <div class="npc-info">
+        <span class="npc-name">Rot Dregs (2)</span>
+        <span class="npc-role">Tiny ooze. A hazard behind a door.</span>
+      </div>
+      <span class="npc-toggle" id="dregs-toggle">▼</span>
+    </div>
+    <div class="npc-body" id="dregs-body"><div class="npc-field"><span class="npc-field-label">Placement</span><p>In a small room behind a plain door at the end of a dead-end corridor. They do not leave it.</p></div><div class="npc-field combat"><span class="npc-field-label">Combat</span><p>AC 8, 6 HP each, speed 10 ft, CR 1/8, Rot DC 10. Vulnerable to radiant and fire. No actions. Corroding Presence: any creature that ends its turn in contact takes 1 necrotic damage and makes a DC 10 Constitution save or gains a stack of Rotten.</p></div><div class="npc-field"><span class="npc-field-label">Behaviour</span><p>They move toward organic matter and harm by contact only. The danger is a careless step, not a combat round. If a character kills one, nothing else happens.</p></div></div>
+  </div>
+
+  <div class="section-heading">Encounter Beats</div>
+  <div class="beat">
+    <div class="beat-header" onclick="toggleBeat('1')">
+      <span class="beat-number">1</span>
+      <span class="beat-title">Arrival and the roots</span>
+      <span class="beat-toggle" id="beat-toggle-1">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-1"><p>Open the scene at the arrival point that matches the staircase the party took. Describe the temperature drop first and the roots second. The sarcophagi among them are the same craft as the ones above, which a party that read the floor 2 slate will notice.</p><p>Hand out any page a character finds. The party should now have a growing set of Adelina's notes, and the stage pages arrive here because this is where the real danger starts.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('2')">
+      <span class="beat-number">2</span>
+      <span class="beat-title">The Skulkers</span>
+      <span class="beat-toggle" id="beat-toggle-2">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-2"><p>The Skulkers are the first fight against the Rot. Let one strike from the roots as someone moves between sarcophagi. The fight is fast and the weight sits in the saves. Tell the player their Constitution save DC and the mechanical effect of a stack every time one lands, and narrate the first stage in the body's terms: weaker, aching, slower.</p><p>A party that has read Adelina's pages knows magical healing clears the Rot. A party that has not should feel a stack land and then learn why it matters from the pages they find on this floor.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('3')">
+      <span class="beat-number">3</span>
+      <span class="beat-title">The sarcophagi</span>
+      <span class="beat-toggle" id="beat-toggle-3">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-3"><p>The slate is the moment players who read floor 2 will feel on their own. Do not explain the change. A struck-through line and a shakier hand do the work.</p><p>The black leaves look identical to floor 2's jar in every way, including the seal. A Medicine check at DC 15 identifies them. A player who eats first becomes smaller for an hour, which is an awkward result in a dungeon about to get harder.</p><p>The treasure sits behind a trap the party has already learned. Let them think about how to get it out. Sleight of Hand at DC 14 is the careful way.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('4')">
+      <span class="beat-number">4</span>
+      <span class="beat-title">The Dregs door</span>
+      <span class="beat-toggle" id="beat-toggle-4">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-4"><p>The door is an invitation. Characters who open it find two Rot Dregs and nothing else. If they step in, each Dreg harms any creature that ends its turn in contact. A party that closes the door again loses nothing.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('5')">
+      <span class="beat-number">5</span>
+      <span class="beat-title">The keepers' cache</span>
+      <span class="beat-toggle" id="beat-toggle-5">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-5"><p>The bright room is a real find. It is lit by a single continual-flame sconce, and the chest holds practical gear. The empty ring in the dust on the shelf is the first sign that someone has been through before the party.</p><p>A party that reads Adelina's pages will understand what the cache is for: it is the keepers' kit for fighting the Rot, left behind on their last trip down.</p></div>
+  </div><div class="beat">
+    <div class="beat-header" onclick="toggleBeat('6')">
+      <span class="beat-number">6</span>
+      <span class="beat-title">Choosing the way down</span>
+      <span class="beat-toggle" id="beat-toggle-6">▼</span>
+    </div>
+    <div class="beat-body" id="beat-body-6"><p>Two staircases lead to floor 4. Ask which the party takes and open floor 4 at the matching arrival point. Neither route runs through the Skulkers' roots.</p></div>
+  </div>
+
+  <div class="section-heading">DM Notes</div>
+  <div class="dm-note"><strong>Skulker to Monstrosity.</strong>The party meets Dregs and Skulkers on this floor and then the Monstrosity on floor 4, with no Rot Beast in between. The boss will feel like a large step up. That is intended, and it makes the rest and attunement at the floor 4 altar matter.</div><div class="dm-note"><strong>Pages.</strong>Two pages go on this floor, the stage pages. The six marked spots are there to make the party keep searching. Once the party has both pages, the remaining spots stop existing. If they search again, tell them they have found everything. Hand the pages out in order whichever one they find.</div><div class="dm-note"><strong>The recut slate.</strong>Match the wording exactly to floor 2. The second line is the only change, and the contrast is the whole point.</div><div class="dm-note"><strong>Optional: taint the treasure.</strong>If you want the floor to match the loot principle fully, make the coins and gems tainted. Handling them barehanded means a Constitution save at DC 10 (+1 per stack), and salt or fire cleans them. This is your call and it is not locked.</div><div class="dm-note"><strong>Optional: the pruning knife.</strong>An alternative treasure is a silver pruning knife entered in the ledger as interred with a keeper. It is tainted in the same way and cleaned by salt or fire. The ledger then becomes a tool for reading the dungeon, not only evidence against Otho.</div><div class="dm-note"><strong>Rotted traps.</strong>The Rot-soaked spike numbers on this floor are carried over from the floor 4 version of the same trap. Confirm them against your annotated map.</div><div class="dm-note"><strong>The box can attune here.</strong>Floor 3 counts as a Zarethi source for the box, as does the base on floor 4. Someone carrying a Rotten stack can also attune it. The ring cannot attune here.</div><div class="dm-note"><strong>The ledger.</strong>The donation ledger table is still on hold until the dungeon is fully designed. If you add artefact entries later, this floor's treasure is the first one the ledger can point to.</div>
+
+  <footer>Abelon Campaign — Mission Reference. Everbloom Catacombs, Floor 3 / Everbloom Path / Act 1.</footer>
+</div>
+
+<script>
+  function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
+  function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
+  function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
+</script>
+</body>
+</html>

@@ -235,7 +235,7 @@
     {
       "id": "ref-economy",
       "file": "Abelon_MasterReference_Economy.html",
-      "title": "Economy \u2014 Master Reference",
+      "title": "Economy — Master Reference",
       "category": "reference",
       "order": 1
     },
@@ -256,7 +256,7 @@
     {
       "id": "ref-cheatsheet",
       "file": "DMCheatSheet_2024Rules.html",
-      "title": "DM Cheat Sheet \u2014 D&D 2024",
+      "title": "DM Cheat Sheet — D&D 2024",
       "category": "reference",
       "order": 4
     },
@@ -305,7 +305,7 @@
     {
       "id": "log-session1-intro",
       "file": "Session 1/Intro dialogue.txt",
-      "title": "Session 1 \u2014 Intro Dialogue",
+      "title": "Session 1 — Intro Dialogue",
       "category": "sessionlog",
       "order": 2,
       "nonHtml": true
@@ -317,7 +317,8 @@
       "missing": true,
       "missingNote": "No encounter write-up yet -- combat guide exists",
       "pair": "cg-northern-ambush",
-      "order": 1
+      "order": 1,
+      "file": ""
     },
     {
       "id": "act1-wolf-ambush",
@@ -326,7 +327,8 @@
       "missing": true,
       "missingNote": "No encounter write-up yet -- combat guide exists",
       "pair": "cg-wolf-ambush",
-      "order": 2
+      "order": 2,
+      "file": ""
     },
     {
       "id": "act1-bear-ambush",
@@ -334,7 +336,8 @@
       "category": "random",
       "missing": true,
       "missingNote": "No encounter write-up or combat guide yet",
-      "order": 3
+      "order": 3,
+      "file": ""
     },
     {
       "id": "act1-devrin-pursuit",
@@ -351,18 +354,26 @@
       "category": "combat",
       "order": 10,
       "pair": "act1-devrin-pursuit",
-      "note": "Ad-hoc \u2014 not part of the original plan"
+      "note": "Ad-hoc — not part of the original plan"
+    },
+    {
+      "id": "cg-rot-monstrosity",
+      "file": "CombatGuide_RotMonstrosity.html",
+      "title": "The Rot Monstrosity",
+      "category": "combat",
+      "order": 11,
+      "pair": "act1-catacombs-4"
     },
     {
       "id": "ref-rot",
       "file": "CombatGuide_TheRot.html",
-      "title": "The Rot \u2014 Combat Reference",
+      "title": "The Rot — Combat Reference",
       "category": "reference",
       "order": 5
     },
     {
       "id": "act1-otho-box",
-      "title": "Meeting Otho \u2014 The Box",
+      "title": "Meeting Otho — The Box",
       "category": "act1",
       "chapter": "tallowhaven",
       "path": "everbloom",
@@ -379,14 +390,45 @@
       "pathOrder": 2
     },
     {
-      "id": "act1-otho-dungeon",
-      "title": "The True Basement",
+      "id": "act1-catacombs-1",
+      "file": "Act1_Tallowhaven_Everbloom_Catacombs_Floor1_Door.html",
+      "title": "Floor 1: The Door and the First Chamber",
       "category": "act1",
       "chapter": "tallowhaven",
       "path": "everbloom",
-      "pathOrder": 3,
-      "missing": true,
-      "missingNote": "not yet designed -- the true basement beneath the shrine"
+      "subpath": "catacombs",
+      "pathOrder": 3
+    },
+    {
+      "id": "act1-catacombs-2",
+      "file": "Act1_Tallowhaven_Everbloom_Catacombs_Floor2.html",
+      "title": "Floor 2: The First Sarcophagi",
+      "category": "act1",
+      "chapter": "tallowhaven",
+      "path": "everbloom",
+      "subpath": "catacombs",
+      "pathOrder": 4
+    },
+    {
+      "id": "act1-catacombs-3",
+      "file": "Act1_Tallowhaven_Everbloom_Catacombs_Floor3.html",
+      "title": "Floor 3: The Corrupted Twins",
+      "category": "act1",
+      "chapter": "tallowhaven",
+      "path": "everbloom",
+      "subpath": "catacombs",
+      "pathOrder": 5
+    },
+    {
+      "id": "act1-catacombs-4",
+      "file": "Act1_Tallowhaven_Everbloom_Catacombs_Floor4_Boss.html",
+      "title": "Floor 4: The Lake and the Boss",
+      "category": "act1",
+      "chapter": "tallowhaven",
+      "path": "everbloom",
+      "subpath": "catacombs",
+      "pathOrder": 6,
+      "pair": "cg-rot-monstrosity"
     }
   ],
   "categories": [
@@ -430,18 +472,18 @@
     "status": "Danzel is about to join via Mira in Tallowhaven, and the Starling questline is beginning.",
     "inMotion": [
       {
-        "text": "Oskar's Warehouse quest \u2014 accepted, not yet executed",
+        "text": "Oskar's Warehouse quest — accepted, not yet executed",
         "link": "act1-honeywell"
       },
       {
-        "text": "Otho's Zarethi box and ring \u2014 party holds both; Otho missing with the Shrinekeepers' Diary"
+        "text": "Otho's Zarethi box and ring — party holds both; Otho missing with the Shrinekeepers' Diary"
       },
       {
-        "text": "Seva Sable relationship \u2014 deeply distrustful, rocky but reparable",
+        "text": "Seva Sable relationship — deeply distrustful, rocky but reparable",
         "link": "act1-street-seva"
       },
       {
-        "text": "Devrin/Tobin manhunt \u2014 open, unpursued"
+        "text": "Devrin/Tobin manhunt — open, unpursued"
       }
     ]
   },
@@ -456,5 +498,8 @@
     "brindle-hollow": "Brindle Hollow",
     "tallowhaven": "Tallowhaven",
     "conclusion": "Act 1 Conclusion"
+  },
+  "subpathLabels": {
+    "catacombs": "The Everbloom Catacombs"
   }
 }
