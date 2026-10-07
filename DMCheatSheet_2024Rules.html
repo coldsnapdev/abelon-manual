@@ -379,6 +379,45 @@
     </div>
   </div>
 
+  <!-- DAMAGE MODIFIERS -->
+  <div class="section">
+    <div class="section-head" onclick="toggleSection(this)">Resistance, Immunity, Vulnerability <span class="toggle">▼</span></div>
+    <div class="section-body">
+      <div class="card">
+        <span class="card-title">What each does</span>
+        <div class="card-body">
+          <p><span class="hl-teal">Resistance:</span> damage of that type is halved, rounded down.</p>
+          <p><span class="hl-teal">Immunity:</span> damage of that type is reduced to 0. Condition immunity means the creature cannot have that condition.</p>
+          <p><span class="hl-red">Vulnerability:</span> damage of that type is doubled.</p>
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-title">Order of application</span>
+        <div class="card-body">
+          <p><strong>1.</strong> Add bonuses, apply penalties, and apply multipliers (a critical hit's extra dice, a flat Rage bonus).</p>
+          <p><strong>2.</strong> Apply resistance (halve).</p>
+          <p><strong>3.</strong> Apply vulnerability (double).</p>
+          <p>Immunity means nothing is left to modify. Temporary Hit Points absorb the final number.</p>
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-title">Stacking</span>
+        <div class="card-body">
+          <p>Several sources of resistance to the same damage type count as one. The same goes for several sources of vulnerability.</p>
+          <p>A creature with both resistance and vulnerability to a type applies both, in the order above. A 10 damage hit becomes 5 and then 10.</p>
+          <p>Resistance to one type does not carry over to another, so a Rage or a Stoneskin has to name the type.</p>
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-title">Damage types</span>
+        <div class="card-body">
+          <p>Acid, Bludgeoning, Cold, Fire, Force, Lightning, Necrotic, Piercing, Poison, Psychic, Radiant, Slashing, Thunder.</p>
+          <p>Physical: Bludgeoning, Piercing, Slashing. Check the wording on the stat block, because some say nonmagical and some do not.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- ═══════════════════════════════════════════ COL 2 -->
