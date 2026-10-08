@@ -151,6 +151,21 @@
   section:not(.minor){scroll-margin-top:20px;}
   .local-note{font-size:12px;color:var(--ink-faded);font-style:italic;margin-top:10px;}
   .hero-updated{margin-top:6px;font-size:12px;letter-spacing:.04em;color:var(--ink-faded);font-style:italic}
+  .prep-panel{border:1px solid var(--rule);border-radius:9px;padding:16px 26px 18px;margin-bottom:2.2rem;background:var(--parchment-mid);}
+  .prep-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;gap:12px;}
+  .prep-label{font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
+  .prep-count{font-size:13px;color:var(--ink-faded);font-style:italic;}
+  #prep-list{list-style:none;margin:0 0 10px;padding:0;}
+  #prep-list li{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--rule-faint);font-size:16px;}
+  #prep-list li:last-child{border-bottom:none;}
+  #prep-list input[type=checkbox]{width:18px;height:18px;accent-color:var(--teal);flex:none;cursor:pointer;}
+  #prep-list .prep-title{flex:1;}
+  #prep-list li.done .prep-title{color:var(--ink-faded);text-decoration:line-through;}
+  #prep-list .prep-del{background:none;border:none;color:var(--ink-faded);font-size:18px;line-height:1;cursor:pointer;padding:2px 6px;}
+  #prep-list .prep-del:hover{color:var(--accent);}
+  .prep-empty{font-size:14px;color:var(--ink-faded);font-style:italic;padding:4px 0 8px;}
+  .prep-add{display:flex;gap:8px;}
+  .prep-add input{flex:1;min-width:0;font-family:'Crimson Pro',Georgia,serif;font-size:15px;background:var(--parchment);color:var(--ink);border:1px solid var(--rule);border-radius:5px;padding:7px 10px;}
 </style>
 </head>
 <body>
@@ -158,7 +173,7 @@
   <div class="hero">
     <h1>Abelon DM Site</h1>
     <div class="hero-sub">Encounters, combat guides, and reference for Abelon: The Weight of the World</div>
-    <div class="hero-updated" id="last-updated">Last updated: 7 October 2026</div>
+    <div class="hero-updated" id="last-updated">Last updated: 8 October 2026</div>
     <div class="hero-divider"><span class="hd-line"></span><span class="hd-mark">&#10086;</span><span class="hd-line rev"></span></div>
   </div>
   <div class="shortcuts" id="shortcuts"></div>
@@ -177,6 +192,19 @@
       <summary id="now-motion-summary">In motion</summary>
       <ul id="now-motion-list"></ul>
     </details>
+  </section>
+
+  <section class="prep-panel" id="prep-panel">
+    <div class="prep-head">
+      <span class="prep-label">Next steps to prepare</span>
+      <span class="prep-count" id="prep-count"></span>
+    </div>
+    <ul id="prep-list"></ul>
+    <form class="prep-add" id="prep-form" autocomplete="off">
+      <input type="text" id="prep-input" maxlength="120" placeholder="Add a step the party might take" aria-label="New step">
+      <button type="submit" class="pin">Add</button>
+    </form>
+    <p class="local-note">Saved to this browser only (localStorage), so it won't sync to your phone or another computer.</p>
   </section>
 
   <div id="current-editor">
@@ -607,6 +635,36 @@
   });
   renderActiveMissions();
   updateGroupVisibility();
+})();
+</script>
+<script>
+(function(){
+  var KEY='abelonPrepSteps', items=[];
+  try{ var raw=JSON.parse(localStorage.getItem(KEY)||'[]'); if(Array.isArray(raw)) items=raw.filter(function(x){return x&&typeof x.t==='string';}); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(items)); }catch(e){} }
+  var list=document.getElementById('prep-list'), count=document.getElementById('prep-count');
+  function render(){
+    list.innerHTML='';
+    if(!items.length){ var e=document.createElement('li'); e.className='prep-empty'; e.textContent='Nothing planned yet.'; e.style.display='block'; e.style.border='none'; list.appendChild(e); }
+    items.forEach(function(it,i){
+      var li=document.createElement('li'); if(it.d) li.className='done';
+      var cb=document.createElement('input'); cb.type='checkbox'; cb.checked=!!it.d; cb.setAttribute('aria-label','Prepared: '+it.t);
+      cb.addEventListener('change',function(){ it.d=cb.checked; save(); render(); });
+      var t=document.createElement('span'); t.className='prep-title'; t.textContent=it.t;
+      var x=document.createElement('button'); x.type='button'; x.className='prep-del'; x.textContent='\u00d7'; x.title='Remove'; x.setAttribute('aria-label','Remove '+it.t);
+      x.addEventListener('click',function(){ items.splice(i,1); save(); render(); });
+      li.appendChild(cb); li.appendChild(t); li.appendChild(x); list.appendChild(li);
+    });
+    var done=items.filter(function(i){return i.d;}).length;
+    count.textContent=items.length? done+' of '+items.length+' prepared' : '';
+  }
+  document.getElementById('prep-form').addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var inp=document.getElementById('prep-input'), v=inp.value.trim();
+    if(!v) return;
+    items.push({t:v,d:false}); inp.value=''; save(); render(); inp.focus();
+  });
+  render();
 })();
 </script>
 </body>
