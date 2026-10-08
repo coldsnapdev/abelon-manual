@@ -166,6 +166,11 @@
   .prep-empty{font-size:14px;color:var(--ink-faded);font-style:italic;padding:4px 0 8px;}
   .prep-add{display:flex;gap:8px;}
   .prep-add input{flex:1;min-width:0;font-family:'Crimson Pro',Georgia,serif;font-size:15px;background:var(--parchment);color:var(--ink);border:1px solid var(--rule);border-radius:5px;padding:7px 10px;}
+  #prep-list .prep-title{cursor:text;}
+  #prep-list .prep-btn{background:none;border:none;color:var(--ink-faded);font-size:16px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:4px;}
+  #prep-list .prep-btn:hover:not(:disabled){color:var(--accent);}
+  #prep-list .prep-btn:disabled{opacity:.25;cursor:default;}
+  #prep-list .prep-edit{flex:1;min-width:0;font-family:'Crimson Pro',Georgia,serif;font-size:16px;background:var(--parchment);color:var(--ink);border:1px solid var(--accent);border-radius:5px;padding:4px 8px;}
 </style>
 </head>
 <body>
@@ -639,7 +644,7 @@
 </script>
 <script>
 (function(){
-  var KEY='abelonPrepSteps', items=[];
+  var KEY='abelonPrepSteps', items=[], editing=-1;
   try{ var raw=JSON.parse(localStorage.getItem(KEY)||'[]'); if(Array.isArray(raw)) items=raw.filter(function(x){return x&&typeof x.t==='string';}); }catch(e){}
   function save(){ try{ localStorage.setItem(KEY,JSON.stringify(items)); }catch(e){} }
   var list=document.getElementById('prep-list'), count=document.getElementById('prep-count');
@@ -650,10 +655,29 @@
       var li=document.createElement('li'); if(it.d) li.className='done';
       var cb=document.createElement('input'); cb.type='checkbox'; cb.checked=!!it.d; cb.setAttribute('aria-label','Prepared: '+it.t);
       cb.addEventListener('change',function(){ it.d=cb.checked; save(); render(); });
-      var t=document.createElement('span'); t.className='prep-title'; t.textContent=it.t;
-      var x=document.createElement('button'); x.type='button'; x.className='prep-del'; x.textContent='\u00d7'; x.title='Remove'; x.setAttribute('aria-label','Remove '+it.t);
-      x.addEventListener('click',function(){ items.splice(i,1); save(); render(); });
-      li.appendChild(cb); li.appendChild(t); li.appendChild(x); list.appendChild(li);
+      li.appendChild(cb);
+      if(editing===i){
+        var ed=document.createElement('input'); ed.type='text'; ed.className='prep-edit'; ed.maxLength=120; ed.value=it.t; ed.setAttribute('aria-label','Edit step');
+        var commit=function(){ var v=ed.value.trim(); if(v) it.t=v; editing=-1; save(); render(); };
+        ed.addEventListener('keydown',function(ev){
+          if(ev.key==='Enter'){ ev.preventDefault(); ed.onblur=null; commit(); }
+          else if(ev.key==='Escape'){ ev.preventDefault(); ed.onblur=null; editing=-1; render(); }
+        });
+        ed.onblur=commit;
+        li.appendChild(ed);
+        list.appendChild(li);
+        setTimeout(function(){ ed.focus(); ed.select(); },0);
+        return;
+      }
+      var t=document.createElement('span'); t.className='prep-title'; t.textContent=it.t; t.title='Click to edit';
+      t.addEventListener('click',function(){ editing=i; render(); });
+      li.appendChild(t);
+      var mk=function(txt,label,fn,dis){ var b=document.createElement('button'); b.type='button'; b.className='prep-btn'; b.textContent=txt; b.title=label; b.setAttribute('aria-label',label+': '+it.t); b.disabled=!!dis; b.addEventListener('click',fn); li.appendChild(b); return b; };
+      mk('\u2191','Move up',function(){ items.splice(i-1,0,items.splice(i,1)[0]); save(); render(); },i===0);
+      mk('\u2193','Move down',function(){ items.splice(i+1,0,items.splice(i,1)[0]); save(); render(); },i===items.length-1);
+      mk('\u270e','Edit',function(){ editing=i; render(); });
+      var x=mk('\u00d7','Remove',function(){ items.splice(i,1); save(); render(); }); x.className='prep-btn prep-del';
+      list.appendChild(li);
     });
     var done=items.filter(function(i){return i.d;}).length;
     count.textContent=items.length? done+' of '+items.length+' prepared' : '';
