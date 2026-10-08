@@ -160,7 +160,8 @@
   #prep-list li:last-child{border-bottom:none;}
   #prep-list input[type=checkbox]{width:18px;height:18px;accent-color:var(--teal);flex:none;cursor:pointer;}
   #prep-list .prep-title{flex:1;}
-  #prep-list li.done .prep-title{color:var(--ink-faded);text-decoration:line-through;}
+  #prep-list .prep-title{color:var(--ink-faded);opacity:.6;transition:opacity .15s,color .15s;}
+  #prep-list li.done .prep-title{color:var(--ink);opacity:1;font-weight:600;}
   #prep-list .prep-del{background:none;border:none;color:var(--ink-faded);font-size:18px;line-height:1;cursor:pointer;padding:2px 6px;}
   #prep-list .prep-del:hover{color:var(--accent);}
   .prep-empty{font-size:14px;color:var(--ink-faded);font-style:italic;padding:4px 0 8px;}
