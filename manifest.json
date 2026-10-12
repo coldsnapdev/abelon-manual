@@ -436,6 +436,13 @@
       "title": "Tallowhaven Townsfolk",
       "category": "reference",
       "order": 6
+    },
+    {
+      "id": "adhoc-finding-marek",
+      "file": "AdHoc_FindingMarek.html",
+      "title": "Finding Marek",
+      "category": "adhoc",
+      "order": 2
     }
   ],
   "categories": [
