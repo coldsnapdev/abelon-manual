@@ -429,6 +429,13 @@
       "subpath": "catacombs",
       "pathOrder": 6,
       "pair": "cg-rot-monstrosity"
+    },
+    {
+      "id": "ref-townsfolk",
+      "file": "Abelon_TallowhavenTownsfolk.html",
+      "title": "Tallowhaven Townsfolk",
+      "category": "reference",
+      "order": 6
     }
   ],
   "categories": [
