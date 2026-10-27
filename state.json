@@ -1,8 +1,8 @@
 {
- "rev": 1793101427523,
+ "rev": 1793101516192,
  "data": {
   "abelonStatus:adhoc-finding-marek": "active",
-  "abelonCurrentState": "{\"scene\":\"act1-evening\",\"status\":\"The party have had mysterious invites from Seva and Alric for 7pm tonight\",\"inMotion\":[{\"text\":\"Aeronic Ring and Zarethi Box. Party holds box. Box hummed at Everbloom\",\"link\":\"act1-everbloom-shrine\"},{\"text\":\"Arjay was murdered at the Real Barricade. The party lost the trail and returned to Tallowhaven\",\"link\":\"act1-driftwood\"},{\"text\":\"The party has the ledger but doesn't know what to do with it yet\",\"link\":\"act1-catacombs-1\"}]}",
+  "abelonCurrentState": "{\"scene\":\"act1-evening\",\"combatGuide\":\"ref-rot\",\"status\":\"Mid-fight at the Aeronic wellspring: a Rot Skulker climbed out of the pit (round 1, resume after Danzel's turn). Then back to Tallowhaven for the 7pm invites from Seva and Alric.\",\"inMotion\":[{\"text\":\"Rot Skulker fight at the wellspring \\u2014 Jenok, Tenok and Wren still to act in round 1\",\"link\":\"log-last-recap\"},{\"text\":\"Wren attuned to the Zarethi box (unmakes what's shut inside) and has 1 Rot stack. Tenok's hour with the Aeronic ring: nothing\",\"link\":\"act1-everbloom-shrine\"},{\"text\":\"The party has the ledger; Costin thinks they haven't found it. Jenok wants into the catacombs after the 7pm meetings\",\"link\":\"act1-catacombs-1\"},{\"text\":\"Arjay was murdered at the Real Barricade. The party lost the trail and returned to Tallowhaven\",\"link\":\"act1-driftwood\"}]}",
   "abelonStatus:act1-coppervine": "complete",
   "abelonStatus:act1-devrin-pursuit": "failed",
   "abelonStatus:act1-star-raven": "complete",
