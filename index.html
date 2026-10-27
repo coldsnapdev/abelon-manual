@@ -339,7 +339,8 @@
     var cur = getCurrent();
     var main = document.getElementById('now-main');
     var bits = [];
-    if (cur.scene && ALL_PAGES[cur.scene]) bits.push('<span class="now-tag">Current scene</span> ' + pageLink(cur.scene));
+    if (cur.scene === 'downtime') bits.push('<span class="now-tag">Current scene</span> Downtime');
+    else if (cur.scene && ALL_PAGES[cur.scene]) bits.push('<span class="now-tag">Current scene</span> ' + pageLink(cur.scene));
     if (cur.combatGuide && ALL_PAGES[cur.combatGuide]) bits.push('<span class="now-tag">Combat guide</span> ' + pageLink(cur.combatGuide));
     main.innerHTML = bits.join(' &middot; ');
     document.getElementById('now-status').textContent = cur.status || '';
@@ -373,6 +374,9 @@
 
   function buildSceneOptions(select, selectedId){
     select.innerHTML = '';
+    var dt = document.createElement('option'); dt.value = 'downtime'; dt.textContent = 'Downtime (between written scenes)';
+    if (selectedId === 'downtime') dt.selected = true;
+    select.appendChild(dt);
     SELECTABLE_GROUPS.forEach(function(group){
       var label = group[0], ids = group[1];
       if (!ids.length) return;
