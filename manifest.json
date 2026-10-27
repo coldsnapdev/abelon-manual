@@ -1,519 +1,526 @@
 {
-  "pages": [
-    {
-      "id": "act1-road-ambush",
-      "file": "Act1_BrindleHollow_Road_Ambush.html",
-      "title": "Ambush on the Road",
-      "category": "act1",
-      "order": 1,
-      "pair": "cg-road-ambush",
-      "chapter": "brindle-hollow",
-      "chapterOrder": 3
-    },
-    {
-      "id": "act1-star-raven",
-      "file": "Act1_BrindleHollow_StarAndRaven_PartyMeeting.html",
-      "title": "The Star and Raven",
-      "category": "act1",
-      "order": 2,
-      "chapter": "brindle-hollow",
-      "chapterOrder": 1
-    },
-    {
-      "id": "act1-stillwater",
-      "file": "Act1_BrindleHollow_StillwaterShrine_MarekArrest.html",
-      "title": "The Stillwater Shrine",
-      "category": "act1",
-      "order": 3,
-      "chapter": "brindle-hollow",
-      "chapterOrder": 2
-    },
-    {
-      "id": "act1-aldermens",
-      "file": "Act1_Tallowhaven_AldermensHall_Arrival.html",
-      "title": "The Aldermen's Hall",
-      "category": "act1",
-      "order": 4,
-      "chapter": "tallowhaven",
-      "path": "generic",
-      "pathOrder": 1
-    },
-    {
-      "id": "act1-ambercup",
-      "file": "Act1_Tallowhaven_AmberCup_Arrival.html",
-      "title": "The Amber Cup",
-      "category": "act1",
-      "order": 5,
-      "chapter": "tallowhaven",
-      "path": "generic",
-      "pathOrder": 2
-    },
-    {
-      "id": "act1-coppervine",
-      "file": "Act1_Tallowhaven_Merchants_ShallowTuberAndCopperVine.html",
-      "title": "The Shallow Tuber & The Copper Vine",
-      "category": "act1",
-      "order": 9,
-      "chapter": "tallowhaven",
-      "path": "merchants",
-      "pathOrder": 1
-    },
-    {
-      "id": "act1-crost",
-      "file": "Act1_Tallowhaven_Courtesans_StreetAndCrostHousehold.html",
-      "title": "A Street in Tallowhaven & The Crost Household",
-      "category": "act1",
-      "order": 10,
-      "chapter": "tallowhaven",
-      "path": "courtesans",
-      "pathOrder": 1
-    },
-    {
-      "id": "act1-warehouses",
-      "file": "Act1_Tallowhaven_Trademasters_HoneywellAndWarehouse.html",
-      "title": "Honeywell Office & The Basement Warehouse",
-      "category": "act1",
-      "order": 11,
-      "pair": "cg-basement-warehouse",
-      "chapter": "tallowhaven",
-      "path": "trademasters",
-      "pathOrder": 1
-    },
-    {
-      "id": "act1-coopers-bardic",
-      "file": "Act1_Tallowhaven_CoopersSquare_BardicInterlude.html",
-      "title": "Cooper's Square (Bardic Interlude)",
-      "category": "act1",
-      "order": 12,
-      "chapter": "tallowhaven",
-      "path": "generic",
-      "pathOrder": 3
-    },
-    {
-      "id": "act1-starling",
-      "file": "Act1_Tallowhaven_TheStarling_CourtseanMission2.html",
-      "title": "The Starling",
-      "category": "act1",
-      "order": 13,
-      "pair": "cg-starling",
-      "chapter": "tallowhaven",
-      "path": "courtesans",
-      "pathOrder": 2
-    },
-    {
-      "id": "act1-trumpet",
-      "file": "Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html",
-      "title": "The Trumpet",
-      "category": "act1",
-      "order": 14,
-      "pair": "cg-trumpet",
-      "chapter": "tallowhaven",
-      "path": "trademasters",
-      "pathOrder": 2
-    },
-    {
-      "id": "act1-driftwood",
-      "file": "Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html",
-      "title": "The Driftwood Point Supply Problem",
-      "category": "act1",
-      "order": 15,
-      "pair": "cg-driftwood",
-      "chapter": "tallowhaven",
-      "path": "merchants",
-      "pathOrder": 3
-    },
-    {
-      "id": "act1-evening",
-      "file": "Act1_Tallowhaven_EveningInvitations_ThirdMissions.html",
-      "title": "The Evening Invitations",
-      "category": "act1",
-      "order": 16,
-      "chapter": "conclusion",
-      "chapterOrder": 1
-    },
-    {
-      "id": "act1-assassination",
-      "file": "Act1_Tallowhaven_AssassinationPaths.html",
-      "title": "The Assassination Paths",
-      "category": "act1",
-      "order": 17,
-      "pair": "cg-assassination",
-      "chapter": "conclusion",
-      "chapterOrder": 2
-    },
-    {
-      "id": "act1-arrest",
-      "file": "Act1_Tallowhaven_CoopersSquare_ArrestAndGaol.html",
-      "title": "The Arrest and The Gaol",
-      "category": "act1",
-      "order": 18,
-      "chapter": "conclusion",
-      "chapterOrder": 4
-    },
-    {
-      "id": "act1-finale",
-      "file": "Act1_Tallowhaven_FestivalMeeting_Finale.html",
-      "title": "The Festival Meeting",
-      "category": "act1",
-      "order": 19,
-      "pair": "cg-finale",
-      "chapter": "conclusion",
-      "chapterOrder": 3
-    },
-    {
-      "id": "cg-road-ambush",
-      "file": "CombatGuide_RoadAmbush.html",
-      "title": "Road Ambush",
-      "category": "combat",
-      "order": 1,
-      "pair": "act1-road-ambush"
-    },
-    {
-      "id": "cg-basement-warehouse",
-      "file": "CombatGuide_BasementWarehouse.html",
-      "title": "The Basement Warehouse",
-      "category": "combat",
-      "order": 2,
-      "pair": "act1-warehouses"
-    },
-    {
-      "id": "cg-starling",
-      "file": "CombatGuide_TheStarling.html",
-      "title": "The Starling",
-      "category": "combat",
-      "order": 3,
-      "pair": "act1-starling"
-    },
-    {
-      "id": "cg-trumpet",
-      "file": "CombatGuide_TheTrumpet.html",
-      "title": "The Trumpet",
-      "category": "combat",
-      "order": 4,
-      "pair": "act1-trumpet"
-    },
-    {
-      "id": "cg-driftwood",
-      "file": "CombatGuide_DriftwoodRoad.html",
-      "title": "The Driftwood Road",
-      "category": "combat",
-      "order": 5,
-      "pair": "act1-driftwood"
-    },
-    {
-      "id": "cg-assassination",
-      "file": "CombatGuide_AssassinationPaths.html",
-      "title": "Assassination Paths",
-      "category": "combat",
-      "order": 6,
-      "pair": "act1-assassination"
-    },
-    {
-      "id": "cg-finale",
-      "file": "CombatGuide_FestivalFinale.html",
-      "title": "The Festival Finale",
-      "category": "combat",
-      "order": 7,
-      "pair": "act1-finale"
-    },
-    {
-      "id": "cg-northern-ambush",
-      "file": "CombatGuide_NorthernAmbush.html",
-      "title": "Northern Ambush (session log)",
-      "category": "combat",
-      "order": 8,
-      "note": "Played, not part of the original plan"
-    },
-    {
-      "id": "cg-wolf-ambush",
-      "file": "CombatGuide_WolfAmbush.html",
-      "title": "Wolf Ambush (session log)",
-      "category": "combat",
-      "order": 9,
-      "note": "Played, not part of the original plan"
-    },
-    {
-      "id": "ref-economy",
-      "file": "Abelon_MasterReference_Economy.html",
-      "title": "Economy — Master Reference",
-      "category": "reference",
-      "order": 1
-    },
-    {
-      "id": "ref-random",
-      "file": "Abelon_RandomEncounters.html",
-      "title": "Random Encounters",
-      "category": "reference",
-      "order": 2
-    },
-    {
-      "id": "ref-gods",
-      "file": "PlayerHandout_Gods.html",
-      "title": "The Gods of Abelon (player handout)",
-      "category": "reference",
-      "order": 3
-    },
-    {
-      "id": "ref-cheatsheet",
-      "file": "DMCheatSheet_2024Rules.html",
-      "title": "DM Cheat Sheet — D&D 2024",
-      "category": "reference",
-      "order": 4
-    },
-    {
-      "id": "tool-wayfinder",
-      "file": "wayfinder.html",
-      "title": "The Wayfinder",
-      "category": "tools",
-      "order": 1
-    },
-    {
-      "id": "tool-region-editor",
-      "file": "region_editor.html",
-      "title": "Terrain Region Editor",
-      "category": "tools",
-      "order": 2
-    },
-    {
-      "id": "tool-coord-picker",
-      "file": "map_coordinate_picker.html",
-      "title": "Map Coordinate Picker",
-      "category": "tools",
-      "order": 3
-    },
-    {
-      "id": "tool-dicecloud-setup",
-      "file": "abelon-dicecloud-setup.html",
-      "title": "DiceCloud Setup Guide",
-      "category": "tools",
-      "order": 4
-    },
-    {
-      "id": "session-zero",
-      "file": "SessionZero_TheTable.html",
-      "title": "The Table",
-      "category": "sessionzero",
-      "order": 1
-    },
-    {
-      "id": "log-vaelseer",
-      "file": "Vaelseer_Encounter.html",
-      "title": "Vaelseer NPC Reference",
-      "category": "sessionlog",
-      "order": 1
-    },
-    {
-      "id": "log-session1-intro",
-      "file": "Session 1/Intro dialogue.txt",
-      "title": "Session 1 — Intro Dialogue",
-      "category": "sessionlog",
-      "order": 2,
-      "nonHtml": true
-    },
-    {
-      "id": "act1-northern-ambush",
-      "title": "Northern Ambush",
-      "category": "random",
-      "missing": true,
-      "missingNote": "No encounter write-up yet -- combat guide exists",
-      "pair": "cg-northern-ambush",
-      "order": 1,
-      "file": ""
-    },
-    {
-      "id": "act1-wolf-ambush",
-      "title": "Wolf Ambush",
-      "category": "random",
-      "missing": true,
-      "missingNote": "No encounter write-up yet -- combat guide exists",
-      "pair": "cg-wolf-ambush",
-      "order": 2,
-      "file": ""
-    },
-    {
-      "id": "act1-bear-ambush",
-      "title": "Bear Ambush",
-      "category": "random",
-      "missing": true,
-      "missingNote": "No encounter write-up or combat guide yet",
-      "order": 3,
-      "file": ""
-    },
-    {
-      "id": "act1-devrin-pursuit",
-      "file": "AdHoc_DevrinPursuit.html",
-      "title": "The Devrin Pursuit",
-      "category": "adhoc",
-      "order": 1,
-      "pair": "cg-devrin-pursuit"
-    },
-    {
-      "id": "cg-devrin-pursuit",
-      "file": "CombatGuide_DevrinPursuit.html",
-      "title": "The Devrin Pursuit",
-      "category": "combat",
-      "order": 10,
-      "pair": "act1-devrin-pursuit",
-      "note": "Ad-hoc — not part of the original plan"
-    },
-    {
-      "id": "cg-rot-monstrosity",
-      "file": "CombatGuide_RotMonstrosity.html",
-      "title": "The Rot Monstrosity",
-      "category": "combat",
-      "order": 11,
-      "pair": "act1-catacombs-4"
-    },
-    {
-      "id": "ref-rot",
-      "file": "CombatGuide_TheRot.html",
-      "title": "The Rot — Combat Reference",
-      "category": "reference",
-      "order": 5
-    },
-    {
-      "id": "act1-otho-box",
-      "title": "Meeting Otho — The Box",
-      "category": "act1",
-      "chapter": "tallowhaven",
-      "path": "everbloom",
-      "pathOrder": 1,
-      "file": "Act1_Tallowhaven_Everbloom_OthoBox.html"
-    },
-    {
-      "id": "act1-everbloom-shrine",
-      "file": "Act1_Tallowhaven_Everbloom_Shrine.html",
-      "title": "The Everbloom Shrine",
-      "category": "act1",
-      "chapter": "tallowhaven",
-      "path": "everbloom",
-      "pathOrder": 2
-    },
-    {
-      "id": "act1-catacombs-1",
-      "file": "Act1_Tallowhaven_Everbloom_Catacombs_Floor1_Door.html",
-      "title": "Floor 1: The Door and the First Chamber",
-      "category": "act1",
-      "chapter": "tallowhaven",
-      "path": "everbloom",
-      "subpath": "catacombs",
-      "pathOrder": 3
-    },
-    {
-      "id": "act1-catacombs-2",
-      "file": "Act1_Tallowhaven_Everbloom_Catacombs_Floor2.html",
-      "title": "Floor 2: The First Sarcophagi",
-      "category": "act1",
-      "chapter": "tallowhaven",
-      "path": "everbloom",
-      "subpath": "catacombs",
-      "pathOrder": 4
-    },
-    {
-      "id": "act1-catacombs-3",
-      "file": "Act1_Tallowhaven_Everbloom_Catacombs_Floor3.html",
-      "title": "Floor 3: The Corrupted Twins",
-      "category": "act1",
-      "chapter": "tallowhaven",
-      "path": "everbloom",
-      "subpath": "catacombs",
-      "pathOrder": 5
-    },
-    {
-      "id": "act1-catacombs-4",
-      "file": "Act1_Tallowhaven_Everbloom_Catacombs_Floor4_Boss.html",
-      "title": "Floor 4: The Lake and the Boss",
-      "category": "act1",
-      "chapter": "tallowhaven",
-      "path": "everbloom",
-      "subpath": "catacombs",
-      "pathOrder": 6,
-      "pair": "cg-rot-monstrosity"
-    },
-    {
-      "id": "ref-townsfolk",
-      "file": "Abelon_TallowhavenTownsfolk.html",
-      "title": "Tallowhaven Townsfolk",
-      "category": "reference",
-      "order": 6
-    },
-    {
-      "id": "adhoc-finding-marek",
-      "file": "AdHoc_FindingMarek.html",
-      "title": "Finding Marek",
-      "category": "adhoc",
-      "order": 2
-    }
-  ],
-  "categories": [
-    {
-      "id": "act1",
-      "label": "Act 1 Encounters",
-      "paymentTracking": true
-    },
-    {
-      "id": "combat",
-      "label": "Combat Guides"
-    },
-    {
-      "id": "random",
-      "label": "Random Encounters"
-    },
-    {
-      "id": "adhoc",
-      "label": "Ad-Hoc Encounters"
-    },
-    {
-      "id": "reference",
-      "label": "Reference"
-    },
-    {
-      "id": "tools",
-      "label": "Tools"
-    },
-    {
-      "id": "sessionzero",
-      "label": "Session Zero"
-    },
-    {
-      "id": "sessionlog",
-      "label": "Session Log"
-    }
-  ],
-  "current": {
-    "scene": "act1-starling",
-    "combatGuide": "cg-starling",
-    "status": "Danzel is about to join via Mira in Tallowhaven, and the Starling questline is beginning.",
-    "inMotion": [
-      {
-        "text": "Oskar's Warehouse quest — accepted, not yet executed",
-        "link": "act1-honeywell"
-      },
-      {
-        "text": "Otho's Zarethi box and ring — party holds both; Otho missing with the Shrinekeepers' Diary"
-      },
-      {
-        "text": "Seva Sable relationship — deeply distrustful, rocky but reparable",
-        "link": "act1-street-seva"
-      },
-      {
-        "text": "Devrin/Tobin manhunt — open, unpursued"
-      }
-    ]
+ "pages": [
+  {
+   "id": "log-last-recap",
+   "file": "SessionRecap_Last.html",
+   "title": "Last Session Recap",
+   "category": "sessionlog",
+   "order": 0
   },
-  "pathLabels": {
-    "generic": "Generic",
-    "merchants": "Merchants Path",
-    "trademasters": "Trademasters Path",
-    "courtesans": "Courtesans Path",
-    "everbloom": "Everbloom Path"
+  {
+   "id": "act1-road-ambush",
+   "file": "Act1_BrindleHollow_Road_Ambush.html",
+   "title": "Ambush on the Road",
+   "category": "act1",
+   "order": 1,
+   "pair": "cg-road-ambush",
+   "chapter": "brindle-hollow",
+   "chapterOrder": 3
   },
-  "chapterLabels": {
-    "brindle-hollow": "Brindle Hollow",
-    "tallowhaven": "Tallowhaven",
-    "conclusion": "Act 1 Conclusion"
+  {
+   "id": "act1-star-raven",
+   "file": "Act1_BrindleHollow_StarAndRaven_PartyMeeting.html",
+   "title": "The Star and Raven",
+   "category": "act1",
+   "order": 2,
+   "chapter": "brindle-hollow",
+   "chapterOrder": 1
   },
-  "subpathLabels": {
-    "catacombs": "The Everbloom Catacombs"
+  {
+   "id": "act1-stillwater",
+   "file": "Act1_BrindleHollow_StillwaterShrine_MarekArrest.html",
+   "title": "The Stillwater Shrine",
+   "category": "act1",
+   "order": 3,
+   "chapter": "brindle-hollow",
+   "chapterOrder": 2
+  },
+  {
+   "id": "act1-aldermens",
+   "file": "Act1_Tallowhaven_AldermensHall_Arrival.html",
+   "title": "The Aldermen's Hall",
+   "category": "act1",
+   "order": 4,
+   "chapter": "tallowhaven",
+   "path": "generic",
+   "pathOrder": 1
+  },
+  {
+   "id": "act1-ambercup",
+   "file": "Act1_Tallowhaven_AmberCup_Arrival.html",
+   "title": "The Amber Cup",
+   "category": "act1",
+   "order": 5,
+   "chapter": "tallowhaven",
+   "path": "generic",
+   "pathOrder": 2
+  },
+  {
+   "id": "act1-coppervine",
+   "file": "Act1_Tallowhaven_Merchants_ShallowTuberAndCopperVine.html",
+   "title": "The Shallow Tuber & The Copper Vine",
+   "category": "act1",
+   "order": 9,
+   "chapter": "tallowhaven",
+   "path": "merchants",
+   "pathOrder": 1
+  },
+  {
+   "id": "act1-crost",
+   "file": "Act1_Tallowhaven_Courtesans_StreetAndCrostHousehold.html",
+   "title": "A Street in Tallowhaven & The Crost Household",
+   "category": "act1",
+   "order": 10,
+   "chapter": "tallowhaven",
+   "path": "courtesans",
+   "pathOrder": 1
+  },
+  {
+   "id": "act1-warehouses",
+   "file": "Act1_Tallowhaven_Trademasters_HoneywellAndWarehouse.html",
+   "title": "Honeywell Office & The Basement Warehouse",
+   "category": "act1",
+   "order": 11,
+   "pair": "cg-basement-warehouse",
+   "chapter": "tallowhaven",
+   "path": "trademasters",
+   "pathOrder": 1
+  },
+  {
+   "id": "act1-coopers-bardic",
+   "file": "Act1_Tallowhaven_CoopersSquare_BardicInterlude.html",
+   "title": "Cooper's Square (Bardic Interlude)",
+   "category": "act1",
+   "order": 12,
+   "chapter": "tallowhaven",
+   "path": "generic",
+   "pathOrder": 3
+  },
+  {
+   "id": "act1-starling",
+   "file": "Act1_Tallowhaven_TheStarling_CourtseanMission2.html",
+   "title": "The Starling",
+   "category": "act1",
+   "order": 13,
+   "pair": "cg-starling",
+   "chapter": "tallowhaven",
+   "path": "courtesans",
+   "pathOrder": 2
+  },
+  {
+   "id": "act1-trumpet",
+   "file": "Act1_Tallowhaven_TheTrumpet_TrademasterMission2.html",
+   "title": "The Trumpet",
+   "category": "act1",
+   "order": 14,
+   "pair": "cg-trumpet",
+   "chapter": "tallowhaven",
+   "path": "trademasters",
+   "pathOrder": 2
+  },
+  {
+   "id": "act1-driftwood",
+   "file": "Act1_Tallowhaven_DriftwoodRoad_MerchantMission2.html",
+   "title": "The Driftwood Point Supply Problem",
+   "category": "act1",
+   "order": 15,
+   "pair": "cg-driftwood",
+   "chapter": "tallowhaven",
+   "path": "merchants",
+   "pathOrder": 3
+  },
+  {
+   "id": "act1-evening",
+   "file": "Act1_Tallowhaven_EveningInvitations_ThirdMissions.html",
+   "title": "The Evening Invitations",
+   "category": "act1",
+   "order": 16,
+   "chapter": "conclusion",
+   "chapterOrder": 1
+  },
+  {
+   "id": "act1-assassination",
+   "file": "Act1_Tallowhaven_AssassinationPaths.html",
+   "title": "The Assassination Paths",
+   "category": "act1",
+   "order": 17,
+   "pair": "cg-assassination",
+   "chapter": "conclusion",
+   "chapterOrder": 2
+  },
+  {
+   "id": "act1-arrest",
+   "file": "Act1_Tallowhaven_CoopersSquare_ArrestAndGaol.html",
+   "title": "The Arrest and The Gaol",
+   "category": "act1",
+   "order": 18,
+   "chapter": "conclusion",
+   "chapterOrder": 4
+  },
+  {
+   "id": "act1-finale",
+   "file": "Act1_Tallowhaven_FestivalMeeting_Finale.html",
+   "title": "The Festival Meeting",
+   "category": "act1",
+   "order": 19,
+   "pair": "cg-finale",
+   "chapter": "conclusion",
+   "chapterOrder": 3
+  },
+  {
+   "id": "cg-road-ambush",
+   "file": "CombatGuide_RoadAmbush.html",
+   "title": "Road Ambush",
+   "category": "combat",
+   "order": 1,
+   "pair": "act1-road-ambush"
+  },
+  {
+   "id": "cg-basement-warehouse",
+   "file": "CombatGuide_BasementWarehouse.html",
+   "title": "The Basement Warehouse",
+   "category": "combat",
+   "order": 2,
+   "pair": "act1-warehouses"
+  },
+  {
+   "id": "cg-starling",
+   "file": "CombatGuide_TheStarling.html",
+   "title": "The Starling",
+   "category": "combat",
+   "order": 3,
+   "pair": "act1-starling"
+  },
+  {
+   "id": "cg-trumpet",
+   "file": "CombatGuide_TheTrumpet.html",
+   "title": "The Trumpet",
+   "category": "combat",
+   "order": 4,
+   "pair": "act1-trumpet"
+  },
+  {
+   "id": "cg-driftwood",
+   "file": "CombatGuide_DriftwoodRoad.html",
+   "title": "The Driftwood Road",
+   "category": "combat",
+   "order": 5,
+   "pair": "act1-driftwood"
+  },
+  {
+   "id": "cg-assassination",
+   "file": "CombatGuide_AssassinationPaths.html",
+   "title": "Assassination Paths",
+   "category": "combat",
+   "order": 6,
+   "pair": "act1-assassination"
+  },
+  {
+   "id": "cg-finale",
+   "file": "CombatGuide_FestivalFinale.html",
+   "title": "The Festival Finale",
+   "category": "combat",
+   "order": 7,
+   "pair": "act1-finale"
+  },
+  {
+   "id": "cg-northern-ambush",
+   "file": "CombatGuide_NorthernAmbush.html",
+   "title": "Northern Ambush (session log)",
+   "category": "combat",
+   "order": 8,
+   "note": "Played, not part of the original plan"
+  },
+  {
+   "id": "cg-wolf-ambush",
+   "file": "CombatGuide_WolfAmbush.html",
+   "title": "Wolf Ambush (session log)",
+   "category": "combat",
+   "order": 9,
+   "note": "Played, not part of the original plan"
+  },
+  {
+   "id": "ref-economy",
+   "file": "Abelon_MasterReference_Economy.html",
+   "title": "Economy — Master Reference",
+   "category": "reference",
+   "order": 1
+  },
+  {
+   "id": "ref-random",
+   "file": "Abelon_RandomEncounters.html",
+   "title": "Random Encounters",
+   "category": "reference",
+   "order": 2
+  },
+  {
+   "id": "ref-gods",
+   "file": "PlayerHandout_Gods.html",
+   "title": "The Gods of Abelon (player handout)",
+   "category": "reference",
+   "order": 3
+  },
+  {
+   "id": "ref-cheatsheet",
+   "file": "DMCheatSheet_2024Rules.html",
+   "title": "DM Cheat Sheet — D&D 2024",
+   "category": "reference",
+   "order": 4
+  },
+  {
+   "id": "tool-wayfinder",
+   "file": "wayfinder.html",
+   "title": "The Wayfinder",
+   "category": "tools",
+   "order": 1
+  },
+  {
+   "id": "tool-region-editor",
+   "file": "region_editor.html",
+   "title": "Terrain Region Editor",
+   "category": "tools",
+   "order": 2
+  },
+  {
+   "id": "tool-coord-picker",
+   "file": "map_coordinate_picker.html",
+   "title": "Map Coordinate Picker",
+   "category": "tools",
+   "order": 3
+  },
+  {
+   "id": "tool-dicecloud-setup",
+   "file": "abelon-dicecloud-setup.html",
+   "title": "DiceCloud Setup Guide",
+   "category": "tools",
+   "order": 4
+  },
+  {
+   "id": "session-zero",
+   "file": "SessionZero_TheTable.html",
+   "title": "The Table",
+   "category": "sessionzero",
+   "order": 1
+  },
+  {
+   "id": "log-vaelseer",
+   "file": "Vaelseer_Encounter.html",
+   "title": "Vaelseer NPC Reference",
+   "category": "sessionlog",
+   "order": 1
+  },
+  {
+   "id": "log-session1-intro",
+   "file": "Session 1/Intro dialogue.txt",
+   "title": "Session 1 — Intro Dialogue",
+   "category": "sessionlog",
+   "order": 2,
+   "nonHtml": true
+  },
+  {
+   "id": "act1-northern-ambush",
+   "title": "Northern Ambush",
+   "category": "random",
+   "missing": true,
+   "missingNote": "No encounter write-up yet -- combat guide exists",
+   "pair": "cg-northern-ambush",
+   "order": 1,
+   "file": ""
+  },
+  {
+   "id": "act1-wolf-ambush",
+   "title": "Wolf Ambush",
+   "category": "random",
+   "missing": true,
+   "missingNote": "No encounter write-up yet -- combat guide exists",
+   "pair": "cg-wolf-ambush",
+   "order": 2,
+   "file": ""
+  },
+  {
+   "id": "act1-bear-ambush",
+   "title": "Bear Ambush",
+   "category": "random",
+   "missing": true,
+   "missingNote": "No encounter write-up or combat guide yet",
+   "order": 3,
+   "file": ""
+  },
+  {
+   "id": "act1-devrin-pursuit",
+   "file": "AdHoc_DevrinPursuit.html",
+   "title": "The Devrin Pursuit",
+   "category": "adhoc",
+   "order": 1,
+   "pair": "cg-devrin-pursuit"
+  },
+  {
+   "id": "cg-devrin-pursuit",
+   "file": "CombatGuide_DevrinPursuit.html",
+   "title": "The Devrin Pursuit",
+   "category": "combat",
+   "order": 10,
+   "pair": "act1-devrin-pursuit",
+   "note": "Ad-hoc — not part of the original plan"
+  },
+  {
+   "id": "cg-rot-monstrosity",
+   "file": "CombatGuide_RotMonstrosity.html",
+   "title": "The Rot Monstrosity",
+   "category": "combat",
+   "order": 11,
+   "pair": "act1-catacombs-4"
+  },
+  {
+   "id": "ref-rot",
+   "file": "CombatGuide_TheRot.html",
+   "title": "The Rot — Combat Reference",
+   "category": "reference",
+   "order": 5
+  },
+  {
+   "id": "act1-otho-box",
+   "title": "Meeting Otho — The Box",
+   "category": "act1",
+   "chapter": "tallowhaven",
+   "path": "everbloom",
+   "pathOrder": 1,
+   "file": "Act1_Tallowhaven_Everbloom_OthoBox.html"
+  },
+  {
+   "id": "act1-everbloom-shrine",
+   "file": "Act1_Tallowhaven_Everbloom_Shrine.html",
+   "title": "The Everbloom Shrine",
+   "category": "act1",
+   "chapter": "tallowhaven",
+   "path": "everbloom",
+   "pathOrder": 2
+  },
+  {
+   "id": "act1-catacombs-1",
+   "file": "Act1_Tallowhaven_Everbloom_Catacombs_Floor1_Door.html",
+   "title": "Floor 1: The Door and the First Chamber",
+   "category": "act1",
+   "chapter": "tallowhaven",
+   "path": "everbloom",
+   "subpath": "catacombs",
+   "pathOrder": 3
+  },
+  {
+   "id": "act1-catacombs-2",
+   "file": "Act1_Tallowhaven_Everbloom_Catacombs_Floor2.html",
+   "title": "Floor 2: The First Sarcophagi",
+   "category": "act1",
+   "chapter": "tallowhaven",
+   "path": "everbloom",
+   "subpath": "catacombs",
+   "pathOrder": 4
+  },
+  {
+   "id": "act1-catacombs-3",
+   "file": "Act1_Tallowhaven_Everbloom_Catacombs_Floor3.html",
+   "title": "Floor 3: The Corrupted Twins",
+   "category": "act1",
+   "chapter": "tallowhaven",
+   "path": "everbloom",
+   "subpath": "catacombs",
+   "pathOrder": 5
+  },
+  {
+   "id": "act1-catacombs-4",
+   "file": "Act1_Tallowhaven_Everbloom_Catacombs_Floor4_Boss.html",
+   "title": "Floor 4: The Lake and the Boss",
+   "category": "act1",
+   "chapter": "tallowhaven",
+   "path": "everbloom",
+   "subpath": "catacombs",
+   "pathOrder": 6,
+   "pair": "cg-rot-monstrosity"
+  },
+  {
+   "id": "ref-townsfolk",
+   "file": "Abelon_TallowhavenTownsfolk.html",
+   "title": "Tallowhaven Townsfolk",
+   "category": "reference",
+   "order": 6
+  },
+  {
+   "id": "adhoc-finding-marek",
+   "file": "AdHoc_FindingMarek.html",
+   "title": "Finding Marek",
+   "category": "adhoc",
+   "order": 2
   }
+ ],
+ "categories": [
+  {
+   "id": "act1",
+   "label": "Act 1 Encounters",
+   "paymentTracking": true
+  },
+  {
+   "id": "combat",
+   "label": "Combat Guides"
+  },
+  {
+   "id": "random",
+   "label": "Random Encounters"
+  },
+  {
+   "id": "adhoc",
+   "label": "Ad-Hoc Encounters"
+  },
+  {
+   "id": "reference",
+   "label": "Reference"
+  },
+  {
+   "id": "tools",
+   "label": "Tools"
+  },
+  {
+   "id": "sessionzero",
+   "label": "Session Zero"
+  },
+  {
+   "id": "sessionlog",
+   "label": "Session Log"
+  }
+ ],
+ "current": {
+  "scene": "act1-starling",
+  "combatGuide": "cg-starling",
+  "status": "Danzel is about to join via Mira in Tallowhaven, and the Starling questline is beginning.",
+  "inMotion": [
+   {
+    "text": "Oskar's Warehouse quest — accepted, not yet executed",
+    "link": "act1-honeywell"
+   },
+   {
+    "text": "Otho's Zarethi box and ring — party holds both; Otho missing with the Shrinekeepers' Diary"
+   },
+   {
+    "text": "Seva Sable relationship — deeply distrustful, rocky but reparable",
+    "link": "act1-street-seva"
+   },
+   {
+    "text": "Devrin/Tobin manhunt — open, unpursued"
+   }
+  ]
+ },
+ "pathLabels": {
+  "generic": "Generic",
+  "merchants": "Merchants Path",
+  "trademasters": "Trademasters Path",
+  "courtesans": "Courtesans Path",
+  "everbloom": "Everbloom Path"
+ },
+ "chapterLabels": {
+  "brindle-hollow": "Brindle Hollow",
+  "tallowhaven": "Tallowhaven",
+  "conclusion": "Act 1 Conclusion"
+ },
+ "subpathLabels": {
+  "catacombs": "The Everbloom Catacombs"
+ }
 }
