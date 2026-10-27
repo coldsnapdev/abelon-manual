@@ -1,0 +1,29 @@
+{
+ "rev": 1793101427523,
+ "data": {
+  "abelonStatus:adhoc-finding-marek": "active",
+  "abelonCurrentState": "{\"scene\":\"act1-evening\",\"status\":\"The party have had mysterious invites from Seva and Alric for 7pm tonight\",\"inMotion\":[{\"text\":\"Aeronic Ring and Zarethi Box. Party holds box. Box hummed at Everbloom\",\"link\":\"act1-everbloom-shrine\"},{\"text\":\"Arjay was murdered at the Real Barricade. The party lost the trail and returned to Tallowhaven\",\"link\":\"act1-driftwood\"},{\"text\":\"The party has the ledger but doesn't know what to do with it yet\",\"link\":\"act1-catacombs-1\"}]}",
+  "abelonStatus:act1-coppervine": "complete",
+  "abelonStatus:act1-devrin-pursuit": "failed",
+  "abelonStatus:act1-star-raven": "complete",
+  "abelonStatus:act1-evening": "active",
+  "abelonStatus:act1-bear-ambush": "skipped",
+  "abelonStatus:act1-otho-box": "complete",
+  "abelonPrepSteps": "[{\"t\":\"Get Invited to the Assassination Offer\",\"s\":[2,2,2,3]},{\"t\":\"Noticing and talking to Bram\",\"s\":[3,2,2,3]},{\"t\":\"Looking for Marek\",\"s\":[3,2,2,3]},{\"t\":\"Opening the Box\",\"s\":[2,2,2,2]},{\"t\":\"Activating the Ring\",\"s\":[2,3,3,2]},{\"t\":\"Opening the Door\",\"s\":[2,3,2,2]},{\"t\":\"Assassinating Seva\",\"s\":[2,2,2,2]},{\"t\":\"Assassinating Alric\",\"s\":[2,2,2,2]}]",
+  "abelonStatus:act1-aldermens": "complete",
+  "abelonStatus:act1-trumpet": "skipped",
+  "abelonStatus:act1-stillwater": "declined",
+  "abelonStatus:act1-coopers-bardic": "complete",
+  "abelonStatus:act1-crost": "complete",
+  "abelonStatus:act1-road-ambush": "complete",
+  "abelonStatus:act1-northern-ambush": "complete",
+  "abelonPaymentAdhoc": "[]",
+  "abelonStatus:act1-driftwood": "complete",
+  "abelonStatus:act1-ambercup": "complete",
+  "abelonStatus:act1-starling": "complete",
+  "abelonStatus:act1-warehouses": "declined",
+  "abelonStatus:act1-wolf-ambush": "complete",
+  "abelonStatus:act1-catacombs-1": "active",
+  "abelonStatus:act1-everbloom-shrine": "active"
+ }
+}
