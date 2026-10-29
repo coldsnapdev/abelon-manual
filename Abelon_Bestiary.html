@@ -213,7 +213,7 @@
     document.getElementById('count').textContent=shown.length+' of '+all.length;
     var list=document.getElementById('list'); list.innerHTML='';
     shown.forEach(function(e){
-      var f=e.forge, d=document.createElement('details'); d.className='entry';
+      var f=e.forge, d=document.createElement('details'); d.className='entry'; d.id=e.id; if(location.hash==='#'+e.id) d.open=true;
       var ab=['Str','Dex','Con','Int','Wis','Cha'].map(function(a,i){var v=f[P+'Z0'+(17+i)];return a+' '+v+' ('+mod(v)+')';}).join(' · ');
       d.innerHTML='<summary><span class="nm">'+esc(e.name)+'</span><span class="st">CR '+crText(e.cr)+' · AC '+esc(f[P+'Z007'])+' · HP '+esc(f[P+'Z005'])+' · Speed '+esc(f[P+'Z008'])+' ft</span></summary>'+
         '<div class="body"><div class="abil">'+ab+'</div>'+
@@ -227,7 +227,7 @@
       list.appendChild(d);
     });
   }
-  fetch('bestiary.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){all=j.entries;render();})
+  fetch('bestiary.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){all=j.entries;render();var t=location.hash&&document.getElementById(decodeURIComponent(location.hash.slice(1)));if(t)t.scrollIntoView();})
     .catch(function(e){document.getElementById('list').innerHTML='<p class="lead">Couldn\'t load bestiary.json: '+esc(e.message)+'</p>';});
   document.getElementById('search').addEventListener('input',render);
 })();

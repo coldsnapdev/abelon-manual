@@ -249,33 +249,18 @@
 <div class="grid">
 
   <!-- DEVRIN -->
-  <div class="card hostile">
+  <div class="card hostile" data-entry="devrin-kass">
     <div class="card-header">
       <span class="card-name">Devrin Kass</span>
-      <span class="cr-badge">CR 5</span>
-      <button class="copy-btn" onclick="copyJSON('devrin', this)">Copy Forge JSON</button>
+      <span class="cr-badge"></span>
+      <button class="copy-btn" onclick="copyForge(this)">Copy Forge JSON</button>
     </div>
     <div class="card-body">
       <div class="card-tag">Halloway Ops lead — secretly Broken Wing, revealed as a real spellcaster</div>
-      <div class="quick-stats">
-        <div class="qs"><span>AC</span>15</div>
-        <div class="qs"><span>HP</span>68</div>
-        <div class="qs"><span>Spell DC</span>16</div>
-        <div class="qs"><span>Spd</span>30</div>
-      </div>
+      <div class="quick-stats"></div>
       <div class="priority red">Retconned this scene: Devrin has been a genuine spellcaster the entire campaign, simply never in a position for it to show. Don't foreshadow before this fight — let it land as a real reveal.</div>
-      <div class="section">
-        <span class="section-label">Each turn</span>
-        <div class="atk"><span class="atk-name">Dagger — </span><span class="atk-hit">+6</span> / <span class="atk-dmg">(1d4+4) piercing</span> <span class="atk-note">backup strike only</span></div>
-        <div class="atk"><span class="atk-name">Inflict Wounds — </span><span class="atk-hit">+8</span> / <span class="atk-dmg">(3d10) necrotic</span> <span class="atk-note">touch, if cornered</span></div>
-      </div>
-      <div class="section">
-        <span class="section-label">Abilities</span>
-        <div class="abl"><span class="abl-name">Silence (opens with this) — </span>20 ft. radius centred on a point she can see. No save. Suppresses verbal spell components for everyone inside it, herself included.</div>
-        <div class="abl"><span class="abl-name">Command (DC 16 Wis save) — </span>One word: "Flee," "Drop," or "Grovel." Used on whoever's physically blocking her retreat.</div>
-        <div class="abl"><span class="abl-name">Hold Person (DC 16 Wis save) — </span>Used on whoever's fastest, to buy an escape window.</div>
-        <div class="abl"><span class="abl-name">Disengages on opening — </span>The instant a clear route exists, she takes it rather than pressing any advantage. She is not trying to win this fight.</div>
-      </div>
+      <div class="bestiary-block"></div>
+      
       <div class="section">
         <span class="section-label">Tactics</span>
         <div class="tactics">Silence first, always — cast it the moment she's confronted, before anything else. Command on whoever's blocking her retreat line. Against the party: Hold Person on the fastest threat, Inflict Wounds only if physically cornered, retreat toward the escape line or anything breaking line of sight at every opportunity. Calm throughout — she does not raise her voice, does not gloat, does not explain unless directly asked and even then gives little away.</div>
@@ -284,31 +269,18 @@
   </div>
 
   <!-- TOBIN -->
-  <div class="card hostile">
+  <div class="card hostile" data-entry="tobin">
     <div class="card-header">
       <span class="card-name">Tobin</span>
-      <span class="cr-badge">CR 4</span>
-      <button class="copy-btn" onclick="copyJSON('tobin', this)">Copy Forge JSON</button>
+      <span class="cr-badge"></span>
+      <button class="copy-btn" onclick="copyForge(this)">Copy Forge JSON</button>
     </div>
     <div class="card-body">
       <div class="card-tag">Fled with Devrin — a tough, bruising fighter nobody expected</div>
-      <div class="quick-stats">
-        <div class="qs"><span>AC</span>15</div>
-        <div class="qs"><span>HP</span>75</div>
-        <div class="qs"><span>Atk</span>+7</div>
-        <div class="qs"><span>Spd</span>30</div>
-      </div>
+      <div class="quick-stats"></div>
       <div class="priority red">Retconned alongside Devrin: the proud craftsman from the checkpoint fights like someone who's done this before, in a life his day job never mentioned. Don't soften him to make room for Devrin's spotlight — he's a real second threat.</div>
-      <div class="section">
-        <span class="section-label">Each turn</span>
-        <div class="atk"><span class="atk-name">Smith's Maul (two-handed) — </span><span class="atk-hit">+7</span> / <span class="atk-dmg">(2d6+4) bludgeoning</span></div>
-      </div>
-      <div class="section">
-        <span class="section-label">Abilities</span>
-        <div class="abl"><span class="abl-name">Rage-Forged — </span>While below half HP, resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks.</div>
-        <div class="abl"><span class="abl-name">Relentless (1/fight) — </span>If reduced to 0 HP, drops to 1 HP instead.</div>
-        <div class="abl"><span class="abl-name">Protects the escape — </span>Fights to buy Devrin time, not to win outright. Doesn't chase or press an advantage; holds his ground between the party and her.</div>
-      </div>
+      <div class="bestiary-block"></div>
+      
       <div class="section">
         <span class="section-label">Tactics</span>
         <div class="tactics">Plants himself in front of whoever's closing fastest on Devrin and swings hard — doesn't talk while fighting, doesn't posture. Stays engaged even while Devrin retreats; only breaks off once she's genuinely clear of the fight. Still visibly torn about what she did to Arjay — that conflict is real, it's just not what's driving his hands right now.</div>
@@ -320,23 +292,6 @@
 
 <footer>Abelon Campaign — Combat Reference. The Devrin Pursuit / Halloway Checkpoint / Ad-Hoc Encounter.</footer>
 
-<script>
-const forgeJSON = {
-  devrin: {"com.battle-system.forge/name":"Devrin Kass","com.battle-system.forge/Z034":[],"com.battle-system.forge/Z035":[{"id":"devrin-001","name":"Dagger","description":"Melee Weapon Attack [1d20+6] to hit, reach 5 ft., one target. [1d4+4] piercing damage. Backup strike only."},{"id":"devrin-002","name":"Inflict Wounds","description":"Melee Spell Attack [1d20+8] to hit, reach 5 ft. (touch), one target. [3d10] necrotic damage. Used only if cornered."},{"id":"devrin-003","name":"Silence (opens with this)","description":"20 ft. radius centred on a point Devrin can see. No save. Suppresses verbal spell components for everyone inside it, Devrin included."},{"id":"devrin-004","name":"Command (DC 16 Wisdom save)","description":"One word: Flee, Drop, or Grovel. Used on whoever is physically blocking her retreat."},{"id":"devrin-005","name":"Hold Person (DC 16 Wisdom save)","description":"Used on whoever is fastest, to buy an escape window."},{"id":"devrin-006","name":"Disengages on opening (Trait)","description":"The instant a clear route exists, Devrin takes it rather than pressing any advantage. She is not trying to win this fight."}],"com.battle-system.forge/Z003":"Lawful Neutral","com.battle-system.forge/Z007":15,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":1,"com.battle-system.forge/Z025":2,"com.battle-system.forge/Z016":5,"com.battle-system.forge/Z022":12,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":14,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":14,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":68,"com.battle-system.forge/Z026":1,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":12,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":68,"com.battle-system.forge/Z029":3,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":2,"com.battle-system.forge/Z041":"Wisdom +8 (proficient)","com.battle-system.forge/Z013":"Passive Perception 15","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Insight +8, Religion +4","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":14,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":8,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":20},
-  tobin: {"com.battle-system.forge/name":"Tobin","com.battle-system.forge/Z034":[],"com.battle-system.forge/Z035":[{"id":"tobin-002","name":"Smith's Maul (two-handed)","description":"Melee Weapon Attack [1d20+7] to hit, reach 5 ft., one target. [2d6+4] bludgeoning damage."},{"id":"tobin-003","name":"Rage-Forged (Trait)","description":"While below half HP, resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks."},{"id":"tobin-004","name":"Relentless (Trait, 1/fight)","description":"If reduced to 0 HP, drops to 1 HP instead."},{"id":"tobin-005","name":"Protects the escape (Trait)","description":"Fights to buy Devrin time, not to win outright. Doesn't chase or press an advantage -- holds ground between the party and her, and breaks off only once she is genuinely clear."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":15,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":3,"com.battle-system.forge/Z016":4,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":16,"com.battle-system.forge/Z024":2,"com.battle-system.forge/Z018":14,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":75,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":75,"com.battle-system.forge/Z029":3,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"Bludgeoning, Piercing, and Slashing from nonmagical attacks (while below half HP)","com.battle-system.forge/Z023":4,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"Athletics +7","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":18,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":11}
-};
-
-function copyJSON(id, btn){
-  const json = JSON.stringify(forgeJSON[id]);
-  navigator.clipboard.writeText(json).then(() => {
-    btn.textContent = 'Copied!';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = 'Copy Forge JSON';
-      btn.classList.remove('copied');
-    }, 2000);
-  });
-}
-</script>
+<script src="bestiary-cards.js"></script>
 </body>
 </html>

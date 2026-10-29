@@ -234,29 +234,17 @@
 <div class="grid">
 
   <!-- TOMAS -->
-  <div class="card hostile">
+  <div class="card hostile" data-entry="tomas">
     <div class="card-header">
       <span class="card-name">Tomas</span>
-      <button class="copy-btn" onclick="copyJSON('tomas', this)">Copy Forge JSON</button>
+      <button class="copy-btn" onclick="copyForge(this)">Copy Forge JSON</button>
     </div>
     <div class="card-body">
       <div class="card-tag">Commoner — fights to kill, does not yield</div>
-      <div class="quick-stats">
-        <div class="qs"><span>AC</span>11</div>
-        <div class="qs"><span>HP</span>16</div>
-        <div class="qs"><span>Atk</span>+3</div>
-        <div class="qs"><span>Spd</span>30</div>
-      </div>
+      <div class="quick-stats"></div>
       <div class="priority">Above half HP — advantage on all attack rolls. He is fully committed and he knows this space.</div>
-      <div class="section">
-        <span class="section-label">Each turn</span>
-        <div class="atk"><span class="atk-name">Improvised weapon or unarmed — </span><span class="atk-hit">+3</span> / <span class="atk-dmg">1d4+2 bludgeoning</span></div>
-      </div>
-      <div class="section">
-        <span class="section-label">Abilities</span>
-        <div class="abl"><span class="abl-name">Home advantage — </span>Knows every corner of the basement. Uses alcoves and low beams to force the party to come to him.</div>
-        <div class="abl"><span class="abl-name">Relentless — </span>Does not disengage, retreat, or yield under any circumstances. Must be incapacitated to stop.</div>
-      </div>
+      <div class="bestiary-block"></div>
+      
       <div class="section">
         <span class="section-label">Tactics</span>
         <div class="tactics">Goes for whoever spoke to him last. Stays in the centre of the room to deny movement. Uses the tight space — the party cannot spread out. Never asks for quarter and does not accept it.</div>
@@ -265,27 +253,16 @@
   </div>
 
   <!-- POL -->
-  <div class="card hostile">
+  <div class="card hostile" data-entry="pol">
     <div class="card-header">
       <span class="card-name">Pol</span>
-      <button class="copy-btn" onclick="copyJSON('pol', this)">Copy Forge JSON</button>
+      <button class="copy-btn" onclick="copyForge(this)">Copy Forge JSON</button>
     </div>
     <div class="card-body">
       <div class="card-tag">Commoner — stays because Tomas stays</div>
-      <div class="quick-stats">
-        <div class="qs"><span>AC</span>10</div>
-        <div class="qs"><span>HP</span>9</div>
-        <div class="qs"><span>Atk</span>+2</div>
-        <div class="qs"><span>Spd</span>30</div>
-      </div>
-      <div class="section">
-        <span class="section-label">Each turn</span>
-        <div class="atk"><span class="atk-name">Improvised weapon or unarmed — </span><span class="atk-hit">+2</span> / <span class="atk-dmg">1d4+1 bludgeoning</span></div>
-      </div>
-      <div class="section">
-        <span class="section-label">Abilities</span>
-        <div class="abl"><span class="abl-name">Breaks if Tomas falls — </span>Immediately switches to Dodge action when Tomas is incapacitated. Does not flee. Just stops.</div>
-      </div>
+      <div class="quick-stats"></div>
+      <div class="bestiary-block"></div>
+      
       <div class="section">
         <span class="section-label">Tactics</span>
         <div class="tactics">Follows Tomas entirely. Attacks whoever Tomas is not attacking. Commits less than he appears to. Separate him from Tomas and he becomes significantly less dangerous.</div>
@@ -307,23 +284,6 @@
 
 <footer>Abelon Campaign — Combat Reference. The Basement Warehouse / Trademasters Mission 1 / Act 1.</footer>
 
-<script>
-const forgeJSON = {
-  tomas: {"com.battle-system.forge/name":"Tomas","com.battle-system.forge/Z034":[{"id":"tomas-001","name":"Relentless","description":"Tomas does not disengage, retreat, or yield. He must be reduced to 0 HP to stop fighting."},{"id":"tomas-002","name":"Committed (above half HP)","description":"While above half his maximum HP, Tomas has advantage on all attack rolls."},{"id":"tomas-003","name":"Home Advantage","description":"Tomas knows every corner of the basement. He uses alcoves and tight spaces to deny the party room to manoeuvre."}],"com.battle-system.forge/Z035":[{"id":"tomas-004","name":"Improvised Weapon","description":"Melee Weapon Attack [1d20+3] to hit, reach 5 ft., one target. [1d4+2] bludgeoning damage."}],"com.battle-system.forge/Z003":"Chaotic Neutral","com.battle-system.forge/Z007":11,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":1,"com.battle-system.forge/Z016":0.25,"com.battle-system.forge/Z022":10,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":12,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":11,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":16,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":16,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":2,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 9","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":14,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":-1,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":9},
-  pol: {"com.battle-system.forge/name":"Pol","com.battle-system.forge/Z034":[{"id":"pol-001","name":"Breaks if Tomas Falls","description":"When Tomas is reduced to 0 HP, Pol immediately takes the Dodge action on his next turn and does not make further attacks. He does not flee — he just stops."}],"com.battle-system.forge/Z035":[{"id":"pol-002","name":"Improvised Weapon","description":"Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4+1] bludgeoning damage."}],"com.battle-system.forge/Z003":"Neutral","com.battle-system.forge/Z007":10,"com.battle-system.forge/Z036":[],"com.battle-system.forge/Z010":0,"com.battle-system.forge/Z028":0,"com.battle-system.forge/Z025":0,"com.battle-system.forge/Z016":0.125,"com.battle-system.forge/Z022":9,"com.battle-system.forge/Z011":0,"com.battle-system.forge/Z019":11,"com.battle-system.forge/Z024":0,"com.battle-system.forge/Z018":10,"com.battle-system.forge/Z012":0,"com.battle-system.forge/Z005":9,"com.battle-system.forge/Z026":0,"com.battle-system.forge/Z032":"","com.battle-system.forge/Z020":10,"com.battle-system.forge/Z040":[],"com.battle-system.forge/Z015":"Common","com.battle-system.forge/Z038":[],"com.battle-system.forge/Z001":0,"com.battle-system.forge/Z006":9,"com.battle-system.forge/Z029":2,"com.battle-system.forge/Z037":[],"com.battle-system.forge/Z031":"","com.battle-system.forge/Z023":1,"com.battle-system.forge/Z041":"","com.battle-system.forge/Z013":"Passive Perception 10","com.battle-system.forge/Z002":"Medium","com.battle-system.forge/Z014":"","com.battle-system.forge/Z004":"Humanoid","com.battle-system.forge/Z039":[],"com.battle-system.forge/Z033":"","com.battle-system.forge/Z017":12,"com.battle-system.forge/Z009":0,"com.battle-system.forge/Z042":0,"com.battle-system.forge/Z030":"","com.battle-system.forge/Z027":0,"com.battle-system.forge/Z008":30,"com.battle-system.forge/Z021":10}
-};
-
-function copyJSON(id, btn){
-  const json = JSON.stringify(forgeJSON[id]);
-  navigator.clipboard.writeText(json).then(() => {
-    btn.textContent = 'Copied!';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = 'Copy Forge JSON';
-      btn.classList.remove('copied');
-    }, 2000);
-  });
-}
-</script>
+<script src="bestiary-cards.js"></script>
 </body>
 </html>

@@ -250,7 +250,7 @@
       </div>
       <span class="npc-toggle" id="monstrosity-toggle">▼</span>
     </div>
-    <div class="npc-body" id="monstrosity-body"><div class="npc-field"><span class="npc-field-label">Role</span><p>The dungeon's final encounter. It guards nothing in the way a locked door guards something. It is the Rot that pooled at the bottom of the temple and it lives in the lake the keepers' torches enclose.</p></div><div class="npc-field combat"><span class="npc-field-label">Combat</span><p>AC 14, 136 HP, speed 50 ft, CR 5, Rot DC 17, three legendary actions (phase 3 only). Vulnerable to radiant and fire. Resistant to bludgeoning (also Slowed), slashing, piercing and psychic. Immune to necrotic (heals it). Two Surge attacks a turn at +7, reach 10 ft, 14 (3d6+4) necrotic and a DC 17 Constitution save or a stack of Rotten. Corroding Presence 5 ft, Harden recharge 5 to 6.</p></div><div class="npc-field"><span class="npc-field-label">Full stats and tactics</span><p>See the Rot Monstrosity combat guide for the stat block, legendary actions, Effluent triggers and the Forge JSON.</p></div></div>
+    <div class="npc-body" id="monstrosity-body"><div class="npc-field"><span class="npc-field-label">Role</span><p>The dungeon's final encounter. It guards nothing in the way a locked door guards something. It is the Rot that pooled at the bottom of the temple and it lives in the lake the keepers' torches enclose.</p></div><div class="npc-field combat" data-entry="rot-monstrosity"><span class="npc-field-label">Combat</span><p><span class="bestiary-line"></span></p></div><div class="npc-field"><span class="npc-field-label">Full stats and tactics</span><p>See the Rot Monstrosity combat guide for the stat block, legendary actions, Effluent triggers and the Forge JSON.</p></div></div>
   </div>
 
   <div class="section-heading">Encounter Beats</div>
@@ -310,5 +310,6 @@
   function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
   function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
 </script>
+<script src="bestiary-cards.js"></script>
 </body>
 </html>
