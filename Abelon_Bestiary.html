@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="abelon-sync.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bestiary — Abelon</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{--bg:#1a1410;--bg2:#241f16;--bg3:#2a2318;--ink:#e8d9bc;--ink2:#c4a882;--ink3:#8a7a65;--accent:#c4a882;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.35);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.6;padding:1.5rem 1.25rem 4rem;}
+  .page{max-width:960px;margin:0 auto;}
+  h1{font-family:'Cinzel',serif;font-size:20px;font-weight:600;color:var(--accent);letter-spacing:.05em;margin-bottom:3px;}
+  .subtitle{font-size:13px;font-style:italic;color:var(--ink3);padding-bottom:1rem;border-bottom:1px solid var(--rule);margin-bottom:1.25rem;}
+  .dm-note{background:var(--bg3);border:.5px dashed var(--rule);border-radius:5px;padding:11px 14px;margin-bottom:14px;font-size:13px;color:var(--ink3);font-style:italic;}
+  .dm-note strong{font-style:normal;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px;}
+  #search{width:100%;max-width:340px;font-family:'Crimson Pro',Georgia,serif;font-size:14px;background:var(--bg2);color:var(--ink);border:.5px solid var(--rule);border-radius:4px;padding:6px 10px;margin-bottom:12px;}
+  .table-wrap{overflow-x:auto;border:.5px solid var(--rule);border-radius:6px;}
+  table{width:100%;border-collapse:collapse;}
+  th{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);text-align:left;padding:9px 12px;background:var(--bg2);border-bottom:.5px solid var(--rule);}
+  td{padding:8px 12px;border-bottom:.5px solid var(--rule-faint);vertical-align:top;font-size:14px;}
+  tr:last-child td{border-bottom:none;}
+  td.nm{font-family:'Cinzel',serif;font-size:13px;color:var(--ink2);white-space:nowrap;}
+  td:nth-child(2),td:nth-child(3){color:var(--ink3);white-space:nowrap;}
+  tr.hidden{display:none;}
+  h2{font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin:1.75rem 0 .6rem;}
+  .lead{font-size:14px;color:var(--ink2);margin-bottom:.75rem;}
+  td.dc{font-family:'Cinzel',serif;font-size:13px;color:var(--ink2);white-space:nowrap;width:60px;}
+  td.truth{color:var(--ink3);font-style:italic;font-size:13px;}
+  ul.vague{list-style:none;}
+  ul.vague li{padding:7px 12px;border-bottom:.5px solid var(--rule-faint);font-size:14px;}
+  ul.vague li:last-child{border-bottom:none;}
+  footer{margin-top:2rem;font-size:12px;color:var(--ink3);font-style:italic;text-align:center;}
+  .entry{border:.5px solid var(--rule);border-radius:6px;margin-bottom:8px;background:var(--bg2);}
+  .entry summary{cursor:pointer;padding:9px 12px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;list-style:none;}
+  .entry summary::-webkit-details-marker{display:none;}
+  .entry .nm{font-family:'Cinzel',serif;font-size:14px;color:var(--ink2);flex:1;min-width:160px;}
+  .entry .st{font-size:13px;color:var(--ink3);white-space:nowrap;}
+  .entry .body{padding:4px 14px 12px;border-top:.5px solid var(--rule-faint);}
+  .abil{font-size:13px;color:var(--ink3);margin:8px 0;}
+  .act{font-size:14px;padding:5px 0;border-bottom:.5px solid var(--rule-faint);}
+  .act:last-child{border-bottom:none;}
+  .act b{color:var(--ink2);}
+  .copy{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:none;border:.5px solid var(--rule);color:var(--accent);border-radius:4px;padding:4px 9px;cursor:pointer;margin-top:10px;}
+  .src{font-size:12px;color:var(--ink3);font-style:italic;}
+  #count{font-size:13px;color:var(--ink3);margin-left:10px;}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);--n-teal:#0F6E56;--n-teal-bg:rgba(15,110,86,0.08);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);--n-teal:#5DCAA5;--n-teal-bg:rgba(93,202,165,0.08);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+  #an-pay-btn{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);border-radius:3px;padding:3px 8px;font:inherit;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+  #an-pay-btn:hover{border-color:var(--n-accent);color:var(--n-accent);}
+  #an-pay-btn.has-data{border-color:var(--n-teal);color:var(--n-teal);}
+  #an-pay-summary{font-family:'Crimson Pro',Georgia,serif;font-size:12px;text-transform:none;letter-spacing:0;color:var(--n-ink-faded);}
+  #an-pay-panel{display:none;max-width:900px;margin:10px auto 0;background:var(--n-teal-bg);border:1px solid var(--n-teal);border-radius:6px;padding:14px 16px;font-family:'Crimson Pro',Georgia,serif;}
+  #an-pay-panel.open{display:block;}
+  #an-pay-panel .an-pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:10px;}
+  #an-pay-panel label{display:block;font-family:'Cinzel',Georgia,serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--n-ink-faded);margin-bottom:3px;}
+  #an-pay-panel input[type=text],#an-pay-panel textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:13px;background:var(--n-parch);color:var(--n-ink);border:1px solid var(--n-rule);border-radius:4px;padding:6px 8px;}
+  #an-pay-panel textarea{min-height:44px;resize:vertical;}
+  #an-pay-actions{display:flex;gap:8px;}
+  #an-pay-actions button{font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:4px;cursor:pointer;}
+  #an-pay-save{background:var(--n-teal);border:1px solid var(--n-teal);color:var(--n-parch);}
+  #an-pay-clear{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-cancel{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-note{font-size:10px;color:var(--n-ink-faded);font-style:italic;margin-top:8px;}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div>
+<div id="an-pay-panel">
+  <div class="an-pay-grid">
+    <div><label>Agreed total</label><input type="text" id="an-pay-total" placeholder="e.g. 60gp"></div>
+    <div><label>Paid so far</label><input type="text" id="an-pay-paid" placeholder="e.g. 30gp"></div>
+    <div><label>Not yet paid</label><input type="text" id="an-pay-owed" placeholder="e.g. 30gp on completion"></div>
+  </div>
+  <label>Notes</label>
+  <textarea id="an-pay-notes" placeholder="Terms, conditions, who's paying..."></textarea>
+  <div id="an-pay-actions" style="margin-top:10px;">
+    <button type="button" id="an-pay-save">Save</button>
+    <button type="button" id="an-pay-clear">Clear</button>
+    <button type="button" id="an-pay-cancel">Cancel</button>
+  </div>
+  <div id="an-pay-note">Synced to the abelon-manual repo when this device is connected (badge, bottom right).</div>
+</div>
+</div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  var root = '';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catObj = cats[page.category] || {};
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = catObj.label || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var pnav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; pnav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){pnav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; pnav.appendChild(next); }
+      relTop.appendChild(pnav);
+    }
+
+    // --- Payment widget: only on categories flagged paymentTracking in the manifest ---
+    var catObj2 = cats[page && page.category] || {};
+    if (page && catObj2.paymentTracking) {
+      var LS_KEY = 'abelonPayment:' + page.id;
+      function getPayment(){ try { var raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch(e){} return null; }
+      function setPayment(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
+      function clearPayment(){ localStorage.removeItem(LS_KEY); }
+
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.id = 'an-pay-btn';
+      var summary = document.createElement('span'); summary.id = 'an-pay-summary';
+      relTop.appendChild(btn); relTop.appendChild(summary);
+
+      var panel = document.getElementById('an-pay-panel');
+      var fTotal = document.getElementById('an-pay-total');
+      var fPaid = document.getElementById('an-pay-paid');
+      var fOwed = document.getElementById('an-pay-owed');
+      var fNotes = document.getElementById('an-pay-notes');
+
+      function refreshButton(){
+        var p = getPayment();
+        if (p && (p.total || p.paid || p.owed || p.notes)) {
+          btn.textContent = '\uD83D\uDCB0 Payment \u2713';
+          btn.classList.add('has-data');
+          var bits = [];
+          if (p.total) bits.push(p.total + ' agreed');
+          if (p.paid) bits.push(p.paid + ' paid');
+          summary.textContent = bits.join(' \u00b7 ');
+        } else {
+          btn.textContent = '\uD83D\uDCB0 Payment';
+          btn.classList.remove('has-data');
+          summary.textContent = '';
+        }
+      }
+      function openPanel(){
+        var p = getPayment() || {};
+        fTotal.value = p.total || ''; fPaid.value = p.paid || ''; fOwed.value = p.owed || ''; fNotes.value = p.notes || '';
+        panel.classList.add('open');
+      }
+      btn.addEventListener('click', openPanel);
+      document.getElementById('an-pay-cancel').addEventListener('click', function(){ panel.classList.remove('open'); });
+      document.getElementById('an-pay-clear').addEventListener('click', function(){ clearPayment(); panel.classList.remove('open'); refreshButton(); });
+      document.getElementById('an-pay-save').addEventListener('click', function(){
+        setPayment({ total: fTotal.value.trim(), paid: fPaid.value.trim(), owed: fOwed.value.trim(), notes: fNotes.value.trim(),
+                     pageId: page.id, pageTitle: page.title, pageFile: page.file });
+        panel.classList.remove('open');
+        refreshButton();
+      });
+      refreshButton();
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+<div class="page">
+<h1>Bestiary</h1>
+<p class="subtitle">One current stat block per NPC and creature · the latest version is the true one · the DM panel reads this list</p>
+<div class="dm-note"><strong>How this works</strong>When an NPC's stats change, their entry here is replaced. Where an NPC had several versions across the combat guides, the most powerful was kept. The copies inside individual combat guides may be older.</div>
+<input id="search" type="text" placeholder="Search names, actions…"><span id="count"></span>
+<div id="list"><p class="lead">Loading…</p></div>
+<footer>Abelon · Bestiary · source: bestiary.json in this repo</footer>
+</div>
+<script>
+(function(){
+  var P='com.battle-system.forge/', all=[];
+  function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+  function mod(v){v=+v;var m=Math.floor((v-10)/2);return (m>=0?'+':'')+m;}
+  function crText(c){return c==0.125?'1/8':c==0.25?'1/4':c==0.5?'1/2':String(c);}
+  function render(){
+    var q=document.getElementById('search').value.trim().toLowerCase();
+    var shown=all.filter(function(e){ return !q || JSON.stringify([e.name,e.forge[P+'Z035']]).toLowerCase().indexOf(q)>=0; });
+    document.getElementById('count').textContent=shown.length+' of '+all.length;
+    var list=document.getElementById('list'); list.innerHTML='';
+    shown.forEach(function(e){
+      var f=e.forge, d=document.createElement('details'); d.className='entry';
+      var ab=['Str','Dex','Con','Int','Wis','Cha'].map(function(a,i){var v=f[P+'Z0'+(17+i)];return a+' '+v+' ('+mod(v)+')';}).join(' · ');
+      d.innerHTML='<summary><span class="nm">'+esc(e.name)+'</span><span class="st">CR '+crText(e.cr)+' · AC '+esc(f[P+'Z007'])+' · HP '+esc(f[P+'Z005'])+' · Speed '+esc(f[P+'Z008'])+' ft</span></summary>'+
+        '<div class="body"><div class="abil">'+ab+'</div>'+
+        (f[P+'Z014']?'<div class="abil">Skills: '+esc(f[P+'Z014'])+'</div>':'')+
+        (f[P+'Z013']?'<div class="abil">Senses: '+esc(f[P+'Z013'])+'</div>':'')+
+        (f[P+'Z035']||[]).map(function(a){return '<div class="act"><b>'+esc(a.name)+'.</b> '+esc(a.description)+'</div>';}).join('')+
+        '<div class="src">From: '+esc(e.source)+' · updated '+esc(e.updated)+'</div>'+
+        '<button class="copy" type="button">Copy Forge JSON</button></div>';
+      d.querySelector('.copy').onclick=function(){var b=this;navigator.clipboard.writeText(JSON.stringify(f)).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy Forge JSON';},1500);});};
+      list.appendChild(d);
+    });
+  }
+  fetch('bestiary.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){all=j.entries;render();})
+    .catch(function(e){document.getElementById('list').innerHTML='<p class="lead">Couldn\'t load bestiary.json: '+esc(e.message)+'</p>';});
+  document.getElementById('search').addEventListener('input',render);
+})();
+</script>
+</body>
+</html>

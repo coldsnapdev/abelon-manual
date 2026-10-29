@@ -450,6 +450,13 @@
    "title": "Finding Marek",
    "category": "adhoc",
    "order": 2
+  },
+  {
+   "id": "ref-bestiary",
+   "file": "Abelon_Bestiary.html",
+   "title": "Bestiary",
+   "category": "reference",
+   "order": 7
   }
  ],
  "categories": [

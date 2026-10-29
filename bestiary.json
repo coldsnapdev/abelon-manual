@@ -1,0 +1,4687 @@
+{
+ "note": "Abelon bestiary: one current stat block per NPC or creature. The latest version is the true one; where duplicates were merged, the most powerful version was kept. Forge JSON is in 'forge'.",
+ "entries": [
+  {
+   "id": "aldric",
+   "name": "Aldric",
+   "cr": 0.125,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Aldric",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "aldric-001",
+      "name": "Breaks When Huw Falls",
+      "description": "When Huw is incapacitated, Aldric drops his weapon and surrenders."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "aldric-002",
+      "name": "Improvised Weapon",
+      "description": "Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4+1] bludgeoning damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 10,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0.125,
+    "com.battle-system.forge/Z022": 11,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 11,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 10,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 9,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 9,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 11,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "aldwyn",
+   "name": "Aldwyn",
+   "cr": 0.25,
+   "source": "The Trumpet",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Aldwyn",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "aldwyn-001",
+      "name": "Impaired",
+      "description": "Disadvantage on all attack rolls and Dexterity saving throws."
+     },
+     {
+      "id": "aldwyn-002",
+      "name": "Breaks When Perran Falls",
+      "description": "When Perran is incapacitated, Aldwyn must make a DC 10 Wisdom saving throw or surrender immediately."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "aldwyn-003",
+      "name": "Unarmed or Improvised (Impaired)",
+      "description": "Melee Weapon Attack [1d20+3] to hit (disadvantage), reach 5 ft., one target. [1d4+1] bludgeoning damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 11,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 10,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 11,
+    "com.battle-system.forge/Z026": -1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 9,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 11,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 13,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "alric-venn",
+   "name": "Alric Venn",
+   "cr": 5,
+   "source": "Assassination night (Oct 2026)",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Alric Venn",
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z003": "Lawful Neutral",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z005": 88,
+    "com.battle-system.forge/Z006": 88,
+    "com.battle-system.forge/Z007": 16,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z013": "Passive Perception 12",
+    "com.battle-system.forge/Z014": "Deception +6, Insight +8, Investigation +7, Persuasion +9",
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z016": 5,
+    "com.battle-system.forge/Z017": 11,
+    "com.battle-system.forge/Z018": 15,
+    "com.battle-system.forge/Z019": 13,
+    "com.battle-system.forge/Z020": 18,
+    "com.battle-system.forge/Z021": 15,
+    "com.battle-system.forge/Z022": 17,
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z026": 7,
+    "com.battle-system.forge/Z027": 5,
+    "com.battle-system.forge/Z028": 6,
+    "com.battle-system.forge/Z029": 3,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "alric-001",
+      "name": "Trait: Contingency (2/Day)",
+      "description": "When Alric fails a saving throw, he can choose to succeed instead."
+     },
+     {
+      "id": "alric-002",
+      "name": "Multiattack",
+      "description": "Alric makes two Sword Cane attacks, or one Sword Cane and one Hand Crossbow attack."
+     },
+     {
+      "id": "alric-003",
+      "name": "Sword Cane",
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+2] piercing damage."
+     },
+     {
+      "id": "alric-004",
+      "name": "Hand Crossbow",
+      "description": "Ranged Weapon Attack [1d20+5] to hit, range 30/120 ft., one target. [1d6+2] piercing damage, and the target must succeed on a DC 14 Constitution saving throw or have its speed halved until the end of its next turn."
+     },
+     {
+      "id": "alric-005",
+      "name": "Everyone Has a Price (Recharge 5-6)",
+      "description": "One creature within 30 ft. that can hear Alric makes a DC 15 Wisdom saving throw (advantage if it has already refused his offer tonight). On a failure it is charmed until the end of its next turn and can't attack him or target him with harmful spells."
+     },
+     {
+      "id": "alric-006",
+      "name": "Bonus Action: Deep Pockets (each once)",
+      "description": "Smokestick: 10-ft.-radius heavily obscured sphere for 1 minute. Alchemist's Fire: [1d20+5] to hit, range 20 ft., [2d6] fire at the start of each of the target's turns until put out with an action. Flash Vial: creatures within 10 ft. of a point within 30 ft. make a DC 14 Constitution save or are blinded until the end of their next turn. Healing Draught: regains [4d4+4] HP. Scattered Purse: a 10-ft. square within 15 ft. becomes difficult terrain for the rest of the fight."
+     },
+     {
+      "id": "alric-007",
+      "name": "Reaction: Close Call",
+      "description": "When a creature Alric can see attacks him, he adds 3 to his AC against that attack."
+     },
+     {
+      "id": "alric-008",
+      "name": "Tactics",
+      "description": "Smoke or flash first, then the crossbow from cover. Everyone Has a Price on whoever is about to land the killing blow. Fights alone."
+     }
+    ],
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z042": 0
+   }
+  },
+  {
+   "id": "bael",
+   "name": "Bael",
+   "cr": 0.25,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Bael",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "bael-001",
+      "name": "Longsword",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d8+2] slashing damage."
+     },
+     {
+      "id": "bael-002",
+      "name": "Light Crossbow",
+      "description": "Ranged Weapon Attack [1d20+4] to hit, range 80/320 ft., one target. [1d8+2] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 14,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 13,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 14,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 13,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 11,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 13,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 2,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Perception +3",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 14,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 12
+   }
+  },
+  {
+   "id": "blighted-alpha",
+   "name": "Blighted Alpha",
+   "cr": 1,
+   "source": "Wolf Ambush",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Blighted Alpha",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "alpha-001",
+      "name": "Pack Tactics",
+      "description": "The alpha has advantage on an attack roll against a creature if at least one of its allies is within 5 ft. of it and not incapacitated."
+     },
+     {
+      "id": "alpha-002",
+      "name": "Desperate Frenzy",
+      "description": "The alpha has advantage on its first attack roll each combat."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "alpha-003",
+      "name": "Bite",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [2d6+2] piercing damage. Target must succeed on a DC 12 Strength saving throw or be knocked prone."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Unaligned",
+    "com.battle-system.forge/Z007": 13,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -2,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 1,
+    "com.battle-system.forge/Z022": 6,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 15,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 26,
+    "com.battle-system.forge/Z026": -4,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 3,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "None",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 26,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 2,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 13",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Perception +3, Stealth +4",
+    "com.battle-system.forge/Z004": "Beast",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 14,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 40,
+    "com.battle-system.forge/Z021": 13
+   }
+  },
+  {
+   "id": "blighted-wolf",
+   "name": "Blighted Wolf",
+   "cr": 0.25,
+   "source": "Wolf Ambush",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Blighted Wolf",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "wolf1-001",
+      "name": "Pack Tactics",
+      "description": "The wolf has advantage on an attack roll against a creature if at least one of the wolf's allies is within 5 ft. of it and not incapacitated."
+     },
+     {
+      "id": "wolf1-002",
+      "name": "Desperate Frenzy",
+      "description": "The wolf has advantage on its first attack roll each combat."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "wolf1-003",
+      "name": "Bite",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [2d4+2] piercing damage. Target must succeed on a DC 11 Strength saving throw or be knocked prone."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Unaligned",
+    "com.battle-system.forge/Z007": 12,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -3,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 4,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 10,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 15,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 5,
+    "com.battle-system.forge/Z026": -4,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 3,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "None",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 11,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 13",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Perception +3, Stealth +4",
+    "com.battle-system.forge/Z004": "Beast",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 12,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 40,
+    "com.battle-system.forge/Z021": 12
+   }
+  },
+  {
+   "id": "bram",
+   "name": "Bram",
+   "cr": 0.125,
+   "source": "Northern Ambush",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Bram",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "bram-001",
+      "name": "Spear",
+      "description": "Melee or Ranged Weapon Attack [1d20+3] to hit, reach 5 ft. or range 20/60 ft., one target. [1d6+1] piercing damage, or [1d8+1] piercing damage if used with two hands."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 12,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.125,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 12,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 11,
+    "com.battle-system.forge/Z026": -1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 8,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 11,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 13,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "bram-tallis",
+   "name": "Bram Tallis",
+   "cr": 3,
+   "source": "Assassination night (Oct 2026)",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Bram Tallis",
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z005": 76,
+    "com.battle-system.forge/Z006": 76,
+    "com.battle-system.forge/Z007": 14,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z013": "Passive Perception 13",
+    "com.battle-system.forge/Z014": "Athletics +6, Insight +3, Perception +3, Stealth +4",
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z016": 3,
+    "com.battle-system.forge/Z017": 18,
+    "com.battle-system.forge/Z018": 14,
+    "com.battle-system.forge/Z019": 16,
+    "com.battle-system.forge/Z020": 13,
+    "com.battle-system.forge/Z021": 12,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z023": 6,
+    "com.battle-system.forge/Z024": 4,
+    "com.battle-system.forge/Z025": 3,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "bram-001",
+      "name": "Trait: Too Big to Hide",
+      "description": "Disadvantage on Dexterity (Stealth) checks in a crowd or anywhere he must sit still and unnoticed for long."
+     },
+     {
+      "id": "bram-002",
+      "name": "Trait: Coward's Instinct",
+      "description": "When Bram drops below 38 HP, or an ally drops to 0 HP, he must use his next turn to escape if a route is open, taking the Dash or Disengage action."
+     },
+     {
+      "id": "bram-003",
+      "name": "Multiattack",
+      "description": "Bram makes two Cudgel attacks, or one Cudgel attack and one Grapple."
+     },
+     {
+      "id": "bram-004",
+      "name": "Cudgel",
+      "description": "Melee Weapon Attack [1d20+6] to hit, reach 5 ft., one target. [1d8+4] bludgeoning damage."
+     },
+     {
+      "id": "bram-005",
+      "name": "Grapple",
+      "description": "One Medium or smaller creature within 5 ft. must succeed on a DC 14 Strength (Athletics) or Dexterity (Acrobatics) check or be grappled (escape DC 14). Attacks against Bram have disadvantage while the grappled creature is between him and the attacker."
+     },
+     {
+      "id": "bram-006",
+      "name": "Bonus Action: Bolt",
+      "description": "Bram takes the Disengage action and moves up to his speed, ignoring difficult terrain while moving away from enemies."
+     },
+     {
+      "id": "bram-007",
+      "name": "Reaction: Shove Clear",
+      "description": "When a creature moves within 5 ft. of Bram, it must succeed on a DC 14 Strength saving throw or be shoved 10 ft. away."
+     },
+     {
+      "id": "bram-008",
+      "name": "Tactics",
+      "description": "Hits hard for a round or two, then Coward's Instinct takes over. Runs rather than hides; cornered, he talks."
+     }
+    ],
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z042": 0
+   }
+  },
+  {
+   "id": "brath",
+   "name": "Brath",
+   "cr": 0.5,
+   "source": "Road Ambush",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Brath",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "brath-001",
+      "name": "Tactical Shout (Recharge 5-6)",
+      "description": "One ally within 30 ft. can move up to their full speed without provoking opportunity attacks."
+     },
+     {
+      "id": "brath-002",
+      "name": "Retreat Call",
+      "description": "Once two allies are incapacitated, Brath calls retreat. All remaining ambushers attempt to disengage."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "brath-003",
+      "name": "Longsword",
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] slashing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral Good",
+    "com.battle-system.forge/Z007": 13,
+    "com.battle-system.forge/Z036": [
+     {
+      "id": "brath-004",
+      "name": "Second Wind (1/short rest)",
+      "description": "Regains [1d10+2] hit points."
+     }
+    ],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.5,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 13,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 12,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 12,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 12,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 3,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Athletics +5",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 16,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 11
+   }
+  },
+  {
+   "id": "brek",
+   "name": "Brek",
+   "cr": 0.5,
+   "source": "Driftwood Road",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Brek",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "brek-001",
+      "name": "Colossus Slayer",
+      "description": "Once per turn, when Brek hits a creature below its hit point maximum, he deals an extra [1d8] damage."
+     },
+     {
+      "id": "brek-002",
+      "name": "Natural Explorer (Forest)",
+      "description": "Difficult terrain does not slow Brek in woodland."
+     },
+     {
+      "id": "brek-003",
+      "name": "Dwarven Resilience",
+      "description": "Advantage on saving throws against poison."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "brek-004",
+      "name": "Longbow",
+      "description": "Ranged Weapon Attack [1d20+4] to hit, range 150/600 ft., one target. [1d8+2] piercing damage. Add [1d8] from Colossus Slayer if target is below max HP."
+     },
+     {
+      "id": "brek-005",
+      "name": "Hand Axe",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] slashing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 14,
+    "com.battle-system.forge/Z036": [
+     {
+      "id": "brek-006",
+      "name": "Ensnaring Strike (Concentration, no slot required)",
+      "description": "Next weapon attack that hits: target makes DC 14 Strength save or is restrained by magical vines (concentration, up to 1 minute). Restrained creature takes [1d6] piercing damage at start of each turn. Action to make DC 14 Str check to escape."
+     }
+    ],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 2,
+    "com.battle-system.forge/Z016": 0.5,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 14,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 14,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 18,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common, Dwarvish",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 18,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "Poison",
+    "com.battle-system.forge/Z023": 2,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Darkvision 60 ft., Passive Perception 13",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Perception +3, Survival +3, Athletics +4",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 14,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 25,
+    "com.battle-system.forge/Z021": 13
+   }
+  },
+  {
+   "id": "brenna",
+   "name": "Brenna",
+   "cr": 2,
+   "source": "The Starling",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Brenna",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "brenna-003",
+      "name": "Shortsword",
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d6+3] piercing damage. Add [2d6] sneak attack if advantage or ally adjacent."
+     },
+     {
+      "id": "brenna-004",
+      "name": "Hand Crossbow",
+      "description": "Ranged Weapon Attack [1d20+5] to hit, range 30/120 ft., one target. [1d6+3] piercing damage. Preferred from the balcony."
+     },
+     {
+      "id": "brenna-005",
+      "name": "Cunning Action (Bonus Action)",
+      "description": "Dash, Disengage, or Hide. Uses Dash on round one to reach the balcony staircase."
+     },
+     {
+      "id": "brenna-001",
+      "name": "Sneak Attack (Trait)",
+      "description": "Once per turn, Brenna deals an extra [2d6] damage when she has advantage or an ally is adjacent to the target."
+     },
+     {
+      "id": "brenna-002",
+      "name": "Balcony Position (Trait)",
+      "description": "If Brenna reaches the balcony she has high ground, cover, and line of sight to the whole floor. She will use the crossbow from elevation."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 15,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 1,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 2,
+    "com.battle-system.forge/Z022": 12,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 13,
+    "com.battle-system.forge/Z024": 3,
+    "com.battle-system.forge/Z018": 17,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 44,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 44,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Stealth +5, Perception +4, Acrobatics +5",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 11,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 13
+   }
+  },
+  {
+   "id": "brynn",
+   "name": "Brynn",
+   "cr": 0.25,
+   "source": "The Trumpet",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Brynn",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "brynn-001",
+      "name": "Dwarven Resilience",
+      "description": "Advantage on saving throws against poison."
+     },
+     {
+      "id": "brynn-002",
+      "name": "Brawler",
+      "description": "+2 to Strength contests and grapple attempts."
+     },
+     {
+      "id": "brynn-003",
+      "name": "Breaks if Mags Falls",
+      "description": "When Mags is incapacitated, Brynn must make a DC 10 Wisdom saving throw or stop fighting."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "brynn-004",
+      "name": "Unarmed or Barstool",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] bludgeoning damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 13,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 2,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 14,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 11,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 13,
+    "com.battle-system.forge/Z026": -1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 9,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common, Dwarvish",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 13,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "Poison",
+    "com.battle-system.forge/Z023": 2,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Darkvision 60 ft., Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Athletics +4",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 15,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 25,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "cass",
+   "name": "Cass",
+   "cr": 0.125,
+   "source": "Northern Ambush",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Cass",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "cass-001",
+      "name": "Spear",
+      "description": "Melee or Ranged Weapon Attack [1d20+3] to hit, reach 5 ft. or range 20/60 ft., one target. [1d6+1] piercing damage, or [1d8+1] piercing damage if used with two hands."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 12,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.125,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 12,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 11,
+    "com.battle-system.forge/Z026": -1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 8,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 11,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 13,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "cors-holdworn",
+   "name": "Cors Holdworn",
+   "cr": 0.5,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Cors Holdworn",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "cors-001",
+      "name": "Threat Assessment",
+      "description": "Identifies the most dangerous party member immediately. Targets them first and exclusively."
+     },
+     {
+      "id": "cors-002",
+      "name": "Secret Courtesan Contact",
+      "description": "In teal path: fights for Oskar. In pink path: steps sideways to Sables during wave 2 — quiet repositioning. Do not draw attention."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "cors-003",
+      "name": "Heavy Knife (melee)",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] piercing damage."
+     },
+     {
+      "id": "cors-004",
+      "name": "Heavy Knife (thrown)",
+      "description": "Ranged Weapon Attack [1d20+4] to hit, range 20/40 ft., one target. [1d6+2] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 14,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.5,
+    "com.battle-system.forge/Z022": 11,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 13,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 15,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 19,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 19,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 2,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Athletics +4, Stealth +4",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 14,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 12
+   }
+  },
+  {
+   "id": "costin-marrow",
+   "name": "Costin Marrow",
+   "cr": 3,
+   "source": "Assassination night (Oct 2026)",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Costin Marrow",
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z004": "Humanoid (Elf)",
+    "com.battle-system.forge/Z005": 58,
+    "com.battle-system.forge/Z006": 58,
+    "com.battle-system.forge/Z007": 17,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z013": "Darkvision 60 ft., Passive Perception 14",
+    "com.battle-system.forge/Z014": "Insight +4, Perception +4, Religion +3",
+    "com.battle-system.forge/Z015": "Common, Elvish",
+    "com.battle-system.forge/Z016": 3,
+    "com.battle-system.forge/Z017": 16,
+    "com.battle-system.forge/Z018": 13,
+    "com.battle-system.forge/Z019": 14,
+    "com.battle-system.forge/Z020": 13,
+    "com.battle-system.forge/Z021": 14,
+    "com.battle-system.forge/Z022": 15,
+    "com.battle-system.forge/Z023": 3,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z025": 2,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z027": 4,
+    "com.battle-system.forge/Z028": 4,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "costin-001",
+      "name": "Trait: Fey Ancestry",
+      "description": "Costin has advantage on saving throws against being charmed, and magic can't put him to sleep."
+     },
+     {
+      "id": "costin-002",
+      "name": "Trait: Oath of the Cycle",
+      "description": "Costin is sworn to Aeron and Zareth together, as the old Everbloom keepers were. The cycle answers him unevenly: Zareth's half comes readily, Aeron's half only faintly."
+     },
+     {
+      "id": "costin-003",
+      "name": "Multiattack",
+      "description": "Costin makes two Longsword attacks."
+     },
+     {
+      "id": "costin-004",
+      "name": "Longsword",
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] slashing damage."
+     },
+     {
+      "id": "costin-005",
+      "name": "Cycle Strike (3/Day)",
+      "description": "Once per turn, when Costin hits with a Longsword, he adds one of these. Wither: the target takes an extra [2d8] necrotic damage. Bloom: the target takes an extra [1d8] radiant damage, and one creature of Costin's choice within 10 ft. of him, other than Costin, regains hit points equal to the radiant damage dealt."
+     },
+     {
+      "id": "costin-006",
+      "name": "Reaction: Parry",
+      "description": "Costin adds 2 to his AC against one melee attack that would hit him. He must see the attacker and be wielding a melee weapon."
+     },
+     {
+      "id": "costin-007",
+      "name": "Tactics",
+      "description": "Doesn't want this fight and never strikes first. Opens with Parry and Bloom (healing whoever he's just been talking to, if they're hurt) rather than Wither. At half hit points or below he lowers his sword and talks: he fears the gods far more than anything mortals can do to him, and says so. Against Rot: Wither's necrotic heals Rot creatures; only Bloom's radiant hurts them. Costin can't heal himself, which is why a Rot infestation would send him to Sorastra's Rest."
+     }
+    ],
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z042": 0
+   }
+  },
+  {
+   "id": "dalla-sable",
+   "name": "Dalla Sable",
+   "cr": 0.25,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Dalla Sable",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "dalla-001",
+      "name": "Sneak Attack",
+      "description": "Once per turn, Dalla deals an extra [1d6] damage when she has advantage or an ally is adjacent to the target."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "dalla-002",
+      "name": "Shortsword",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] piercing damage. Add [1d6] sneak attack if advantage or ally adjacent."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 13,
+    "com.battle-system.forge/Z036": [
+     {
+      "id": "dalla-003",
+      "name": "Cunning Action",
+      "description": "Dalla can take the Dash, Disengage, or Hide action as a bonus action."
+     }
+    ],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 11,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 11,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 15,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 11,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 11,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Stealth +4, Perception +3",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 10,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 13
+   }
+  },
+  {
+   "id": "davan",
+   "name": "Davan",
+   "cr": 0.25,
+   "source": "Road Ambush",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Davan",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "davan-001",
+      "name": "Scrapper (1/long rest)",
+      "description": "The first time Davan would drop to 0 HP, he may make a DC 10 Constitution saving throw. On a success he drops to 1 HP instead."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "davan-002",
+      "name": "Handaxe (melee)",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] slashing damage."
+     },
+     {
+      "id": "davan-003",
+      "name": "Handaxe (thrown)",
+      "description": "Ranged Weapon Attack [1d20+4] to hit, range 20/60 ft., one target. [1d6+2] slashing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral Good",
+    "com.battle-system.forge/Z007": 12,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 13,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 12,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 11,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 11,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 2,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 14,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "davan-holt",
+   "name": "Davan Holt",
+   "cr": 1,
+   "source": "The Trumpet",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Davan Holt",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "dh-001",
+      "name": "Extra Attack",
+      "description": "Davan Holt makes two attacks when he takes the Attack action."
+     },
+     {
+      "id": "dh-002",
+      "name": "Threat Assessment",
+      "description": "Has been watching all evening. Immediately identifies the most effective party member and targets them first."
+     },
+     {
+      "id": "dh-003",
+      "name": "Action Surge (1/short rest)",
+      "description": "Takes one additional action on his turn. Uses it immediately on arrival in round 3 — four attacks on his first turn."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "dh-004",
+      "name": "Longsword (x2)",
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] slashing damage. Two attacks per Attack action."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 15,
+    "com.battle-system.forge/Z036": [
+     {
+      "id": "dh-005",
+      "name": "Second Wind (1/short rest)",
+      "description": "Regains [1d10+2] hit points. Uses below 10 HP."
+     }
+    ],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 2,
+    "com.battle-system.forge/Z016": 1,
+    "com.battle-system.forge/Z022": 11,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 14,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 13,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 19,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 11,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 19,
+    "com.battle-system.forge/Z029": 3,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 3,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Athletics +5, Perception +3",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 16,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 12
+   }
+  },
+  {
+   "id": "davren",
+   "name": "Davren",
+   "cr": 2,
+   "source": "Northern Ambush",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Davren",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "davren-001",
+      "name": "Zealous Conviction",
+      "description": "Once per day, if damage would reduce Davren to 0 hit points, he drops to 1 instead. His faith won't let him fall to the first killing blow."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "davren-002",
+      "name": "Multiattack",
+      "description": "Davren makes two greatsword attacks."
+     },
+     {
+      "id": "davren-003",
+      "name": "Greatsword",
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [2d6+3] slashing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 16,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 2,
+    "com.battle-system.forge/Z025": 2,
+    "com.battle-system.forge/Z016": 2,
+    "com.battle-system.forge/Z022": 15,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 14,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 12,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 58,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 58,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 3,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Athletics +5, Intimidation +4",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 16,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 11
+   }
+  },
+  {
+   "id": "devrin-kass",
+   "name": "Devrin Kass",
+   "cr": 5,
+   "source": "Devrin Pursuit",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Devrin Kass",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "devrin-001",
+      "name": "Dagger",
+      "description": "Melee Weapon Attack [1d20+6] to hit, reach 5 ft., one target. [1d4+4] piercing damage. Backup strike only."
+     },
+     {
+      "id": "devrin-002",
+      "name": "Inflict Wounds",
+      "description": "Melee Spell Attack [1d20+8] to hit, reach 5 ft. (touch), one target. [3d10] necrotic damage. Used only if cornered."
+     },
+     {
+      "id": "devrin-003",
+      "name": "Silence (opens with this)",
+      "description": "20 ft. radius centred on a point Devrin can see. No save. Suppresses verbal spell components for everyone inside it, Devrin included."
+     },
+     {
+      "id": "devrin-004",
+      "name": "Command (DC 16 Wisdom save)",
+      "description": "One word: Flee, Drop, or Grovel. Used on whoever is physically blocking her retreat."
+     },
+     {
+      "id": "devrin-005",
+      "name": "Hold Person (DC 16 Wisdom save)",
+      "description": "Used on whoever is fastest, to buy an escape window."
+     },
+     {
+      "id": "devrin-006",
+      "name": "Disengages on opening (Trait)",
+      "description": "The instant a clear route exists, Devrin takes it rather than pressing any advantage. She is not trying to win this fight."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Lawful Neutral",
+    "com.battle-system.forge/Z007": 15,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 1,
+    "com.battle-system.forge/Z025": 2,
+    "com.battle-system.forge/Z016": 5,
+    "com.battle-system.forge/Z022": 12,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 14,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 14,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 68,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 68,
+    "com.battle-system.forge/Z029": 3,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 2,
+    "com.battle-system.forge/Z041": "Wisdom +8 (proficient)",
+    "com.battle-system.forge/Z013": "Passive Perception 15",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Insight +8, Religion +4",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 14,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 8,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 20
+   }
+  },
+  {
+   "id": "drace",
+   "name": "Drace",
+   "cr": 3,
+   "source": "The Starling",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Drace",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "drace-003",
+      "name": "Shortsword",
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d6+3] piercing damage."
+     },
+     {
+      "id": "drace-004",
+      "name": "Hand Crossbow",
+      "description": "Ranged Weapon Attack [1d20+5] to hit, range 30/120 ft., one target. [1d6+3] piercing damage."
+     },
+     {
+      "id": "drace-005",
+      "name": "Second Wind (Bonus Action, 1/short rest)",
+      "description": "Regains [1d10+2] hit points."
+     },
+     {
+      "id": "drace-007",
+      "name": "Cunning Action (Bonus Action)",
+      "description": "Dash, Disengage, or Hide."
+     },
+     {
+      "id": "drace-009",
+      "name": "Action Surge (1/short rest)",
+      "description": "Takes an additional action. Use on the first round if surprised -- he recovers fast."
+     },
+     {
+      "id": "drace-008",
+      "name": "Uncanny Dodge (Reaction)",
+      "description": "Halves the damage of one attack that hits him."
+     },
+     {
+      "id": "drace-010",
+      "name": "Evasion (Trait)",
+      "description": "On a Dexterity saving throw against an effect that deals half damage on a success, Drace takes no damage on a success and half on a fail."
+     },
+     {
+      "id": "drace-001",
+      "name": "Threat Assessment (Trait)",
+      "description": "On his first turn Drace identifies the most dangerous party member and targets them exclusively until they are down or he reassesses."
+     },
+     {
+      "id": "drace-002",
+      "name": "Will Negotiate (Trait)",
+      "description": "When two allies are incapacitated or Drace drops below half HP, he calls for negotiation. His offer: walk away with Elbeth, no pursuit."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 16,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 2,
+    "com.battle-system.forge/Z025": 2,
+    "com.battle-system.forge/Z016": 3,
+    "com.battle-system.forge/Z022": 15,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 15,
+    "com.battle-system.forge/Z024": 3,
+    "com.battle-system.forge/Z018": 16,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 65,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 65,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 3,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Athletics +5, Intimidation +4",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 16,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 13
+   }
+  },
+  {
+   "id": "drest",
+   "name": "Drest",
+   "cr": 0.5,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Drest",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "drest-001",
+      "name": "Grappler",
+      "description": "+2 to Strength contests. Counts as one size larger for grappling purposes."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "drest-002",
+      "name": "Warhammer",
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] bludgeoning damage."
+     },
+     {
+      "id": "drest-003",
+      "name": "Grapple",
+      "description": "Strength contest +5. On success the target is grappled. Drest can move the grappled creature at half speed and attack them at advantage while grappling."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 13,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 2,
+    "com.battle-system.forge/Z016": 0.5,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 14,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 10,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 19,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 11,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common, Dwarvish",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 19,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 3,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Athletics +5",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 17,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 12
+   }
+  },
+  {
+   "id": "efa-dun",
+   "name": "Efa Dun",
+   "cr": 0.125,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Efa Dun",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "efa-001",
+      "name": "Breaks When Cors Falls",
+      "description": "When Cors is incapacitated or steps away, Efa Dun makes a DC 10 Wisdom saving throw or disengages."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "efa-002",
+      "name": "Dagger",
+      "description": "Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4+1] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 11,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0.125,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 10,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 12,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 8,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 11,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 8,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": -1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 9,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "elbeth-sable",
+   "name": "Elbeth Sable",
+   "cr": 0.25,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Elbeth Sable",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "elbeth-ff-001",
+      "name": "Personal Grievance",
+      "description": "Elbeth targets whoever she holds most responsible for Coppergate Stables and does not switch targets unless that target is incapacitated."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "elbeth-ff-002",
+      "name": "Shortsword",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral Good",
+    "com.battle-system.forge/Z007": 13,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 1,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 13,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 15,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 12,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 13,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 12,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Insight +3, Stealth +4",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 11,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 12
+   }
+  },
+  {
+   "id": "fenn",
+   "name": "Fenn",
+   "cr": 0,
+   "source": "The Trumpet",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Fenn",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "fenn-001",
+      "name": "Gnome Cunning",
+      "description": "Advantage on Intelligence, Wisdom, and Charisma saving throws against magic."
+     },
+     {
+      "id": "fenn-002",
+      "name": "Runs Immediately",
+      "description": "On his first turn Fenn identifies the nearest exit and moves toward it using Dash. He is done."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "fenn-003",
+      "name": "Dash",
+      "description": "Fenn uses his action to Dash toward the nearest exit. He does not look back."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 11,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": -1,
+    "com.battle-system.forge/Z016": 0,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 9,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 12,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 4,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common, Gnomish",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 4,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": -2,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Darkvision 60 ft., Passive Perception 10",
+    "com.battle-system.forge/Z002": "Small",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 7,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 25,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "gethin",
+   "name": "Gethin",
+   "cr": 0.25,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Gethin",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "gethin-001",
+      "name": "Breaks When Bael Falls",
+      "description": "When Bael is incapacitated, Gethin must make a DC 10 Wisdom saving throw or disengage and flee."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "gethin-002",
+      "name": "Shortsword",
+      "description": "Melee Weapon Attack [1d20+3] to hit, reach 5 ft., one target. [1d6+1] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 13,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 13,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 11,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 11,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 13,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "gort",
+   "name": "Gort",
+   "cr": 0.25,
+   "source": "Driftwood Road",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Gort",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "gort-001",
+      "name": "Blocker",
+      "description": "Any creature attempting to move through Gort's space or push past him must succeed on a DC 13 Strength check or have their movement stopped."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "gort-002",
+      "name": "Greatclub",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d8+2] bludgeoning damage."
+     },
+     {
+      "id": "gort-003",
+      "name": "Javelin (thrown)",
+      "description": "Ranged Weapon Attack [1d20+4] to hit, range 30/120 ft., one target. [1d6+2] piercing damage. Round 1 only."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 14,
+    "com.battle-system.forge/Z036": [
+     {
+      "id": "gort-004",
+      "name": "Second Wind (1/short rest)",
+      "description": "Regains [1d10+1] hit points."
+     }
+    ],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 2,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 14,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 11,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 14,
+    "com.battle-system.forge/Z026": -1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 8,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common, Orc",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 14,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 3,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Darkvision 60 ft., Passive Perception 9",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Athletics +5",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 16,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": -1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 9
+   }
+  },
+  {
+   "id": "harwick",
+   "name": "Harwick",
+   "cr": 1,
+   "source": "The Starling",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Harwick",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "harwick-002",
+      "name": "Longsword",
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] slashing damage."
+     },
+     {
+      "id": "harwick-003",
+      "name": "Handaxe (thrown)",
+      "description": "Ranged Weapon Attack [1d20+5] to hit, range 20/60 ft., one target. [1d6+3] slashing damage. Round 1 only."
+     },
+     {
+      "id": "harwick-004",
+      "name": "Second Wind (Bonus Action, 1/short rest)",
+      "description": "Regains [1d10+2] hit points."
+     },
+     {
+      "id": "harwick-001",
+      "name": "Escalates (Trait)",
+      "description": "When an ally is reduced to 0 HP, Harwick's next attack roll has advantage. He does not retreat when others break."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 15,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 2,
+    "com.battle-system.forge/Z016": 1,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 14,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 12,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 45,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 45,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 3,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 16,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 11
+   }
+  },
+  {
+   "id": "huw",
+   "name": "Huw",
+   "cr": 0.5,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Huw",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "huw-001",
+      "name": "Composed",
+      "description": "Advantage on saving throws against being frightened."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "huw-002",
+      "name": "Rapier",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d8+2] piercing damage."
+     },
+     {
+      "id": "huw-003",
+      "name": "Charm Person (Level 1 Slot)",
+      "description": "One humanoid within 30 ft. makes DC 13 Wisdom save or is charmed by Huw for 1 hour. Charmed creature regards Huw as friendly. Ends if Huw or allies harm the target. Use on the most aggressive party member."
+     },
+     {
+      "id": "huw-004",
+      "name": "Suggestion (Level 1 Slot)",
+      "description": "One creature that can hear and understand Huw makes DC 13 Wis save or follows a reasonable suggestion for 8 hours."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 13,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 2,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.5,
+    "com.battle-system.forge/Z022": 15,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 14,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 18,
+    "com.battle-system.forge/Z026": 2,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 14,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 18,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "Spell save DC 13. Slots: 2x Level 1.",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Deception +4, Insight +3, Persuasion +4",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 11,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 13
+   }
+  },
+  {
+   "id": "idony",
+   "name": "Idony",
+   "cr": 0.25,
+   "source": "Road Ambush",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Idony",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "idony-001",
+      "name": "Sneak Attack",
+      "description": "Once per turn, Idony deals an extra [1d6] damage when she has advantage or an ally is adjacent to the target."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "idony-002",
+      "name": "Shortsword",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] piercing damage. Add [1d6] sneak attack if advantage or ally adjacent."
+     },
+     {
+      "id": "idony-003",
+      "name": "Dagger (thrown)",
+      "description": "Ranged Weapon Attack [1d20+4] to hit, range 20/60 ft., one target. [1d4+2] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral Good",
+    "com.battle-system.forge/Z007": 13,
+    "com.battle-system.forge/Z036": [
+     {
+      "id": "idony-004",
+      "name": "Cunning Action",
+      "description": "Idony can take the Dash, Disengage, or Hide action as a bonus action."
+     }
+    ],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 11,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 11,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 15,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 8,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 8,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Stealth +4, Perception +3",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 10,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 13
+   }
+  },
+  {
+   "id": "isha",
+   "name": "Isha",
+   "cr": 0.5,
+   "source": "Northern Ambush",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Isha",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "isha-001",
+      "name": "Pack Tactics",
+      "description": "Isha has advantage on an attack roll against a creature if at least one of her allies is within 5 ft. of it and not incapacitated."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "isha-002",
+      "name": "Multiattack",
+      "description": "Isha makes two dagger attacks."
+     },
+     {
+      "id": "isha-003",
+      "name": "Dagger",
+      "description": "Melee or Ranged Weapon Attack [1d20+5] to hit, reach 5 ft. or range 20/60 ft., one target. [1d4+3] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 14,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 1,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.5,
+    "com.battle-system.forge/Z022": 12,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 3,
+    "com.battle-system.forge/Z018": 16,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 22,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 22,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Stealth +5, Acrobatics +5",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 11,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 12
+   }
+  },
+  {
+   "id": "jori",
+   "name": "Jori",
+   "cr": 0.125,
+   "source": "The Trumpet",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Jori",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "jori-001",
+      "name": "Halfling Luck",
+      "description": "When Jori rolls a 1 on an attack roll, ability check, or saving throw, he can reroll and must use the new result."
+     },
+     {
+      "id": "jori-002",
+      "name": "Deeply Reluctant",
+      "description": "DC 8 Wisdom saving throw on first turn. On a failure he finds a corner and stays in it. Surrenders immediately if directly threatened."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "jori-003",
+      "name": "Dagger",
+      "description": "Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4] piercing damage. Will not use this unless directly attacked."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 11,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0.125,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 10,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 12,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 6,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common, Halfling",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 6,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": -1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Small",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 8,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 25,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "mael",
+   "name": "Mael",
+   "cr": 0,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Mael",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "mael-001",
+      "name": "Breaks Early",
+      "description": "When first hit or when any ally is incapacitated, Mael must make a DC 8 Wisdom saving throw or disengage immediately."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "mael-002",
+      "name": "Improvised Weapon",
+      "description": "Melee Weapon Attack [1d20+1] to hit, reach 5 ft., one target. [1d4] bludgeoning damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 10,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 10,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 10,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 7,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 7,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 9",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 10,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": -1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 9
+   }
+  },
+  {
+   "id": "mags",
+   "name": "Mags",
+   "cr": 0.25,
+   "source": "The Trumpet",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Mags",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "mags-001",
+      "name": "Assessed the Room",
+      "description": "Mags knows which party member is most dangerous. She goes directly for them on her first turn."
+     },
+     {
+      "id": "mags-002",
+      "name": "Not Dying for Perran",
+      "description": "When the fight is clearly lost — two allies down — Mags disengages and leaves."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "mags-003",
+      "name": "Dagger",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d4+2] piercing damage."
+     },
+     {
+      "id": "mags-004",
+      "name": "Dagger (thrown)",
+      "description": "Ranged Weapon Attack [1d20+4] to hit, range 20/60 ft., one target. [1d4+2] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 12,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 11,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 11,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 14,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 10,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 10,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Insight +3, Perception +3",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 11,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 13
+   }
+  },
+  {
+   "id": "marek-talan",
+   "name": "Marek Talan",
+   "cr": 5,
+   "source": "Assassination night (Oct 2026)",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Marek Talan",
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z003": "Lawful Good",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z005": 117,
+    "com.battle-system.forge/Z006": 117,
+    "com.battle-system.forge/Z007": 16,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z013": "Passive Perception 12",
+    "com.battle-system.forge/Z014": "Athletics +7, Insight +5, Persuasion +7",
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z016": 5,
+    "com.battle-system.forge/Z017": 18,
+    "com.battle-system.forge/Z018": 10,
+    "com.battle-system.forge/Z019": 16,
+    "com.battle-system.forge/Z020": 11,
+    "com.battle-system.forge/Z021": 14,
+    "com.battle-system.forge/Z022": 18,
+    "com.battle-system.forge/Z023": 8,
+    "com.battle-system.forge/Z024": 4,
+    "com.battle-system.forge/Z025": 7,
+    "com.battle-system.forge/Z026": 4,
+    "com.battle-system.forge/Z027": 9,
+    "com.battle-system.forge/Z028": 11,
+    "com.battle-system.forge/Z029": 3,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "marek-001",
+      "name": "Trait: Steadfast",
+      "description": "Marek adds 4 to every saving throw (included in his saves)."
+     },
+     {
+      "id": "marek-002",
+      "name": "Trait: Restraint",
+      "description": "Marek never attacks first. Any creature he reduces to 0 hit points falls unconscious and is stable."
+     },
+     {
+      "id": "marek-003",
+      "name": "Trait: Unbowed (1/Day)",
+      "description": "When reduced to 0 hit points but not killed outright, Marek drops to 1 hit point instead and does nothing on his next turn but speak."
+     },
+     {
+      "id": "marek-004",
+      "name": "Multiattack",
+      "description": "Marek makes two Mallet attacks, or uses Plea and makes one Mallet attack."
+     },
+     {
+      "id": "marek-005",
+      "name": "Mallet",
+      "description": "Melee Weapon Attack [1d20+7] to hit, reach 5 ft., one target. [2d6+4] bludgeoning damage. Instead of dealing damage, Marek can disarm the target or knock it prone (DC 15 Strength saving throw to resist)."
+     },
+     {
+      "id": "marek-006",
+      "name": "Plea (Recharge 5-6)",
+      "description": "Every creature within 30 ft. that can hear Marek makes a DC 15 Wisdom saving throw or can't attack until the end of its next turn. A creature that takes damage from Marek's side ends the effect on itself."
+     },
+     {
+      "id": "marek-007",
+      "name": "Lay on Hands (65 HP pool)",
+      "description": "Action. Marek touches another creature and restores up to 20 hit points from the pool. He can't use it on himself. Any touch, even for 1 point, expels all of the creature's Rotten stacks."
+     },
+     {
+      "id": "marek-008",
+      "name": "Reaction: Turn the Blow",
+      "description": "When a creature Marek can see hits him with a melee attack, he reduces the damage by [1d10+4]. If it was a weapon attack, the attacker makes a DC 15 Strength saving throw or drops the weapon."
+     },
+     {
+      "id": "marek-009",
+      "name": "Tactics",
+      "description": "Never starts the fight: words, then Plea, then the mallet once someone is hurt. Disarms and knock-downs before damage. Doesn't run or beg. Morning on the Docks with dockhands watching and a rotten half-jetty underfoot."
+     }
+    ],
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z042": 0
+   }
+  },
+  {
+   "id": "mira-sable",
+   "name": "Mira Sable",
+   "cr": 0.5,
+   "source": "Assassination Paths",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Mira Sable",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "mira-a-001",
+      "name": "Sneak Attack",
+      "description": "Once per turn, Mira deals an extra [1d6] damage when she has advantage on the attack or when an ally is adjacent to the target."
+     },
+     {
+      "id": "mira-a-002",
+      "name": "Uncanny Poise",
+      "description": "Does not provoke opportunity attacks when moving away from a hostile creature."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "mira-a-003",
+      "name": "Dagger (melee)",
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d4+3] piercing damage. Add [1d6] if sneak attack conditions met."
+     },
+     {
+      "id": "mira-a-004",
+      "name": "Dagger (thrown)",
+      "description": "Ranged Weapon Attack [1d20+5] to hit, range 20/60 ft., one target. [1d4+3] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 14,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 3,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.5,
+    "com.battle-system.forge/Z022": 14,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 3,
+    "com.battle-system.forge/Z018": 15,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 18,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 18,
+    "com.battle-system.forge/Z029": 3,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 12",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Stealth +5, Perception +4, Deception +5",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 10,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 3,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 14
+   }
+  },
+  {
+   "id": "morda",
+   "name": "Morda",
+   "cr": 0.5,
+   "source": "Driftwood Road",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Morda",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "morda-001",
+      "name": "Natural Explorer (Forest)",
+      "description": "Difficult terrain does not slow Morda in woodland. Relocates freely along the elevated position."
+     },
+     {
+      "id": "morda-002",
+      "name": "Favoured Enemy (Humanoids)",
+      "description": "Advantage on Survival checks to track humanoids and Intelligence checks to recall information about them."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "morda-003",
+      "name": "Longbow",
+      "description": "Ranged Weapon Attack [1d20+5] to hit, range 150/600 ft., one target. [1d8+3] piercing damage. Add [1d6] from Hunter's Mark if active."
+     },
+     {
+      "id": "morda-004",
+      "name": "Shortsword",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 14,
+    "com.battle-system.forge/Z036": [
+     {
+      "id": "morda-005",
+      "name": "Hunter's Mark (2/Long Rest, Concentration)",
+      "description": "Marks one creature within 90 ft. Deals extra [1d6] damage per hit against that target. Switch target as bonus action if current target drops. No spell slot required. Concentration, up to 1 hour."
+     }
+    ],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.5,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 3,
+    "com.battle-system.forge/Z018": 16,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 16,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 11,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 16,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 14",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Perception +4, Stealth +5, Survival +4",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 13,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 2,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 14
+   }
+  },
+  {
+   "id": "nance",
+   "name": "Nance",
+   "cr": 0.25,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Nance",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "nance-001",
+      "name": "Prepared Position",
+      "description": "Nance has already scouted the square before combat begins. She has half cover from her chosen position on the first round of combat."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "nance-002",
+      "name": "Hand Crossbow",
+      "description": "Ranged Weapon Attack [1d20+4] to hit, range 30/120 ft., one target. [1d6+2] piercing damage."
+     },
+     {
+      "id": "nance-003",
+      "name": "Dagger",
+      "description": "Melee Weapon Attack [1d20+3] to hit, reach 5 ft., one target. [1d4+1] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 13,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 11,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 11,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 15,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 11,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 11,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Stealth +4, Perception +3",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 10,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 13
+   }
+  },
+  {
+   "id": "nesta",
+   "name": "Nesta",
+   "cr": 0,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Nesta",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "nesta-001",
+      "name": "Breaks Immediately",
+      "description": "When first hit or when Prys breaks, Nesta must make a DC 6 Wisdom saving throw or disengage immediately."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "nesta-002",
+      "name": "Improvised Weapon",
+      "description": "Melee Weapon Attack [1d20+1] to hit, reach 5 ft., one target. [1d4] bludgeoning damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 10,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 10,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 10,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 6,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 6,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 9",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 10,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": -1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 9
+   }
+  },
+  {
+   "id": "oskar-sternov",
+   "name": "Oskar Sternov",
+   "cr": 5,
+   "source": "Assassination night (Oct 2026)",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Oskar Sternov",
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z003": "Lawful Neutral",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z005": 119,
+    "com.battle-system.forge/Z006": 119,
+    "com.battle-system.forge/Z007": 16,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z014": "Athletics +8, Insight +4, Intimidation +5",
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z016": 5,
+    "com.battle-system.forge/Z017": 20,
+    "com.battle-system.forge/Z018": 10,
+    "com.battle-system.forge/Z019": 18,
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z021": 13,
+    "com.battle-system.forge/Z022": 14,
+    "com.battle-system.forge/Z023": 8,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z025": 7,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z028": 2,
+    "com.battle-system.forge/Z029": 3,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z031": "Fire",
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "oskar-001",
+      "name": "Trait: Forge-Hardened",
+      "description": "Oskar has resistance to fire damage."
+     },
+     {
+      "id": "oskar-002",
+      "name": "Trait: Not Today (1/Day)",
+      "description": "When Oskar is reduced to 0 hit points but not killed outright, he drops to 1 hit point instead."
+     },
+     {
+      "id": "oskar-003",
+      "name": "Multiattack",
+      "description": "Oskar makes two Forge Hammer attacks. He can replace one with Grapple."
+     },
+     {
+      "id": "oskar-004",
+      "name": "Forge Hammer",
+      "description": "Melee Weapon Attack [1d20+8] to hit, reach 5 ft., one target. [2d8+5] bludgeoning damage. A Large or smaller target must succeed on a DC 16 Strength saving throw or be pushed 10 ft. or knocked prone (Oskar's choice)."
+     },
+     {
+      "id": "oskar-005",
+      "name": "Grapple",
+      "description": "One Medium or smaller creature within 5 ft. must succeed on a DC 16 Strength (Athletics) or Dexterity (Acrobatics) check or be grappled (escape DC 16)."
+     },
+     {
+      "id": "oskar-006",
+      "name": "Hurl",
+      "description": "Oskar throws a creature he is grappling up to 15 ft. It lands prone and takes [3d6] bludgeoning damage. A creature it strikes makes a DC 16 Dexterity saving throw or takes the same damage and is knocked prone. Thrown into the open forge: an extra [2d6] fire damage."
+     },
+     {
+      "id": "oskar-007",
+      "name": "Banked Coals (Recharge 5-6)",
+      "description": "Within 10 ft. of the forge only. 15-ft. cone, DC 15 Dexterity saving throw, [5d6] fire damage on a failure, half on a success."
+     },
+     {
+      "id": "oskar-008",
+      "name": "Bonus Action: Second Wind (Short Rest)",
+      "description": "Oskar regains [2d10+5] hit points."
+     },
+     {
+      "id": "oskar-009",
+      "name": "Reaction: Stand Firm",
+      "description": "When a creature tries to shove, grapple or knock Oskar prone, he adds 4 to his roll or save. If it still succeeds, he makes one Forge Hammer attack against that creature."
+     },
+     {
+      "id": "oskar-010",
+      "name": "Tactics",
+      "description": "Keeps the party between himself and the door, the forge at his back. Grapples and hurls small, quick characters. Never flees. Fights alone: Bram is out after Alric."
+     }
+    ],
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z042": 0
+   }
+  },
+  {
+   "id": "osric",
+   "name": "Osric",
+   "cr": 0.125,
+   "source": "The Trumpet",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Osric",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "osric-001",
+      "name": "Impaired",
+      "description": "Disadvantage on all attack rolls and Dexterity saving throws."
+     },
+     {
+      "id": "osric-002",
+      "name": "Already Uncomfortable",
+      "description": "DC 8 Wisdom saving throw at the start of his first turn. On a failure he uses his action to look for an exit rather than attack."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "osric-003",
+      "name": "Unarmed (Impaired)",
+      "description": "Melee Weapon Attack [1d20+2] to hit (disadvantage), reach 5 ft., one target. [1d4] bludgeoning damage. He does not really want to do this."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 11,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0.125,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 10,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 12,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 7,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common, Elvish",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 7,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": -1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Darkvision 60 ft., Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 9,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 11
+   }
+  },
+  {
+   "id": "peck",
+   "name": "Peck",
+   "cr": 0,
+   "source": "Driftwood Road",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Peck",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "peck-001",
+      "name": "Gnome Cunning",
+      "description": "Advantage on Intelligence, Wisdom, and Charisma saving throws against magic."
+     },
+     {
+      "id": "peck-002",
+      "name": "The Ledger",
+      "description": "Contains payment records, merchant names, dates, and a coded reference to Cadog Melyn as the legal landowner cover. DC 13 Investigation to decode."
+     },
+     {
+      "id": "peck-003",
+      "name": "Negotiator",
+      "description": "If cornered and not immediately attacked, Peck will talk. Will hand over the ledger if given a compelling reason but will not give up Radek."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "peck-004",
+      "name": "Dagger",
+      "description": "Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4+1] piercing damage. He does not want to use this."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 11,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 1,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0,
+    "com.battle-system.forge/Z022": 13,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 10,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 13,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 7,
+    "com.battle-system.forge/Z026": 2,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 15,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common, Gnomish",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 7,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": -1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Darkvision 60 ft., Passive Perception 11",
+    "com.battle-system.forge/Z002": "Small",
+    "com.battle-system.forge/Z014": "Investigation +4, Insight +3, Persuasion +3",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 8,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 25,
+    "com.battle-system.forge/Z021": 12
+   }
+  },
+  {
+   "id": "pell",
+   "name": "Pell",
+   "cr": 0.125,
+   "source": "Road Ambush",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Pell",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "pell-001",
+      "name": "Reluctant",
+      "description": "If Brath is incapacitated and Pell is below half HP, Pell must make a DC 10 Wisdom saving throw or disengage and flee."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "pell-002",
+      "name": "Club",
+      "description": "Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4+1] bludgeoning damage."
+     },
+     {
+      "id": "pell-003",
+      "name": "Light Crossbow",
+      "description": "Ranged Weapon Attack [1d20+2] to hit, range 80/320 ft., one target. [1d8] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 11,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.125,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 11,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 9,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 9,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 13,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "perran-carew",
+   "name": "Perran Carew",
+   "cr": 0.5,
+   "source": "The Trumpet",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Perran Carew",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "perran-001",
+      "name": "Impaired",
+      "description": "Disadvantage on all attack rolls and Dexterity saving throws for the duration of the encounter."
+     },
+     {
+      "id": "perran-002",
+      "name": "Entitled",
+      "description": "DC 14 Persuasion to talk down once the fight has started. Does not back down easily."
+     },
+     {
+      "id": "perran-003",
+      "name": "Large Build",
+      "description": "+2 to Strength contests and shove attempts."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "perran-004",
+      "name": "Unarmed Strike (Impaired)",
+      "description": "Melee Weapon Attack [1d20+4] to hit (disadvantage), reach 5 ft., one target. [1d4+2] bludgeoning damage."
+     },
+     {
+      "id": "perran-005",
+      "name": "Shove",
+      "description": "Strength contest +5. On success push one creature 5 ft. away or knock prone. +2 from large build."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 11,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 1,
+    "com.battle-system.forge/Z025": 2,
+    "com.battle-system.forge/Z016": 0.5,
+    "com.battle-system.forge/Z022": 12,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 14,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 10,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 16,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 16,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 3,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 9",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Intimidation +3",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 16,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": -1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 9
+   }
+  },
+  {
+   "id": "perys-sable",
+   "name": "Perys Sable",
+   "cr": 0.25,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Perys Sable",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "perys-001",
+      "name": "Dagger (melee)",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d4+2] piercing damage."
+     },
+     {
+      "id": "perys-002",
+      "name": "Dagger (thrown)",
+      "description": "Ranged Weapon Attack [1d20+4] to hit, range 20/60 ft., one target. [1d4+2] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 13,
+    "com.battle-system.forge/Z036": [
+     {
+      "id": "perys-003",
+      "name": "Cunning Action",
+      "description": "Perys can take the Dash, Disengage, or Hide action as a bonus action."
+     }
+    ],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 12,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 10,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 15,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 9,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 12,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 9,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": -1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Stealth +4, Acrobatics +4",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 9,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 12
+   }
+  },
+  {
+   "id": "pol",
+   "name": "Pol",
+   "cr": 0.125,
+   "source": "Basement Warehouse",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Pol",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "pol-001",
+      "name": "Breaks if Tomas Falls",
+      "description": "When Tomas is reduced to 0 HP, Pol immediately takes the Dodge action on his next turn and does not make further attacks. He does not flee — he just stops."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "pol-002",
+      "name": "Improvised Weapon",
+      "description": "Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4+1] bludgeoning damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 10,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0.125,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 11,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 10,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 9,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 9,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 12,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "prys",
+   "name": "Prys",
+   "cr": 0,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Prys",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "prys-001",
+      "name": "Breaks Round 1",
+      "description": "At the end of round 1, or when first hit, Prys must make a DC 8 Wisdom saving throw or drop his weapon and disengage."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "prys-002",
+      "name": "Improvised Weapon",
+      "description": "Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4] bludgeoning damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 10,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 11,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 9,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 7,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 7,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 9",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 12,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": -1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 9
+   }
+  },
+  {
+   "id": "pytros",
+   "name": "Pytros",
+   "cr": 0.5,
+   "source": "Northern Ambush",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Pytros",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "pytros-001",
+      "name": "Pack Tactics",
+      "description": "Pytros has advantage on an attack roll against a creature if at least one of his allies is within 5 ft. of it and not incapacitated."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "pytros-002",
+      "name": "Multiattack",
+      "description": "Pytros makes two dagger attacks."
+     },
+     {
+      "id": "pytros-003",
+      "name": "Dagger",
+      "description": "Melee or Ranged Weapon Attack [1d20+5] to hit, reach 5 ft. or range 20/60 ft., one target. [1d4+3] piercing damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 14,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 1,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.5,
+    "com.battle-system.forge/Z022": 12,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 3,
+    "com.battle-system.forge/Z018": 16,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 22,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 22,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 0,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Stealth +5, Acrobatics +5",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 11,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 12
+   }
+  },
+  {
+   "id": "radek",
+   "name": "Radek",
+   "cr": 1,
+   "source": "Driftwood Road",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Radek",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "radek-001",
+      "name": "Extra Attack",
+      "description": "Radek makes two attacks when he takes the Attack action."
+     },
+     {
+      "id": "radek-002",
+      "name": "Battle Master (3 Superiority Dice d8)",
+      "description": "Uses Disarming Attack, Pushing Attack, and Trip Attack manoeuvres."
+     },
+     {
+      "id": "radek-003",
+      "name": "Action Surge (1/short rest)",
+      "description": "Takes one additional action on his turn. Use when a player breaks through the bottleneck or on round 2 if the party is gaining ground."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "radek-004",
+      "name": "Longsword (x2)",
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] slashing damage. Makes two attacks per Attack action."
+     },
+     {
+      "id": "radek-005",
+      "name": "Disarming Attack",
+      "description": "Expend one superiority die. On hit, target must succeed on DC 13 Str save or drop one held item. Add [1d8] to damage."
+     },
+     {
+      "id": "radek-006",
+      "name": "Trip Attack",
+      "description": "Expend one superiority die. On hit, target must succeed on DC 13 Str save or be knocked prone. Add [1d8] to damage."
+     },
+     {
+      "id": "radek-007",
+      "name": "Pushing Attack",
+      "description": "Expend one superiority die. On hit, target must succeed on DC 13 Str save or be pushed 15 ft. away. Add [1d8] to damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 16,
+    "com.battle-system.forge/Z036": [
+     {
+      "id": "radek-008",
+      "name": "Second Wind (1/short rest)",
+      "description": "Regains [1d10+3] hit points."
+     }
+    ],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 1,
+    "com.battle-system.forge/Z025": 4,
+    "com.battle-system.forge/Z016": 1,
+    "com.battle-system.forge/Z022": 13,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 14,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 13,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 28,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 11,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 28,
+    "com.battle-system.forge/Z029": 3,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 5,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Athletics +5, Intimidation +3",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 17,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 12
+   }
+  },
+  {
+   "id": "roark",
+   "name": "Roark",
+   "cr": 0.125,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Roark",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "roark-001",
+      "name": "Breaks When Cors Falls",
+      "description": "When Cors is incapacitated, Roark must make a DC 10 Wisdom saving throw or disengage and withdraw."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "roark-002",
+      "name": "Carpenter's Mallet",
+      "description": "Melee Weapon Attack [1d20+3] to hit, reach 5 ft., one target. [1d6+1] bludgeoning damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 11,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.125,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 10,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 11,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 11,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 13,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "rot-beast",
+   "name": "Rot Beast",
+   "cr": 1,
+   "source": "The Rot",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Rot Beast",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "beast-001",
+      "name": "Lunge",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [2d6+2] necrotic damage, and the target must succeed on a DC 14 Constitution save or gain one stack of Rotten."
+     },
+     {
+      "id": "beast-002",
+      "name": "Corroding Presence (Trait)",
+      "description": "Any creature that ends its turn within 5 ft. takes [1d6] necrotic damage and must succeed on a DC 14 Constitution save or gain one stack of Rotten."
+     },
+     {
+      "id": "beast-003",
+      "name": "Effluent: Acid (Trait)",
+      "description": "When the Beast takes acid damage, each creature within 5 ft. must make a DC 14 Dexterity save or take [2d6] necrotic damage and make a DC 14 Constitution save against the Rot."
+     },
+     {
+      "id": "beast-004",
+      "name": "Effluent: Lightning (Trait)",
+      "description": "When the Beast takes lightning damage, each creature within 10 ft. must make a DC 16 Dexterity save or take [2d6] necrotic damage and make a DC 14 Constitution save against the Rot."
+     },
+     {
+      "id": "beast-005",
+      "name": "Living Rot (Trait)",
+      "description": "No mind. Cannot be targeted by effects that require cognition, language comprehension or psychology. Fear, commands and other cognitive riders never apply."
+     },
+     {
+      "id": "beast-006",
+      "name": "Seep (Trait)",
+      "description": "Moves through gaps as small as one inch without squeezing."
+     },
+     {
+      "id": "beast-007",
+      "name": "Cold Suspension (Trait)",
+      "description": "If reduced to 0 HP by cold damage, frozen rather than destroyed. Recovers to full HP after 1 hour unless destroyed by fire, radiant damage or salt first. Cold damage also inflicts Slowed until the end of its next turn."
+     },
+     {
+      "id": "beast-008",
+      "name": "Thunder Fission (Trait)",
+      "description": "When it takes thunder damage it loses that many HP and expels a fragment with HP equal to half the thunder damage, entering initiative immediately as the tier matching its HP (up to 6 Dreg, up to 18 Skulker, up to 45 Beast). No fragment if the thunder damage reduces it to 0 HP."
+     }
+    ],
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z003": "Unaligned",
+    "com.battle-system.forge/Z007": 12,
+    "com.battle-system.forge/Z005": 45,
+    "com.battle-system.forge/Z006": 45,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z008": 35,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z016": 1,
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z017": 14,
+    "com.battle-system.forge/Z018": 6,
+    "com.battle-system.forge/Z019": 18,
+    "com.battle-system.forge/Z020": 1,
+    "com.battle-system.forge/Z021": 8,
+    "com.battle-system.forge/Z022": 1,
+    "com.battle-system.forge/Z023": 2,
+    "com.battle-system.forge/Z024": -2,
+    "com.battle-system.forge/Z025": 6,
+    "com.battle-system.forge/Z026": -5,
+    "com.battle-system.forge/Z027": -1,
+    "com.battle-system.forge/Z028": -5,
+    "com.battle-system.forge/Z041": "Constitution +6 (proficient)",
+    "com.battle-system.forge/Z030": "Radiant, Fire",
+    "com.battle-system.forge/Z031": "Bludgeoning (Slowed), Slashing, Piercing, Psychic",
+    "com.battle-system.forge/Z032": "Necrotic (heals instead)",
+    "com.battle-system.forge/Z033": "Blinded, Charmed, Deafened, Exhaustion, Frightened, Grappled, Prone, Restrained, Unconscious",
+    "com.battle-system.forge/Z013": "Blindsight 60 ft.",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z015": "",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z004": "Ooze"
+   }
+  },
+  {
+   "id": "rot-dreg",
+   "name": "Rot Dreg",
+   "cr": 0.125,
+   "source": "Rot Monstrosity",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Rot Dreg",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "dreg-001",
+      "name": "No Actions",
+      "description": "The Rot Dreg moves toward organic matter and harms by contact only."
+     },
+     {
+      "id": "dreg-002",
+      "name": "Corroding Presence (Trait)",
+      "description": "Any creature that ends its turn in contact with the Rot Dreg takes 1 necrotic damage and must succeed on a DC 10 Constitution save or gain one stack of Rotten."
+     },
+     {
+      "id": "dreg-003",
+      "name": "Living Rot (Trait)",
+      "description": "The Rot Dreg has no mind and cannot be targeted by effects that require cognition, language comprehension or psychology."
+     },
+     {
+      "id": "dreg-004",
+      "name": "Seep (Trait)",
+      "description": "The Rot Dreg can move through gaps as small as one inch without squeezing."
+     },
+     {
+      "id": "dreg-005",
+      "name": "Cold Suspension (Trait)",
+      "description": "If reduced to 0 HP by cold damage, the Rot Dreg is frozen rather than destroyed. It recovers to full HP after 1 hour unless destroyed by fire, radiant damage or salt first."
+     },
+     {
+      "id": "dreg-006",
+      "name": "Thunder Fission (Trait)",
+      "description": "When the Rot Dreg takes thunder damage, it loses that many HP. A creature reduced to 0 HP by the thunder damage produces no fragment."
+     }
+    ],
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z003": "Unaligned",
+    "com.battle-system.forge/Z007": 8,
+    "com.battle-system.forge/Z005": 6,
+    "com.battle-system.forge/Z006": 6,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z008": 10,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z016": 0.125,
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z017": 4,
+    "com.battle-system.forge/Z018": 4,
+    "com.battle-system.forge/Z019": 14,
+    "com.battle-system.forge/Z020": 1,
+    "com.battle-system.forge/Z021": 4,
+    "com.battle-system.forge/Z022": 1,
+    "com.battle-system.forge/Z023": -3,
+    "com.battle-system.forge/Z024": -3,
+    "com.battle-system.forge/Z025": 2,
+    "com.battle-system.forge/Z026": -5,
+    "com.battle-system.forge/Z027": -3,
+    "com.battle-system.forge/Z028": -5,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z030": "Radiant, Fire",
+    "com.battle-system.forge/Z031": "Bludgeoning (Slowed), Slashing, Piercing",
+    "com.battle-system.forge/Z032": "Necrotic (heals instead), Psychic",
+    "com.battle-system.forge/Z033": "Blinded, Charmed, Deafened, Exhaustion, Frightened, Grappled, Incapacitated, Prone, Restrained, Unconscious",
+    "com.battle-system.forge/Z013": "Blindsight 30 ft.",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z015": "",
+    "com.battle-system.forge/Z002": "Tiny",
+    "com.battle-system.forge/Z004": "Ooze"
+   }
+  },
+  {
+   "id": "rot-monstrosity",
+   "name": "Rot Monstrosity",
+   "cr": 5,
+   "source": "Rot Monstrosity",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Rot Monstrosity",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "monstrosity-001",
+      "name": "Multiattack",
+      "description": "The Monstrosity makes two Surge attacks."
+     },
+     {
+      "id": "monstrosity-002",
+      "name": "Surge",
+      "description": "Melee Weapon Attack [1d20+7] to hit, reach 10 ft., one target. [3d6+4] necrotic damage, and the target must succeed on a DC 17 Constitution save or gain one stack of Rotten."
+     },
+     {
+      "id": "monstrosity-003",
+      "name": "Harden (Recharge 5-6)",
+      "description": "The Monstrosity loses up to 20 HP and gains that many temporary HP as its outer mass sets into a brittle shell. While it has these temporary HP, any creature that hits it with a melee attack takes [2d8] necrotic damage as the shell shatters outward. The effect ends when the temporary HP are gone."
+     },
+     {
+      "id": "monstrosity-004",
+      "name": "Legendary Actions (3 per round)",
+      "description": "The Monstrosity can take 3 legendary actions, one at a time, at the end of another creature's turn. It regains them at the start of its turn. In the Everbloom fight these are only available in phase 3, after it resurfaces."
+     },
+     {
+      "id": "monstrosity-005",
+      "name": "Legendary: Pulse (costs 1)",
+      "description": "The Monstrosity moves up to half its speed."
+     },
+     {
+      "id": "monstrosity-006",
+      "name": "Legendary: Expel (costs 2)",
+      "description": "The Monstrosity loses 6 HP and expels a Rot Dreg with 6 HP, which enters initiative immediately."
+     },
+     {
+      "id": "monstrosity-007",
+      "name": "Legendary: Surge (costs 2)",
+      "description": "The Monstrosity makes one Surge attack."
+     },
+     {
+      "id": "monstrosity-008",
+      "name": "Survival Instinct (Trait)",
+      "description": "The Monstrosity recognises threats and responds to them. It targets creatures that have dealt it fire or radiant damage this encounter first."
+     },
+     {
+      "id": "monstrosity-009",
+      "name": "Corroding Presence (Trait)",
+      "description": "Any creature that ends its turn within 5 ft. takes [2d6] necrotic damage and must succeed on a DC 17 Constitution save or gain one stack of Rotten."
+     },
+     {
+      "id": "monstrosity-010",
+      "name": "Effluent: Acid (Trait)",
+      "description": "When the Monstrosity takes acid damage, each creature within 5 ft. must make a DC 17 Dexterity save or take [3d6] necrotic damage and make a DC 17 Constitution save against the Rot."
+     },
+     {
+      "id": "monstrosity-011",
+      "name": "Effluent: Lightning (Trait)",
+      "description": "When the Monstrosity takes lightning damage, each creature within 10 ft. must make a DC 19 Dexterity save or take [3d6] necrotic damage and make a DC 17 Constitution save against the Rot."
+     },
+     {
+      "id": "monstrosity-012",
+      "name": "Living Rot (Trait)",
+      "description": "The Monstrosity has no mind and cannot be targeted by effects that require cognition, language comprehension or psychology. Fear, commands and other cognitive riders never apply."
+     },
+     {
+      "id": "monstrosity-013",
+      "name": "Seep (Trait)",
+      "description": "The Monstrosity can move through gaps as small as one inch without squeezing."
+     },
+     {
+      "id": "monstrosity-014",
+      "name": "Cold Suspension (Trait)",
+      "description": "If reduced to 0 HP by cold damage, the Monstrosity is frozen rather than destroyed. It recovers to full HP after 1 hour unless destroyed by fire, radiant damage or salt first. Cold damage also inflicts Slowed until the end of its next turn (speed halved)."
+     },
+     {
+      "id": "monstrosity-015",
+      "name": "Thunder Fission (Trait)",
+      "description": "When the Monstrosity takes thunder damage, it loses that many HP and expels a fragment with HP equal to half the thunder damage dealt. The fragment enters initiative immediately as the tier matching its HP: up to 6 HP is a Rot Dreg, up to 18 HP a Rot Skulker, up to 45 HP a Rot Beast. Reduced to 0 HP by the thunder damage, it produces no fragment."
+     }
+    ],
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z003": "Unaligned",
+    "com.battle-system.forge/Z007": 14,
+    "com.battle-system.forge/Z005": 136,
+    "com.battle-system.forge/Z006": 136,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z008": 50,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z016": 5,
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z029": 3,
+    "com.battle-system.forge/Z017": 18,
+    "com.battle-system.forge/Z018": 6,
+    "com.battle-system.forge/Z019": 22,
+    "com.battle-system.forge/Z020": 3,
+    "com.battle-system.forge/Z021": 10,
+    "com.battle-system.forge/Z022": 1,
+    "com.battle-system.forge/Z023": 4,
+    "com.battle-system.forge/Z024": -2,
+    "com.battle-system.forge/Z025": 9,
+    "com.battle-system.forge/Z026": -4,
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z028": -5,
+    "com.battle-system.forge/Z041": "Constitution +9 (proficient)",
+    "com.battle-system.forge/Z030": "Radiant, Fire",
+    "com.battle-system.forge/Z031": "Bludgeoning (Slowed), Slashing, Piercing, Psychic",
+    "com.battle-system.forge/Z032": "Necrotic (heals instead)",
+    "com.battle-system.forge/Z033": "Blinded, Charmed, Deafened, Exhaustion, Frightened, Grappled, Prone, Restrained, Unconscious",
+    "com.battle-system.forge/Z013": "Blindsight 120 ft.",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z015": "",
+    "com.battle-system.forge/Z002": "Large",
+    "com.battle-system.forge/Z004": "Ooze"
+   }
+  },
+  {
+   "id": "rot-skulker",
+   "name": "Rot Skulker",
+   "cr": 0.25,
+   "source": "Rot Monstrosity",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Rot Skulker",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "skulker-001",
+      "name": "Lunge",
+      "description": "Melee Weapon Attack [1d20+1] to hit, reach 5 ft., one target. [1d6+1] necrotic damage, and the target must succeed on a DC 12 Constitution save or gain one stack of Rotten."
+     },
+     {
+      "id": "skulker-002",
+      "name": "Corroding Presence (Trait)",
+      "description": "Any creature that ends its turn within 5 ft. takes [1d4] necrotic damage and must succeed on a DC 12 Constitution save or gain one stack of Rotten."
+     },
+     {
+      "id": "skulker-003",
+      "name": "Effluent: Acid (Trait)",
+      "description": "When the Skulker takes acid damage, each creature within 5 ft. must make a DC 12 Dexterity save or take [1d6] necrotic damage and make a DC 12 Constitution save against the Rot."
+     },
+     {
+      "id": "skulker-004",
+      "name": "Effluent: Lightning (Trait)",
+      "description": "When the Skulker takes lightning damage, each creature within 10 ft. must make a DC 14 Dexterity save or take [1d6] necrotic damage and make a DC 12 Constitution save against the Rot."
+     },
+     {
+      "id": "skulker-005",
+      "name": "Living Rot (Trait)",
+      "description": "No mind. Cannot be targeted by effects that require cognition, language comprehension or psychology. Fear, commands and other cognitive riders never apply."
+     },
+     {
+      "id": "skulker-006",
+      "name": "Seep (Trait)",
+      "description": "Moves through gaps as small as one inch without squeezing."
+     },
+     {
+      "id": "skulker-007",
+      "name": "Cold Suspension (Trait)",
+      "description": "If reduced to 0 HP by cold damage, frozen rather than destroyed. Recovers to full HP after 1 hour unless destroyed by fire, radiant damage or salt first. Cold damage also inflicts Slowed until the end of its next turn."
+     },
+     {
+      "id": "skulker-008",
+      "name": "Thunder Fission (Trait)",
+      "description": "When it takes thunder damage it loses that many HP and expels a fragment with HP equal to half the thunder damage, entering initiative immediately as the tier matching its HP (up to 6 Dreg, up to 18 Skulker, up to 45 Beast). No fragment if the thunder damage reduces it to 0 HP."
+     }
+    ],
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z003": "Unaligned",
+    "com.battle-system.forge/Z007": 10,
+    "com.battle-system.forge/Z005": 18,
+    "com.battle-system.forge/Z006": 18,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z008": 25,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z017": 8,
+    "com.battle-system.forge/Z018": 8,
+    "com.battle-system.forge/Z019": 16,
+    "com.battle-system.forge/Z020": 1,
+    "com.battle-system.forge/Z021": 6,
+    "com.battle-system.forge/Z022": 1,
+    "com.battle-system.forge/Z023": -1,
+    "com.battle-system.forge/Z024": -1,
+    "com.battle-system.forge/Z025": 3,
+    "com.battle-system.forge/Z026": -5,
+    "com.battle-system.forge/Z027": -2,
+    "com.battle-system.forge/Z028": -5,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z030": "Radiant, Fire",
+    "com.battle-system.forge/Z031": "Bludgeoning (Slowed), Slashing, Piercing",
+    "com.battle-system.forge/Z032": "Necrotic (heals instead), Psychic",
+    "com.battle-system.forge/Z033": "Blinded, Charmed, Deafened, Exhaustion, Frightened, Grappled, Prone, Restrained, Unconscious",
+    "com.battle-system.forge/Z013": "Blindsight 30 ft.",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z015": "",
+    "com.battle-system.forge/Z002": "Small",
+    "com.battle-system.forge/Z004": "Ooze"
+   }
+  },
+  {
+   "id": "seva-sable",
+   "name": "Seva Sable",
+   "cr": 5,
+   "source": "Assassination night (Oct 2026)",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Seva Sable",
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z003": "Lawful Neutral",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z005": 82,
+    "com.battle-system.forge/Z006": 82,
+    "com.battle-system.forge/Z007": 16,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z013": "Passive Perception 16",
+    "com.battle-system.forge/Z014": "Deception +11, Insight +9, Perception +6, Persuasion +11, Sleight of Hand +7, Stealth +7",
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z016": 5,
+    "com.battle-system.forge/Z017": 9,
+    "com.battle-system.forge/Z018": 18,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z020": 16,
+    "com.battle-system.forge/Z021": 16,
+    "com.battle-system.forge/Z022": 20,
+    "com.battle-system.forge/Z023": -1,
+    "com.battle-system.forge/Z024": 7,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z026": 3,
+    "com.battle-system.forge/Z027": 6,
+    "com.battle-system.forge/Z028": 8,
+    "com.battle-system.forge/Z029": 3,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "seva-001",
+      "name": "Trait: Read the Room",
+      "description": "Seva can't be surprised, and she has advantage on initiative rolls."
+     },
+     {
+      "id": "seva-002",
+      "name": "Trait: Prepared for This (2/Day)",
+      "description": "When Seva fails a saving throw, she can choose to succeed instead."
+     },
+     {
+      "id": "seva-003",
+      "name": "Trait: The Back Stair",
+      "description": "Moving through a doorway, curtain or window costs Seva no extra movement, and she doesn't provoke opportunity attacks when she leaves through one."
+     },
+     {
+      "id": "seva-004",
+      "name": "Multiattack",
+      "description": "Seva makes two Hairpin attacks, or uses Whispered Doubt and makes one Hairpin attack."
+     },
+     {
+      "id": "seva-005",
+      "name": "Hairpin",
+      "description": "Melee Weapon Attack [1d20+7] to hit, reach 5 ft., one target. [1d4+4] piercing damage plus [2d6] poison damage, and the target must succeed on a DC 15 Constitution saving throw or be poisoned until the end of its next turn."
+     },
+     {
+      "id": "seva-006",
+      "name": "Whispered Doubt (Recharge 5-6)",
+      "description": "One creature within 30 ft. that can hear Seva makes a DC 16 Wisdom saving throw. On a failure it is charmed until the end of its next turn: it can't attack Seva, and on its turn it must use its action to make one attack against a creature of Seva's choice, or do nothing."
+     },
+     {
+      "id": "seva-007",
+      "name": "Bonus Action: Cunning Action",
+      "description": "Seva takes the Dash, Disengage or Hide action."
+     },
+     {
+      "id": "seva-008",
+      "name": "Reaction: Not Where You Thought",
+      "description": "When a creature Seva can see hits her with an attack, she halves the damage and moves up to 10 ft. without provoking opportunity attacks."
+     },
+     {
+      "id": "seva-009",
+      "name": "Tactics",
+      "description": "Opens with Whispered Doubt on the strongest attacker. Attacks, then hides or disengages. Below 41 HP she uses The Back Stair and runs. Fights alone."
+     }
+    ],
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z042": 0
+   }
+  },
+  {
+   "id": "sot",
+   "name": "Sot",
+   "cr": 0.5,
+   "source": "The Starling",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Sot",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "sot-002",
+      "name": "Mace",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] bludgeoning damage."
+     },
+     {
+      "id": "sot-001",
+      "name": "Breaks Early (Trait)",
+      "description": "When first brought below half HP or when any ally is incapacitated, Sot must make a DC 10 Wisdom saving throw or drop his weapon and surrender immediately."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 13,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.5,
+    "com.battle-system.forge/Z022": 8,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 13,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 12,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 38,
+    "com.battle-system.forge/Z026": -1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 9,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 38,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 2,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 15,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "tav",
+   "name": "Tav",
+   "cr": 0.25,
+   "source": "Assassination Paths",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Tav",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "tav-a-001",
+      "name": "Loyal — holds the stairs",
+      "description": "Tav controls the only exit. He does not abandon his position at the stairs unless Oskar is down. He stays longer than is wise."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "tav-a-002",
+      "name": "Hand Axe (melee)",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d6+2] slashing damage."
+     },
+     {
+      "id": "tav-a-003",
+      "name": "Hand Axe (thrown, round 1)",
+      "description": "Ranged Weapon Attack [1d20+4] to hit, range 20/60 ft., one target. [1d6+2] slashing damage. Thrown on round 1 only before closing to melee."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 12,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 2,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 12,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 11,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 13,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 11,
+    "com.battle-system.forge/Z026": 1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 11,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Athletics +4, Perception +3",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 10,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 2,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 12
+   }
+  },
+  {
+   "id": "thessaly",
+   "name": "Thessaly",
+   "cr": 1,
+   "source": "Driftwood Road",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Thessaly",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "thess-001",
+      "name": "Disengages if Radek Falls",
+      "description": "Thessaly will not continue fighting without Radek. She uses her remaining movement to put distance between herself and the party."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "thess-002",
+      "name": "Fire Bolt (Cantrip)",
+      "description": "Ranged Spell Attack [1d20+4] to hit, range 120 ft., one target. [1d10] fire damage."
+     },
+     {
+      "id": "thess-003",
+      "name": "Magic Missile (Level 1 Slot)",
+      "description": "Three darts automatically hit. Each dart deals [1d4+1] force damage. All darts can hit the same or different targets."
+     },
+     {
+      "id": "thess-004",
+      "name": "Thunderwave (Level 1 Slot)",
+      "description": "Each creature in a 15 ft. cube makes a DC 13 Constitution save. On fail: [2d8] thunder damage and pushed 10 ft. On success: half damage, not pushed."
+     },
+     {
+      "id": "thess-005",
+      "name": "Hold Person (Level 2 Slot, Concentration)",
+      "description": "One humanoid within 60 ft. makes DC 13 Wis save or is paralyzed up to 1 minute. Repeat save at end of each turn. Target the most effective melee combatant."
+     },
+     {
+      "id": "thess-006",
+      "name": "Fog Cloud (Level 1 Slot, Concentration)",
+      "description": "20 ft. radius heavily obscured sphere within 120 ft. Lasts up to 1 hour. Use if ranged party members are targeting Morda or Brek."
+     },
+     {
+      "id": "thess-007",
+      "name": "Minor Illusion (Cantrip)",
+      "description": "Creates a sound or image within 30 ft. lasting 1 minute. DC 13 Investigation to disbelieve. Use to misdirect the party."
+     },
+     {
+      "id": "thess-008",
+      "name": "Dagger",
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d4+2] piercing damage. Last resort only."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 12,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 1,
+    "com.battle-system.forge/Z022": 11,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 14,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 22,
+    "com.battle-system.forge/Z026": 3,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 16,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common, Elvish, Draconic",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 22,
+    "com.battle-system.forge/Z029": 3,
+    "com.battle-system.forge/Z037": [
+     {
+      "id": "thess-009",
+      "name": "Shield (Level 1 Slot)",
+      "description": "When hit by an attack, Thessaly gains +5 AC until start of next turn including against the triggering attack. Uses a Level 1 slot."
+     }
+    ],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": -1,
+    "com.battle-system.forge/Z041": "Spell save DC 13, spell attack +4. Slots: 4x Level 1, 2x Level 2.",
+    "com.battle-system.forge/Z013": "Darkvision 60 ft., Passive Perception 11",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Arcana +5, History +5",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 9,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 13
+   }
+  },
+  {
+   "id": "tobin",
+   "name": "Tobin",
+   "cr": 4,
+   "source": "Devrin Pursuit",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Tobin",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "tobin-002",
+      "name": "Smith's Maul (two-handed)",
+      "description": "Melee Weapon Attack [1d20+7] to hit, reach 5 ft., one target. [2d6+4] bludgeoning damage."
+     },
+     {
+      "id": "tobin-003",
+      "name": "Rage-Forged (Trait)",
+      "description": "While below half HP, resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks."
+     },
+     {
+      "id": "tobin-004",
+      "name": "Relentless (Trait, 1/fight)",
+      "description": "If reduced to 0 HP, drops to 1 HP instead."
+     },
+     {
+      "id": "tobin-005",
+      "name": "Protects the escape (Trait)",
+      "description": "Fights to buy Devrin time, not to win outright. Doesn't chase or press an advantage -- holds ground between the party and her, and breaks off only once she is genuinely clear."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 15,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 3,
+    "com.battle-system.forge/Z016": 4,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 16,
+    "com.battle-system.forge/Z024": 2,
+    "com.battle-system.forge/Z018": 14,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 75,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 75,
+    "com.battle-system.forge/Z029": 3,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "Bludgeoning, Piercing, and Slashing from nonmagical attacks (while below half HP)",
+    "com.battle-system.forge/Z023": 4,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Athletics +7",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 18,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 11
+   }
+  },
+  {
+   "id": "toll",
+   "name": "Toll",
+   "cr": 0.125,
+   "source": "Northern Ambush",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Toll",
+    "com.battle-system.forge/Z034": [],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "toll-001",
+      "name": "Spear",
+      "description": "Melee or Ranged Weapon Attack [1d20+3] to hit, reach 5 ft. or range 20/60 ft., one target. [1d6+1] piercing damage, or [1d8+1] piercing damage if used with two hands."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 12,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": -1,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.125,
+    "com.battle-system.forge/Z022": 9,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 12,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 11,
+    "com.battle-system.forge/Z026": -1,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 8,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 11,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 1,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 10",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 13,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 0,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 10
+   }
+  },
+  {
+   "id": "tomas",
+   "name": "Tomas",
+   "cr": 0.25,
+   "source": "Basement Warehouse",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Tomas",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "tomas-001",
+      "name": "Relentless",
+      "description": "Tomas does not disengage, retreat, or yield. He must be reduced to 0 HP to stop fighting."
+     },
+     {
+      "id": "tomas-002",
+      "name": "Committed (above half HP)",
+      "description": "While above half his maximum HP, Tomas has advantage on all attack rolls."
+     },
+     {
+      "id": "tomas-003",
+      "name": "Home Advantage",
+      "description": "Tomas knows every corner of the basement. He uses alcoves and tight spaces to deny the party room to manoeuvre."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "tomas-004",
+      "name": "Improvised Weapon",
+      "description": "Melee Weapon Attack [1d20+3] to hit, reach 5 ft., one target. [1d4+2] bludgeoning damage."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Chaotic Neutral",
+    "com.battle-system.forge/Z007": 11,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 0,
+    "com.battle-system.forge/Z025": 1,
+    "com.battle-system.forge/Z016": 0.25,
+    "com.battle-system.forge/Z022": 10,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 12,
+    "com.battle-system.forge/Z024": 0,
+    "com.battle-system.forge/Z018": 11,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 16,
+    "com.battle-system.forge/Z026": 0,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 10,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 16,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": 2,
+    "com.battle-system.forge/Z041": "",
+    "com.battle-system.forge/Z013": "Passive Perception 9",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 14,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": -1,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 9
+   }
+  },
+  {
+   "id": "ysolde",
+   "name": "Ysolde",
+   "cr": 0.5,
+   "source": "Festival Finale",
+   "updated": "2026-10-29",
+   "forge": {
+    "com.battle-system.forge/name": "Ysolde",
+    "com.battle-system.forge/Z034": [
+     {
+      "id": "ysolde-001",
+      "name": "Casts Once and Leaves",
+      "description": "Ysolde casts Thunderwave on her first turn then uses her remaining movement to walk away. She does not engage further under any circumstances."
+     }
+    ],
+    "com.battle-system.forge/Z035": [
+     {
+      "id": "ysolde-002",
+      "name": "Thunderwave (Level 1 Slot)",
+      "description": "Each creature in a 15 ft. cube makes DC 13 Constitution save. On fail: [2d8] thunder damage and pushed 10 ft. On success: half damage, not pushed. Use when 2+ party members are adjacent."
+     }
+    ],
+    "com.battle-system.forge/Z003": "Neutral",
+    "com.battle-system.forge/Z007": 12,
+    "com.battle-system.forge/Z036": [],
+    "com.battle-system.forge/Z010": 0,
+    "com.battle-system.forge/Z028": 1,
+    "com.battle-system.forge/Z025": 0,
+    "com.battle-system.forge/Z016": 0.5,
+    "com.battle-system.forge/Z022": 12,
+    "com.battle-system.forge/Z011": 0,
+    "com.battle-system.forge/Z019": 11,
+    "com.battle-system.forge/Z024": 1,
+    "com.battle-system.forge/Z018": 13,
+    "com.battle-system.forge/Z012": 0,
+    "com.battle-system.forge/Z005": 14,
+    "com.battle-system.forge/Z026": 2,
+    "com.battle-system.forge/Z032": "",
+    "com.battle-system.forge/Z020": 14,
+    "com.battle-system.forge/Z040": [],
+    "com.battle-system.forge/Z015": "Common",
+    "com.battle-system.forge/Z038": [],
+    "com.battle-system.forge/Z001": 0,
+    "com.battle-system.forge/Z006": 14,
+    "com.battle-system.forge/Z029": 2,
+    "com.battle-system.forge/Z037": [],
+    "com.battle-system.forge/Z031": "",
+    "com.battle-system.forge/Z023": -1,
+    "com.battle-system.forge/Z041": "Spell save DC 13. 1x Level 1 slot.",
+    "com.battle-system.forge/Z013": "Passive Perception 12",
+    "com.battle-system.forge/Z002": "Medium",
+    "com.battle-system.forge/Z014": "Arcana +4",
+    "com.battle-system.forge/Z004": "Humanoid",
+    "com.battle-system.forge/Z039": [],
+    "com.battle-system.forge/Z033": "",
+    "com.battle-system.forge/Z017": 9,
+    "com.battle-system.forge/Z009": 0,
+    "com.battle-system.forge/Z042": 0,
+    "com.battle-system.forge/Z030": "",
+    "com.battle-system.forge/Z027": 2,
+    "com.battle-system.forge/Z008": 30,
+    "com.battle-system.forge/Z021": 15
+   }
+  }
+ ]
+}
