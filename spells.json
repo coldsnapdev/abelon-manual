@@ -76,7 +76,7 @@
   {
    "name": "Silence",
    "level": "Level 2 Illusion",
-   "castingTime": "Action",
+   "castingTime": "Action or Ritual",
    "range": "120 feet",
    "components": "V, S",
    "duration": "Concentration, up to 10 minutes",
