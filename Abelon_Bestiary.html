@@ -209,7 +209,7 @@
   function crText(c){return c==0.125?'1/8':c==0.25?'1/4':c==0.5?'1/2':String(c);}
   function render(){
     var q=document.getElementById('search').value.trim().toLowerCase();
-    var shown=all.filter(function(e){ return !q || JSON.stringify([e.name,e.forge[P+'Z035']]).toLowerCase().indexOf(q)>=0; });
+    var shown=all.filter(function(e){ return !q || JSON.stringify([e.name,e.forge[P+'Z034'],e.forge[P+'Z035'],e.forge[P+'Z036'],e.forge[P+'Z037']]).toLowerCase().indexOf(q)>=0; });
     document.getElementById('count').textContent=shown.length+' of '+all.length;
     var list=document.getElementById('list'); list.innerHTML='';
     shown.forEach(function(e){
@@ -219,7 +219,8 @@
         '<div class="body"><div class="abil">'+ab+'</div>'+
         (f[P+'Z014']?'<div class="abil">Skills: '+esc(f[P+'Z014'])+'</div>':'')+
         (f[P+'Z013']?'<div class="abil">Senses: '+esc(f[P+'Z013'])+'</div>':'')+
-        (f[P+'Z035']||[]).map(function(a){return '<div class="act"><b>'+esc(a.name)+'.</b> '+esc(a.description)+'</div>';}).join('')+
+        [['Z030','Vulnerable'],['Z031','Resists'],['Z032','Immune'],['Z033','Condition immunities'],['Z041','Notes']].map(function(x){return f[P+x[0]]?'<div class="abil">'+x[1]+': '+esc(f[P+x[0]])+'</div>':'';}).join('')+
+        [['Z034','Traits'],['Z035',''],['Z036','Bonus actions'],['Z037','Reactions'],['Z038','Legendary actions']].map(function(x){var l=f[P+x[0]]||[];return l.length?(x[1]?'<div class="abil"><b>'+x[1]+'</b></div>':'')+l.map(function(a){return '<div class="act"><b>'+esc(a.name)+'.</b> '+esc(a.description)+'</div>';}).join(''):'';}).join('')+
         '<div class="src">From: '+esc(e.source)+' · updated '+esc(e.updated)+'</div>'+
         '<button class="copy" type="button">Copy Forge JSON</button></div>';
       d.querySelector('.copy').onclick=function(){var b=this;navigator.clipboard.writeText(JSON.stringify(f)).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy Forge JSON';},1500);});};
