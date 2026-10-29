@@ -62,6 +62,18 @@
   .ctrl-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faded);border:.5px solid var(--rule);background:transparent;padding:5px 12px;border-radius:3px;cursor:pointer;transition:background .15s,color .15s;}
   .ctrl-btn:hover{background:var(--beat-bg);color:var(--ink);}
   footer{margin-top:3rem;padding-top:1rem;border-top:.5px solid var(--rule-faint);font-size:12px;font-style:italic;color:var(--ink-faded);text-align:center;}
+  .picker{display:grid;gap:10px;margin-bottom:14px;}
+  .pick-group{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+  .pick-label{flex-basis:100%;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faded);}
+  .pick{font-family:'Crimson Pro',Georgia,serif;font-size:14px;background:none;border:1px solid var(--rule);color:var(--ink);border-radius:4px;padding:5px 11px;cursor:pointer;}
+  .pick:hover{border-color:var(--accent);}
+  .pick.on{background:var(--accent);border-color:var(--accent);color:var(--parchment,#f2e8d5);}
+  .pick.clear{font-size:12px;color:var(--ink-faded);}
+  .scenario{display:none;border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:5px;padding:14px 16px;margin-bottom:1.5rem;}
+  .scenario.on{display:block;}
+  .scenario .outcome{margin-bottom:10px;}
+  .scenario .outcome strong{font-family:'Cinzel',serif;font-size:12px;color:var(--ink);display:block;margin-bottom:2px;}
+  .scenario-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
 </style>
 </head>
 <body>
@@ -218,13 +230,85 @@
   <div class="encounter-header">
     <span class="encounter-type">Encounter Reference — Act 1 / Tallowhaven / Third Missions</span>
     <div class="encounter-title">The Assassination Paths</div>
-    <div class="encounter-subtitle">Seven o'clock. Three private rooms. The party arrives too late for a briefing &mdash; but in time for a choice.</div>
-    <div class="encounter-meta"><span class="meta-tag">Combat — conditional</span><span class="meta-tag">Moral weight: extreme</span><span class="meta-tag">Follows Evening Invitations</span><span class="meta-tag">Feeds Festival Finale</span></div>
+    <div class="encounter-subtitle">The night before the signing. One target or two, each alone, each ready.</div>
+    <div class="encounter-meta"><span class="meta-tag">Combat — conditional</span><span class="meta-tag">Moral weight: extreme</span><span class="meta-tag">Follows Evening Invitations</span><span class="meta-tag">Feeds the signing</span></div>
   </div>
 
-  <p class="description">If the party goes after a target instead of attending their own faction's briefing -- or arrives having already decided to act -- they walk into a private room where the target reads the situation almost instantly. There's no briefing left to give. Whichever room the party enters, they choose: kill, or warn. Both choices lead to the Festival Finale, but through very different doors.</p>
+  <p class="description">This page picks up after the seven o'clock meetings on the Evening Invitations page. Alric asked for Seva. Seva asked for Oskar. Nobody asked for Alric, because Oskar sent Bram instead. If the party took a job, they go to the target tonight. Each target is alone on purpose and fights alone: Mira waits outside Seva's door and does not join in, Bram is out after Alric, and Huw is unconscious in Serastra's Rest. The fight is five on one if the party stays together, and genuinely dangerous if they split.</p>
 
-  <div class="glance"><span class="glance-label">At a glance</span><div class="glance-item"><strong>The realisation:</strong> each target reads the room in seconds, without panic -- none of the three try to flee, and none of them raise their voice first</div><div class="glance-item"><strong>The choice:</strong> kill or warn, once, per room. Warning always means the target arrives at the signing already prepared and already owed something.</div><div class="glance-item"><strong>The rooms are small on purpose:</strong> one exit each, a companion covering the door or the stairs -- these are not fair fights to run from, only fights to finish</div><div class="glance-item"><strong>Six paths forward:</strong> each target's kill or warn outcome feeds a specific Festival Finale accusation and faction-collapse combination -- see Outcomes on each</div></div>
+  <div class="glance"><span class="glance-label">At a glance</span>
+    <div class="glance-item"><strong>Seva runs, Oskar doesn't:</strong> Seva leaves through the nearest exit below 41 HP, so killing her means cutting off the exits first. Oskar fights until he drops, and Not Today makes the first apparent kill a false one.</div>
+    <div class="glance-item"><strong>Neither is surprised:</strong> Seva can't be surprised at all. Oskar suspected something was coming. Neither begs, and both talk as though they are still winning.</div>
+    <div class="glance-item"><strong>Alric isn't a target tonight:</strong> only Bram goes for him, off camera, and fails. Alric's stat block is in the combat guide in case the party turns on him.</div>
+    <div class="glance-item"><strong>Pick the outcome below</strong> once the night is over. The choice is saved with the manual, so the signing page can be prepared from it.</div>
+  </div>
+
+  <div class="section-heading">Outcome</div>
+  <div class="picker" id="outcome-picker">
+    <div class="pick-group"><span class="pick-label">Sided with Alric: Seva is the target</span>
+      <button type="button" class="pick" data-o="A1">Seva killed</button><button type="button" class="pick" data-o="A2">Seva survives</button></div>
+    <div class="pick-group"><span class="pick-label">Sided with Seva: Oskar is the target</span>
+      <button type="button" class="pick" data-o="B1">Oskar killed</button><button type="button" class="pick" data-o="B2">Oskar survives</button></div>
+    <div class="pick-group"><span class="pick-label">Took both jobs</span>
+      <button type="button" class="pick" data-o="C1">Seva killed, Oskar survives</button><button type="button" class="pick" data-o="C2">Seva survives, Oskar killed</button><button type="button" class="pick" data-o="C3">Both killed</button><button type="button" class="pick" data-o="C4">Both survive</button></div>
+    <div class="pick-group"><button type="button" class="pick clear" data-o="">Not decided yet</button></div>
+  </div>
+
+  <div class="scenario" data-o="A1"><div class="scenario-title">Seva killed</div>
+    <div class="outcome"><strong>That night</strong>Mira hears the fight end and opens the door to find it. She does not attack the party; she has just watched what they can do to someone better than her. She knows who sent them, because Alric has wanted Seva gone for years.</div>
+    <div class="outcome"><strong>Alric</strong>Pays the second half at the signing, discreetly, and treats the party as his guests. He never thanks them for the thing itself.</div>
+    <div class="outcome"><strong>The network</strong>Mira is the replacement Alric said he would rather deal with, and she takes Seva's place by default. Whether she plays along with Alric or waits for her moment is your call; either way, she now knows exactly what Alric is willing to do.</div>
+    <div class="outcome"><strong>Danzel</strong>If Danzel was part of it, the Sables will learn that a Sable helped kill Seva. If he wasn't, the party has to decide whether to tell him.</div>
+    <div class="outcome"><strong>The morning</strong>Alric arrives with a bruise under his left eye from Bram, and never explains it. Seva's chair is empty or filled by Mira.</div>
+  </div>
+
+  <div class="scenario" data-o="A2"><div class="scenario-title">Seva survives</div>
+    <div class="outcome"><strong>How she gets out</strong>Usually through The Back Stair below 41 HP. If the party cut off the exits and still lost, she walks out past them.</div>
+    <div class="outcome"><strong>What she knows</strong>That Alric sent them, which surprises her not at all, and that the party said yes, which does. She now treats them as Alric's instrument until they prove otherwise.</div>
+    <div class="outcome"><strong>Alric</strong>Pays nothing more. The second half was for a result.</div>
+    <div class="outcome"><strong>The signing</strong>Seva arrives on time, composed, and visibly unhurt where anyone can see. She says nothing about the night unless it helps her. Alric arrives with Bram's bruise. Both of them now hold something over the party.</div>
+  </div>
+
+  <div class="scenario" data-o="B1"><div class="scenario-title">Oskar killed</div>
+    <div class="outcome"><strong>The note</strong>Seva wants a note in Emlyn Hale's hand left on the body. If the party leaves it, the killing reads as Driftwood's work, and Seva's disinformation starts hanging rumours on it by morning. If they don't, the city looks elsewhere, and the obvious place is Alric.</div>
+    <div class="outcome"><strong>The apprentices</strong>Two apprentices were banking the forge below. They ran for help when the fight started. Decide how much they saw: a shape, a voice, or faces.</div>
+    <div class="outcome"><strong>Bram</strong>Comes back to Honeywell later that night, bruised from his own failed attempt on Alric, and finds Oskar dead. He is the one person who knows Oskar sent someone after Alric, and he will assume Alric struck first.</div>
+    <div class="outcome"><strong>Seva</strong>Pays the second half, generously and in private, and never mentions it again.</div>
+    <div class="outcome"><strong>The Trademasters</strong>Cors Holdworn's mother, Anneth, steps in as steward, as Seva arranged. That quietly gives Seva a seat at that table too.</div>
+    <div class="outcome"><strong>The signing</strong>People start asking whether Alric's soft, collaborative approach gave away too much, and whether the deal is worth what it is costing the city. That was always Seva's real target.</div>
+  </div>
+
+  <div class="scenario" data-o="B2"><div class="scenario-title">Oskar survives</div>
+    <div class="outcome"><strong>How he survives</strong>The party withdraws, the apprentices bring help, or Not Today buys him the turn he needs. He does not flee and he does not chase.</div>
+    <div class="outcome"><strong>Who he blames</strong>He sent Bram after Alric tonight, so he assumes Alric got there first and hired the party to do it. If a Driftwood note was left behind, he doesn't believe it.</div>
+    <div class="outcome"><strong>Seva</strong>Has paid half and denies everything. She watches the party more closely from now on.</div>
+    <div class="outcome"><strong>The signing</strong>Oskar arrives grimly prepared and hurt, with every reason to make the room a hostile one for Alric.</div>
+  </div>
+
+  <div class="scenario" data-o="C1"><div class="scenario-title">Seva killed, Oskar survives</div>
+    <div class="outcome"><strong>Both rooms</strong>Use Seva killed and Oskar survives together. The party split to do it, so both fights were two or three on one.</div>
+    <div class="outcome"><strong>The crossover</strong>Seva's plan dies with her, but the half she paid is already spent. Oskar blames Alric for his night; Alric is being paid for by the deaths he wanted. Alric looks like the winner, and Oskar arrives at the signing determined that he won't be.</div>
+    <div class="outcome"><strong>Mira</strong>Knows Alric ordered Seva's death and may learn the same party went for Oskar. She has a great deal of leverage and no reason yet to spend it.</div>
+  </div>
+
+  <div class="scenario" data-o="C2"><div class="scenario-title">Seva survives, Oskar killed</div>
+    <div class="outcome"><strong>Both rooms</strong>Use Seva survives and Oskar killed together.</div>
+    <div class="outcome"><strong>The crossover</strong>Seva's plan worked, and the party who did it for her also tried to kill her on Alric's coin. She now holds the strongest hand of anyone: she can expose them for Oskar whenever it suits her, and she knows Alric wanted her dead.</div>
+    <div class="outcome"><strong>Payment</strong>Seva still pays her second half. She would rather own the party than punish them.</div>
+  </div>
+
+  <div class="scenario" data-o="C3"><div class="scenario-title">Both killed</div>
+    <div class="outcome"><strong>Both rooms</strong>Use Seva killed and Oskar killed together.</div>
+    <div class="outcome"><strong>The crossover</strong>Alric arrives at the signing as the only leader still standing, with a bruise he won't explain. Two rivals dead in one night is exactly the ruthless reputation Seva wanted to deny him, so whether or not the Driftwood note was left, a lot of people will privately credit him with both.</div>
+    <div class="outcome"><strong>Payment</strong>Alric pays. Seva's second half dies with her, unless Mira chooses to honour it to learn more.</div>
+    <div class="outcome"><strong>Successors</strong>Mira for the network and Anneth Holdworn for the Trademasters, both new to the table and both with reasons to watch the party.</div>
+  </div>
+
+  <div class="scenario" data-o="C4"><div class="scenario-title">Both survive</div>
+    <div class="outcome"><strong>Both rooms</strong>Use Seva survives and Oskar survives together.</div>
+    <div class="outcome"><strong>The crossover</strong>Two leaders now know the party came to kill them, and each believes a different rival sent them. Alric, the only one nobody went for, also has the only bruise.</div>
+    <div class="outcome"><strong>The signing</strong>Everyone arrives prepared, nobody has been paid in full, and the party is the one thing every leader is watching.</div>
+  </div>
 
   <div class="controls">
     <button class="ctrl-btn" onclick="expandAll()">Expand all</button>
@@ -232,100 +316,74 @@
   </div>
 
   <div class="section-heading">Location Descriptions</div>
-  <div class="location"><span class="location-name">Private room, the Amber Cup (Seva)</span><p>Small and enclosed -- a round table, three chairs, candles, an untouched decanter. One narrow window, too small to exit through quickly. Mira controls the door from behind the party. The tavern is loud below; a fight here wouldn't be heard immediately.</p></div><div class="location"><span class="location-name">Private room, the Shallow Tuber (Alric)</span><p>A rectangular dining room, one door, no meaningful window. Huw stands between the party and the exit. Soundproofed enough that raised voices are needed to be heard outside.</p></div><div class="location"><span class="location-name">The Honeywell Office (Oskar)</span><p>Cramped and functional, the desk dominating. The only exit is the stairs, where Tav stands. The window looks down fifteen feet onto the dark forge floor -- nobody's leaving that way.</p></div>
+  <div class="location"><span class="location-name">Private room, the Amber Cup (Seva)</span><p>A private room above a busy tavern: a round table, chairs, candles, curtains over a service door to the back stair, and a window onto the yard. Mira is outside the main door. The noise below covers a short fight. Seva knows every way out of the building; the party has to find them. Blocking the back stair, the window and the main door before the fight turns is what makes a kill possible.</p></div>
+  <div class="location"><span class="location-name">Honeywell, after hours (Oskar)</span><p>The forge floor below the Honeywell office. Oskar is working late at a banked forge, which is how he likes to think. The forge is at his back and the street door is ahead of the party. Two apprentices are banking the coals; they run for help the moment it starts. Anyone thrown into the open forge takes extra fire damage, and Banked Coals only works within 10 feet of it.</p></div>
+  <div class="location"><span class="location-name">The Shallow Tuber (Alric)</span><p>Only relevant if the party turns on Alric. He has sent his guards away for a busy evening, which is exactly why Bram thinks tonight is the night. Huw is not with him.</p></div>
 
   <div class="section-heading">NPCs</div>
+
   <div class="npc-card">
-    <div class="npc-header" onclick="toggleNPC('seva-ap')">
-      <div class="npc-info">
-        <span class="npc-name">Seva Sable</span>
-        <span class="npc-role">Courtesans Network &mdash; CR 2, the most dangerous person in the room</span>
-      </div>
-      <span class="npc-toggle" id="seva-ap-toggle">▼</span>
+    <div class="npc-header" onclick="toggleNPC('seva')">
+      <div class="npc-info"><span class="npc-name">Seva Sable</span><span class="npc-role">Target if the party sided with Alric</span></div>
+      <span class="npc-toggle" id="seva-toggle">▼</span>
     </div>
-    <div class="npc-body" id="seva-ap-body"><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Reads the room in about two seconds and shows nothing. Line, quietly: “Close the door, Mira.” Then: “You are not here for a briefing. So. What are you here for?” Never raises her voice, even losing -- the quieter she gets, the more dangerous she is.</p></div><div class="npc-field combat" data-entry="seva-sable"><span class="npc-field-label">Combat</span><p><span class="bestiary-line"></span></p></div></div>
-  </div><div class="npc-card">
-    <div class="npc-header" onclick="toggleNPC('mira-ap')">
-      <div class="npc-info">
-        <span class="npc-name">Mira Sable</span>
-        <span class="npc-role">Sable operative &mdash; CR 1/2, controls the door</span>
-      </div>
-      <span class="npc-toggle" id="mira-ap-toggle">▼</span>
-    </div>
-    <div class="npc-body" id="mira-ap-body"><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Warm until she isn't -- the transition is fast enough to surprise anyone who only knew her as the friendly face at the door. Stands her ground alongside Seva.</p></div><div class="npc-field combat" data-entry="mira-sable"><span class="npc-field-label">Combat</span><p>Starts behind the party at the door, draws the moment things are clear, and moves toward whoever&#x27;s furthest from Seva to create a two-front problem. <span class="bestiary-line"></span></p></div></div>
-  </div><div class="npc-card">
-    <div class="npc-header" onclick="toggleNPC('alric-ap')">
-      <div class="npc-info">
-        <span class="npc-name">Alric Venn</span>
-        <span class="npc-role">Merchants' Guildmaster &mdash; CR 1, desperate energy, has never done this before</span>
-      </div>
-      <span class="npc-toggle" id="alric-ap-toggle">▼</span>
-    </div>
-    <div class="npc-body" id="alric-ap-body"><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Has never been in a fight -- frightened and won't show it, commits with desperate, unclever energy. Line, carefully: “You are not here to discuss what I asked you to discuss.” Then: “I want to understand what has brought you to this room instead of the other one.” Angrier than he's ever been -- at the situation as much as the party -- which makes him more dangerous than his stats suggest. Won't run.</p></div><div class="npc-field combat" data-entry="alric-venn"><span class="npc-field-label">Combat</span><p>Fights with feeling, not skill. <span class="bestiary-line"></span></p></div></div>
-  </div><div class="npc-card">
-    <div class="npc-header" onclick="toggleNPC('huw-ap')">
-      <div class="npc-info">
-        <span class="npc-name">Huw</span>
-        <span class="npc-role">Alric's assistant &mdash; CR 1/2, more capable than anyone realised</span>
-      </div>
-      <span class="npc-toggle" id="huw-ap-toggle">▼</span>
-    </div>
-    <div class="npc-body" id="huw-ap-body"><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Cold in a way that surprises anyone who's only seen him taking notes. Positions himself to protect Alric rather than engage independently -- doesn't break, fights until he can't.</p></div><div class="npc-field combat" data-entry="huw"><span class="npc-field-label">Combat</span><p><span class="bestiary-line"></span></p></div></div>
-  </div><div class="npc-card">
-    <div class="npc-header" onclick="toggleNPC('oskar-ap')">
-      <div class="npc-info">
-        <span class="npc-name">Oskar Sternov</span>
-        <span class="npc-role">Trademaster &mdash; CR 1, cold anger, fights close and dirty</span>
-      </div>
-      <span class="npc-toggle" id="oskar-ap-toggle">▼</span>
-    </div>
-    <div class="npc-body" id="oskar-ap-body"><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Doesn't need a weapon -- forty years of working with his hands. Cold anger, not hot: doesn't shout, doesn't telegraph. Line, without inflection: “You are not here about the meeting.” Then: “Then say what you have come to say.” Says nothing at all during the fight -- the silence is the most unsettling part of fighting him in a small room at night.</p></div><div class="npc-field combat" data-entry="oskar-sternov"><span class="npc-field-label">Combat</span><p>Goes immediately for the most dangerous party member and tries to pin them first, using the cramped office to push people into the desk, walls, and window. <span class="bestiary-line"></span></p></div></div>
-  </div><div class="npc-card">
-    <div class="npc-header" onclick="toggleNPC('tav-ap')">
-      <div class="npc-info">
-        <span class="npc-name">Tav</span>
-        <span class="npc-role">Trademaster apprentice &mdash; CR 1/4, angry, controls the stairs</span>
-      </div>
-      <span class="npc-toggle" id="tav-ap-toggle">▼</span>
-    </div>
-    <div class="npc-body" id="tav-ap-body"><div class="npc-field"><span class="npc-field-label">Personality points</span><p>Loyalty to Oskar has become identity. Angry enough to stay longer than wise -- holds the only exit until he genuinely can't anymore.</p></div><div class="npc-field combat" data-entry="tav"><span class="npc-field-label">Combat</span><p><span class="bestiary-line"></span></p></div></div>
+    <div class="npc-body" id="seva-body"><div class="npc-field"><span class="npc-field-label">When they arrive</span><p>Seated, unhurried, already aware. If some of the party were at her seven o'clock meeting, she has had time to wonder where the others went. She works out why they've come in about two seconds and shows nothing.</p></div><div class="npc-field"><span class="npc-field-label">How she fights</span><p>Words first: Whispered Doubt on the strongest attacker, aimed at whoever they trust most, and Danzel first if he is there. Then an attack and a Hide or Disengage every turn. She leaves at half health.</p></div><div class="npc-field"><span class="npc-field-label">Mira</span><p>Stays outside the door and does not fight. She is the first person to see what's left.</p></div><div class="npc-field combat" data-entry="seva-sable"><span class="npc-field-label">Combat</span><p><span class="bestiary-line"></span></p></div></div>
   </div>
 
-  <div class="section-heading">Encounter Beats</div>
-  <div class="beat">
-    <div class="beat-header" onclick="toggleBeat('A')">
-      <span class="beat-number">A</span>
-      <span class="beat-title">Seva's room</span>
-      <span class="beat-toggle" id="beat-toggle-A">▼</span>
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('oskar')">
+      <div class="npc-info"><span class="npc-name">Oskar Sternov</span><span class="npc-role">Target if the party sided with Seva</span></div>
+      <span class="npc-toggle" id="oskar-toggle">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-A"><div class="outcome"><strong>Kill</strong>Two against a full party in a confined room, neither willing to flee -- it's over quickly. Getting out means passing through the main floor below; Morra will know something happened upstairs and won't stop them, but she'll remember.</div><div class="outcome"><strong>Warn</strong>She listens without expression, already having anticipated something like this, and asks exactly what Alric said and what the party wants in return. She tells them she'll need them standing with the Courtesans at tomorrow's meeting -- a statement, not a request.</div><p>The party enters the private room above the Amber Cup expecting a briefing that isn't coming. Seva looks up, reads the situation in about two seconds, and gives nothing away. She has Mira close the door behind the party, then asks directly what they're here for -- partly to hear them say it, partly to buy Mira the two seconds she needs to position.</p></div>
-  </div><div class="beat">
-    <div class="beat-header" onclick="toggleBeat('B')">
-      <span class="beat-number">B</span>
-      <span class="beat-title">Alric's room</span>
-      <span class="beat-toggle" id="beat-toggle-B">▼</span>
+    <div class="npc-body" id="oskar-body"><div class="npc-field"><span class="npc-field-label">When they arrive</span><p>Working, sleeves rolled, hammer in hand. He looks up, sees who it is and how many, and puts the next piece back in the fire. He was expecting someone tonight, just not them.</p></div><div class="npc-field"><span class="npc-field-label">How he fights</span><p>Keeps the forge at his back and the party between him and the door. Grapples small, quick characters and hurls them into their friends or the coals. Goes for whoever hurts him most. Doesn't flee.</p></div><div class="npc-field"><span class="npc-field-label">Why he's alone</span><p>Bram is out making his own attempt on Alric, which is exactly why Oskar is exposed tonight.</p></div><div class="npc-field combat" data-entry="oskar-sternov"><span class="npc-field-label">Combat</span><p><span class="bestiary-line"></span></p></div></div>
+  </div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('alric')">
+      <div class="npc-info"><span class="npc-name">Alric Venn</span><span class="npc-role">Not a target tonight</span></div>
+      <span class="npc-toggle" id="alric-toggle">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-B"><div class="outcome"><strong>Kill</strong>Huw is the more capable fighter but is protecting rather than attacking; Alric fights with anger, not skill. It doesn't last long. Other diners noticed the party go in and will notice them come out -- nobody stops them tonight.</div><div class="outcome"><strong>Warn</strong>He listens without surprise, asks exactly what Oskar said, and thanks them with a warmth that may feel unsettling given what he'll do with it. He tells them, as settled fact, to be at the signing tomorrow -- he'll need capable people in the room.</div><p>The party is admitted by Huw, who positions himself between them and the exit before Alric has even looked up. Alric reads the room slower than Seva would -- he's a systems thinker, not an instinct reader -- but gets there, sets down his papers, and asks carefully what's brought them to this room instead of the other one.</p></div>
-  </div><div class="beat">
-    <div class="beat-header" onclick="toggleBeat('C')">
-      <span class="beat-number">C</span>
-      <span class="beat-title">Oskar's room</span>
-      <span class="beat-toggle" id="beat-toggle-C">▼</span>
+    <div class="npc-body" id="alric-body"><div class="npc-field"><span class="npc-field-label">Tonight</span><p>Alone after his seven o'clock, busy before the signing. Bram tries for him off camera, lands one punch, loses his nerve and runs. Alric was ready for someone like him. If the party ever turns on Alric, he never fights fair: smoke or a flash first, the crossbow from inside it, and Everyone Has a Price for whoever is about to land the killing blow.</p></div><div class="npc-field combat" data-entry="alric-venn"><span class="npc-field-label">Combat</span><p><span class="bestiary-line"></span></p></div></div>
+  </div>
+
+  <div class="npc-card">
+    <div class="npc-header" onclick="toggleNPC('bram')">
+      <div class="npc-info"><span class="npc-name">Bram Tallis</span><span class="npc-role">Oskar's fixer, off camera</span></div>
+      <span class="npc-toggle" id="bram-toggle">▼</span>
     </div>
-    <div class="beat-body" id="beat-body-C"><div class="outcome"><strong>Kill</strong>Oskar is the more dangerous of the two; Tav is committed but outmatched. When it's done, getting out means back down the stairs and through a quiet but not empty forge district. Nobody stops them -- the body is found in the morning.</div><div class="outcome"><strong>Warn</strong>He listens, concludes rather than processes, and says: “I know what she wants from the signing. Now I know what she is willing to do to get it.” He asks exactly what Seva said, pays without discussion if asked, and tells them, simply, to be at the signing tomorrow.</div><p>Tav lets the party up without being asked and takes the top of the stairs behind them -- the only exit, now blocked. Oskar doesn't look up immediately, then reads them quickly, sets down his pen, and states flatly that they're not here about the meeting.</p></div>
+    <div class="npc-body" id="bram-body"><div class="npc-field"><span class="npc-field-label">Tonight</span><p>Makes his attempt on Alric at whatever time the party acts on their own choice, and fails. The party sees nothing until the bruise under Alric's eye in the morning. If the party somehow crosses his path, he hits hard for a round or two, then runs; a cornered Bram talks rather than fights.</p></div><div class="npc-field combat" data-entry="bram-tallis"><span class="npc-field-label">Combat</span><p><span class="bestiary-line"></span></p></div></div>
   </div>
 
   <div class="section-heading">DM Notes</div>
-  <div class="dm-note"><strong>Six paths into the Finale</strong>Kill Seva: Elbeth steps in as acting Courtesan leader, suspects the party, and accuses them -- Alric (who hired them) is livid the accusation landed on his guests; fight is the Merchant faction path. Warn Seva: she arrives already knowing, turns the accusation on the party for standing with Alric instead -- fight is the Courtesan faction path. Kill Alric: Caen Rhys steps in as civic anchor, Huw accuses the party to him -- Oskar (who hired them) is livid; fight is the Trademaster faction path. Warn Alric: he turns the accusation on the party for standing with Oskar -- fight is the Merchant faction path. Kill Oskar: Anneth Holdworn leads the Trademaster delegation, Cors (secretly loyal to the Courtesans) accuses the party -- Seva (who hired them) is livid; fight is the Courtesan faction path. Warn Oskar: he turns the accusation on the party for standing with Seva -- fight is the Trademaster faction path.</div><div class="dm-note"><strong>None of the three panic</strong>Each target reads the room and responds with control, not fear -- that consistency is deliberate. These are people who have all, in their own ways, been in difficult rooms before.</div><div class="dm-note"><strong>The kill paths are quick</strong>Two against a full party in a confined space -- don't drag these out mechanically. The weight of the scene is in what just happened, not in a long combat.</div><div class="dm-note"><strong>The warn paths cost the party something too</strong>Every faction leader who's warned expects the party at the signing, explicitly, as a settled fact rather than a request. That's a debt as much as a reward.</div>
+  <div class="dm-note"><strong>Five on one is the point</strong>If the party wins, it's because they outnumbered their target, not because they were better. Prepared for This and Not Today are there to stop it ending in a round, so the party has time to notice what they're doing.</div>
+  <div class="dm-note"><strong>If they split</strong>Two or three on one is genuinely dangerous. Let them live with that choice rather than softening it.</div>
+  <div class="dm-note"><strong>Preparation counts</strong>A party that scouts, cuts off exits or catches a target off guard should feel the benefit, especially against Seva.</div>
+  <div class="dm-note"><strong>Kept away counts as a success</strong>As at the meetings, a leader kept away from the signing counts as a success for whoever hired the party, even if they survive.</div>
+  <div class="dm-note"><strong>The scenarios are a first draft</strong>The outcome notes above follow the Evening Invitations and Guild Leaders designs; the crossover details for the both-jobs paths are new and worth reading before the session.</div>
 
   <footer>Abelon Campaign — Encounter Reference. The Assassination Paths / Third Missions / Act 1.</footer>
 </div>
+
 
 <script>
   function toggleNPC(id){const b=document.getElementById(id+'-body'),t=document.getElementById(id+'-toggle');if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
   function toggleBeat(n){const b=document.getElementById('beat-body-'+n),t=document.getElementById('beat-toggle-'+n);if(!b||!t)return;const o=b.classList.contains('open');b.classList.toggle('open',!o);t.classList.toggle('open',!o);}
   function expandAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.add('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.add('open'));}
   function collapseAll(){document.querySelectorAll('.npc-body,.beat-body').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.npc-toggle,.beat-toggle').forEach(el=>el.classList.remove('open'));}
+</script>
+<script>
+  (function(){
+    var KEY='abelonStatus:outcome-assassination-night';
+    function get(){try{return localStorage.getItem(KEY)||'';}catch(e){return '';}}
+    function show(o){
+      document.querySelectorAll('#outcome-picker .pick').forEach(function(b){b.classList.toggle('on',!!o&&b.getAttribute('data-o')===o);});
+      document.querySelectorAll('.scenario').forEach(function(d){d.classList.toggle('on',d.getAttribute('data-o')===o);});
+    }
+    document.querySelectorAll('#outcome-picker .pick').forEach(function(b){
+      b.addEventListener('click',function(){var o=b.getAttribute('data-o');try{if(o)localStorage.setItem(KEY,o);else localStorage.removeItem(KEY);}catch(e){}show(o);});
+    });
+    show(get());
+  })();
 </script>
 <script src="bestiary-cards.js"></script>
 </body>

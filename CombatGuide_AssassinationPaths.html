@@ -225,151 +225,96 @@
 
 
 <h1>Combat Reference — Assassination Paths</h1>
-<div class="subtitle">Three private rooms — two combatants each — Level 3 party — fights to the end</div>
-
-<!-- ============================================================ -->
-<!-- ENCOUNTER 1: SEVA AND MIRA -->
-<!-- ============================================================ -->
-<h2>Encounter 1 — Seva Sable and Mira / Private Room, The Amber Cup</h2>
+<div class="subtitle">The night before the signing. Each target fights alone. Level 4 party of five.</div>
 
 <div class="encounter-bar">
-  <span class="section-label">Encounter behaviour</span>
-  <p>A small room. The table limits movement. Mira is at the door — between the party and the exit. Seva is seated when the party enters. She reads the room in two seconds and does not show it. Neither combatant flees. Neither yields. Seva remains calm throughout — the quieter she gets, the more dangerous she is.</p>
-  <p>The fight is contained. The Amber Cup is busy below. No one will hear it until it is over.</p>
+  <span class="section-label">Running the fights</span>
+  <p>Every target fights alone. Five against one isn't a fair fight, and that's the point: if the party wins, it's because they outnumbered their target, not because they were better. Five on one is a hard fight, not a deadly one; two or three on one is genuinely dangerous, and if the party splits, let them live with that choice.</p>
+  <p>Seva runs, Oskar doesn't, Alric buys time. The fights end differently: a chase, a last stand or a smoke-filled stalemate. A party that scouts, cuts off exits or catches a target off guard should feel the benefit. None of them begs.</p>
 </div>
 
+<h2>Seva Sable / Private room, the Amber Cup</h2>
+<div class="encounter-bar">
+  <span class="section-label">If the party sided with Alric</span>
+  <p>A private room above the busy tavern: table, chairs, candles, a curtained service door to the back stair, and a window onto the yard. Mira waits outside the main door and does not fight. The noise below covers a short fight. Below 41 HP Seva leaves through the nearest exit, so the kill depends on who is covering the back stair, the window and the door.</p>
+</div>
 <div class="grid">
-
   <div class="card pink" data-entry="seva-sable">
     <div class="card-header">
       <span class="card-name">Seva Sable</span>
       <button class="copy-btn" onclick="copyForge(this)">Copy Forge JSON</button>
     </div>
     <div class="card-body">
-      <div class="card-tag" data-cr="the most dangerous person in the room"></div>
+      <div class="card-tag" data-cr="alone, never where you expect"></div>
       <div class="quick-stats"></div>
       <div class="bestiary-block"></div>
       <div class="section">
         <span class="section-label">Tactics</span>
-        <div class="tactics">Read the Room on round 1 — she wants to know who is most dangerous before committing. Keeps the table between herself and the party. Uses Deflect on every melee hit she can. Does not raise her voice. Stands her ground. Does not flee.</div>
+        <div class="tactics">Opens with Whispered Doubt on the strongest attacker, aimed at whoever they trust most; Danzel first if he is there. Attacks, then Hides or Disengages every turn. Below 41 HP she uses The Back Stair and runs.</div>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="card hostile" data-entry="mira-sable">
+<h2>Oskar Sternov / Honeywell, after hours</h2>
+<div class="encounter-bar">
+  <span class="section-label">If the party sided with Seva</span>
+  <p>The forge floor below the Honeywell office, the forge banked and still hot. Oskar keeps it at his back and the party between him and the street door. Two apprentices banking the coals (use the commoner stat block) run for help as soon as it starts. Thrown into the open forge: an extra 2d6 fire. Banked Coals works only within 10 feet of the forge.</p>
+</div>
+<div class="grid">
+  <div class="card hostile" data-entry="oskar-sternov">
     <div class="card-header">
-      <span class="card-name">Mira</span>
+      <span class="card-name">Oskar Sternov</span>
       <button class="copy-btn" onclick="copyForge(this)">Copy Forge JSON</button>
     </div>
     <div class="card-body">
-      <div class="card-tag" data-cr="controls the door — fast transition from warm to dangerous"></div>
+      <div class="card-tag" data-cr="alone, does not go down easily"></div>
       <div class="quick-stats"></div>
       <div class="bestiary-block"></div>
-      
       <div class="section">
         <span class="section-label">Tactics</span>
-        <div class="tactics">Starts at the door. Draws the moment the situation is clear. Moves toward whoever is furthest from Seva — she is creating a two-front problem. The warmth disappears fast. Does not break. Stands her ground alongside Seva to the end.</div>
+        <div class="tactics">Targets whoever hurts him most. Grapples small, quick characters and hurls them into their friends or the coals. Doesn't flee: he fights until he drops, and Not Today makes the first apparent kill a false one.</div>
       </div>
     </div>
   </div>
-
 </div>
 
-<!-- ============================================================ -->
-<!-- ENCOUNTER 2: ALRIC AND HUW -->
-<!-- ============================================================ -->
-<h2>Encounter 2 — Alric Venn and Huw / Private Room, The Shallow Tuber</h2>
-
+<h2>Only if needed</h2>
 <div class="encounter-bar">
-  <span class="section-label">Encounter behaviour</span>
-  <p>A private dining room. The table runs the length of the space. Huw is at the door. Alric is seated. He has never been in a fight. He commits with desperate energy — frightened underneath the fury and will not show it. Huw is far more capable than anyone realised. Neither flees. Neither yields.</p>
-  <p>The Shallow Tuber is quieter than the Amber Cup. Other diners are present. The fight needs to end before someone opens the door.</p>
+  <span class="section-label">Alric and Bram</span>
+  <p>Nobody hires the party to go after Alric. Bram tries off camera, lands one punch and runs, which is why Alric has a bruise at the signing. These blocks are here in case the party turns on Alric or crosses Bram's path.</p>
 </div>
-
 <div class="grid">
-
   <div class="card blue" data-entry="alric-venn">
     <div class="card-header">
       <span class="card-name">Alric Venn</span>
       <button class="copy-btn" onclick="copyForge(this)">Copy Forge JSON</button>
     </div>
     <div class="card-body">
-      <div class="card-tag" data-cr="desperate energy — has never done this before"></div>
+      <div class="card-tag" data-cr="alone, buys the fight down"></div>
       <div class="quick-stats"></div>
       <div class="bestiary-block"></div>
-      
       <div class="section">
         <span class="section-label">Tactics</span>
-        <div class="tactics">Fights with feeling rather than skill. Angrier than he has ever been — not at the party exactly, at the failure of his own systems. That anger makes him less predictable than usual. Uses Suggestion only if cornered and out of options. Does not flee. Stands his ground. Does not give them the satisfaction of running.</div>
+        <div class="tactics">Smokestick or Flash Vial first, then the crossbow from inside the smoke. Everyone Has a Price goes to whoever is about to land the killing blow. Close Call and Contingency keep him standing far longer than he should.</div>
       </div>
     </div>
   </div>
-
-  <div class="card hostile" data-entry="huw">
+  <div class="card hostile" data-entry="bram-tallis">
     <div class="card-header">
-      <span class="card-name">Huw</span>
+      <span class="card-name">Bram Tallis</span>
       <button class="copy-btn" onclick="copyForge(this)">Copy Forge JSON</button>
     </div>
     <div class="card-body">
-      <div class="card-tag" data-cr="more capable than anyone knew — cold from the start"></div>
-      <div class="quick-stats"></div>
-      <div class="bestiary-block"></div>
-      
-      <div class="section">
-        <span class="section-label">Tactics</span>
-        <div class="tactics">Draws immediately. Cold in a way that surprises people who have only seen him taking notes. Charm Person on round 1 — most dangerous party member. Positions to protect Alric rather than engage independently. Fights until he cannot. Does not break.</div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- ============================================================ -->
-<!-- ENCOUNTER 3: OSKAR AND TAV -->
-<!-- ============================================================ -->
-<h2>Encounter 3 — Oskar Sternov and Tav / Honeywell Office, After Hours</h2>
-
-<div class="encounter-bar">
-  <span class="section-label">Encounter behaviour</span>
-  <p>A cramped office above a banked forge. The desk dominates. One exit — the stairs — where Tav is positioned. The window onto the forge floor below is glass and a fifteen-foot drop. Nobody is fleeing that way. Oskar says nothing during the fight. Not a word. The silence is the most unsettling thing about fighting him in a small room at night.</p>
-  <p>Tav throws on round 1 then closes. Neither combatant flees. Neither yields.</p>
-</div>
-
-<div class="grid">
-
-  <div class="card teal" data-entry="oskar-sternov">
-    <div class="card-header">
-      <span class="card-name">Oskar Sternov</span>
-      <button class="copy-btn" onclick="copyForge(this)">Copy Forge JSON</button>
-    </div>
-    <div class="card-body">
-      <div class="card-tag" data-cr="cold anger — no weapon needed — fights close and dirty"></div>
-      <div class="quick-stats"></div>
-      <div class="bestiary-block"></div>
-      
-      <div class="section">
-        <span class="section-label">Tactics</span>
-        <div class="tactics">Goes immediately for the most dangerous party member — grapple first, then the others. Uses the cramped office deliberately — pushes people into the desk, walls, window. Cold anger rather than hot. Does not telegraph. Does not speak. Does not flee. Does not yield.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card hostile" data-entry="tav">
-    <div class="card-header">
-      <span class="card-name">Tav</span>
-      <button class="copy-btn" onclick="copyForge(this)">Copy Forge JSON</button>
-    </div>
-    <div class="card-body">
-      <div class="card-tag" data-cr="controls the stairs — throws round 1 then closes"></div>
+      <div class="card-tag" data-cr="off camera tonight"></div>
       <div class="quick-stats"></div>
       <div class="bestiary-block"></div>
       <div class="section">
         <span class="section-label">Tactics</span>
-        <div class="tactics">Throws on round 1 then closes to melee. Holds the stairs — the only exit. Angry enough to stay longer than is wise. Has followed Oskar long enough that loyalty has become identity. Does not break. Holds until he cannot hold any longer.</div>
+        <div class="tactics">Wins the first exchange, then loses his nerve. He runs rather than hides; a determined chase will catch him, and a cornered Bram talks rather than fights.</div>
       </div>
     </div>
   </div>
-
 </div>
 
 <footer>Abelon Campaign — Combat Reference. Assassination Paths / Act 1 Third Missions.</footer>
