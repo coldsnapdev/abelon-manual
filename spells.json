@@ -1,0 +1,104 @@
+{
+ "attribution": "Spell text from the System Reference Document 5.2.1 by Wizards of the Coast LLC, licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/legalcode).",
+ "spells": [
+  {
+   "name": "Charm Person",
+   "level": "Level 1 Enchantment",
+   "castingTime": "Action",
+   "range": "30 feet",
+   "components": "V, S",
+   "duration": "1 hour",
+   "text": "One Humanoid you can see within range makes a Wisdom saving throw. It does so with Advantage if you or your allies are fighting it. On a failed save, the target has the Charmed condition until the spell ends or until you or your allies damage it. The Charmed creature is Friendly to you. When the spell ends, the target knows it was Charmed by you.\n\n*Using a Higher-Level Spell Slot.* You can target one additional creature for each spell slot level above 1."
+  },
+  {
+   "name": "Command",
+   "level": "Level 1 Enchantment",
+   "castingTime": "Action",
+   "range": "60 feet",
+   "components": "V",
+   "duration": "Instantaneous",
+   "text": "You speak a one-word command to a creature you can see within range. The target must succeed on a Wisdom saving throw or follow the command on its next turn. Choose the command from these options:\n**Approach.** The target moves toward you by the shortest and most direct route, ending its turn if it moves within 5 feet of you.\n**Drop.** The target drops whatever it is holding and then ends its turn.\n**Flee.** The target spends its turn moving away from you by the fastest available means.\n**Grovel.** The target has the Prone condition and then ends its turn.\n**Halt.** On its turn, the target doesn't move and takes no action or Bonus Action.\n\n*Using a Higher-Level Spell Slot.* You can affect one additional creature for each spell slot level above 1."
+  },
+  {
+   "name": "Fire Bolt",
+   "level": "Evocation Cantrip",
+   "castingTime": "Action",
+   "range": "120 feet",
+   "components": "V, S",
+   "duration": "Instantaneous",
+   "text": "You hurl a mote of fire at a creature or an object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 Fire damage. A flammable object hit by this spell starts burning if it isn't being worn or carried.\n\n*Cantrip Upgrade.* The damage increases by 1d10 when you reach levels 5 (2d10), 11 (3d10), and 17 (4d10)."
+  },
+  {
+   "name": "Fog Cloud",
+   "level": "Level 1 Conjuration",
+   "castingTime": "Action",
+   "range": "120 feet",
+   "components": "V, S",
+   "duration": "Concentration, up to 1 hour",
+   "text": "You create a 20-foot-radius Sphere of fog centered on a point within range. The Sphere is Heavily Obscured. It lasts for the duration or until a strong wind (such as one created by Gust of Wind) disperses it.\n\n*Using a Higher-Level Spell Slot.* The fog's radius increases by 20 feet for each spell slot level above 1."
+  },
+  {
+   "name": "Hold Person",
+   "level": "Level 2 Enchantment",
+   "castingTime": "Action",
+   "range": "60 feet",
+   "components": "V, S, M (a straight piece of iron)",
+   "duration": "Concentration, up to 1 minute",
+   "text": "Choose a Humanoid that you can see within range. The target must succeed on a Wisdom saving throw or have the Paralyzed condition for the duration. At the end of each of its turns, the target repeats the save, ending the spell on itself on a success.\n\n*Using a Higher-Level Spell Slot.* You can target one additional Humanoid for each spell slot level above 2."
+  },
+  {
+   "name": "Inflict Wounds",
+   "level": "Level 1 Necromancy",
+   "castingTime": "Action",
+   "range": "Touch",
+   "components": "V, S",
+   "duration": "Instantaneous",
+   "text": "A creature you touch makes a Constitution saving throw, taking 2d10 Necrotic damage on a failed save or half as much damage on a successful one.\n\n*Using a Higher-Level Spell Slot.* The damage increases by 1d10 for each spell slot level above 1."
+  },
+  {
+   "name": "Magic Missile",
+   "level": "Level 1 Evocation",
+   "castingTime": "Action",
+   "range": "120 feet",
+   "components": "V, S",
+   "duration": "Instantaneous",
+   "text": "You create three glowing darts of magical force. Each dart strikes a creature of your choice that you can see within range. A dart deals 1d4 + 1 Force damage to its target. The darts all strike simultaneously, and you can direct them to hit one creature or several.\n\n*Using a Higher-Level Spell Slot.* The spell creates one more dart for each spell slot level above 1."
+  },
+  {
+   "name": "Minor Illusion",
+   "level": "Illusion Cantrip",
+   "castingTime": "Action",
+   "range": "30 feet",
+   "components": "S, M (a bit of fleece)",
+   "duration": "1 minute",
+   "text": "You create a sound or an image of an object within range that lasts for the duration. The illusion ends if you cast this spell again.\n\nIf a creature takes a Study action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.\n\n**Sound.** If you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a lion's roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.\n\n**Image.** If you create an image of an object—such as a chair, muddy footprints, or a small chest—it must be no larger than a 5-foot Cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, since things can pass through it."
+  },
+  {
+   "name": "Silence",
+   "level": "Level 2 Illusion",
+   "castingTime": "Action",
+   "range": "120 feet",
+   "components": "V, S",
+   "duration": "Concentration, up to 10 minutes",
+   "text": "For the duration, no sound can be created within or pass through a 20-foot-radius Sphere centered on a point you choose within range. Any creature or object entirely inside the Sphere has Immunity to Thunder damage, and creatures have the Deafened condition while entirely inside it. Casting a spell that includes a Verbal component is impossible there."
+  },
+  {
+   "name": "Suggestion",
+   "level": "Level 2 Enchantment",
+   "castingTime": "Action",
+   "range": "30 feet",
+   "components": "V, M (a drop of honey)",
+   "duration": "Concentration, up to 8 hours",
+   "text": "You suggest a course of activity—described in no more than 25 words—to one creature you can see within range that can hear and understand you. The suggestion must sound achievable and not involve anything that would obviously deal damage to the target or its allies. For example, you could say, \"Fetch the key to the cult's treasure vault, and give the key to me.\" Or you could say, \"Stop fighting, leave this library peacefully, and don't return.\"\n\nThe target must succeed on a Wisdom saving throw or have the Charmed condition for the duration or until you or your allies deal damage to the target. The Charmed target pursues the suggestion to the best of its ability. The suggested activity can continue for the entire duration, but if the suggested activity can be completed in a shorter time, the spell ends for the target upon completing it."
+  },
+  {
+   "name": "Thunderwave",
+   "level": "Level 1 Evocation",
+   "castingTime": "Action",
+   "range": "Self",
+   "components": "V, S",
+   "duration": "Instantaneous",
+   "text": "You unleash a wave of thunderous energy. Each creature in a 15-foot Cube originating from you makes a Constitution saving throw. On a failed save, a creature takes 2d8 Thunder damage and is pushed 10 feet away from you. On a successful save, a creature takes half as much damage only.\n\nIn addition, unsecured objects that are entirely within the Cube are pushed 10 feet away from you, and a thunderous boom is audible within 300 feet.\n\n*Using a Higher-Level Spell Slot.* The damage increases by 1d8 for each spell slot level above 1."
+  }
+ ]
+}

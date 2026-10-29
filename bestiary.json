@@ -225,6 +225,30 @@
     "com.battle-system.forge/Z040": [],
     "com.battle-system.forge/Z041": "",
     "com.battle-system.forge/Z042": 0
+   },
+   "flavour": {
+    "Sword Cane": [
+     "The cane comes apart in {name}'s hands, and the thinner half is a blade.",
+     "{name} thrusts with the elegance of a man who has rehearsed this in a mirror.",
+     "A flick of the wrist from {name}, almost bored. Steel follows."
+    ],
+    "Hand Crossbow": [
+     "{name} produces a crossbow no longer than a hand from somewhere inside his coat.",
+     "A click, a hiss. {name}'s bolt is tipped with something that makes the legs heavy."
+    ],
+    "Everyone Has a Price (Recharge 5-6)": [
+     "\"Whatever they're paying you,\" {name} says pleasantly, \"I'll double it. Tonight. In coin.\"",
+     "{name} names a figure. It is a very good figure.",
+     "\"Walk away,\" {name} says, \"and I'll remember you kindly. I remember everyone.\""
+    ],
+    "Bonus Action: Deep Pockets (each once)": [
+     "{name}'s coat seems to have more pockets than a coat should. One of them has something nasty in it.",
+     "{name} tosses something small and glass underarm, like a tip to a doorman."
+    ],
+    "Reaction: Close Call": [
+     "{name} sways back half an inch. It's enough.",
+     "\"Careful,\" {name} says, as the blow misses him by a hair."
+    ]
    }
   },
   {
@@ -577,6 +601,24 @@
     "com.battle-system.forge/Z040": [],
     "com.battle-system.forge/Z041": "",
     "com.battle-system.forge/Z042": 0
+   },
+   "flavour": {
+    "Cudgel": [
+     "{name} swings the cudgel short and ugly, the way it's done in alleys.",
+     "No flourish from {name}. Just the club, aimed where it hurts.",
+     "{name} brings the cudgel down with the tired patience of a man who's done this before."
+    ],
+    "Grapple": [
+     "{name} grabs a fistful of coat and hauls it in close, putting a body between himself and the blades.",
+     "\"Easy now,\" {name} mutters, arm locking round a neck."
+    ],
+    "Bonus Action: Bolt": [
+     "{name} is off, low and quick, over crates and through gaps only someone local would know.",
+     "{name} decides this is no longer his fight, and moves accordingly."
+    ],
+    "Reaction: Shove Clear": [
+     "{name} plants a boot and shoves. \"Back.\""
+    ]
    }
   },
   {
@@ -1109,6 +1151,21 @@
     "com.battle-system.forge/Z040": [],
     "com.battle-system.forge/Z041": "",
     "com.battle-system.forge/Z042": 0
+   },
+   "flavour": {
+    "Longsword": [
+     "{name} cuts with the economy of someone trained by people who didn't waste anything.",
+     "The longsword moves in a slow-looking arc that somehow arrives early.",
+     "{name} attacks without anger, as if pruning."
+    ],
+    "Cycle Strike (3/Day)": [
+     "Where {name}'s blade bites, the flesh greys and withers, as though a season has passed in a heartbeat.",
+     "Light runs down {name}'s blade like sap. What it takes from one, it gives to another.",
+     "\"Everything ends,\" {name} says. \"Everything returns.\" The blade agrees with him."
+    ],
+    "Reaction: Parry": [
+     "{name} turns the blow aside with a twist of the wrist, unhurried."
+    ]
    }
   },
   {
@@ -2579,6 +2636,26 @@
     "com.battle-system.forge/Z040": [],
     "com.battle-system.forge/Z041": "",
     "com.battle-system.forge/Z042": 0
+   },
+   "flavour": {
+    "Mallet": [
+     "{name} swings the mallet with regret in his face and none in his arm.",
+     "The mallet is a tool, not a weapon. {name} uses it like both.",
+     "{name} aims for the hand, not the head. He means to stop this, not end it."
+    ],
+    "Plea (Recharge 5-6)": [
+     "\"Enough,\" {name} says, and something in his voice makes the room listen.",
+     "{name} raises an open hand. \"Stop. Please. Nobody else has to bleed tonight.\"",
+     "{name}'s voice carries the weight of every sickbed he's ever sat beside."
+    ],
+    "Lay on Hands (65 HP pool)": [
+     "{name} kneels and lays a palm flat. Warmth spreads, and something dark lets go.",
+     "{name} murmurs a word that isn't quite a prayer. The wound closes like a mouth that's finished speaking."
+    ],
+    "Reaction: Turn the Blow": [
+     "{name} catches the strike on the mallet's haft and turns it aside.",
+     "{name} steps into the blow rather than away, and it lands on nothing it meant to."
+    ]
    }
   },
   {
@@ -2969,6 +3046,32 @@
     "com.battle-system.forge/Z040": [],
     "com.battle-system.forge/Z041": "",
     "com.battle-system.forge/Z042": 0
+   },
+   "flavour": {
+    "Forge Hammer": [
+     "{name} brings the hammer down the way he's brought it down ten thousand times on an anvil.",
+     "The hammer comes round in a wide, honest arc. There's nothing clever about it. There doesn't need to be.",
+     "{name} grunts and swings. The air moves out of the way first."
+    ],
+    "Grapple": [
+     "A hand like a vice closes on a collar. {name} doesn't let go of things.",
+     "{name} reaches out with arms scarred from a lifetime of sparks."
+    ],
+    "Hurl": [
+     "{name} lifts, turns, and throws, like tossing a sack of coal into the bunker.",
+     "For a moment someone is airborne. {name} looks mildly satisfied."
+    ],
+    "Banked Coals (Recharge 5-6)": [
+     "{name} rakes open the forge. The coals breathe out.",
+     "A shovel scrapes iron, and {name} sends a spray of white-hot coals across the floor."
+    ],
+    "Bonus Action: Second Wind (Short Rest)": [
+     "{name} rolls his shoulders, spits, and sets his feet again.",
+     "{name} breathes in the heat of the forge like it's feeding him."
+    ],
+    "Reaction: Stand Firm": [
+     "It's like trying to shove the anvil. {name} doesn't move, and then the hammer does."
+    ]
    }
   },
   {
@@ -4180,6 +4283,27 @@
     "com.battle-system.forge/Z040": [],
     "com.battle-system.forge/Z041": "",
     "com.battle-system.forge/Z042": 0
+   },
+   "flavour": {
+    "Hairpin": [
+     "{name} draws a pin from her hair in one smooth motion, as if tidying it, and drives it home.",
+     "A glint of silver at {name}'s temple, gone before anyone sees it move.",
+     "{name} steps in close enough to whisper. The pin does the talking.",
+     "The pin's tip is dark with something that isn't ink. {name} doesn't waste it."
+    ],
+    "Whispered Doubt (Recharge 5-6)": [
+     "{name} leans to an ear and says something quiet and reasonable. It sounds very much like the truth.",
+     "\"Are you sure they're on your side?\" {name} asks, gently, as though she already knows the answer.",
+     "{name} smiles as if you've shared a secret. Perhaps you have."
+    ],
+    "Bonus Action: Cunning Action": [
+     "{name} is there, and then she is somewhere else, and nobody saw her go.",
+     "{name} gathers her skirts and slips between the guests like a rumour."
+    ],
+    "Reaction: Not Where You Thought": [
+     "The blow lands on silk and air. {name} is already a step to the left.",
+     "{name} turns with the strike like a dancer, and is somewhere else."
+    ]
    }
   },
   {
