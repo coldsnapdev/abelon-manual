@@ -3900,6 +3900,12 @@
     "com.battle-system.forge/Z015": "",
     "com.battle-system.forge/Z002": "Medium",
     "com.battle-system.forge/Z004": "Ooze"
+   },
+   "flavour": {
+    "Lunge": [
+     "{name} pours itself forward on four limbs that weren't there a moment ago.",
+     "{name} hits like a wave of wet earth, and some of it stays behind."
+    ]
    }
   },
   {
@@ -4111,6 +4117,15 @@
     "com.battle-system.forge/Z015": "",
     "com.battle-system.forge/Z002": "Large",
     "com.battle-system.forge/Z004": "Ooze"
+   },
+   "flavour": {
+    "Surge": [
+     "{name} heaves, and a limb of black mass lashes out across the platform.",
+     "All of {name} surges at once, as though the floor itself has stood up."
+    ],
+    "Harden (Recharge 5-6)": [
+     "{name}'s outer mass draws tight and sets, crackling like cooling glass."
+    ]
    }
   },
   {
@@ -4204,6 +4219,12 @@
     "com.battle-system.forge/Z015": "",
     "com.battle-system.forge/Z002": "Small",
     "com.battle-system.forge/Z004": "Ooze"
+   },
+   "flavour": {
+    "Lunge": [
+     "{name} bunches up like spilled tar, then springs.",
+     "{name} lunges low, trailing steam and a smell that's wrong in a way that takes a moment to place."
+    ]
    }
   },
   {
