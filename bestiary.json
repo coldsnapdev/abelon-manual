@@ -4060,7 +4060,7 @@
      },
      {
       "id": "monstrosity-004",
-      "name": "Legendary Actions (3 per round)",
+      "name": "Trait: Legendary Actions (3 per round)",
       "description": "The Monstrosity can take 3 legendary actions, one at a time, at the end of another creature's turn. It regains them at the start of its turn."
      },
      {
@@ -4170,7 +4170,7 @@
     ]
    },
    "notes": {
-    "Legendary Actions (3 per round)": "In the Everbloom fight these are only available in phase 3, after it resurfaces."
+    "Trait: Legendary Actions (3 per round)": "In the Everbloom fight these are only available in phase 3, after it resurfaces."
    }
   },
   {
