@@ -1336,7 +1336,7 @@
      {
       "id": "dh-004",
       "name": "Longsword (x2)",
-      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] slashing damage. Two attacks per Attack action."
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] slashing damage."
      },
      {
       "id": "dh-005",
@@ -1386,7 +1386,8 @@
     "com.battle-system.forge/Z021": 12
    },
    "notes": {
-    "Bonus Action: Second Wind (1/short rest)": "Uses below 10 HP."
+    "Bonus Action: Second Wind (1/short rest)": "Uses below 10 HP.",
+    "Longsword (x2)": "Two attacks per Attack action."
    }
   },
   {
@@ -2798,7 +2799,7 @@
      {
       "id": "morda-005",
       "name": "Bonus Action: Hunter's Mark (2/Long Rest, Concentration)",
-      "description": "Marks one creature within 90 ft. Deals extra [1d6] damage per hit against that target. Switch target as bonus action if current target drops. No spell slot required. Concentration, up to 1 hour."
+      "description": "Marks one creature within 90 ft. Deals extra [1d6] damage per hit against that target. Switch target as bonus action if current target drops. Concentration, up to 1 hour."
      }
     ],
     "com.battle-system.forge/Z003": "Neutral",
@@ -2841,6 +2842,9 @@
     "com.battle-system.forge/Z027": 2,
     "com.battle-system.forge/Z008": 30,
     "com.battle-system.forge/Z021": 14
+   },
+   "notes": {
+    "Bonus Action: Hunter's Mark (2/Long Rest, Concentration)": "No spell slot required."
    }
   },
   {
@@ -3708,22 +3712,22 @@
      {
       "id": "radek-004",
       "name": "Longsword (x2)",
-      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] slashing damage. Makes two attacks per Attack action."
+      "description": "Melee Weapon Attack [1d20+5] to hit, reach 5 ft., one target. [1d8+3] slashing damage."
      },
      {
       "id": "radek-005",
       "name": "Disarming Attack",
-      "description": "Expend one superiority die. On hit, target must succeed on DC 13 Str save or drop one held item. Add [1d8] to damage."
+      "description": "On hit, target must succeed on DC 13 Str save or drop one held item. Add [1d8] to damage."
      },
      {
       "id": "radek-006",
       "name": "Trip Attack",
-      "description": "Expend one superiority die. On hit, target must succeed on DC 13 Str save or be knocked prone. Add [1d8] to damage."
+      "description": "On hit, target must succeed on DC 13 Str save or be knocked prone. Add [1d8] to damage."
      },
      {
       "id": "radek-007",
       "name": "Pushing Attack",
-      "description": "Expend one superiority die. On hit, target must succeed on DC 13 Str save or be pushed 15 ft. away. Add [1d8] to damage."
+      "description": "On hit, target must succeed on DC 13 Str save or be pushed 15 ft. away. Add [1d8] to damage."
      },
      {
       "id": "radek-008",
@@ -3776,6 +3780,12 @@
     "com.battle-system.forge/Z027": 1,
     "com.battle-system.forge/Z008": 30,
     "com.battle-system.forge/Z021": 12
+   },
+   "notes": {
+    "Longsword (x2)": "Makes two attacks per Attack action.",
+    "Disarming Attack": "Expend one superiority die.",
+    "Trip Attack": "Expend one superiority die.",
+    "Pushing Attack": "Expend one superiority die."
    }
   },
   {
@@ -4573,7 +4583,7 @@
      {
       "id": "thess-009",
       "name": "Reaction: Shield (Level 1 Slot)",
-      "description": "When hit by an attack, Thessaly gains +5 AC until start of next turn including against the triggering attack. Uses a Level 1 slot."
+      "description": "When hit by an attack, Thessaly gains +5 AC until start of next turn including against the triggering attack."
      }
     ],
     "com.battle-system.forge/Z003": "Neutral",
@@ -4621,7 +4631,8 @@
     "Hold Person (Level 2 Slot, Concentration)": "Target the most effective melee combatant.",
     "Fog Cloud (Level 1 Slot, Concentration)": "Use if ranged party members are targeting Morda or Brek.",
     "Minor Illusion (Cantrip)": "Use to misdirect the party.",
-    "Dagger": "Last resort only."
+    "Dagger": "Last resort only.",
+    "Reaction: Shield (Level 1 Slot)": "Uses a Level 1 slot."
    }
   },
   {
