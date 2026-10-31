@@ -38,14 +38,15 @@
       '<div class="abl" style="opacity:.85">' + rich(a.description) + '</div>';
   }
 
-  function block(f) {
+  function block(f, notes) {
+    notes = notes || {};
     var groups = { action: [], bonus: [], reaction: [], legendary: [], trait: [] };
     ['Z034', 'Z035', 'Z036', 'Z037', 'Z038'].forEach(function (k) {
       (f[P + k] || []).forEach(function (a) { var c = category(a.name, k); if (groups[c]) groups[c].push(a); });
     });
     var out = '';
     [['action', 'Each turn'], ['bonus', 'Bonus action'], ['reaction', 'Reaction'], ['legendary', 'Legendary actions'], ['trait', 'Abilities']].forEach(function (g) {
-      if (groups[g[0]].length) out += '<div class="section"><span class="section-label">' + g[1] + '</span>' + groups[g[0]].map(row).join('') + '</div>';
+      if (groups[g[0]].length) out += '<div class="section"><span class="section-label">' + g[1] + '</span>' + groups[g[0]].map(function (a) { return row(a) + (notes[a.name] ? '<div class="abl" style="font-style:italic;opacity:.8">DM: ' + esc(notes[a.name]) + '</div>' : ''); }).join('') + '</div>';
     });
     var def = [['Z030', 'Vulnerable'], ['Z031', 'Resists'], ['Z032', 'Immune'], ['Z033', 'Condition immunities'], ['Z013', 'Senses'], ['Z041', 'Notes']]
       .filter(function (x) { return String(f[P + x[0]] || '').trim(); })
@@ -79,7 +80,7 @@
     var qs = card.querySelector('.quick-stats');
     if (qs) qs.innerHTML = '<div class="qs"><span>AC</span>' + esc(f[P + 'Z007']) + '</div><div class="qs"><span>HP</span>' + esc(f[P + 'Z005']) +
       '</div><div class="qs"><span>Atk</span>' + bestHit(f) + '</div><div class="qs"><span>Spd</span>' + esc(f[P + 'Z008']) + '</div>';
-    var blk = card.querySelector('.bestiary-block'); if (blk) blk.innerHTML = block(f);
+    var blk = card.querySelector('.bestiary-block'); if (blk) blk.innerHTML = block(f, e.notes);
     var line = card.querySelector('.bestiary-line'); if (line) line.innerHTML = summary(e);
   }
 
