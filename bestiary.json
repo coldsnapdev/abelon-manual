@@ -796,12 +796,12 @@
      {
       "id": "brenna-004",
       "name": "Hand Crossbow",
-      "description": "Ranged Weapon Attack [1d20+5] to hit, range 30/120 ft., one target. [1d6+3] piercing damage. Preferred from the balcony."
+      "description": "Ranged Weapon Attack [1d20+5] to hit, range 30/120 ft., one target. [1d6+3] piercing damage. (Preferred from the balcony.)"
      },
      {
       "id": "brenna-005",
       "name": "Cunning Action (Bonus Action)",
-      "description": "Dash, Disengage, or Hide. Uses Dash on round one to reach the balcony staircase."
+      "description": "Dash, Disengage, or Hide. (Uses Dash on round one to reach the balcony staircase.)"
      },
      {
       "id": "brenna-001",
@@ -1337,7 +1337,7 @@
      {
       "id": "dh-005",
       "name": "Bonus Action: Second Wind (1/short rest)",
-      "description": "Regains [1d10+2] hit points. Uses below 10 HP."
+      "description": "Regains [1d10+2] hit points. (Uses below 10 HP.)"
      }
     ],
     "com.battle-system.forge/Z003": "Neutral",
@@ -1463,12 +1463,12 @@
      {
       "id": "devrin-001",
       "name": "Dagger",
-      "description": "Melee Weapon Attack [1d20+6] to hit, reach 5 ft., one target. [1d4+4] piercing damage. Backup strike only."
+      "description": "Melee Weapon Attack [1d20+6] to hit, reach 5 ft., one target. [1d4+4] piercing damage. (Backup strike only.)"
      },
      {
       "id": "devrin-002",
       "name": "Inflict Wounds (Level 3 Slot)",
-      "description": "Touch. One creature makes a DC 16 Constitution saving throw, taking [4d10] necrotic damage on a failure or half as much on a success. Used only if cornered."
+      "description": "Touch. One creature makes a DC 16 Constitution saving throw, taking [4d10] necrotic damage on a failure or half as much on a success. (Used only if cornered.)"
      },
      {
       "id": "devrin-003",
@@ -1478,12 +1478,12 @@
      {
       "id": "devrin-004",
       "name": "Command (DC 16 Wisdom save)",
-      "description": "One word: Flee, Drop, or Grovel. Used on whoever is physically blocking her retreat."
+      "description": "One word: Flee, Drop, or Grovel. (Used on whoever is physically blocking her retreat.)"
      },
      {
       "id": "devrin-005",
       "name": "Hold Person (DC 16 Wisdom save)",
-      "description": "Used on whoever is fastest, to buy an escape window."
+      "description": "(Used on whoever is fastest, to buy an escape window.)"
      },
      {
       "id": "devrin-006",
@@ -1566,7 +1566,7 @@
      {
       "id": "drace-009",
       "name": "Action Surge (1/short rest)",
-      "description": "Takes an additional action. Use on the first round if surprised -- he recovers fast."
+      "description": "Takes an additional action. (Use on the first round if surprised -- he recovers fast.)"
      },
      {
       "id": "drace-008",
@@ -1984,7 +1984,7 @@
      {
       "id": "gort-003",
       "name": "Javelin (thrown)",
-      "description": "Ranged Weapon Attack [1d20+5] to hit, range 30/120 ft., one target. [1d6+3] piercing damage. Round 1 only."
+      "description": "Ranged Weapon Attack [1d20+5] to hit, range 30/120 ft., one target. [1d6+3] piercing damage. (Round 1 only.)"
      },
      {
       "id": "gort-004",
@@ -2052,7 +2052,7 @@
      {
       "id": "harwick-003",
       "name": "Handaxe (thrown)",
-      "description": "Ranged Weapon Attack [1d20+5] to hit, range 20/60 ft., one target. [1d6+3] slashing damage. Round 1 only."
+      "description": "Ranged Weapon Attack [1d20+5] to hit, range 20/60 ft., one target. [1d6+3] slashing damage. (Round 1 only.)"
      },
      {
       "id": "harwick-004",
@@ -2130,7 +2130,7 @@
      {
       "id": "huw-003",
       "name": "Charm Person (Level 1 Slot)",
-      "description": "One humanoid within 30 ft. makes DC 13 Wisdom save or is charmed by Huw for 1 hour. Charmed creature regards Huw as friendly. Ends if Huw or allies harm the target. Use on the most aggressive party member."
+      "description": "One humanoid within 30 ft. makes DC 13 Wisdom save or is charmed by Huw for 1 hour. Charmed creature regards Huw as friendly. Ends if Huw or allies harm the target. (Use on the most aggressive party member.)"
      },
      {
       "id": "huw-004",
@@ -2344,7 +2344,7 @@
      {
       "id": "jori-003",
       "name": "Dagger",
-      "description": "Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4] piercing damage. Will not use this unless directly attacked."
+      "description": "Melee Weapon Attack [1d20+2] to hit, reach 5 ft., one target. [1d4] piercing damage. (Will not use this unless directly attacked.)"
      }
     ],
     "com.battle-system.forge/Z003": "Neutral",
@@ -3170,7 +3170,7 @@
      {
       "id": "peck-004",
       "name": "Dagger",
-      "description": "Melee Weapon Attack [1d20+3] to hit, reach 5 ft., one target. [1d4+1] piercing damage. He does not want to use this."
+      "description": "Melee Weapon Attack [1d20+3] to hit, reach 5 ft., one target. [1d4+1] piercing damage. (He does not want to use this.)"
      },
      {
       "id": "peck-x02",
@@ -4019,7 +4019,7 @@
      {
       "id": "monstrosity-004",
       "name": "Legendary Actions (3 per round)",
-      "description": "The Monstrosity can take 3 legendary actions, one at a time, at the end of another creature's turn. It regains them at the start of its turn. In the Everbloom fight these are only available in phase 3, after it resurfaces."
+      "description": "The Monstrosity can take 3 legendary actions, one at a time, at the end of another creature's turn. It regains them at the start of its turn. (In the Everbloom fight these are only available in phase 3, after it resurfaces.)"
      },
      {
       "id": "monstrosity-005",
@@ -4432,7 +4432,7 @@
      {
       "id": "tav-a-003",
       "name": "Hand Axe (thrown, round 1)",
-      "description": "Ranged Weapon Attack [1d20+4] to hit, range 20/60 ft., one target. [1d6+2] slashing damage. Thrown on round 1 only before closing to melee."
+      "description": "Ranged Weapon Attack [1d20+4] to hit, range 20/60 ft., one target. [1d6+2] slashing damage. (Thrown on round 1 only before closing to melee.)"
      }
     ],
     "com.battle-system.forge/Z003": "Neutral",
@@ -4510,22 +4510,22 @@
      {
       "id": "thess-005",
       "name": "Hold Person (Level 2 Slot, Concentration)",
-      "description": "One humanoid within 60 ft. makes DC 13 Wis save or is paralyzed up to 1 minute. Repeat save at end of each turn. Target the most effective melee combatant."
+      "description": "One humanoid within 60 ft. makes DC 13 Wis save or is paralyzed up to 1 minute. Repeat save at end of each turn. (Target the most effective melee combatant.)"
      },
      {
       "id": "thess-006",
       "name": "Fog Cloud (Level 1 Slot, Concentration)",
-      "description": "20 ft. radius heavily obscured sphere within 120 ft. Lasts up to 1 hour. Use if ranged party members are targeting Morda or Brek."
+      "description": "20 ft. radius heavily obscured sphere within 120 ft. Lasts up to 1 hour. (Use if ranged party members are targeting Morda or Brek.)"
      },
      {
       "id": "thess-007",
       "name": "Minor Illusion (Cantrip)",
-      "description": "Creates a sound or image within 30 ft. lasting 1 minute. DC 13 Investigation to disbelieve. Use to misdirect the party."
+      "description": "Creates a sound or image within 30 ft. lasting 1 minute. DC 13 Investigation to disbelieve. (Use to misdirect the party.)"
      },
      {
       "id": "thess-008",
       "name": "Dagger",
-      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d4+2] piercing damage. Last resort only."
+      "description": "Melee Weapon Attack [1d20+4] to hit, reach 5 ft., one target. [1d4+2] piercing damage. (Last resort only.)"
      },
      {
       "id": "thessaly-x01",
@@ -4802,7 +4802,7 @@
      {
       "id": "ysolde-002",
       "name": "Thunderwave (Level 1 Slot)",
-      "description": "Each creature in a 15 ft. cube makes DC 13 Constitution save. On fail: [2d8] thunder damage and pushed 10 ft. On success: half damage, not pushed. Use when 2+ party members are adjacent."
+      "description": "Each creature in a 15 ft. cube makes DC 13 Constitution save. On fail: [2d8] thunder damage and pushed 10 ft. On success: half damage, not pushed. (Use when 2+ party members are adjacent.)"
      }
     ],
     "com.battle-system.forge/Z003": "Neutral",
