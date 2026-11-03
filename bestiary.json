@@ -4970,12 +4970,12 @@
   },
   {
    "id": "commoner-cr1-8",
-   "name": "Commoner (CR 1/8)",
+   "name": "Commoner (CR 0.125)",
    "cr": 0.125,
    "source": "Generic commoners (Nov 2026)",
    "updated": "2026-11-03",
    "forge": {
-    "com.battle-system.forge/name": "Commoner (CR 1/8)",
+    "com.battle-system.forge/name": "Commoner (CR 0.125)",
     "com.battle-system.forge/Z001": 0,
     "com.battle-system.forge/Z002": "Medium",
     "com.battle-system.forge/Z003": "Any alignment",
@@ -5038,12 +5038,12 @@
   },
   {
    "id": "commoner-cr1-4",
-   "name": "Commoner (CR 1/4)",
+   "name": "Commoner (CR 0.25)",
    "cr": 0.25,
    "source": "Generic commoners (Nov 2026)",
    "updated": "2026-11-03",
    "forge": {
-    "com.battle-system.forge/name": "Commoner (CR 1/4)",
+    "com.battle-system.forge/name": "Commoner (CR 0.25)",
     "com.battle-system.forge/Z001": 0,
     "com.battle-system.forge/Z002": "Medium",
     "com.battle-system.forge/Z003": "Any alignment",
@@ -5106,12 +5106,12 @@
   },
   {
    "id": "commoner-cr1-2",
-   "name": "Commoner (CR 1/2)",
+   "name": "Commoner (CR 0.5)",
    "cr": 0.5,
    "source": "Generic commoners (Nov 2026)",
    "updated": "2026-11-03",
    "forge": {
-    "com.battle-system.forge/name": "Commoner (CR 1/2)",
+    "com.battle-system.forge/name": "Commoner (CR 0.5)",
     "com.battle-system.forge/Z001": 0,
     "com.battle-system.forge/Z002": "Medium",
     "com.battle-system.forge/Z003": "Any alignment",
