@@ -22,7 +22,7 @@
     "memory"
    ],
    "flags": [],
-   "check": true
+   "role": "Former Shrinekeeper at Everbloom Shrine"
   },
   {
    "id": "aelis",
@@ -149,8 +149,7 @@
    "sources": [
     "manual"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "bael",
@@ -225,8 +224,7 @@
     "bestiary",
     "manual"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "brath",
@@ -415,8 +413,7 @@
     "bestiary",
     "manual"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "cebb",
@@ -467,7 +464,7 @@
     "memory"
    ],
    "flags": [],
-   "check": true
+   "role": "Oskar's Assistant"
   },
   {
    "id": "cors-holdworn",
@@ -498,8 +495,7 @@
    "sources": [
     "memory"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "costin-marrow",
@@ -618,8 +614,7 @@
     "manual",
     "memory"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "delyth",
@@ -683,8 +678,7 @@
    "sources": [
     "memory"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "drace",
@@ -752,8 +746,7 @@
     "manual",
     "memory"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "efa-dun",
@@ -915,8 +908,7 @@
    "sources": [
     "memory"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "gethin",
@@ -1097,8 +1089,7 @@
     "bestiary",
     "manual"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "ithren",
@@ -1148,8 +1139,7 @@
    "sources": [
     "memory"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "jori",
@@ -1226,8 +1216,7 @@
     "manual",
     "memory"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "lotte",
@@ -1317,8 +1306,7 @@
    "sources": [
     "manual"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "marek-talan",
@@ -1361,8 +1349,7 @@
    "sources": [
     "manual"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "merse",
@@ -1541,8 +1528,7 @@
    "sources": [
     "manual"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "oskar-sternov",
@@ -1614,8 +1600,7 @@
    "sources": [
     "memory"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "palla",
@@ -1768,8 +1753,7 @@
     "bestiary",
     "manual"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "quillon",
@@ -1860,8 +1844,7 @@
    "sources": [
     "memory"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "sela",
@@ -1888,7 +1871,7 @@
     "memory"
    ],
    "flags": [],
-   "check": true
+   "role": "Headmaster at Pearlstrand"
   },
   {
    "id": "seren",
@@ -2066,8 +2049,7 @@
     "bestiary",
     "manual"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "tomas",
@@ -2105,8 +2087,7 @@
    "sources": [
     "memory"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "ulla",
@@ -2168,8 +2149,7 @@
    "sources": [
     "memory"
    ],
-   "flags": [],
-   "check": true
+   "flags": []
   },
   {
    "id": "yselle-corrin",
