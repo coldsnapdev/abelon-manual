@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="abelon-sync.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cast — Abelon</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
+  :root{--bg:#1a1410;--bg2:#241f16;--bg3:#2a2318;--ink:#e8d9bc;--ink2:#c4a882;--ink3:#8a7a65;--accent:#c4a882;--gold:#e2c27f;--rule:#5a4a38;--rule-faint:rgba(90,74,56,0.35);--red:#e0533d;--green:#5DCAA5;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.5;padding:1.5rem 1rem 4rem;}
+  .page{max-width:1200px;margin:0 auto;}
+  h1{font-family:'Cinzel',serif;font-size:20px;font-weight:600;color:var(--accent);letter-spacing:.05em;}
+  .subtitle{font-size:13px;font-style:italic;color:var(--ink3);padding-bottom:1rem;border-bottom:1px solid var(--rule);margin-bottom:1rem;}
+  .howto{background:var(--bg3);border:.5px dashed var(--rule);border-radius:5px;padding:10px 14px;margin-bottom:14px;font-size:14px;color:var(--ink2);}
+  .howto strong{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px;}
+  .howto ol{margin:0 0 6px 20px;}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px;position:sticky;top:46px;z-index:5;background:var(--bg);padding:6px 0;}
+  #q{flex:1 1 220px;min-width:0;font:inherit;font-size:14px;background:var(--bg2);color:var(--ink);border:.5px solid var(--rule);border-radius:4px;padding:6px 10px;}
+  button{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;border-radius:4px;border:1px solid var(--rule);background:var(--bg2);color:var(--ink2);cursor:pointer;}
+  button:hover{border-color:var(--accent);color:var(--ink);}
+  button.primary{border-color:var(--gold);color:var(--gold);}
+  button.primary:disabled{opacity:.45;cursor:default;}
+  .seg{display:flex;}
+  .seg button{border-radius:0;margin-left:-1px;}
+  .seg button:first-child{border-radius:4px 0 0 4px;}
+  .seg button:last-child{border-radius:0 4px 4px 0;}
+  .seg button.on{background:rgba(196,168,130,.22);color:var(--ink);}
+  #msg{font-size:13px;font-style:italic;color:var(--ink3);}
+  #msg.ok{color:var(--green);} #msg.warn{color:var(--red);}
+  .table-wrap{overflow-x:auto;border:.5px solid var(--rule);border-radius:6px;}
+  table{width:100%;border-collapse:collapse;min-width:900px;}
+  th{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);text-align:left;padding:8px 6px;background:var(--bg2);border-bottom:.5px solid var(--rule);}
+  td{padding:3px 4px;border-bottom:.5px solid var(--rule-faint);vertical-align:middle;}
+  td input,td select{width:100%;font:inherit;font-size:14px;background:transparent;color:var(--ink);border:1px solid transparent;border-radius:3px;padding:4px 6px;}
+  td input:hover,td select:hover{border-color:var(--rule);}
+  td input:focus,td select:focus{outline:none;border-color:var(--gold);background:var(--bg2);}
+  td select option{background:var(--bg2);color:var(--ink);}
+  input.nm{font-family:'Cinzel',serif;font-size:13px;color:var(--ink2);}
+  td.ok{width:34px;text-align:center;}
+  .tick{padding:2px 7px;font-size:12px;border-color:var(--gold);color:var(--gold);position:relative;}
+  .tick::before{content:'';position:absolute;left:-7px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--gold);}
+  tr.dirty td{background:rgba(226,194,127,.06);}
+  tr.clash td{background:rgba(224,83,61,.14);}
+  .empty{padding:14px;color:var(--ink3);font-style:italic;}
+  .count{margin-top:8px;font-size:13px;color:var(--ink3);}
+  footer{margin-top:2rem;font-size:12px;color:var(--ink3);font-style:italic;text-align:center;}
+  @media (max-width:700px){.bar{top:0;}}
+</style>
+</head>
+<body>
+<!-- ABELON-NAV-START -->
+<style>
+  #abelon-nav-root{--n-parch:#f2e8d5;--n-ink:#1a1410;--n-ink-mid:#4a3828;--n-ink-faded:#7a6a55;--n-accent:#6b3a2a;--n-rule:#c4a882;--n-rule-faint:rgba(196,168,130,0.35);--n-teal:#0F6E56;--n-teal-bg:rgba(15,110,86,0.08);}
+  @media(prefers-color-scheme:dark){#abelon-nav-root{--n-parch:#1e1a14;--n-ink:#e8d9bc;--n-ink-mid:#c4a882;--n-ink-faded:#8a7a65;--n-accent:#c4a882;--n-rule:#5a4a38;--n-rule-faint:rgba(90,74,56,0.45);--n-teal:#5DCAA5;--n-teal-bg:rgba(93,202,165,0.08);}}
+  #abelon-nav-root{font-family:'Crimson Pro',Georgia,serif;background:var(--n-parch);color:var(--n-ink);border-bottom:1px solid var(--n-rule);padding:10px 16px;font-size:13px;position:sticky;top:0;z-index:9999;}
+  #abelon-nav-root .an-row{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
+  #abelon-nav-root a{color:var(--n-ink-mid);text-decoration:none;border-bottom:1px dotted var(--n-rule);}
+  #abelon-nav-root a:hover{color:var(--n-accent);}
+  #abelon-nav-root .an-crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;color:var(--n-ink-faded);}
+  #abelon-nav-root .an-crumb .an-sep{opacity:.5;}
+  #abelon-nav-root .an-related{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  #abelon-nav-related-footer{max-width:860px;margin:2rem auto 0;padding:14px 16px;border-top:1px solid var(--n-rule-faint);font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:var(--n-ink-mid);}
+  #abelon-nav-related-footer a{color:var(--n-ink-mid);border-bottom:1px dotted var(--n-rule);text-decoration:none;}
+  #abelon-nav-related-footer a:hover{color:var(--n-accent);}
+  #an-pay-btn{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);border-radius:3px;padding:3px 8px;font:inherit;font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+  #an-pay-btn:hover{border-color:var(--n-accent);color:var(--n-accent);}
+  #an-pay-btn.has-data{border-color:var(--n-teal);color:var(--n-teal);}
+  #an-pay-summary{font-family:'Crimson Pro',Georgia,serif;font-size:12px;text-transform:none;letter-spacing:0;color:var(--n-ink-faded);}
+  #an-pay-panel{display:none;max-width:900px;margin:10px auto 0;background:var(--n-teal-bg);border:1px solid var(--n-teal);border-radius:6px;padding:14px 16px;font-family:'Crimson Pro',Georgia,serif;}
+  #an-pay-panel.open{display:block;}
+  #an-pay-panel .an-pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:10px;}
+  #an-pay-panel label{display:block;font-family:'Cinzel',Georgia,serif;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--n-ink-faded);margin-bottom:3px;}
+  #an-pay-panel input[type=text],#an-pay-panel textarea{width:100%;font-family:'Crimson Pro',Georgia,serif;font-size:13px;background:var(--n-parch);color:var(--n-ink);border:1px solid var(--n-rule);border-radius:4px;padding:6px 8px;}
+  #an-pay-panel textarea{min-height:44px;resize:vertical;}
+  #an-pay-actions{display:flex;gap:8px;}
+  #an-pay-actions button{font-family:'Cinzel',Georgia,serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:4px;cursor:pointer;}
+  #an-pay-save{background:var(--n-teal);border:1px solid var(--n-teal);color:var(--n-parch);}
+  #an-pay-clear{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-cancel{background:none;border:1px solid var(--n-rule);color:var(--n-ink-faded);}
+  #an-pay-note{font-size:10px;color:var(--n-ink-faded);font-style:italic;margin-top:8px;}
+</style>
+<div id="abelon-nav-root"><div class="an-row">
+  <div class="an-crumb" id="abelon-nav-crumb"></div>
+  <div class="an-related" id="abelon-nav-related-top"></div>
+</div>
+<div id="an-pay-panel">
+  <div class="an-pay-grid">
+    <div><label>Agreed total</label><input type="text" id="an-pay-total" placeholder="e.g. 60gp"></div>
+    <div><label>Paid so far</label><input type="text" id="an-pay-paid" placeholder="e.g. 30gp"></div>
+    <div><label>Not yet paid</label><input type="text" id="an-pay-owed" placeholder="e.g. 30gp on completion"></div>
+  </div>
+  <label>Notes</label>
+  <textarea id="an-pay-notes" placeholder="Terms, conditions, who's paying..."></textarea>
+  <div id="an-pay-actions" style="margin-top:10px;">
+    <button type="button" id="an-pay-save">Save</button>
+    <button type="button" id="an-pay-clear">Clear</button>
+    <button type="button" id="an-pay-cancel">Cancel</button>
+  </div>
+  <div id="an-pay-note">Synced to the abelon-manual repo when this device is connected (badge, bottom right).</div>
+</div>
+</div>
+<div id="abelon-nav-related-footer"></div>
+<script>
+(function(){
+  var root = '';
+  fetch(root + 'manifest.json').then(function(r){return r.json();}).then(function(m){
+    var file = decodeURIComponent(location.pathname.split('/').pop());
+    var cats = {}; m.categories.forEach(function(c){cats[c.id]=c;});
+    var page = m.pages.find(function(p){ return p.file.split('/').pop() === file; });
+    var crumb = document.getElementById('abelon-nav-crumb');
+    var home = document.createElement('a'); home.href = root + 'index.html'; home.textContent = 'Abelon DM Site';
+    crumb.appendChild(home);
+    if (page) {
+      var sep1 = document.createElement('span'); sep1.className='an-sep'; sep1.textContent=' / '; crumb.appendChild(sep1);
+      var catObj = cats[page.category] || {};
+      var catLink = document.createElement('a'); catLink.href = root + 'index.html#' + page.category; catLink.textContent = catObj.label || page.category; crumb.appendChild(catLink);
+      var sep2 = document.createElement('span'); sep2.className='an-sep'; sep2.textContent=' / '; crumb.appendChild(sep2);
+      var here = document.createElement('span'); here.textContent = page.title; crumb.appendChild(here);
+    }
+    var relTop = document.getElementById('abelon-nav-related-top');
+    var relFooter = document.getElementById('abelon-nav-related-footer');
+    if (page && page.pair) {
+      var pairPage = m.pages.find(function(p){return p.id === page.pair;});
+      if (pairPage) {
+        var label = pairPage.category === 'combat' ? 'Combat guide' : 'Encounter';
+        var a1 = document.createElement('a'); a1.href = root + pairPage.file; a1.textContent = label + ': ' + pairPage.title;
+        relTop.appendChild(a1);
+        var a2 = a1.cloneNode(true);
+        relFooter.innerHTML = 'Related \u2014 ';
+        relFooter.appendChild(a2);
+      }
+    }
+    if (page && page.category === 'act1') {
+      var siblings = m.pages.filter(function(p){return p.category==='act1';}).sort(function(a,b){return a.order-b.order;});
+      var idx = siblings.findIndex(function(p){return p.id===page.id;});
+      var pnav = document.createElement('span');
+      if (idx > 0) { var prev=document.createElement('a'); prev.href=root+siblings[idx-1].file; prev.textContent='\u2190 Prev'; pnav.appendChild(prev); }
+      if (idx < siblings.length-1) { if(idx>0){pnav.appendChild(document.createTextNode('  '));} var next=document.createElement('a'); next.href=root+siblings[idx+1].file; next.textContent='Next \u2192'; pnav.appendChild(next); }
+      relTop.appendChild(pnav);
+    }
+
+    // --- Payment widget: only on categories flagged paymentTracking in the manifest ---
+    var catObj2 = cats[page && page.category] || {};
+    if (page && catObj2.paymentTracking) {
+      var LS_KEY = 'abelonPayment:' + page.id;
+      function getPayment(){ try { var raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch(e){} return null; }
+      function setPayment(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
+      function clearPayment(){ localStorage.removeItem(LS_KEY); }
+
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.id = 'an-pay-btn';
+      var summary = document.createElement('span'); summary.id = 'an-pay-summary';
+      relTop.appendChild(btn); relTop.appendChild(summary);
+
+      var panel = document.getElementById('an-pay-panel');
+      var fTotal = document.getElementById('an-pay-total');
+      var fPaid = document.getElementById('an-pay-paid');
+      var fOwed = document.getElementById('an-pay-owed');
+      var fNotes = document.getElementById('an-pay-notes');
+
+      function refreshButton(){
+        var p = getPayment();
+        if (p && (p.total || p.paid || p.owed || p.notes)) {
+          btn.textContent = '\uD83D\uDCB0 Payment \u2713';
+          btn.classList.add('has-data');
+          var bits = [];
+          if (p.total) bits.push(p.total + ' agreed');
+          if (p.paid) bits.push(p.paid + ' paid');
+          summary.textContent = bits.join(' \u00b7 ');
+        } else {
+          btn.textContent = '\uD83D\uDCB0 Payment';
+          btn.classList.remove('has-data');
+          summary.textContent = '';
+        }
+      }
+      function openPanel(){
+        var p = getPayment() || {};
+        fTotal.value = p.total || ''; fPaid.value = p.paid || ''; fOwed.value = p.owed || ''; fNotes.value = p.notes || '';
+        panel.classList.add('open');
+      }
+      btn.addEventListener('click', openPanel);
+      document.getElementById('an-pay-cancel').addEventListener('click', function(){ panel.classList.remove('open'); });
+      document.getElementById('an-pay-clear').addEventListener('click', function(){ clearPayment(); panel.classList.remove('open'); refreshButton(); });
+      document.getElementById('an-pay-save').addEventListener('click', function(){
+        setPayment({ total: fTotal.value.trim(), paid: fPaid.value.trim(), owed: fOwed.value.trim(), notes: fNotes.value.trim(),
+                     pageId: page.id, pageTitle: page.title, pageFile: page.file });
+        panel.classList.remove('open');
+        refreshButton();
+      });
+      refreshButton();
+    }
+  }).catch(function(e){ console.warn('Abelon nav: manifest not loaded', e); });
+})();
+</script>
+<!-- ABELON-NAV-END -->
+<div class="page">
+<h1>Cast</h1>
+<p class="subtitle">Everyone in Abelon, one entry each: the name, what the Namer hides them as, and their stat block. The extension reads this list.</p>
+
+<div class="howto">
+  <strong>Filling in blanks</strong>
+  <ol>
+    <li>Pick <b>To check</b>. Those rows are Claude's best guesses (gold dot).</li>
+    <li>Change anything wrong, or tick <b>✓</b> if it's right.</li>
+    <li>Press <b>Save</b>. It's written to the repo with this device's sync token (badge, bottom right).</li>
+  </ol>
+  New person: <b>+ Add person</b>. A row turns red when a first <i>and</i> second name both match someone else.
+</div>
+
+<div class="bar">
+  <input id="q" type="search" placeholder="Search names, roles, stat blocks…" autocomplete="off">
+  <div class="seg" id="filters">
+    <button data-f="all" class="on">All</button>
+    <button data-f="check">To check</button>
+    <button data-f="noblock">No stat block</button>
+  </div>
+  <button id="add" type="button">+ Add person</button>
+  <button id="save" type="button" class="primary" disabled>Save</button>
+  <span id="msg"></span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th></th><th>Name</th><th>Also known as</th><th>Gender</th><th>Species</th><th>Stat block</th><th>Role</th></tr></thead>
+  <tbody id="rows"><tr><td colspan="7" class="empty">Loading…</td></tr></tbody>
+</table>
+</div>
+<p class="count" id="count"></p>
+<footer>Abelon · Cast · cast.json in the abelon-manual repo</footer>
+</div>
+
+<datalist id="species-list"></datalist>
+
+<script>
+(function () {
+  var API = 'https://api.github.com/repos/coldsnapdev/abelon-manual/contents/cast.json';
+  var GENDERS = ['Male', 'Female', 'Non-binary', 'Unknown'];
+  var data, sha, best = [], dirty = new Set(), filter = 'all';
+  var rows = document.getElementById('rows'), msg = document.getElementById('msg'), saveBtn = document.getElementById('save');
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function token() { try { return localStorage.getItem('abelonSyncToken'); } catch (e) { return null; } }
+  function headers() { var h = { Accept: 'application/vnd.github+json' }; if (token()) h.Authorization = 'Bearer ' + token(); return h; }
+  function b64enc(s) { return btoa(unescape(encodeURIComponent(s))); }
+  function b64dec(s) { return decodeURIComponent(escape(atob(s.replace(/\n/g, '')))); }
+  function say(t, tone) { msg.textContent = t; msg.className = tone || ''; }
+  function slug(n) { return n.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+
+  // read through the API when connected (always fresh), else the published copy
+  function load() {
+    var castP = token()
+      ? fetch(API + '?ref=main&t=' + Date.now(), { headers: headers(), cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+          .then(function (j) { sha = j.sha; return JSON.parse(b64dec(j.content)); })
+      : fetch('cast.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); });
+    var bestP = fetch('bestiary.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); });
+    Promise.all([castP, bestP]).then(function (res) {
+      data = res[0];
+      best = res[1].entries.map(function (e) { return { id: e.id, name: e.name, cr: e.cr }; }).sort(function (a, b) { return a.name.localeCompare(b.name); });
+      var sp = new Set(['Human', 'Elf', 'Dwarf', 'Halfling', 'Gnome', 'Dragonborn', 'Orc', 'Tiefling', 'Goliath', 'Aasimar', 'Half-elf', 'Half-orc']);
+      data.people.forEach(function (p) { if (p.species) sp.add(p.species); });
+      document.getElementById('species-list').innerHTML = Array.from(sp).sort().map(function (s) { return '<option value="' + esc(s) + '">'; }).join('');
+      render();
+      if (!token()) say('Read-only: connect this device (badge, bottom right) to save.', 'warn');
+    }).catch(function (e) { rows.innerHTML = '<tr><td colspan="7" class="empty">Couldn\'t load the cast (' + esc(e.message) + ').</td></tr>'; });
+  }
+
+  function clashes() {
+    var seen = {}, out = new Set();
+    data.people.forEach(function (p) { var k = p.name.trim().toLowerCase(); if (k.indexOf(' ') > 0) { if (seen[k]) { out.add(seen[k]); out.add(p.id); } else seen[k] = p.id; } });
+    return out;
+  }
+
+  function visible(p) {
+    if (filter === 'check' && !p.check) return false;
+    if (filter === 'noblock' && p.statBlock) return false;
+    var q = document.getElementById('q').value.trim().toLowerCase();
+    if (!q) return true;
+    var blk = best.find(function (b) { return b.id === p.statBlock; });
+    return [p.name, (p.aka || []).join(' '), p.role, p.species, p.gender, blk && blk.name].join(' ').toLowerCase().indexOf(q) >= 0;
+  }
+
+  function render() {
+    var clash = clashes(), list = data.people.filter(visible);
+    rows.innerHTML = list.map(function (p) {
+      var opts = '<option value="">— none —</option>' + best.map(function (b) { return '<option value="' + esc(b.id) + '"' + (b.id === p.statBlock ? ' selected' : '') + '>' + esc(b.name) + ' (CR ' + esc(b.cr) + ')</option>'; }).join('');
+      var g = GENDERS.concat(p.gender && GENDERS.indexOf(p.gender) < 0 ? [p.gender] : []);
+      return '<tr data-id="' + esc(p.id) + '" class="' + (clash.has(p.id) ? 'clash ' : '') + (dirty.has(p.id) ? 'dirty' : '') + '">' +
+        '<td class="ok">' + (p.check ? '<button class="tick" title="Looks right: confirm">✓</button>' : '') + '</td>' +
+        '<td><input data-k="name" value="' + esc(p.name) + '" class="nm"></td>' +
+        '<td><input data-k="aka" value="' + esc((p.aka || []).join(', ')) + '" placeholder="short names, comma separated"></td>' +
+        '<td><select data-k="gender"><option value=""></option>' + g.map(function (x) { return '<option' + (x === p.gender ? ' selected' : '') + '>' + esc(x) + '</option>'; }).join('') + '</select></td>' +
+        '<td><input data-k="species" list="species-list" value="' + esc(p.species || '') + '"></td>' +
+        '<td><select data-k="statBlock">' + opts + '</select></td>' +
+        '<td><input data-k="role" value="' + esc(p.role || '') + '" placeholder="who they are"></td></tr>';
+    }).join('') || '<tr><td colspan="7" class="empty">Nobody matches.</td></tr>';
+    var toCheck = data.people.filter(function (p) { return p.check; }).length;
+    document.getElementById('count').textContent = data.people.length + ' people · ' + toCheck + ' to check · ' + data.people.filter(function (p) { return !p.statBlock; }).length + ' without a stat block';
+    saveBtn.disabled = !dirty.size;
+    saveBtn.textContent = dirty.size ? 'Save (' + dirty.size + ')' : 'Save';
+  }
+
+  function person(id) { return data.people.find(function (p) { return p.id === id; }); }
+
+  rows.addEventListener('change', function (e) {
+    var el = e.target, tr = el.closest('tr'); if (!tr || !el.dataset.k) return;
+    var p = person(tr.dataset.id), k = el.dataset.k, v = el.value.trim();
+    if (k === 'aka') p.aka = v ? v.split(',').map(function (s) { return s.trim(); }).filter(Boolean) : [];
+    else if (k === 'statBlock') p.statBlock = v || null;
+    else if (k === 'name') { if (!v) { el.value = p.name; return; } p.name = v; }
+    else p[k] = v || null;
+    if (k === 'gender' || k === 'species') delete p.check; // you've looked at it
+    dirty.add(p.id);
+    render();
+  });
+  rows.addEventListener('click', function (e) {
+    if (!e.target.classList.contains('tick')) return;
+    var p = person(e.target.closest('tr').dataset.id); delete p.check; dirty.add(p.id); render();
+  });
+  document.getElementById('q').addEventListener('input', render);
+  document.getElementById('filters').addEventListener('click', function (e) {
+    if (!e.target.dataset.f) return; filter = e.target.dataset.f;
+    this.querySelectorAll('button').forEach(function (b) { b.classList.toggle('on', b === e.target); }); render();
+  });
+  document.getElementById('add').addEventListener('click', function () {
+    var name = (prompt('Full name of the new person:') || '').trim(); if (!name) return;
+    var id = slug(name), n = 2; while (person(id)) id = slug(name) + '-' + n++;
+    data.people.push({ id: id, name: name, aka: name.indexOf(' ') > 0 ? [name.split(' ')[0]] : [], gender: null, species: null, statBlock: best.some(function (b) { return b.id === id; }) ? id : null, sources: ['cast page'], flags: [] });
+    data.people.sort(function (a, b) { return a.name.localeCompare(b.name); });
+    dirty.add(id); filter = 'all'; document.getElementById('q').value = name; render();
+  });
+
+  // save: re-read the latest file, lay this page's edited people over it, write it back
+  saveBtn.addEventListener('click', function () {
+    if (!token()) { say('Connect this device first (badge, bottom right).', 'warn'); return; }
+    saveBtn.disabled = true; say('Saving…');
+    fetch(API + '?ref=main&t=' + Date.now(), { headers: headers(), cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('read ' + r.status); return r.json(); })
+      .then(function (j) {
+        var remote = JSON.parse(b64dec(j.content));
+        dirty.forEach(function (id) {
+          var mine = person(id), i = remote.people.findIndex(function (p) { return p.id === id; });
+          if (i >= 0) remote.people[i] = mine; else remote.people.push(mine);
+        });
+        remote.people.sort(function (a, b) { return a.name.localeCompare(b.name); });
+        var body = { message: 'Cast: ' + Array.from(dirty).slice(0, 6).map(function (id) { return person(id).name; }).join(', ') + (dirty.size > 6 ? ' and ' + (dirty.size - 6) + ' more' : '') + ' (Cast page)', content: b64enc(JSON.stringify(remote, null, 1) + '\n'), sha: j.sha, branch: 'main' };
+        return fetch(API, { method: 'PUT', headers: Object.assign({ 'Content-Type': 'application/json' }, headers()), body: JSON.stringify(body) })
+          .then(function (r) { if (!r.ok) throw new Error('write ' + r.status); return r.json(); })
+          .then(function (res) { sha = res.content.sha; data = remote; dirty.clear(); render(); say('Saved', 'ok'); });
+      }).catch(function (e) { saveBtn.disabled = false; say('Not saved: ' + e.message + ' (try again)', 'warn'); });
+  });
+  addEventListener('beforeunload', function (e) { if (dirty.size) { e.preventDefault(); e.returnValue = ''; } });
+  load();
+})();
+</script>
+</body>
+</html>
