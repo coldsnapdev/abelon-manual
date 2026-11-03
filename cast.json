@@ -1,0 +1,2294 @@
+{
+ "note": "Abelon cast: one entry per person. statBlock points at a bestiary id (or a generic one). Draft built 3 Nov 2026 from the Namer defaults, bestiary.json, the manual's NPC cards and the memory files; entries with flags need Simon's call.",
+ "generics": [
+  "blighted-alpha",
+  "blighted-wolf",
+  "rot-beast",
+  "rot-dreg",
+  "rot-monstrosity",
+  "rot-skulker"
+ ],
+ "people": [
+  {
+   "id": "adelina-thornecroft",
+   "name": "Adelina Thornecroft",
+   "aka": [
+    "Adelina Thorncroft",
+    "Adelina"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Spelling: bible has Thornecroft, session logs and the ledger title page as read at the table have Thorncroft.",
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "aelis",
+   "name": "Aelis",
+   "aka": [],
+   "gender": "Female",
+   "species": "Elf",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "aldous-crane",
+   "name": "Aldous Crane",
+   "aka": [
+    "Aldous"
+   ],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": [
+    "Namer-only. Same person as Aldous Vey?"
+   ]
+  },
+  {
+   "id": "aldous-vey",
+   "name": "Aldous Vey",
+   "aka": [
+    "Aldous"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "The Namer has \"Aldous Crane\"; the manual and session log have Aldous Vey.",
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "aldric",
+   "name": "Aldric",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "aldric",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "aldwyn",
+   "name": "Aldwyn",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "aldwyn",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "alric-venn",
+   "name": "Alric Venn",
+   "aka": [
+    "Alric"
+   ],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "alric-venn",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "anneth-holdworn",
+   "name": "Anneth Holdworn",
+   "aka": [
+    "Anneth"
+   ],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "annis",
+   "name": "Annis",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "anwen",
+   "name": "Anwen",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "bael",
+   "name": "Bael",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "bael",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "bethan",
+   "name": "Bethan",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "bors",
+   "name": "Bors",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "borvin",
+   "name": "Borvin",
+   "aka": [],
+   "gender": "Male",
+   "species": "Dwarf",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "brack",
+   "name": "Brack",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "bram",
+   "name": "Bram",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": "bram",
+   "sources": [
+    "bestiary",
+    "manual"
+   ],
+   "flags": [
+    "Northern Ambush convert (CR 1/8). Keeps the name; Bram Harwick the shopkeeper is someone else.",
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "brath",
+   "name": "Brath",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "brath",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "brek",
+   "name": "Brek",
+   "aka": [],
+   "gender": "Male",
+   "species": "Dwarf",
+   "statBlock": "brek",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "bren",
+   "name": "Bren",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "brenna",
+   "name": "Brenna",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": "brenna",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "brin",
+   "name": "Brin",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "brynn",
+   "name": "Brynn",
+   "aka": [],
+   "gender": "Male",
+   "species": "Dwarf",
+   "statBlock": "brynn",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "cadog-melyn",
+   "name": "Cadog Melyn",
+   "aka": [
+    "Cadog"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "caen-rhys",
+   "name": "Caen Rhys",
+   "aka": [
+    "Caen"
+   ],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "calder",
+   "name": "Calder",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "calla",
+   "name": "Calla",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "caron",
+   "name": "Caron",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "casimir",
+   "name": "Casimir",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "caspar-veld",
+   "name": "Caspar Veld",
+   "aka": [
+    "Caspar"
+   ],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "cass",
+   "name": "Cass",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": "cass",
+   "sources": [
+    "bestiary",
+    "manual"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "cebb",
+   "name": "Cebb",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "cerys",
+   "name": "Cerys",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "coll",
+   "name": "Coll",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": [
+    "The Namer's only Coll is the Star and Raven farmer; a token named Coll matched him, not Coll Tallis."
+   ]
+  },
+  {
+   "id": "coll-tallis",
+   "name": "Coll Tallis",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": "coll-tallis",
+   "sources": [
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "cors-holdworn",
+   "name": "Cors Holdworn",
+   "aka": [
+    "Cors"
+   ],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "cors-holdworn",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "corwin-vey",
+   "name": "Corwin Vey",
+   "aka": [
+    "Corwin"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "costin-marrow",
+   "name": "Costin Marrow",
+   "aka": [
+    "Costin"
+   ],
+   "gender": "Male",
+   "species": "Elf",
+   "statBlock": "costin-marrow",
+   "sources": [
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "dagny-holt",
+   "name": "Dagny Holt",
+   "aka": [
+    "Dagny"
+   ],
+   "gender": null,
+   "species": "Dragonborn",
+   "statBlock": null,
+   "sources": [
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "Gender or species still missing: needed for a placeholder."
+   ]
+  },
+  {
+   "id": "dalla-sable",
+   "name": "Dalla Sable",
+   "aka": [
+    "Dalla"
+   ],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": "dalla-sable",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "dask",
+   "name": "Dask",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "dav-ostric",
+   "name": "Dav Ostric",
+   "aka": [
+    "Dav"
+   ],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "davan",
+   "name": "Davan",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "davan",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "See Davan Holt."
+   ]
+  },
+  {
+   "id": "davan-holt",
+   "name": "Davan Holt",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "davan-holt",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": [
+    "Davan (road ambusher) and Davan Holt are both in the Namer and the bestiary. Two people? Shares a surname with Dagny Holt."
+   ]
+  },
+  {
+   "id": "davren",
+   "name": "Davren",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": "davren",
+   "sources": [
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "delyth",
+   "name": "Delyth",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "demelza",
+   "name": "Demelza",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "devrin-kass",
+   "name": "Devrin Kass",
+   "aka": [
+    "Devrin"
+   ],
+   "gender": "Female",
+   "species": null,
+   "statBlock": "devrin-kass",
+   "sources": [
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "Gender or species still missing: needed for a placeholder."
+   ]
+  },
+  {
+   "id": "dohyuk",
+   "name": "Dohyuk",
+   "aka": [],
+   "gender": "Male",
+   "species": "Dwarf",
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "dorya",
+   "name": "Dorya",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "drace",
+   "name": "Drace",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "drace",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "drest",
+   "name": "Drest",
+   "aka": [],
+   "gender": "Male",
+   "species": "Dwarf",
+   "statBlock": "drest",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "durga",
+   "name": "Durga",
+   "aka": [],
+   "gender": "Female",
+   "species": "Dwarf",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "durk",
+   "name": "Durk",
+   "aka": [],
+   "gender": "Male",
+   "species": "Orc",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "edvar-crost",
+   "name": "Edvar Crost",
+   "aka": [
+    "Edvar"
+   ],
+   "gender": "Male",
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "Gender or species still missing: needed for a placeholder."
+   ]
+  },
+  {
+   "id": "efa-dun",
+   "name": "Efa Dun",
+   "aka": [
+    "Efa"
+   ],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": "efa-dun",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "elbeth-sable",
+   "name": "Elbeth Sable",
+   "aka": [
+    "Elbeth"
+   ],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": "elbeth-sable",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "elowen",
+   "name": "Elowen",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "emlyn-hale",
+   "name": "Emlyn Hale",
+   "aka": [
+    "Emlyn"
+   ],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "emwyn",
+   "name": "Emwyn",
+   "aka": [],
+   "gender": "Male",
+   "species": "Gnome",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "faelan",
+   "name": "Faelan",
+   "aka": [],
+   "gender": "Male",
+   "species": "Wood Elf",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "fen",
+   "name": "Fen",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "fenn",
+   "name": "Fenn",
+   "aka": [],
+   "gender": "Male",
+   "species": "Gnome",
+   "statBlock": "fenn",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "fetch",
+   "name": "Fetch",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "foss",
+   "name": "Foss",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "garin",
+   "name": "Garin",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "garo-marro",
+   "name": "Garo Marro",
+   "aka": [
+    "Garo"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "gethin",
+   "name": "Gethin",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "gethin",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "gort",
+   "name": "Gort",
+   "aka": [],
+   "gender": "Male",
+   "species": "Orc",
+   "statBlock": "gort",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "grenna",
+   "name": "Grenna",
+   "aka": [],
+   "gender": "Female",
+   "species": "Orc",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "harwick",
+   "name": "Harwick",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "harwick",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "hergen",
+   "name": "Hergen",
+   "aka": [],
+   "gender": "Male",
+   "species": "Dwarf",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "hollis",
+   "name": "Hollis",
+   "aka": [],
+   "gender": "Male",
+   "species": "Halfling",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "hush",
+   "name": "Hush",
+   "aka": [],
+   "gender": "Non-binary",
+   "species": "Tiefling",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "huw",
+   "name": "Huw",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "huw",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "hywel",
+   "name": "Hywel",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "idony",
+   "name": "Idony",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": "idony",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "idris",
+   "name": "Idris",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "ifan",
+   "name": "Ifan",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "ilar",
+   "name": "Ilar",
+   "aka": [],
+   "gender": "Non-binary",
+   "species": "Elf",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "isha",
+   "name": "Isha",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": "isha",
+   "sources": [
+    "bestiary",
+    "manual"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "ithren",
+   "name": "Ithren",
+   "aka": [],
+   "gender": "Male",
+   "species": "Elf",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "jago",
+   "name": "Jago",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "jorak",
+   "name": "Jorak",
+   "aka": [],
+   "gender": "Male",
+   "species": "Dragonborn",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "joran-maren",
+   "name": "Joran Maren",
+   "aka": [
+    "Joran"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "jori",
+   "name": "Jori",
+   "aka": [],
+   "gender": "Male",
+   "species": "Halfling",
+   "statBlock": "jori",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "joss",
+   "name": "Joss",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "kaveth",
+   "name": "Kaveth",
+   "aka": [],
+   "gender": "Male",
+   "species": "Dragonborn",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "kenver",
+   "name": "Kenver",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "kit",
+   "name": "Kit",
+   "aka": [],
+   "gender": "Non-binary",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "lena-crost",
+   "name": "Lena Crost",
+   "aka": [
+    "Lena"
+   ],
+   "gender": "Female",
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "Gender or species still missing: needed for a placeholder."
+   ]
+  },
+  {
+   "id": "lotte",
+   "name": "Lotte",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "lowri",
+   "name": "Lowri",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "mabli",
+   "name": "Mabli",
+   "aka": [],
+   "gender": "Female",
+   "species": "Halfling",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "madoc",
+   "name": "Madoc",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "mael",
+   "name": "Mael",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "mael",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "mags",
+   "name": "Mags",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": "mags",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "mared-ffion",
+   "name": "Mared Ffion",
+   "aka": [
+    "Mared"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "marek-talan",
+   "name": "Marek Talan",
+   "aka": [
+    "Marek"
+   ],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "marek-talan",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "maren-ostric",
+   "name": "Maren Ostric",
+   "aka": [
+    "Maren"
+   ],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "marta",
+   "name": "Marta",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "merse",
+   "name": "Merse",
+   "aka": [],
+   "gender": "Female",
+   "species": "Dwarf",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "mira-sable",
+   "name": "Mira Sable",
+   "aka": [
+    "Mira"
+   ],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": "mira-sable",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "morda",
+   "name": "Morda",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": "morda",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": [
+    "Near-clash with Morra (different people)."
+   ]
+  },
+  {
+   "id": "morfudd-pryce",
+   "name": "Morfudd Pryce",
+   "aka": [
+    "Morfudd"
+   ],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "morra",
+   "name": "Morra",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "nance",
+   "name": "Nance",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": "nance",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "nesta",
+   "name": "Nesta",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": "nesta",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "neva",
+   "name": "Neva",
+   "aka": [],
+   "gender": "Female",
+   "species": "Half-elf",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "nia",
+   "name": "Nia",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "nim",
+   "name": "Nim",
+   "aka": [],
+   "gender": "Female",
+   "species": "Gnome",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "oakstrong",
+   "name": "Oakstrong",
+   "aka": [
+    "Oak Strong"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "Spelling: the manual has Oakstrong, the session logs Oak Strong.",
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "orin",
+   "name": "Orin",
+   "aka": [],
+   "gender": "Female",
+   "species": "Half-orc",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "osip-baran",
+   "name": "Osip Baran",
+   "aka": [
+    "Osip"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "oskar-sternov",
+   "name": "Oskar Sternov",
+   "aka": [
+    "Oskar"
+   ],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "oskar-sternov",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "osric",
+   "name": "Osric",
+   "aka": [],
+   "gender": "Male",
+   "species": "Elf",
+   "statBlock": "osric",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "oswy",
+   "name": "Oswy",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "otho-wickthorn",
+   "name": "Otho Wickthorn",
+   "aka": [
+    "Otho"
+   ],
+   "gender": "Male",
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "Gender or species still missing: needed for a placeholder."
+   ]
+  },
+  {
+   "id": "owen-mereth",
+   "name": "Owen Mereth",
+   "aka": [
+    "Owen"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "palla",
+   "name": "Palla",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "peck",
+   "name": "Peck",
+   "aka": [],
+   "gender": "Male",
+   "species": "Gnome",
+   "statBlock": "peck",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "pell",
+   "name": "Pell",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "pell",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "pen",
+   "name": "Pen",
+   "aka": [],
+   "gender": "Non-binary",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "perran-carew",
+   "name": "Perran Carew",
+   "aka": [
+    "Perran"
+   ],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "perran-carew",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "perrin",
+   "name": "Perrin",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "perys-sable",
+   "name": "Perys Sable",
+   "aka": [
+    "Perys"
+   ],
+   "gender": "Non-binary",
+   "species": "Human",
+   "statBlock": "perys-sable",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "pol",
+   "name": "Pol",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "pol",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "porrin",
+   "name": "Porrin",
+   "aka": [],
+   "gender": "Male",
+   "species": "Halfling",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "prys",
+   "name": "Prys",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "prys",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "pytros",
+   "name": "Pytros",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": "pytros",
+   "sources": [
+    "bestiary",
+    "manual"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "quillon",
+   "name": "Quillon",
+   "aka": [],
+   "gender": "Male",
+   "species": "Gnome",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "radek",
+   "name": "Radek",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "radek",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "rhodri",
+   "name": "Rhodri",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "roark",
+   "name": "Roark",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "roark",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "rowe",
+   "name": "Rowe",
+   "aka": [],
+   "gender": "Non-binary",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "rue-ashdown",
+   "name": "Rue Ashdown",
+   "aka": [
+    "Rue"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "samir",
+   "name": "Samir",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "scar",
+   "name": "Scar",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "sela",
+   "name": "Sela",
+   "aka": [],
+   "gender": "Female",
+   "species": "Tiefling",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "selayn-vor",
+   "name": "Selayn Vor",
+   "aka": [
+    "Selayn"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "seren",
+   "name": "Seren",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "seva-sable",
+   "name": "Seva Sable",
+   "aka": [
+    "Seva"
+   ],
+   "gender": "Female",
+   "species": "Elf",
+   "statBlock": "seva-sable",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "sioned",
+   "name": "Sioned",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "siw",
+   "name": "Siw",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "sorrel",
+   "name": "Sorrel",
+   "aka": [],
+   "gender": "Non-binary",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "sot",
+   "name": "Sot",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "sot",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "tam",
+   "name": "Tam",
+   "aka": [],
+   "gender": "Male",
+   "species": "Elf",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "memory"
+   ],
+   "flags": []
+  },
+  {
+   "id": "tamsin-rook",
+   "name": "Tamsin Rook",
+   "aka": [
+    "Tamsin"
+   ],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer",
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "The Namer has her as \"Tamsin\" only."
+   ]
+  },
+  {
+   "id": "tav",
+   "name": "Tav",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "tav",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "tegan",
+   "name": "Tegan",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "thessaly",
+   "name": "Thessaly",
+   "aka": [],
+   "gender": "Female",
+   "species": "Elf",
+   "statBlock": "thessaly",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "tobin",
+   "name": "Tobin",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": "tobin",
+   "sources": [
+    "bestiary",
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "toll",
+   "name": "Toll",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": "toll",
+   "sources": [
+    "bestiary",
+    "manual"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "tomas",
+   "name": "Tomas",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": "tomas",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "tudur",
+   "name": "Tudur",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "turian",
+   "name": "Turian",
+   "aka": [],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "ulla",
+   "name": "Ulla",
+   "aka": [],
+   "gender": "Female",
+   "species": "Dwarf",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "vess",
+   "name": "Vess",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "wenna",
+   "name": "Wenna",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "wyn",
+   "name": "Wyn",
+   "aka": [],
+   "gender": "Male",
+   "species": "Human",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  },
+  {
+   "id": "ysella-carne",
+   "name": "Ysella Carne",
+   "aka": [
+    "Ysella"
+   ],
+   "gender": "Female",
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "memory"
+   ],
+   "flags": [
+    "Only in our memory files: not in the Namer, bestiary or manual."
+   ]
+  },
+  {
+   "id": "yselle-corrin",
+   "name": "Yselle Corrin",
+   "aka": [
+    "Yselle"
+   ],
+   "gender": null,
+   "species": null,
+   "statBlock": null,
+   "sources": [
+    "manual",
+    "memory"
+   ],
+   "flags": [
+    "No gender/species yet (not in the Namer): needed for a placeholder."
+   ]
+  },
+  {
+   "id": "ysolde",
+   "name": "Ysolde",
+   "aka": [],
+   "gender": "Female",
+   "species": "Human",
+   "statBlock": "ysolde",
+   "sources": [
+    "namer",
+    "bestiary",
+    "manual"
+   ],
+   "flags": []
+  },
+  {
+   "id": "yssel",
+   "name": "Yssel",
+   "aka": [],
+   "gender": "Female",
+   "species": "Wood Elf",
+   "statBlock": null,
+   "sources": [
+    "namer"
+   ],
+   "flags": []
+  }
+ ]
+}
