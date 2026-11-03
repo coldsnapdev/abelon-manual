@@ -45,6 +45,12 @@
   tr.clash td{background:rgba(224,83,61,.14);}
   .empty{padding:14px;color:var(--ink3);font-style:italic;}
   .count{margin-top:8px;font-size:13px;color:var(--ink3);}
+  #incoming .box{background:var(--bg3);border:1px solid var(--gold);border-radius:6px;padding:10px 14px;margin-bottom:12px;}
+  #incoming .box strong{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px;}
+  #incoming .in{display:flex;align-items:center;gap:10px;padding:4px 0;border-top:.5px solid var(--rule-faint);font-size:14px;}
+  #incoming .in:first-of-type{border-top:none;}
+  #incoming .in span{flex:1;}
+  #incoming .in small{color:var(--ink3);}
   footer{margin-top:2rem;font-size:12px;color:var(--ink3);font-style:italic;text-align:center;}
   @media (max-width:700px){.bar{top:0;}}
 </style>
@@ -221,6 +227,8 @@
   <span id="msg"></span>
 </div>
 
+<div id="incoming"></div>
+
 <div class="table-wrap">
 <table>
   <thead><tr><th></th><th>Name</th><th>Also known as</th><th>Gender</th><th>Species</th><th>Stat block</th><th>Role</th></tr></thead>
@@ -261,7 +269,7 @@
       var sp = new Set(['Human', 'Elf', 'Dwarf', 'Halfling', 'Gnome', 'Dragonborn', 'Orc', 'Tiefling', 'Goliath', 'Aasimar', 'Half-elf', 'Half-orc']);
       data.people.forEach(function (p) { if (p.species) sp.add(p.species); });
       document.getElementById('species-list').innerHTML = Array.from(sp).sort().map(function (s) { return '<option value="' + esc(s) + '">'; }).join('');
-      render();
+      render(); loadIncoming();
       if (!token()) say('Read-only: connect this device (badge, bottom right) to save.', 'warn');
     }).catch(function (e) { rows.innerHTML = '<tr><td colspan="7" class="empty">Couldn\'t load the cast (' + esc(e.message) + ').</td></tr>'; });
   }
@@ -330,6 +338,39 @@
     data.people.sort(function (a, b) { return a.name.localeCompare(b.name); });
     dirty.add(id); filter = 'all'; document.getElementById('q').value = name; render();
   });
+
+  // people made in Owlbear ("This is…" → Someone new), or left over from the old Namer:
+  // the extension mirrors them to its mailbox; offer each one that isn't in the cast yet
+  var EXTRA = 'https://raw.githubusercontent.com/coldsnapdev/owlbear-dicecloud-sync/combat-roster/cast-extra.json';
+  var incoming = [];
+  function loadIncoming() {
+    fetch(EXTRA + '?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : { people: [] }; })
+      .then(function (j) { incoming = (j.people || []); renderIncoming(); }).catch(function () {});
+  }
+  function renderIncoming() {
+    var box = document.getElementById('incoming');
+    if (!data) return;
+    var have = new Set(data.people.map(function (p) { return p.name.trim().toLowerCase(); }));
+    var todo = incoming.filter(function (p) { return p && p.name && !have.has(p.name.trim().toLowerCase()); });
+    if (!todo.length) { box.innerHTML = ''; return; }
+    box.innerHTML = '<div class="box"><strong>New from Owlbear (' + todo.length + ')</strong>' +
+      todo.map(function (p, i) {
+        return '<div class="in"><span>' + esc(p.name) + ' <small>' + esc([p.gender, p.species].filter(Boolean).join(' ')) + (p.statBlock ? ' · ' + esc((best.find(function (b) { return b.id === p.statBlock; }) || {}).name || p.statBlock) : '') + '</small></span><button type="button" data-imp="' + i + '">Add to cast</button></div>';
+      }).join('') + (todo.length > 1 ? '<div class="in"><span></span><button type="button" data-imp="all">Add all</button></div>' : '') + '</div>';
+    box.querySelectorAll('[data-imp]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var list = b.dataset.imp === 'all' ? todo : [todo[Number(b.dataset.imp)]];
+        list.forEach(function (p) {
+          var id = slug(p.name), n = 2; while (person(id)) id = slug(p.name) + '-' + n++;
+          var name = p.name.trim();
+          data.people.push({ id: id, name: name, aka: p.aka && p.aka.length ? p.aka : (name.indexOf(' ') > 0 ? [name.split(' ')[0]] : []), gender: p.gender || null, species: p.species || null, statBlock: p.statBlock || null, role: p.role || null, sources: ['owlbear'], flags: [] });
+          dirty.add(id);
+        });
+        data.people.sort(function (a, b) { return a.name.localeCompare(b.name); });
+        render(); renderIncoming();
+      });
+    });
+  }
 
   // save: re-read the latest file, lay this page's edited people over it, write it back
   saveBtn.addEventListener('click', function () {
