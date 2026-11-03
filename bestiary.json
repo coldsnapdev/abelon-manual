@@ -507,13 +507,13 @@
    }
   },
   {
-   "id": "bram-tallis",
-   "name": "Bram Tallis",
+   "id": "coll-tallis",
+   "name": "Coll Tallis",
    "cr": 3,
    "source": "Assassination night (Oct 2026)",
-   "updated": "2026-10-29",
+   "updated": "2026-11-03",
    "forge": {
-    "com.battle-system.forge/name": "Bram Tallis",
+    "com.battle-system.forge/name": "Coll Tallis",
     "com.battle-system.forge/Z001": 0,
     "com.battle-system.forge/Z002": "Medium",
     "com.battle-system.forge/Z003": "Neutral",
@@ -557,12 +557,12 @@
      {
       "id": "bram-002",
       "name": "Trait: Coward's Instinct",
-      "description": "When Bram drops below 38 HP, or an ally drops to 0 HP, he must use his next turn to escape if a route is open, taking the Dash or Disengage action."
+      "description": "When Coll drops below 38 HP, or an ally drops to 0 HP, he must use his next turn to escape if a route is open, taking the Dash or Disengage action."
      },
      {
       "id": "bram-003",
       "name": "Multiattack",
-      "description": "Bram makes two Cudgel attacks, or one Cudgel attack and one Grapple."
+      "description": "Coll makes two Cudgel attacks, or one Cudgel attack and one Grapple."
      },
      {
       "id": "bram-004",
@@ -572,17 +572,17 @@
      {
       "id": "bram-005",
       "name": "Grapple",
-      "description": "One Medium or smaller creature within 5 ft. must succeed on a DC 14 Strength (Athletics) or Dexterity (Acrobatics) check or be grappled (escape DC 14). Attacks against Bram have disadvantage while the grappled creature is between him and the attacker."
+      "description": "One Medium or smaller creature within 5 ft. must succeed on a DC 14 Strength (Athletics) or Dexterity (Acrobatics) check or be grappled (escape DC 14). Attacks against Coll have disadvantage while the grappled creature is between him and the attacker."
      },
      {
       "id": "bram-006",
       "name": "Bonus Action: Bolt",
-      "description": "Bram takes the Disengage action and moves up to his speed, ignoring difficult terrain while moving away from enemies."
+      "description": "Coll takes the Disengage action and moves up to his speed, ignoring difficult terrain while moving away from enemies."
      },
      {
       "id": "bram-007",
       "name": "Reaction: Shove Clear",
-      "description": "When a creature moves within 5 ft. of Bram, it must succeed on a DC 14 Strength saving throw or be shoved 10 ft. away."
+      "description": "When a creature moves within 5 ft. of Coll, it must succeed on a DC 14 Strength saving throw or be shoved 10 ft. away."
      },
      {
       "id": "bram-008",
