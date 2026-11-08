@@ -464,6 +464,69 @@
    "title": "Cast",
    "category": "reference",
    "order": 6.5
+  },
+  {
+   "id": "bridge-overview",
+   "file": "Bridge_Overview.html",
+   "title": "The Road to Crossroads",
+   "category": "bridge",
+   "order": 1
+  },
+  {
+   "id": "bridge-night0",
+   "file": "Bridge_Night0_TheFlight.html",
+   "title": "Night 0: The Flight",
+   "category": "bridge",
+   "order": 2
+  },
+  {
+   "id": "bridge-day1",
+   "file": "Bridge_Day01_TheTrapper.html",
+   "title": "Day 1: The Apologetic Trapper",
+   "category": "bridge",
+   "order": 3
+  },
+  {
+   "id": "bridge-day2",
+   "file": "Bridge_Day02_EdransWaystone.html",
+   "title": "Day 2: Edran's Waystone",
+   "category": "bridge",
+   "order": 4
+  },
+  {
+   "id": "bridge-day3",
+   "file": "Bridge_Day03_TheWolvesOfTheWendingRoad.html",
+   "title": "Day 3: The Wolves of the Wending Road",
+   "category": "bridge",
+   "order": 5
+  },
+  {
+   "id": "bridge-day4",
+   "file": "Bridge_Day04_FennickDray.html",
+   "title": "Day 4: Fennick Dray, Travelling Merchant",
+   "category": "bridge",
+   "order": 6
+  },
+  {
+   "id": "bridge-day5",
+   "file": "Bridge_Day05_TheHuntersTraps.html",
+   "title": "Day 5: The Hunters' Traps",
+   "category": "bridge",
+   "order": 7
+  },
+  {
+   "id": "bridge-day6",
+   "file": "Bridge_Day06_Farrowfield.html",
+   "title": "Day 6: Farrowfield",
+   "category": "bridge",
+   "order": 8
+  },
+  {
+   "id": "bridge-day10",
+   "file": "Bridge_Day10_AvelynsShrine.html",
+   "title": "Day 10: Avelyn's Shrine",
+   "category": "bridge",
+   "order": 9
   }
  ],
  "categories": [
@@ -471,6 +534,10 @@
    "id": "act1",
    "label": "Act 1 Encounters",
    "paymentTracking": true
+  },
+  {
+   "id": "bridge",
+   "label": "Bridging Act"
   },
   {
    "id": "combat",
